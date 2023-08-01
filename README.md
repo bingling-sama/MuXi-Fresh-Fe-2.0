@@ -14,10 +14,10 @@
 │   ├── assets          # 静态资源
 │   ├── components      # 公共组件
 │   ├── pages           # 页面
-│   ├── services        # 网络请求部分
 │   ├── type            # 全局类型声明
 │   ├── utils           # 工具函数
 │   ├── App.tsx
+│   ├── fetch.ts        # 网络请求
 │   ├── main.tsx
 │   ├── router.tsx      # 路由配置信息
 │   └── vite-env.d.ts
@@ -33,7 +33,7 @@
 ├── tsconfig.json
 ├── tsconfig.node.json
 ├── vite.config.ts
-├── yarn.lock
+└── yarn.lock
 ```
 
 **pages 下也会有 type 和 components 目录，对应相应页面独有的类型和组件**
