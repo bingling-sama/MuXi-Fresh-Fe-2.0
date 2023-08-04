@@ -1,10 +1,9 @@
-
 const HomeworkUserBrowse = () => {
-    return (
-        <>
-        <></>
-        </>
-    )
-}
+  return (
+    <>
+      <></>
+    </>
+  );
+};
 
-export default HomeworkUserBrowse
+export default HomeworkUserBrowse;

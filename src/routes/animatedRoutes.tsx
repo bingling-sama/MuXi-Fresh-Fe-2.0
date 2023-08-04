@@ -24,18 +24,23 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="admin" element={<HomeworkAdminMode></HomeworkAdminMode>}>
             <Route path="new" element={<HomeworkNew></HomeworkNew>}></Route>
             <Route path="edit" element={<HomeworkEdit></HomeworkEdit>}></Route>
-            <Route path='judge' element={<HomeworkJudge></HomeworkJudge>}>
-              <Route path=':id' element={<HomeworkJudge></HomeworkJudge>}></Route>
+            <Route path="judge" element={<HomeworkJudge></HomeworkJudge>}>
+              <Route path=":id" element={<HomeworkJudge></HomeworkJudge>}></Route>
             </Route>
-            <Route path='browse' element={<HomeworkBrowse></HomeworkBrowse>}></Route>
+            <Route path="browse" element={<HomeworkBrowse></HomeworkBrowse>}></Route>
           </Route>
-          
-          
+
           {/* 用户 */}
           <Route path="user" element={<HomeworkUserMode></HomeworkUserMode>}>
-            <Route path='submit' element={<HomeworkUserSubmit></HomeworkUserSubmit>}></Route>
+            <Route
+              path="submit"
+              element={<HomeworkUserSubmit></HomeworkUserSubmit>}
+            ></Route>
           </Route>
-          <Route path='visitor' element={<HomeworkVisitorMode></HomeworkVisitorMode>}></Route>
+          <Route
+            path="visitor"
+            element={<HomeworkVisitorMode></HomeworkVisitorMode>}
+          ></Route>
         </Route>
       </Routes>
     </AnimatePresence>

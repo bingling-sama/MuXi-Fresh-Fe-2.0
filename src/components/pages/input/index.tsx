@@ -11,7 +11,7 @@ export interface InputProps {
   label: string;
   placeHolder?: string;
   style?: CSSProperties;
-  defaultValue: string[] ;
+  defaultValue: string[];
   className?: string;
   limit?: number;
   innerClassName?: string;
@@ -20,35 +20,44 @@ export interface InputProps {
   onChange: (form: string | string[] | UploadProps['fileList']) => void;
 }
 type tmpProps = {
-  value: any,
-  list: string[]
-}
+  value: any;
+  list: string[];
+};
 const InputBox: React.FC<InputProps> = (props) => {
   const [flag, setFlag] = useState<number>(0);
-  const [tmpdefault, settmpdefault] = useState<tmpProps>({value:{},list:[]})
-  const [def, setdef] = useState<any>([''])
-  const {defaultValue, disabled,type, style, className, label, placeHolder, limit, innerClassName, onChange } =
-    props; 
+  const [tmpdefault, settmpdefault] = useState<tmpProps>({ value: {}, list: [] });
+  const [def, setdef] = useState<any>(['']);
+  const {
+    defaultValue,
+    disabled,
+    type,
+    style,
+    className,
+    label,
+    placeHolder,
+    limit,
+    innerClassName,
+    onChange,
+  } = props;
   useEffect(() => {
-    if(def[0] != defaultValue[0]) {
-      settmpdefault({value:{value:defaultValue[0]},list:defaultValue})
-      setdef(defaultValue)
+    if (def[0] != defaultValue[0]) {
+      settmpdefault({ value: { value: defaultValue[0] }, list: defaultValue });
+      setdef(defaultValue);
       type !== 'file' && onChange(defaultValue[0]);
-    } 
-    
-    }, [defaultValue])
+    }
+  }, [defaultValue, def, onChange, type]);
   useEffect(() => {
     type != 'file' && setFlag((type === 'input' ? 1 : 0) + 1);
   }, [type]);
   const handleChangeFile = (files: UploadProps['fileList']) => {
     onChange(files);
   };
-  
+
   const handleChangeInput = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    settmpdefault({value:{value:e.target.value},list:tmpdefault.list})
+    settmpdefault({ value: { value: e.target.value }, list: tmpdefault.list });
     onChange(e.target.value);
   };
-  
+
   return (
     <ConfigProvider
       theme={{
@@ -57,12 +66,11 @@ const InputBox: React.FC<InputProps> = (props) => {
         },
       }}
     >
-      
       <div className={'input-wrap' + ' ' + (className as string)} style={style}>
         <div className="input-label">{label}</div>
         {flag == 2 ? (
           <Input
-            disabled={disabled?disabled:false}
+            disabled={disabled ? disabled : false}
             placeholder={placeHolder}
             allowClear
             className={'input-element ' + (innerClassName as string)}
@@ -72,14 +80,14 @@ const InputBox: React.FC<InputProps> = (props) => {
           ></Input>
         ) : !flag ? (
           <Uploader
-            disabled={disabled?disabled:false}
+            disabled={disabled ? disabled : false}
             onChange={handleChangeFile}
             defaultList={tmpdefault.list}
             className={'upload-element ' + (innerClassName as string)}
           ></Uploader>
         ) : (
           <TextArea
-            disabled={disabled?disabled:false}
+            disabled={disabled ? disabled : false}
             placeholder={defaultValue[0]}
             allowClear
             className={'textarea-element ' + (innerClassName as string)}

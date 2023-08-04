@@ -1,4 +1,4 @@
-import React, { useState,HTMLAttributes,useEffect } from 'react';
+import React, { useState, HTMLAttributes, useEffect } from 'react';
 import './index.less';
 import { dataType } from '../../../types';
 
@@ -13,10 +13,10 @@ const Selector: React.FC<
   SelectorProps & Omit<HTMLAttributes<HTMLDivElement>, 'className'>
 > = (props) => {
   const { title, className, data, onChange, ...restProps } = props;
-  const [selected, setSelected] = useState<dataType>(data[0])
+  const [selected, setSelected] = useState<dataType>(data[0]);
   useEffect(() => {
-    onChange && onChange(data[0])
-  }, [])
+    onChange && onChange(data[0]);
+  });
   return (
     <>
       <div className={'selector-wrap ' + (className as string)} {...restProps}>
@@ -26,16 +26,18 @@ const Selector: React.FC<
         {data.map((item, index) => {
           return (
             <li
-              className={item.value===selected.value?"selector-item selected":"selector-item"}
-              key={item + index.toString(10)}
-              onClick={()=>{
-                onChange && onChange(item)
-                setSelected(item)
+              className={
+                item.value === selected.value ? 'selector-item selected' : 'selector-item'
+              }
+              key={`${item.value as string} ${index.toString(10)}`}
+              onClick={() => {
+                onChange && onChange(item);
+                setSelected(item);
               }}
             >
               <div className="selector-item-text">{item.key}</div>
             </li>
-          )
+          );
         })}
       </div>
     </>

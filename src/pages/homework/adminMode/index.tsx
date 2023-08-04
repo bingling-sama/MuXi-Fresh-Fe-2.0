@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { items } from './menuConfig';
@@ -12,10 +12,10 @@ const HomeworkAdminMode: React.FC = () => {
   //     .then((res) => setDynamicComp(res?.default as ReactElement))
   //     .catch((err) => console.log(err));
   // }, [current]);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(e.key);
-    navigate(`/homework/admin/${e.key}`)
+    navigate(`/homework/admin/${e.key}`);
   };
   return (
     <div style={{ display: 'flex' }}>
@@ -27,8 +27,8 @@ const HomeworkAdminMode: React.FC = () => {
         style={{ width: '232px' }}
       />
       {/* <div className="comp">{DynamicComp}</div> */}
-      <div style={{width:'80vw', height:'80vh', marginLeft:'20px'}}>
-      <Outlet></Outlet>
+      <div style={{ width: '80vw', height: '80vh', marginLeft: '20px' }}>
+        <Outlet></Outlet>
       </div>
     </div>
   );
