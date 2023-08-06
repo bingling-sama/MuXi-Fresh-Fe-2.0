@@ -2,10 +2,10 @@ import React, { useState, useEffect, CSSProperties } from 'react';
 import './index.less';
 import Selector from '../selector';
 import UploadSection from '../uploadWrap';
-import axiosInstance from '../../../services/interceptor';
-import { taskListType, dataType, choiceType } from '../../../types';
+import axiosInstance from '../../../../../services/interceptor';
+import { taskListType, dataType, choiceType } from '../../../../../types';
 import { message } from 'antd';
-import { defData } from '../../../utils/deData';
+import { defData } from '../../../../../utils/deData';
 interface HomeworkSubmitProps {
   title?: string;
   choice?: choiceType;

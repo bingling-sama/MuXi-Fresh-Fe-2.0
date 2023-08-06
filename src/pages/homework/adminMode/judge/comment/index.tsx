@@ -1,24 +1,21 @@
-import React, { HTMLAttributes } from 'react';
-import { List, Card, Avatar } from 'antd';
+import React, { HTMLAttributes, useState, useEffect } from 'react';
+import { List, Card, Avatar, Tag } from 'antd';
 import './index.less';
-import Title from '../../../../../components/pages/title';
+import Title from '../../../components/pages/title';
+import { CommentType } from '../../../../../types';
 const { Meta } = Card;
 interface CommentProps {
-  scrollStatus?: boolean;
+  CommentData: CommentType[];
 }
-const Comment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props) => {
-  const { scrollStatus, ...restProps } = props;
-  console.log(scrollStatus);
-  // const [loading, setLoading] = useState(true);
-  const data = [{ title: '123123' }, { title: 234278394 }];
-  // const onChange = (checked: boolean) => {
-  //   setLoading(!checked);
-  // };
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setLoading(!loading);
-  //   }, 1000);
-  // }, []);
+const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props) => {
+  const { CommentData, ...restProps } = props;
+  const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 1000);
+  }, [CommentData]);
   return (
     <div {...restProps}>
       <Card
@@ -30,18 +27,27 @@ const Comment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props)
         }
       >
         <List
-          dataSource={data}
+          dataSource={CommentData}
           className="comment-wrap"
           renderItem={(item) => (
             <List.Item>
-              <Card style={{ width: '80%', margin: 'auto' }} loading={true}>
+              <Card style={{ width: '90%', margin: 'auto' }} loading={loading}>
                 <Meta
                   avatar={
-                    <Avatar src="https://xsgames.co/randomusers/avatar.php?g=pixel&key=1" />
+                    <Avatar
+                      src={
+                        item.avatar
+                          ? item.avatar
+                          : 'https://xsgames.co/randomusers/avatar.php?g=pixel&key=1'
+                      }
+                    />
                   }
-                  title={item.title}
-                  description="This is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the descriptionThis is the description"
+                  title={item.nickname ? item.nickname : 'admin'}
+                  description={item.content}
                 />
+                <Tag color="orange" className="comment-tag">
+                  {item.group.length > 8 ? item.group.slice(-8) : item.group}
+                </Tag>
               </Card>
             </List.Item>
           )}
@@ -51,4 +57,4 @@ const Comment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props)
   );
 };
 
-export default Comment;
+export default HomeComment;

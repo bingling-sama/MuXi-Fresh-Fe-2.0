@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { List, Popover, Button, ConfigProvider, Input } from 'antd';
 import './index.less';
 import { useNavigate } from 'react-router-dom';
-import { taskListType } from '../../../types';
-import axiosInstance from '../../../services/interceptor';
+import { taskListType } from '../../../../../types';
+import axiosInstance from '../../../../../services/interceptor';
 
 interface DropDownProps {
   onChoose?: (e: taskListType) => void;
@@ -15,11 +15,11 @@ interface DropDownProps {
 const DropDown: React.FC<DropDownProps> = (props) => {
   const { onChoose, data, onSwitch, type } = props;
   const [selected, setSelected] = useState<taskListType>(data[0]);
-
   const [open, setOpen] = useState<boolean>(false);
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     handleClick(data[0]);
-  });
+  }, []);
   const navigate = useNavigate();
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -89,12 +89,16 @@ const DropDown: React.FC<DropDownProps> = (props) => {
           onOpenChange={handleOpenChange}
         >
           {type === 'user' ? (
-            <Button id="button">{renderText(selected?.text as string)}</Button>
+            <Button id="button" className="disabled">
+              {renderText(selected?.text as string)}
+            </Button>
           ) : (
             <Input
               id="button"
               placeholder={renderText(selected?.text as string)}
               onChange={handleChange}
+              value={selected.text as string}
+              allowClear
             ></Input>
           )}
         </Popover>

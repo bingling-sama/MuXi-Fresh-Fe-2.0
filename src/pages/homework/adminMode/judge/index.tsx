@@ -1,20 +1,49 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import HomePreview from './homePreview';
-import Comment from './comment';
+import HomeComment from './comment';
 import './index.less';
 import WriteComment from './writeComment';
+import { useLocation } from 'react-router-dom';
+import axiosInstance from '../../../../services/interceptor';
+import { CommentType, TableType } from '../../../../types';
+import { message } from 'antd';
 
 const HomeworkJudge: React.FC = () => {
-  // const { id } = useParams();
-
+  const [Comment, setComment] = useState<CommentType[]>([]);
+  const [SubmitID, setSubmitID] = useState<string>('');
+  const navi = useLocation();
+  const infoItem: TableType = navi.state as TableType;
+  /* eslint-disable react-hooks/exhaustive-deps */
+  useEffect(() => {
+    if (SubmitID) handleCommentRequest();
+  }, [SubmitID]);
+  const handleCommentRequest = () => {
+    axiosInstance.get(`/task/submitted/${SubmitID}/comment`).then((res) => {
+      const comments = res.data.data?.comments;
+      comments && setComment(comments as CommentType[]);
+    });
+  };
+  const handleSubmit = (e: string) => {
+    axiosInstance
+      .post(`/task/submitted/${SubmitID}/comment`, {
+        content: e,
+      })
+      .then(() => {
+        message.success('评论已提交');
+        handleCommentRequest();
+      });
+  };
+  const handleGetSubmittion = (str: string) => {
+    setSubmitID(str);
+  };
   return (
     <div className="judge-wrap">
       <div className="preview">
-        <HomePreview></HomePreview>
+        <HomePreview getSubmittionID={handleGetSubmittion} info={infoItem}></HomePreview>
       </div>
       <div className="comment-write">
-        <WriteComment></WriteComment>
-        <Comment></Comment>
+        <WriteComment onCommentSubmit={handleSubmit}></WriteComment>
+        <HomeComment CommentData={Comment}></HomeComment>
       </div>
     </div>
   );

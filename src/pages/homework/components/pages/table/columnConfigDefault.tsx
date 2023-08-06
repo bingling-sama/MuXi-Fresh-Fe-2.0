@@ -1,9 +1,9 @@
 import { Space, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { DataType } from './index';
+import { TableType } from '../../../types';
 import { NavLink } from 'react-router-dom';
 
-export const columns: ColumnsType<DataType> = [
+export const columns: ColumnsType<TableType> = [
   {
     title: '姓名',
     dataIndex: 'name',
@@ -26,14 +26,12 @@ export const columns: ColumnsType<DataType> = [
     dataIndex: 'status',
     render: (_, { status }) => {
       let color = 'green';
-      let str = '已通过';
-      if (!status) {
-        color = 'volcano';
-        str = '未通过';
+      if (status != '已审阅') {
+        color = 'gray';
       }
       return (
         <>
-          <Tag color={color}>{str}</Tag>
+          <Tag color={color}>{status}</Tag>
         </>
       );
     },
@@ -41,9 +39,9 @@ export const columns: ColumnsType<DataType> = [
   {
     title: '操作',
     key: 'action',
-    render: () => (
+    render: (_, { task_id, group }) => (
       <Space size="middle">
-        <NavLink to={'/homework/admin/judge/1'}>点击查看</NavLink>
+        <NavLink to={`/homework/admin/judge/${group}/${task_id}`}>点击查看</NavLink>
       </Space>
     ),
   },

@@ -24,9 +24,7 @@ const AnimatedRoutes: React.FC = () => {
           <Route path="admin" element={<HomeworkAdminMode></HomeworkAdminMode>}>
             <Route path="new" element={<HomeworkNew></HomeworkNew>}></Route>
             <Route path="edit" element={<HomeworkEdit></HomeworkEdit>}></Route>
-            <Route path="judge" element={<HomeworkJudge></HomeworkJudge>}>
-              <Route path=":id" element={<HomeworkJudge></HomeworkJudge>}></Route>
-            </Route>
+            <Route path="judge" element={<HomeworkJudge></HomeworkJudge>}></Route>
             <Route path="browse" element={<HomeworkBrowse></HomeworkBrowse>}></Route>
           </Route>
 

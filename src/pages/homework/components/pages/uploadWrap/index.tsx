@@ -5,10 +5,11 @@ import './index.less';
 import Submit from '../button';
 import DropDown from '../dropDown';
 import Title from '../title';
-import { taskListType, choiceType } from '../../../types';
+import { taskListType, choiceType, TaskInfoType } from '../../../../../types';
+import FileLink from '../files';
 interface UploadSectionProps {
   title?: string;
-  status?: boolean;
+  status?: number;
   className?: string;
   style?: CSSProperties;
   button_title?: string;
@@ -19,13 +20,9 @@ interface UploadSectionProps {
   children?: React.ReactNode;
   submitClass?: string;
   onSwitch?: (item: any) => void;
+  submitDisabled?: boolean;
 }
 
-type defaultType = {
-  title_text: string;
-  content: string;
-  urls: string[];
-};
 const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const {
     title,
@@ -40,9 +37,10 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     button_title,
     choice,
     taskList,
+    submitDisabled,
   } = props;
   const [formData, setformData] = useState<any>();
-  const [defaultValue, setDefaultValue] = useState<defaultType>({
+  const [defaultValue, setDefaultValue] = useState<TaskInfoType>({
     title_text: '',
     content: '',
     urls: [''],
@@ -50,7 +48,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const [formTitle, setFormTitle] = useState<any>();
   const [formContent, setFormContent] = useState<string>();
   const root = 'http://ossfresh-test.muxixyz.com/';
-
+  const statusList: string[] = ['未提交', '已提交', '已批阅'];
   const handleChangeTitle = (e: taskListType) => {
     if (choice.includes('edit')) {
       setFormTitle({ title_text: e.text, assignedTaskID: e.id });
@@ -58,7 +56,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     }
     setFormTitle({ title_text: e.text });
   };
-  const handleSwitch = (e: defaultType, id: string) => {
+  const handleSwitch = (e: TaskInfoType, id: string) => {
     if (e) {
       setDefaultValue(e);
       onSwitch && onSwitch(id);
@@ -69,8 +67,8 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     const tmpList = e?.map((item) => {
-      if (item?.response) return `${root} ${item.response.key as string}`;
-      else return item.name;
+      if (item?.response) return `${root}${item.response.key as string}`;
+      else return `${item.url as string}`;
     });
     setformData(tmpList);
   };
@@ -91,7 +89,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             extra={
               <>
                 {typeof status != 'undefined' && (
-                  <div className="upload-status">{status ? `已提交` : `未提交`}</div>
+                  <div className="upload-status">{statusList[status]}</div>
                 )}
               </>
             }
@@ -130,18 +128,23 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             task_id={formData?.assignedTaskID}
             disabled={choice.includes('user') ? true : false}
           ></InputBox>
-          <InputBox
-            label="附件"
-            type="file"
-            className="inp"
-            onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
-            defaultValue={defaultValue.urls}
-            disabled={choice.includes('user') ? true : false}
-          ></InputBox>
+          {!choice.includes('user') ? (
+            <InputBox
+              label="附件"
+              type="file"
+              className="inp"
+              onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
+              defaultValue={defaultValue.urls}
+              disabled={choice.includes('user') ? true : false}
+            ></InputBox>
+          ) : (
+            <FileLink className="inp" data={defaultValue.urls}></FileLink>
+          )}
           {children}
           <Submit
             className={`submit-page  ${submitClass as string}`}
             onClick={handleSubmit}
+            disabled={submitDisabled ? submitDisabled : false}
           >
             {button_title}
           </Submit>

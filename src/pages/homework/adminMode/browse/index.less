@@ -1,6 +1,36 @@
-.browse-pagination {
-    position: absolute;
-    bottom: 4%;
-    left: 50%;
-    transform: translateX(-50%);
+@import '../../../../styles/variables.less';
+@import '../../../../styles/mixin.less';
+
+.browse-wrap {
+    display: flex;
+    width: 80vw;
+    height: 80vh;
+    .browse-selector {
+        position: sticky;
+        top: 20px;
+    }
+    .browse-collapse {
+        width: 60vw !important;
+        height: 99%;
+        overflow-y: auto;
+        margin: 3%;
+        margin-top: 10px;
+        background-color: @gray-200;
+        .dashin(.4s, horizontal );
+        .ant-collapse-item {
+            box-shadow: @box-shadow;
+            margin-bottom: 10px;
+            border-radius: 7px;
+            min-height: 8vh;
+            width: 96%;
+            margin: 10px auto;
+            .dashin(.4s,vertical);
+            .ant-collapse-header {
+                height: 8vh;
+                align-items: center;
+                background-color: @white;
+                border-radius: 7px;
+            }
+        }
+    } 
 }

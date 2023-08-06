@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import * as qiniu from 'qiniu-js';
-import axiosInstance from '../../../services/interceptor';
+import axiosInstance from '../../../../../services/interceptor';
 import Submit from '../button';
 import './index.less';
 interface UploaderProps {
@@ -21,21 +21,25 @@ const Uploader: React.FC<UploaderProps> = (props) => {
       setQntoken(res.data.data.QiniuToken as string);
     });
   }, []);
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (defaultList) {
-      const tmp = defaultList.map((item, index) => {
-        return {
-          uid: `${Date.now()} ${item}`,
-          name: item.split('--')[1] ? item.split('--')[1] : `'file-' + ${index}`,
-          status: 'done',
-          url: item,
-        };
-      });
+      const tmp = defaultList
+        .filter((item) => item)
+        ?.map((item, index) => {
+          return {
+            uid: `${Date.now()}${item}`,
+            name: item.split('--')[1] ? item.split('--')[1] : `file-${index}`,
+            status: 'done',
+            url: item,
+          };
+        });
+      console.log('tmp[0]', tmp[0]);
+
       onChange(tmp as any[]);
-      console.log(tmp);
-      setfileList(tmp);
+      setfileList(tmp[0] ? tmp : []);
     }
-  }, [defaultList, onChange]);
+  }, [defaultList]);
   const handleFileChange: UploadProps['onChange'] = (info) => {
     setfileList(info.fileList);
     if (info.file.status === 'done') {

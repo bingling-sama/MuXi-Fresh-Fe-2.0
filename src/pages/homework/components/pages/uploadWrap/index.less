@@ -1,5 +1,5 @@
-@import '../../../styles/mixin.less';
-@import '../../../styles/variables.less';
+@import '../../../../../styles/mixin.less';
+@import '../../../../../styles/variables.less';
 
 .upload-wrap {
     width: 64vw;
@@ -60,6 +60,15 @@
         .dashin(.6s, horizontal);
         margin-top: 0;
         margin-bottom: 0;
+        grid-template-columns: 8% 1fr;
+        .file {
+            margin-left: 2%;
+            width: 63%;
+        }
+        .tag-name {
+            color: @gray-600 !important;
+            text-align: center;
+        }
     }
     
 }

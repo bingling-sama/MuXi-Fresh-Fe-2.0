@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.less';
-import Form from '../../../../components/pages/table';
-import Selector from '../../../../components/pages/selector';
+import Form from '../../components/pages/table';
+import Selector from '../../components/pages/selector';
 import { defData } from '../../../../utils/deData';
 import { dataType, taskListType } from '../../../../types';
 import axiosInstance from '../../../../services/interceptor';
@@ -13,11 +13,11 @@ const HomeworkBrowse: React.FC = () => {
     axiosInstance.get(`/task/assigned/list?group=${item.value}`).then((res) => {
       const Res = res.data.data.titles as taskListType[];
       if (Res) {
-        const tasks: CollapseProps['items'] = Res.map((item) => {
+        const tasks: CollapseProps['items'] = Res.map((itm) => {
           return {
-            key: item.id,
-            label: item.text,
-            children: <Form></Form>,
+            key: itm.id,
+            label: itm.text,
+            children: <Form task_id={itm.id} group={item.value}></Form>,
           };
         });
         setTaskList(tasks as CollapseProps['items']);
@@ -30,8 +30,9 @@ const HomeworkBrowse: React.FC = () => {
         title="选择组别"
         data={defData}
         onChange={(item) => handleChange(item as dataType)}
+        className="browse-selector"
       ></Selector>
-      <Collapse items={taskList}></Collapse>
+      <Collapse bordered={false} items={taskList} className="browse-collapse"></Collapse>
     </div>
   );
 };
