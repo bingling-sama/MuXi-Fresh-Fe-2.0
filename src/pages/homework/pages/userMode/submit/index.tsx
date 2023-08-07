@@ -35,7 +35,7 @@ const HomeworkUserSubmit: React.FC = () => {
           setLoading(false);
         }, 200);
         if (res.data.titles) {
-          setTaskList(res.data.titles.reverse as taskListType[]);
+          setTaskList(res.data.titles.reverse() as taskListType[]);
         } else {
           setTaskList([{ id: '', text: '暂时没有作业' }]);
         }

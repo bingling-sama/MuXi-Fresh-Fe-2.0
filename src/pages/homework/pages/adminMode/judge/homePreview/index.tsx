@@ -18,7 +18,6 @@ interface HomePreviewProps {
 }
 const HomePreview: React.FC<HomePreviewProps> = (props) => {
   const { info, getSubmittionID } = props;
-  const { group, task_id, avatar, email, name, user_id } = info;
   const [loading, setLoading] = useState(true);
   const [groupName, setgroupName] = useState<string>('');
   const [urls, seturls] = useState<string[]>(['']);
@@ -30,20 +29,21 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     defData.forEach((item) => {
-      if (item.value == group) {
+      if (item.value == info?.group) {
         setgroupName(item.key);
       }
     });
-    get(`/task/assigned/${task_id}`).then((res) => {
-      setPreview(res.data as TaskInfoType);
-      get(`/task/submitted/${user_id}/${task_id}`).then((res) => {
-        seturls(res.data.urls as string[]);
-        getSubmittionID && getSubmittionID(res.data.submission_id as string);
+    info?.task_id &&
+      get(`/task/assigned/${info?.task_id}`).then((res) => {
+        setPreview(res.data as TaskInfoType);
+        get(`/task/submitted/${info?.user_id}/${info?.task_id}`).then((res) => {
+          seturls(res.data.urls as string[]);
+          getSubmittionID && getSubmittionID(res.data.submission_id as string);
+        });
       });
-    });
     setTimeout(() => {
       setLoading(!loading);
-    }, 1000);
+    }, 2000);
   }, []);
 
   return (
@@ -60,7 +60,7 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
       >
         <div className="homePreview-card">
           <TagList tag_name="作业描述">
-            <div className="description-card">{Preview.title_text}</div>
+            <div className="description-card">{Preview?.title_text}</div>
           </TagList>
           <TagList tag_name="提交人">
             <Card className="uploader-card">
@@ -68,14 +68,14 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
                 avatar={
                   <Avatar
                     src={
-                      avatar
-                        ? avatar
+                      info?.avatar
+                        ? info?.avatar
                         : 'https://xsgames.co/randomusers/avatar.php?g=pixel'
                     }
                   />
                 }
-                title={name}
-                description={email}
+                title={info?.name}
+                description={info?.email}
               />
             </Card>
           </TagList>
@@ -86,16 +86,6 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
           </TagList>
           <FileLink data={Preview.urls}></FileLink>
           <FileLink data={urls} title="作业内容"></FileLink>
-          {/* <TagList tag_name="附件">
-                    {data.map((item) => {
-                        return (
-                            <div className="file" key={item}>
-                                <PaperClipOutlined className="file-icon" />
-                                <div className="file-text">{item}</div>
-                            </div>
-                        );
-                    })}
-                </TagList> */}
         </div>
       </Card>
     </>

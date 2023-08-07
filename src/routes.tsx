@@ -1,5 +1,5 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import HomeWork from './pages/homework';
+import HomeWork from './pages/homework/pages';
 import HomeworkAdminMode from './pages/homework/pages/adminMode';
 import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';

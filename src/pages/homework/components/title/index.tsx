@@ -12,7 +12,7 @@ const Title: React.FC<TitleProps & Omit<HTMLAttributes<HTMLDivElement>, 'classNa
   return (
     <>
       <div className={`upload-title ${className as string}`} {...restProps}>
-        <div className="upload-title-text">
+        <div className="upload-title-text" style={{ width: `${Legnth * 1.4}vw` }}>
           {title}
           {extra}
         </div>
