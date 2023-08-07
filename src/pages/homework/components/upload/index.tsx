@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import * as qiniu from 'qiniu-js';
-import { get } from '../../../../../services/fetch';
+import { get } from '../../../../services/fetch';
 import Submit from '../button';
 import './index.less';
 interface UploaderProps {

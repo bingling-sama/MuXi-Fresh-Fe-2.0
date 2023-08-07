@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { List, Popover, Button, ConfigProvider, Input } from 'antd';
 import './index.less';
 import { useNavigate } from 'react-router-dom';
-import { taskListType } from '../../../types';
-import { get } from '../../../../../services/fetch';
+import { taskListType } from '../../types';
+import { get } from '../../../../services/fetch';
 
 interface DropDownProps {
   onChoose?: (e: taskListType) => void;

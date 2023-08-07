@@ -1,6 +1,6 @@
 import React, { useState, HTMLAttributes, useEffect } from 'react';
 import './index.less';
-import { dataType } from '../../../types';
+import { dataType } from '../../types';
 
 interface SelectorProps {
   title: string;

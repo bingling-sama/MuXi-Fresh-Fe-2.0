@@ -1,7 +1,7 @@
 import { Card, ConfigProvider, Input, message } from 'antd';
 import React, { ChangeEvent, HTMLAttributes, useState, useEffect } from 'react';
-import Submit from '../../../../components/pages/button';
-import Title from '../../../../components/pages/title';
+import Submit from '../../../../components/button';
+import Title from '../../../../components/title';
 import './index.less';
 const { TextArea } = Input;
 

@@ -1,5 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
-import { BrowserRouter } from 'react-router-dom';
+import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import HomeWork from './pages/homework';
 import HomeworkAdminMode from './pages/homework/pages/adminMode';
 import HomeworkUserMode from './pages/homework/pages/userMode';
@@ -13,7 +12,7 @@ const Router = () => {
   return (
     <>
       <BrowserRouter>
-        <Routes location={location} key={location.pathname}>
+        <Routes>
           <Route path="/" element={<HomeWork></HomeWork>}></Route>
           {/* 作业 */}
           <Route path="/homework" element={<HomeWork></HomeWork>}>

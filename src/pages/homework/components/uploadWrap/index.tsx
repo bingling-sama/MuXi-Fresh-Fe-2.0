@@ -5,7 +5,7 @@ import './index.less';
 import Submit from '../button';
 import DropDown from '../dropDown';
 import Title from '../title';
-import { taskListType, choiceType, TaskInfoType } from '../../../types';
+import { taskListType, choiceType, TaskInfoType } from '../../types';
 import FileLink from '../files';
 interface UploadSectionProps {
   title?: string;

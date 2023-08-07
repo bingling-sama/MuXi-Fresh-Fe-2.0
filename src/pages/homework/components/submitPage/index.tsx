@@ -2,10 +2,10 @@ import React, { useState, useEffect, CSSProperties } from 'react';
 import './index.less';
 import Selector from '../selector';
 import UploadSection from '../uploadWrap';
-import { get, post } from '../../../../../services/fetch';
-import { taskListType, dataType, choiceType, TaskInfoType } from '../../../types';
+import { get, post } from '../../../../services/fetch';
+import { taskListType, dataType, choiceType, TaskInfoType } from '../../types';
 import { message } from 'antd';
-import { defData } from '../../../utils/deData';
+import { defData } from '../../utils/deData';
 interface HomeworkSubmitProps {
   title?: string;
   choice?: choiceType;

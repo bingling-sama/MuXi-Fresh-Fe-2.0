@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './index.less';
-import Form from '../../../components/pages/table';
-import Selector from '../../../components/pages/selector';
+import Form from '../../../components/table';
+import Selector from '../../../components/selector';
 import { defData } from '../../../utils/deData';
 import { dataType, taskListType } from '../../../types';
 import { get } from '../../../../../services/fetch';
