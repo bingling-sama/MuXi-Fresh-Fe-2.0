@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import UploadSection from '../../components/pages/uploadWrap';
-import { get, post } from '../../../../services/fetch';
-import { CommentType, dataType, taskListType } from '../../types';
+import UploadSection from '../../../components/pages/uploadWrap';
+import { get, post } from '../../../../../services/fetch';
+import { CommentType, dataType, taskListType } from '../../../types';
 import { message, UploadProps } from 'antd';
-import { defData } from '../../utils/deData';
-import InputBox from '../../components/pages/input';
+import { defData } from '../../../utils/deData';
+import InputBox from '../../../components/pages/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
 

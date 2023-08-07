@@ -1,5 +1,5 @@
 import React from 'react';
-import HomeworkSubmit from '../../components/pages/submitPage';
+import HomeworkSubmit from '../../../components/pages/submitPage';
 
 const HomeworkNew: React.FC = () => {
   return (

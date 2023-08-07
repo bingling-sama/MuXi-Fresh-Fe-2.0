@@ -1,11 +1,44 @@
+import { Routes, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
-import AnimatedRoutes from './routes/animatedRoutes';
-
+import HomeWork from './pages/homework';
+import HomeworkAdminMode from './pages/homework/pages/adminMode';
+import HomeworkUserMode from './pages/homework/pages/userMode';
+import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
+import HomeworkVisitorMode from './pages/homework/pages/visitorMode';
+import HomeworkJudge from './pages/homework/pages/adminMode/judge';
+import HomeworkNew from './pages/homework/pages/adminMode/new';
+import HomeworkEdit from './pages/homework/pages/adminMode/edit';
+import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 const Router = () => {
   return (
     <>
       <BrowserRouter>
-        <AnimatedRoutes></AnimatedRoutes>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<HomeWork></HomeWork>}></Route>
+          {/* 作业 */}
+          <Route path="/homework" element={<HomeWork></HomeWork>}>
+            <Route path="" element={<HomeworkVisitorMode></HomeworkVisitorMode>}></Route>
+            {/* 管理员 */}
+            <Route path="admin" element={<HomeworkAdminMode></HomeworkAdminMode>}>
+              <Route path="new" element={<HomeworkNew></HomeworkNew>}></Route>
+              <Route path="edit" element={<HomeworkEdit></HomeworkEdit>}></Route>
+              <Route path="judge" element={<HomeworkJudge></HomeworkJudge>}></Route>
+              <Route path="browse" element={<HomeworkBrowse></HomeworkBrowse>}></Route>
+            </Route>
+
+            {/* 用户 */}
+            <Route path="user" element={<HomeworkUserMode></HomeworkUserMode>}>
+              <Route
+                path="submit"
+                element={<HomeworkUserSubmit></HomeworkUserSubmit>}
+              ></Route>
+            </Route>
+            <Route
+              path="visitor"
+              element={<HomeworkVisitorMode></HomeworkVisitorMode>}
+            ></Route>
+          </Route>
+        </Routes>
       </BrowserRouter>
     </>
   );

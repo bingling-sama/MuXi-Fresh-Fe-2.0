@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Avatar, Card } from 'antd';
 import './index.less';
-import Title from '../../../components/pages/title';
-import FileLink from '../../../components/pages/files/index';
-import { defData } from '../../../utils/deData';
-import { get } from '../../../../../services/fetch';
-import { TableType, TaskInfoType } from '../../../types';
+import Title from '../../../../components/pages/title';
+import FileLink from '../../../../components/pages/files/index';
+import { defData } from '../../../../utils/deData';
+import { get } from '../../../../../../services/fetch';
+import { TableType, TaskInfoType } from '../../../../types';
 const { Meta } = Card;
 interface TagListProps {
   tag_name: string;

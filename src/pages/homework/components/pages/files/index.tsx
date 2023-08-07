@@ -1,5 +1,5 @@
 import React from 'react';
-import { TagList } from '../../../adminMode/judge/homePreview';
+import { TagList } from '../../../pages/adminMode/judge/homePreview';
 import { PaperClipOutlined } from '@ant-design/icons';
 import { List } from 'antd';
 import './index.less';

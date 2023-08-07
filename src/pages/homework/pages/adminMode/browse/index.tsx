@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './index.less';
-import Form from '../../components/pages/table';
-import Selector from '../../components/pages/selector';
-import { defData } from '../../utils/deData';
-import { dataType, taskListType } from '../../types';
-import { get } from '../../../../services/fetch';
+import Form from '../../../components/pages/table';
+import Selector from '../../../components/pages/selector';
+import { defData } from '../../../utils/deData';
+import { dataType, taskListType } from '../../../types';
+import { get } from '../../../../../services/fetch';
 import { Collapse, CollapseProps } from 'antd';
 
 const HomeworkBrowse: React.FC = () => {

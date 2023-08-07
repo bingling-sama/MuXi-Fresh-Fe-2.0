@@ -4,9 +4,9 @@ import HomeComment from './comment';
 import './index.less';
 import WriteComment from './writeComment';
 import { useLocation } from 'react-router-dom';
-import { CommentType, TableType } from '../../types';
+import { CommentType, TableType } from '../../../types';
 import { message } from 'antd';
-import { get, post } from '../../../../services/fetch';
+import { get, post } from '../../../../../services/fetch';
 
 const HomeworkJudge: React.FC = () => {
   const [Comment, setComment] = useState<CommentType[]>([]);

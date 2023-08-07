@@ -1,8 +1,8 @@
 import React, { HTMLAttributes, useState, useEffect } from 'react';
 import { List, Card, Avatar, Tag } from 'antd';
 import './index.less';
-import Title from '../../../components/pages/title';
-import { CommentType } from '../../../types';
+import Title from '../../../../components/pages/title';
+import { CommentType } from '../../../../types';
 const { Meta } = Card;
 interface CommentProps {
   CommentData: CommentType[];

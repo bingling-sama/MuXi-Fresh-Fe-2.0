@@ -13,8 +13,9 @@ dist-ssr
 *.local
 
 src/routes.tsx
-src/routes
+src/assets
 src/services
+src/pages/main.tsx
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
