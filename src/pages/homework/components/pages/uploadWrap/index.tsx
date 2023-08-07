@@ -5,7 +5,7 @@ import './index.less';
 import Submit from '../button';
 import DropDown from '../dropDown';
 import Title from '../title';
-import { taskListType, choiceType, TaskInfoType } from '../../../../../types';
+import { taskListType, choiceType, TaskInfoType } from '../../../types';
 import FileLink from '../files';
 interface UploadSectionProps {
   title?: string;
@@ -16,7 +16,7 @@ interface UploadSectionProps {
   choice: choiceType;
   taskList?: taskListType[];
   loading?: boolean;
-  onSubmit?: (query: any) => void;
+  onSubmit?: (query: TaskInfoType) => void;
   children?: React.ReactNode;
   submitClass?: string;
   onSwitch?: (item: any) => void;
@@ -73,7 +73,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     setformData(tmpList);
   };
   const handleSubmit = () => {
-    const query = {
+    const query: TaskInfoType = {
       ...formTitle,
       content: formContent,
       urls: formData,

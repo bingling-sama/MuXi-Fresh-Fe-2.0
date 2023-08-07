@@ -2,8 +2,8 @@ import React, { useState, ChangeEvent, useEffect } from 'react';
 import { List, Popover, Button, ConfigProvider, Input } from 'antd';
 import './index.less';
 import { useNavigate } from 'react-router-dom';
-import { taskListType } from '../../../../../types';
-import axiosInstance from '../../../../../services/interceptor';
+import { taskListType } from '../../../types';
+import { get } from '../../../../../services/fetch';
 
 interface DropDownProps {
   onChoose?: (e: taskListType) => void;
@@ -29,8 +29,8 @@ const DropDown: React.FC<DropDownProps> = (props) => {
     setOpen(false);
     onChoose && onChoose(item);
     if (item.id)
-      axiosInstance.get(`/task/assigned/${item.id}`).then((res) => {
-        onSwitch && onSwitch(res.data.data, item.id);
+      get(`/task/assigned/${item.id}`).then((res) => {
+        onSwitch && onSwitch(res.data, item.id);
       });
   };
   const handleNewClick = () => {
@@ -94,7 +94,7 @@ const DropDown: React.FC<DropDownProps> = (props) => {
             </Button>
           ) : (
             <Input
-              id="button"
+              className="drop-input"
               placeholder={renderText(selected?.text as string)}
               onChange={handleChange}
               value={selected.text as string}

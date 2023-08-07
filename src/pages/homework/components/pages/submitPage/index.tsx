@@ -2,10 +2,10 @@ import React, { useState, useEffect, CSSProperties } from 'react';
 import './index.less';
 import Selector from '../selector';
 import UploadSection from '../uploadWrap';
-import axiosInstance from '../../../../../services/interceptor';
-import { taskListType, dataType, choiceType } from '../../../../../types';
+import { get, post } from '../../../../../services/fetch';
+import { taskListType, dataType, choiceType, TaskInfoType } from '../../../types';
 import { message } from 'antd';
-import { defData } from '../../../../../utils/deData';
+import { defData } from '../../../utils/deData';
 interface HomeworkSubmitProps {
   title?: string;
   choice?: choiceType;
@@ -22,9 +22,8 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   useEffect(() => {
     handleChange(defData[0]);
   }, []);
-  const handleSubmit = (query: any) => {
-    axiosInstance
-      .post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
+  const handleSubmit = (query: TaskInfoType) => {
+    post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
       .then(() => {
         message.success('提交成功');
       })
@@ -35,12 +34,12 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   const handleChange = (item: dataType) => {
     setselected(item);
     setLoading(true);
-    axiosInstance.get(`/task/assigned/list?group=${item.value}`).then((res) => {
+    get(`/task/assigned/list?group=${item.value}`).then((res) => {
       setTimeout(() => {
         setLoading(false);
       }, 200);
-      if (res.data.data.titles) {
-        setTaskList(res.data.data.titles as taskListType[]);
+      if (res.data.titles) {
+        setTaskList(res.data.titles.reverse() as taskListType[]);
       } else {
         setTaskList([{ id: '', text: '暂时没有作业' }]);
       }

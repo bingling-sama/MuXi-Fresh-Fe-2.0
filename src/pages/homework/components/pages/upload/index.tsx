@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import * as qiniu from 'qiniu-js';
-import axiosInstance from '../../../../../services/interceptor';
+import { get } from '../../../../../services/fetch';
 import Submit from '../button';
 import './index.less';
 interface UploaderProps {
@@ -17,8 +17,8 @@ const Uploader: React.FC<UploaderProps> = (props) => {
   const { className, onChange, defaultList, disabled } = props;
   const [fileList, setfileList] = useState<any[] | undefined>([]);
   useEffect(() => {
-    axiosInstance.get('/auth/get-qntoken').then((res) => {
-      setQntoken(res.data.data.QiniuToken as string);
+    get('/auth/get-qntoken').then((res) => {
+      setQntoken(res.data.QiniuToken as string);
     });
   }, []);
   /* eslint-disable react-hooks/exhaustive-deps */
@@ -34,8 +34,6 @@ const Uploader: React.FC<UploaderProps> = (props) => {
             url: item,
           };
         });
-      console.log('tmp[0]', tmp[0]);
-
       onChange(tmp as any[]);
       setfileList(tmp[0] ? tmp : []);
     }

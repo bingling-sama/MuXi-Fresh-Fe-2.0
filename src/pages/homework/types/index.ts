@@ -42,4 +42,5 @@ export type TaskInfoType = {
   title_text: string;
   content: string;
   urls: string[];
+  assignedTaskID?: string;
 };

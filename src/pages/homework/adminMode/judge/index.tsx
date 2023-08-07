@@ -4,9 +4,9 @@ import HomeComment from './comment';
 import './index.less';
 import WriteComment from './writeComment';
 import { useLocation } from 'react-router-dom';
-import axiosInstance from '../../../../services/interceptor';
-import { CommentType, TableType } from '../../../../types';
+import { CommentType, TableType } from '../../types';
 import { message } from 'antd';
+import { get, post } from '../../../../services/fetch';
 
 const HomeworkJudge: React.FC = () => {
   const [Comment, setComment] = useState<CommentType[]>([]);
@@ -18,20 +18,18 @@ const HomeworkJudge: React.FC = () => {
     if (SubmitID) handleCommentRequest();
   }, [SubmitID]);
   const handleCommentRequest = () => {
-    axiosInstance.get(`/task/submitted/${SubmitID}/comment`).then((res) => {
-      const comments = res.data.data?.comments;
+    get(`/task/submitted/${SubmitID}/comment`).then((res) => {
+      const comments = res.data?.comments;
       comments && setComment(comments as CommentType[]);
     });
   };
   const handleSubmit = (e: string) => {
-    axiosInstance
-      .post(`/task/submitted/${SubmitID}/comment`, {
-        content: e,
-      })
-      .then(() => {
-        message.success('评论已提交');
-        handleCommentRequest();
-      });
+    post(`/task/submitted/${SubmitID}/comment`, {
+      content: e,
+    }).then(() => {
+      message.success('评论已提交');
+      handleCommentRequest();
+    });
   };
   const handleGetSubmittion = (str: string) => {
     setSubmitID(str);

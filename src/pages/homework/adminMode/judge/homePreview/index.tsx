@@ -3,9 +3,9 @@ import { Avatar, Card } from 'antd';
 import './index.less';
 import Title from '../../../components/pages/title';
 import FileLink from '../../../components/pages/files/index';
-import { defData } from '../../../../../utils/deData';
-import axiosInstance from '../../../../../services/interceptor';
-import { TableType, TaskInfoType } from '../../../../../types';
+import { defData } from '../../../utils/deData';
+import { get } from '../../../../../services/fetch';
+import { TableType, TaskInfoType } from '../../../types';
 const { Meta } = Card;
 interface TagListProps {
   tag_name: string;
@@ -34,11 +34,11 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
         setgroupName(item.key);
       }
     });
-    axiosInstance.get(`/task/assigned/${task_id}`).then((res) => {
-      setPreview(res.data.data as TaskInfoType);
-      axiosInstance.get(`/task/submitted/${user_id}/${task_id}`).then((res) => {
-        seturls(res.data.data.urls as string[]);
-        getSubmittionID && getSubmittionID(res.data.data.submission_id as string);
+    get(`/task/assigned/${task_id}`).then((res) => {
+      setPreview(res.data as TaskInfoType);
+      get(`/task/submitted/${user_id}/${task_id}`).then((res) => {
+        seturls(res.data.urls as string[]);
+        getSubmittionID && getSubmittionID(res.data.submission_id as string);
       });
     });
     setTimeout(() => {

@@ -2,10 +2,13 @@ import React, { HTMLAttributes, useState, useEffect } from 'react';
 import { List, Card, Avatar, Tag } from 'antd';
 import './index.less';
 import Title from '../../../components/pages/title';
-import { CommentType } from '../../../../../types';
+import { CommentType } from '../../../types';
 const { Meta } = Card;
 interface CommentProps {
   CommentData: CommentType[];
+}
+interface TitleTagProps {
+  item: CommentType;
 }
 const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props) => {
   const { CommentData, ...restProps } = props;
@@ -42,12 +45,9 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
                       }
                     />
                   }
-                  title={item.nickname ? item.nickname : 'admin'}
+                  title={<TitleTag item={item}></TitleTag>}
                   description={item.content}
                 />
-                <Tag color="orange" className="comment-tag">
-                  {item.group.length > 8 ? item.group.slice(-8) : item.group}
-                </Tag>
               </Card>
             </List.Item>
           )}
@@ -58,3 +58,19 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
 };
 
 export default HomeComment;
+export const TitleTag: React.FC<TitleTagProps> = (props) => {
+  const { item } = props;
+  const renderName = (name: string) => {
+    if (!name) return 'admin';
+    if (name.length > 10) return `${name.slice(0, 1)}...`;
+    return name;
+  };
+  return (
+    <div>
+      {renderName(item.nickname)}
+      <Tag color="orange" className="comment-tag">
+        {item.group.length > 8 ? item.group.slice(-8) : item.group}
+      </Tag>
+    </div>
+  );
+};

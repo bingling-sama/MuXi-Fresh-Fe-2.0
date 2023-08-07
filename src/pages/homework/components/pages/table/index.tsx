@@ -1,9 +1,9 @@
 import React, { useState, useEffect, CSSProperties } from 'react';
-import { Card, Pagination, Avatar, Tag } from 'antd';
+import { Card, Avatar, Tag } from 'antd';
 import { ConfigProvider } from 'antd';
 import './index.less';
-import { TableType } from '../../../../../types';
-import axiosInstance from '../../../../../services/interceptor';
+import { TableType } from '../../../types';
+import { get } from '../../../../../services/fetch';
 import Title from '../title';
 import { NavLink } from 'react-router-dom';
 const { Meta } = Card;
@@ -12,7 +12,6 @@ interface FormProps {
   columnConfig?: any;
   classNames?: string;
   style?: CSSProperties;
-  onChange?: (page: number) => void;
   task_id?: string;
   group?: string;
 }
@@ -21,35 +20,27 @@ interface DataTableProps {
   className?: string;
 }
 const Form: React.FC<FormProps> = (props) => {
-  const [page, setPage] = useState<number>(1);
   const [dataSet, setdataSet] = useState<TableType[]>([]);
-  const { task_id, group, style, classNames, onChange } = props;
+  const { task_id, group, style, classNames } = props;
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    handleListRequest(page);
+    handleListRequest();
   }, []);
-  const handleChange = (page: number) => {
-    setPage(page);
-    handleListRequest(page);
-    if (onChange) onChange(page);
-  };
-  const handleListRequest = (page: number) => {
-    axiosInstance
-      .get(`/task/assigned/${task_id as string}/completion?page=${page}`)
-      .then((res) => {
-        const { completions } = res.data.data;
-        if (completions) {
-          const com = completions.map((item: any) => {
-            return {
-              ...item,
-              group: group,
-              key: item.user_id,
-              task_id: task_id,
-            };
-          });
-          setdataSet(com as TableType[]);
-        }
-      });
+  const handleListRequest = () => {
+    get(`/task/assigned/${task_id as string}/completion?page=1`).then((res) => {
+      const { completions } = res.data;
+      if (completions) {
+        const com: TableType[] = completions.map((item: any) => {
+          return {
+            ...item,
+            group: group,
+            key: item.user_id,
+            task_id: task_id,
+          };
+        });
+        setdataSet(com.reverse());
+      }
+    });
   };
   return (
     <>
@@ -63,12 +54,6 @@ const Form: React.FC<FormProps> = (props) => {
         <div style={style} className={'form-wrap' + ' ' + (classNames as string)}>
           <DataTable className="data-table-item" dataSet={dataSet}></DataTable>
         </div>
-        <Pagination
-          total={dataSet?.length}
-          showQuickJumper
-          onChange={(page) => handleChange(page)}
-          className="form-pagination"
-        ></Pagination>
       </ConfigProvider>
     </>
   );
@@ -78,7 +63,6 @@ export default Form;
 
 export const DataTable: React.FC<DataTableProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
-  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     setTimeout(() => {
       setLoading(false);

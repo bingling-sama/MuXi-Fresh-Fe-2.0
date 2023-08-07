@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import UploadSection from '../../components/pages/uploadWrap';
-import axiosInstance from '../../../../services/interceptor';
-import { GroupType, taskListType } from '../../../../types';
+import { get, post } from '../../../../services/fetch';
+import { CommentType, dataType, taskListType } from '../../types';
 import { message, UploadProps } from 'antd';
+import { defData } from '../../utils/deData';
 import InputBox from '../../components/pages/input';
 import './index.less';
+import HomeComment from '../../adminMode/judge/comment';
 
 const HomeworkUserSubmit: React.FC = () => {
   const [taskList, setTaskList] = useState<taskListType[]>([{ id: '123', text: '123' }]);
@@ -13,31 +15,40 @@ const HomeworkUserSubmit: React.FC = () => {
   const [defList, setdefList] = useState<string[]>(['']);
   const [formData, setformData] = useState<string[]>(['']);
   const [selected, setselected] = useState<string>('');
+  const [group, setGroup] = useState<dataType>({ key: '前端组', value: 'Frontend' });
+  const [Comment, setComment] = useState<CommentType[]>([]);
   const statusList = ['未提交', '已提交', '已审阅'];
   const buttonList = ['提交作业', '修改作业', '无法修改'];
   const root = 'http://ossfresh-test.muxixyz.com/';
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     setLoading(true);
-    axiosInstance.get(`/task/assigned/list?group=${group}`).then((res) => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 200);
-      if (res.data.data.titles) {
-        setTaskList(res.data.data.titles as taskListType[]);
-      } else {
-        setTaskList([{ id: '', text: '暂时没有作业' }]);
-      }
+    get('/users/').then((res) => {
+      const groupRes = res.data.group;
+      defData.forEach((item) => {
+        if (item.key == groupRes) {
+          setGroup(item);
+        }
+      });
+      get(`/task/assigned/list?group=${group.value}`).then((res) => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 200);
+        if (res.data.titles) {
+          setTaskList(res.data.titles.reverse as taskListType[]);
+        } else {
+          setTaskList([{ id: '', text: '暂时没有作业' }]);
+        }
+      });
     });
   }, []);
-  const group: GroupType = 'Frontend';
   const handleSubmit = (query: any) => {
     console.log(query);
     if (status != 2)
-      axiosInstance
-        .post(`/task/submitted`, {
-          urls: formData,
-          assignedTaskID: selected,
-        })
+      post(`/task/submitted`, {
+        urls: formData,
+        assignedTaskID: selected,
+      })
         .then(() => {
           message.success('提交成功');
           handleSwitch(selected);
@@ -47,7 +58,6 @@ const HomeworkUserSubmit: React.FC = () => {
         });
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
-    // console.log(e);
     if (e && e[0]) {
       const tmpList = e?.map((item) => {
         if (item?.response) return ` ${root}${item.response.key as string}`;
@@ -58,15 +68,23 @@ const HomeworkUserSubmit: React.FC = () => {
   };
   const handleSwitch = (id: string) => {
     setselected(id);
-    axiosInstance.get(`/task/assigned/${id}/status`).then((res) => {
+    get(`/task/assigned/${id}/status`).then((res) => {
       setdefList(['']);
-      if (res.data.data.task_status !== '未提交') {
-        axiosInstance.get(`/task/submitted/myself/${id}`).then((res) => {
-          setdefList(res.data.data.urls as string[]);
+      if (res.data.task_status !== '未提交') {
+        get(`/task/submitted/myself/${id}`).then((res) => {
+          console.log('res', res.data);
+          getComment(res.data?.submission_id as string);
+          setdefList(res.data.urls as string[]);
         });
       }
-      const stat: string = res.data.data.task_status;
+      const stat: string = res.data.task_status;
       setstatus(statusList.indexOf(stat));
+    });
+  };
+  const getComment = (SubmitID: string) => {
+    get(`/task/submitted/${SubmitID}/comment`).then((res) => {
+      const comments = res.data?.comments;
+      comments && setComment(comments as CommentType[]);
     });
   };
   return (
@@ -77,11 +95,12 @@ const HomeworkUserSubmit: React.FC = () => {
           taskList={taskList}
           loading={loading}
           choice="user-edit"
-          title={group + '作业'}
+          title={`${group.key}作业`}
           status={status}
           button_title={buttonList[status]}
           onSubmit={handleSubmit}
           submitDisabled={status == 2}
+          className={status != 2 ? 'user-submit-preview' : 'user-submit-preview-small'}
         >
           <InputBox
             className="inp"
@@ -92,6 +111,12 @@ const HomeworkUserSubmit: React.FC = () => {
             onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
           ></InputBox>
         </UploadSection>
+        {status == 2 && (
+          <HomeComment
+            CommentData={Comment}
+            className="user-submit-comment"
+          ></HomeComment>
+        )}
       </div>
     </>
   );

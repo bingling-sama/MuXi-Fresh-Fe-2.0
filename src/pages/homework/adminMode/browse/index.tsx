@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import './index.less';
 import Form from '../../components/pages/table';
 import Selector from '../../components/pages/selector';
-import { defData } from '../../../../utils/deData';
-import { dataType, taskListType } from '../../../../types';
-import axiosInstance from '../../../../services/interceptor';
+import { defData } from '../../utils/deData';
+import { dataType, taskListType } from '../../types';
+import { get } from '../../../../services/fetch';
 import { Collapse, CollapseProps } from 'antd';
 
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);
   const handleChange = (item: dataType): void => {
-    axiosInstance.get(`/task/assigned/list?group=${item.value}`).then((res) => {
-      const Res = res.data.data.titles as taskListType[];
+    get(`/task/assigned/list?group=${item.value}`).then((res) => {
+      const Res = res.data.titles as taskListType[];
       if (Res) {
         const tasks: CollapseProps['items'] = Res.map((itm) => {
           return {
@@ -20,7 +20,7 @@ const HomeworkBrowse: React.FC = () => {
             children: <Form task_id={itm.id} group={item.value}></Form>,
           };
         });
-        setTaskList(tasks as CollapseProps['items']);
+        setTaskList(tasks.reverse() as CollapseProps['items']);
       }
     });
   };
