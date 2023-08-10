@@ -2,7 +2,7 @@ import { message } from 'antd';
 
 const preUrl = '/api/v2';
 
-export async function post(url = '', data = {}, isToken?: boolean) {
+export async function post(url = '', data = {}, isToken = true) {
   const headers = new Headers({
     'Content-Type': 'application/json;charset=utf-8',
   });
@@ -24,7 +24,7 @@ export async function post(url = '', data = {}, isToken?: boolean) {
   return response.json();
 }
 
-export async function get(url = '', isToken?: boolean) {
+export async function get(url = '', isToken = true) {
   const headers = new Headers({
     'Content-Type': 'application/json;charset=utf-8',
   });
@@ -46,7 +46,7 @@ export async function get(url = '', isToken?: boolean) {
   return response.json();
 }
 
-export async function put(url = '', data = {}, isToken?: boolean) {
+export async function put(url = '', data = {}, isToken = true) {
   const headers = new Headers({
     'Content-Type': 'application/json;charset=utf-8',
   });
