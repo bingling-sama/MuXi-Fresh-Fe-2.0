@@ -17,11 +17,11 @@ const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
     [],
   );
   const chineseGroups: { [key in Group]: string } = {
-    Product: '产品组',
+    Android: '安卓组',
+    Backend: '后端组',
     Design: '设计组',
     Frontend: '前端组',
-    Backend: '后端组',
-    Android: '安卓组',
+    Product: '产品组',
   };
 
   const [selectedGroup, setSelectedGroup] = useState<Group>(reviewFilter.group);

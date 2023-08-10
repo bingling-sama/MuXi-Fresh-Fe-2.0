@@ -14,6 +14,7 @@ export enum ExamStatus {
 export interface ReviewRow {
   admission_status: AdmissionStatus;
   exam_status: ExamStatus;
+  form_id: string;
   grader: string;
   group: Group;
   name: string;

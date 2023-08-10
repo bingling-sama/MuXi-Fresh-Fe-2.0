@@ -1,18 +1,18 @@
 export interface ReviewFilter {
-  group: Group;
-  year: Year;
   grade: string;
+  group: Group;
   school: string;
-  status: string;
   season: Season;
+  status: string;
+  year: Year;
 }
 
 export enum Group {
-  Product = 'Product',
-  Frontend = 'Frontend',
-  Backend = 'Backend',
   Android = 'Android',
+  Backend = 'Backend',
   Design = 'Design',
+  Frontend = 'Frontend',
+  Product = 'Product',
 }
 
 export enum Year {

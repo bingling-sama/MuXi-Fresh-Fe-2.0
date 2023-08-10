@@ -5,9 +5,9 @@ export interface PersonalInformation {
   msg: 'OK';
   data: {
     avatar: string;
-    nickname: string;
     email: string;
     group: Group;
+    nickname: string;
     student_id: string;
   };
 }
