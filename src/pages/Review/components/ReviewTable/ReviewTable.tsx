@@ -183,6 +183,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList }) => {
           );
         },
         (e) => {
+          void message.error('录取状态更新失败，请稍后重试');
           console.error(e);
         },
       );

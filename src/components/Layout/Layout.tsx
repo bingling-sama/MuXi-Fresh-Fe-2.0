@@ -18,7 +18,7 @@ const Layout: React.FC = () => {
         setAvatar(avatar);
       },
       (e) => {
-        void message.error('获取个人信息失败,请稍后重试');
+        void message.error('获取个人信息失败，请稍后重试');
         console.error(e);
       },
     );
