@@ -12,7 +12,7 @@ const Layout: React.FC = () => {
   const [avatar, setAvatar] = useState(defaultAvatar);
 
   useEffect(() => {
-    get('/users/').then(
+    get('/users/my-info').then(
       (r: PersonalInformation) => {
         const { avatar } = r.data;
         setAvatar(avatar);

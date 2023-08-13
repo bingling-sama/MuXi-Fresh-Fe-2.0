@@ -1,13 +1,14 @@
-import { Group } from '../pages/Review/ReviewFitler.ts';
-
 export interface PersonalInformation {
   code: 0;
   msg: 'OK';
   data: {
     avatar: string;
     email: string;
-    group: Group;
+    name: string;
     nickname: string;
+    qq: string;
+    school: string;
+    group: string;
     student_id: string;
   };
 }
