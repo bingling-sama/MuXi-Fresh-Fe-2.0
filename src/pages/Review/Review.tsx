@@ -36,11 +36,14 @@ const Review = () => {
   };
 
   const [reviewList, setReviewList] = useState<ReviewRow[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
+    setLoading(true);
     post('/review/', reviewFilter).then(
       (r: ReviewList) => {
         const { rows } = r.data;
         setReviewList(rows);
+        setLoading(false);
       },
       (e) => {
         void message.error('获取审阅列表失败，请稍后重试');
@@ -56,7 +59,7 @@ const Review = () => {
         <ReviewGroupSelect reviewFilter={reviewFilter} changeGroup={changeGroup} />
       </div>
       <div className={'reviewList'}>
-        <ReviewTable reviewList={reviewList}></ReviewTable>
+        <ReviewTable reviewList={reviewList} loading={loading}></ReviewTable>
       </div>
     </div>
   );

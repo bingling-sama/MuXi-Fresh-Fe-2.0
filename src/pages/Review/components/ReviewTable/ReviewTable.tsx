@@ -9,8 +9,9 @@ import type { FilterValue, SorterResult } from 'antd/es/table/interface';
 
 type ReviewTableProps = {
   reviewList: ReviewRow[];
+  loading: boolean;
 };
-const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList }) => {
+const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
   const [reviewTable, setReviewTable] = useState(reviewList);
   useEffect(() => {
     setReviewTable(reviewList);
@@ -194,6 +195,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList }) => {
   return (
     <Table
       bordered={true}
+      loading={loading}
       columns={columns}
       dataSource={reviewTable}
       onChange={handleChange}
