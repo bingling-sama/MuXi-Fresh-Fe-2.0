@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import './Layout.less';
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/muxilogo.png';
@@ -25,11 +25,9 @@ const Layout: React.FC = () => {
   }, []);
 
   const navigate = useNavigate();
-  // 定义一个 state，用于存储当前选中的菜单项的 key 值
-  const [selectedKey, setSelectedKey] = useState('1');
+  const location = useLocation();
 
   const navigationClick = (target: string) => {
-    setSelectedKey(target);
     navigate(target);
   };
 
@@ -72,7 +70,7 @@ const Layout: React.FC = () => {
           >
             <Menu
               mode="inline"
-              selectedKeys={[selectedKey]}
+              selectedKeys={[location.pathname]}
               onSelect={(e) => {
                 navigationClick(e.key);
               }}
