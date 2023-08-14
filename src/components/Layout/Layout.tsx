@@ -1,11 +1,19 @@
-import { Outlet, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.less';
 import React, { useEffect, useState } from 'react';
 import logo from '../../assets/muxilogo.png';
 import defaultAvatar from '../../assets/default_avatar.png';
 import { get } from '../../fetch.ts';
 import { PersonalInformation } from '../../type/PersonalInformation.ts';
-import { ConfigProvider, Menu, Layout as LayoutAntd, Avatar, message } from 'antd';
+import type { MenuProps } from 'antd';
+import {
+  Avatar,
+  ConfigProvider,
+  Dropdown,
+  Layout as LayoutAntd,
+  Menu,
+  message,
+} from 'antd';
 
 const { Header, Content, Sider } = LayoutAntd;
 const Layout: React.FC = () => {
@@ -18,7 +26,6 @@ const Layout: React.FC = () => {
         setAvatar(avatar);
       },
       (e) => {
-        void message.error('获取个人信息失败，请稍后重试');
         console.error(e);
       },
     );
@@ -30,6 +37,30 @@ const Layout: React.FC = () => {
   const navigationClick = (target: string) => {
     navigate(target);
   };
+  const logOut = () => {
+    localStorage.removeItem('token');
+    void message.success('退出登录成功');
+    navigate('/login');
+  };
+
+  const items: MenuProps['items'] = [
+    {
+      label: (
+        <div
+          onClick={() => {
+            navigationClick('/home');
+          }}
+        >
+          个人主页
+        </div>
+      ),
+      key: '/home',
+    },
+    {
+      label: <div onClick={logOut}>退出登录</div>,
+      key: 'logout',
+    },
+  ];
 
   return (
     <div className={'layout'}>
@@ -49,7 +80,9 @@ const Layout: React.FC = () => {
             <div>木犀官网</div>
           </div>
         </div>
-        <Avatar src={avatar || defaultAvatar} size="large" alt="avatar" />
+        <Dropdown menu={{ items }} placement={'bottom'}>
+          <Avatar src={avatar || defaultAvatar} size="large" alt="avatar" />
+        </Dropdown>
       </Header>
       <Sider width={'10vw'}>
         <div className={'layoutSidebar'}>
