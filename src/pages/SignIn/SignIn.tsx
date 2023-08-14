@@ -55,6 +55,7 @@ const SignIn: React.FC = () => {
             (r: SignInResult) => {
               console.log(r);
               localStorage.setItem('token', r.data.token);
+              navigate('/');
             },
             (e) => {
               console.log(e);
