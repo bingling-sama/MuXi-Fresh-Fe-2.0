@@ -1,25 +1,43 @@
 import { Avatar, List } from 'antd';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { AdminRow } from '../../AdminList.ts';
-import './AdminLists.less';
+import ChangeUserTypeBox from './components/ChangeUserTypeBox/ChangeUserTypeBox.tsx';
 
-type ReviewTableProps = {
-  header: ReactNode;
+type AdminListsProps = {
+  header: string;
   dataSource: AdminRow[];
   loading: boolean;
+  user_type: 'super_admin' | 'admin' | 'normal';
+  changeUserIdentity(email: string, user_type: string, user_type_cn: string): void;
 };
-const AdminLists: React.FC<ReviewTableProps> = ({ header, dataSource, loading }) => {
+const AdminLists: React.FC<AdminListsProps> = ({
+  header,
+  dataSource,
+  loading,
+  user_type,
+  changeUserIdentity,
+}) => {
   return (
     <List
-      header={header}
+      header={
+        <div>
+          <b>{header}</b>
+          <ChangeUserTypeBox
+            header={header}
+            user_type={user_type}
+            changeUserIdentity={changeUserIdentity}
+          />
+        </div>
+      }
       bordered
       loading={loading}
-      className={'authorityManageList'}
+      style={{ width: '15vw' }}
       pagination={{
         position: 'bottom',
         align: 'center',
         pageSize: 6,
         showSizeChanger: false,
+        size: 'small',
       }}
       dataSource={dataSource}
       renderItem={(item) => (
@@ -31,7 +49,7 @@ const AdminLists: React.FC<ReviewTableProps> = ({ header, dataSource, loading })
               <div>
                 {item.name}
                 <br />
-                {item.user_id}
+                {item.email}
               </div>
             }
           />

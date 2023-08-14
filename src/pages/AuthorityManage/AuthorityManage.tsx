@@ -1,8 +1,8 @@
 import './AuthorityManage.less';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { get } from '../../fetch.ts';
-import { AdminList, AdminRow } from './AdminList.ts';
+import { get, post } from '../../fetch.ts';
+import { AdminList, AdminRow, ChangeUserType } from './AdminList.ts';
 import AdminLists from './components/AdminLists/AdminLists.tsx';
 
 const AuthorityManage = () => {
@@ -21,7 +21,8 @@ const AuthorityManage = () => {
     get(`/users/admin-list?user_type=${user_type}`).then(
       (r: AdminList) => {
         const { list } = r.data;
-        if (list !== null) setState(list);
+        if (list === null) setState([]);
+        else setState(list);
         setLoading(false);
       },
       (e) => {
@@ -31,29 +32,56 @@ const AuthorityManage = () => {
     );
   };
 
+  const [isChange, setIsChange] = useState(false);
   useEffect(() => {
     getUserList('super_admin', setSuperAdmin, '超级管理员');
     getUserList('admin', setAdmin, '管理员');
     getUserList('normal', setOrdinary, '普通用户');
-  }, []);
+  }, [isChange]);
+
+  const changeUserIdentity = (email: string, user_type: string, user_type_cn: string) => {
+    post('/users/type', {
+      email: email,
+      user_type: user_type,
+    }).then(
+      (r: ChangeUserType) => {
+        if (r.code == -1) {
+          void message.error(`请检查邮箱是否正确`);
+        } else {
+          void message.success(`设置${user_type_cn}成功`);
+          setIsChange(!isChange);
+        }
+      },
+      (e) => {
+        void message.error(`设置${user_type_cn}失败，请稍后重试`);
+        console.error(e);
+      },
+    );
+  };
 
   return (
     <div className="authorityManageBox">
       <div className={'authorityManage'}>
         <AdminLists
-          header={<b>超级管理员</b>}
+          header={'超级管理员'}
           dataSource={superAdmin}
+          user_type={'super_admin'}
           loading={loading}
+          changeUserIdentity={changeUserIdentity}
         ></AdminLists>
         <AdminLists
-          header={<b>管理员</b>}
+          header={'管理员'}
           dataSource={admin}
+          user_type={'admin'}
           loading={loading}
+          changeUserIdentity={changeUserIdentity}
         ></AdminLists>
         <AdminLists
-          header={<b>普通成员</b>}
+          header={'普通成员'}
           dataSource={ordinary}
+          user_type={'normal'}
           loading={loading}
+          changeUserIdentity={changeUserIdentity}
         ></AdminLists>
       </div>
     </div>
