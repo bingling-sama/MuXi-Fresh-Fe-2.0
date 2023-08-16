@@ -11,7 +11,7 @@ import { message, UploadProps } from 'antd';
 import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
-import HomeComment from '../../AdminMode/Judge/Comment';
+import HomeComment from '../../adminMode/judge/comment';
 
 const HomeworkUserSubmit: React.FC = () => {
   const [taskList, setTaskList] = useState<taskListType[]>([{ id: '123', text: '123' }]);

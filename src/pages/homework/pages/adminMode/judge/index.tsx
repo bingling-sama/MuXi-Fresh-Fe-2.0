@@ -3,10 +3,10 @@
 
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect } from 'react';
-import HomePreview from './HomePreview';
-import HomeComment from './Comment';
+import HomePreview from './homePreview';
+import HomeComment from './comment';
 import './index.less';
-import WriteComment from './WriteComment';
+import WriteComment from './writeComment';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CommentType, TableType } from '../../../types';
 import { message } from 'antd';

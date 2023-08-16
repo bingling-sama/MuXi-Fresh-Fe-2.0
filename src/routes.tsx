@@ -1,15 +1,15 @@
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 import HomeWork from './pages/homework/pages';
-import HomeworkAdminMode from './pages/homework/pages/AdminMode';
-import HomeworkUserMode from './pages/homework/pages/UserMode';
-import HomeworkUserSubmit from './pages/homework/pages/UserMode/Submit';
-import HomeworkVisitorMode from './pages/homework/pages/VisitorMode';
-import HomeworkJudge from './pages/homework/pages/AdminMode/Judge';
-import HomeworkNew from './pages/homework/pages/AdminMode/New';
-import HomeworkEdit from './pages/homework/pages/AdminMode/Edit';
-import HomeworkBrowse from './pages/homework/pages/AdminMode/Browse';
+import HomeworkAdminMode from './pages/homework/pages/adminMode';
+import HomeworkUserMode from './pages/homework/pages/userMode';
+import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
+import HomeworkVisitorMode from './pages/homework/pages/visitorMode';
+import HomeworkJudge from './pages/homework/pages/adminMode/judge';
+import HomeworkNew from './pages/homework/pages/adminMode/new';
+import HomeworkEdit from './pages/homework/pages/adminMode/edit';
+import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 
-import HomeworkUserSubmitMobile from './pages/homework/pages/UserMode/MobileSubmit';
+import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 const Router = () => {
   return (
     <>

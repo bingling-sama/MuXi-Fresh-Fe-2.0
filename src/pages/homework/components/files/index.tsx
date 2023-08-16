@@ -1,5 +1,5 @@
 import React from 'react';
-import { TagList } from '../../pages/AdminMode/Judge/HomePreview';
+import { TagList } from '../../pages/adminMode/judge/homePreview';
 import { PaperClipOutlined } from '@ant-design/icons';
 import { List } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
@@ -24,6 +24,7 @@ export const FileLinkPure: React.FC<FileLinkProps> = (props) => {
                   <img
                     className="file-preview"
                     src="https://s2.loli.net/2023/08/10/Wbg5lrvECMwHPSt.png"
+                    alt=""
                   ></img>
                 ) : (
                   <PaperClipOutlined className="file-icon" />
