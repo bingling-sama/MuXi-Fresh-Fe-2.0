@@ -14,7 +14,7 @@ interface TopBarMobileProps {
 const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
   const [userInfo, setuserInfo] = useState<UserInfoType>();
   const { onChange } = props;
-  /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
     get('/users/').then((res) => {
       setuserInfo(res.data as UserInfoType);
