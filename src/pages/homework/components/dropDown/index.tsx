@@ -4,22 +4,24 @@ import './index.less';
 import { useNavigate } from 'react-router-dom';
 import { taskListType } from '../../types';
 import { get } from '../../../../services/fetch';
+import { DownOutlined } from '@ant-design/icons';
 
 interface DropDownProps {
   onChoose?: (e: taskListType) => void;
   data: taskListType[];
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   onSwitch?: (e: any, id: string) => void;
   type?: 'user' | 'admin';
+  pure?: boolean;
 }
-
-const DropDown: React.FC<DropDownProps> = (props) => {
-  const { onChoose, data, onSwitch, type } = props;
+export const DropDownPure: React.FC<DropDownProps> = (props) => {
+  const { onChoose, data, onSwitch, type, pure } = props;
   const [selected, setSelected] = useState<taskListType>(data[0]);
   const [open, setOpen] = useState<boolean>(false);
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     handleClick(data[0]);
-  }, []);
+  }, [data]);
   const navigate = useNavigate();
   const handleOpenChange = (newOpen: boolean) => {
     setOpen(newOpen);
@@ -29,6 +31,8 @@ const DropDown: React.FC<DropDownProps> = (props) => {
     setOpen(false);
     onChoose && onChoose(item);
     if (item.id)
+      /* eslint-disable @typescript-eslint/no-floating-promises */
+      /* eslint-disable @typescript-eslint/no-unsafe-member-access */
       get(`/task/assigned/${item.id}`).then((res) => {
         onSwitch && onSwitch(res.data, item.id);
       });
@@ -42,12 +46,22 @@ const DropDown: React.FC<DropDownProps> = (props) => {
     onChoose && onChoose({ id: selected.id, text: e.target.value });
   };
   const renderText = (str: string) => {
-    if (str?.length > 14) return (str = str.slice(0, 14) + '...');
+    if (str?.length > 14) return str.slice(0, 14) + '...';
     return str;
   };
   const hoverContent = (
     <>
-      <List id={type != 'user' ? 'drop-down-list' : 'drop-down-list-user'}>
+      <List
+        id={
+          type != 'user'
+            ? pure
+              ? 'drop-down-list-pure'
+              : 'drop-down-list'
+            : pure
+            ? 'drop-down-list-user-pure'
+            : 'drop-down-list-user'
+        }
+      >
         <div className={type != 'user' ? 'drop-list-wrap' : 'drop-list-wrap user'}>
           {data.map((item) => {
             return (
@@ -79,32 +93,43 @@ const DropDown: React.FC<DropDownProps> = (props) => {
         },
       }}
     >
-      <div className="popover-wrap">
-        <div className="input-label">标题</div>
-        <Popover
-          open={open}
-          content={hoverContent}
-          className="popover"
-          placement="bottom"
-          onOpenChange={handleOpenChange}
-        >
-          {type === 'user' ? (
-            <Button id="button" className="disabled">
-              {renderText(selected?.text as string)}
-            </Button>
-          ) : (
-            <Input
-              className="drop-input"
-              placeholder={renderText(selected?.text as string)}
-              onChange={handleChange}
-              value={selected.text as string}
-              allowClear
-            ></Input>
-          )}
-        </Popover>
-      </div>
+      <Popover
+        open={open}
+        content={hoverContent}
+        trigger={pure ? 'click' : 'hover'}
+        className="popover"
+        placement="bottom"
+        onOpenChange={handleOpenChange}
+      >
+        {type === 'user' ? (
+          <Button id={pure ? 'button-pure' : 'button'} className="disabled">
+            {renderText(selected?.text as string)}
+            <div className="arrow">
+              <DownOutlined />
+            </div>
+          </Button>
+        ) : (
+          <Input
+            className={pure ? 'drop-input-pure' : 'drop-input'}
+            placeholder={renderText(selected?.text as string)}
+            onChange={handleChange}
+            value={selected.text as string}
+            allowClear
+          ></Input>
+        )}
+      </Popover>
     </ConfigProvider>
   );
 };
 
+const DropDown: React.FC<DropDownProps> = (props) => {
+  return (
+    <>
+      <div className="popover-wrap">
+        <div className="input-label">标题</div>
+        <DropDownPure {...props}></DropDownPure>
+      </div>
+    </>
+  );
+};
 export default DropDown;

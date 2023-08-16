@@ -21,3 +21,5 @@ export const defData: dataType[] = [
     value: 'Android',
   },
 ];
+
+export const root = 'http://ossfresh-test.muxixyz.com/';

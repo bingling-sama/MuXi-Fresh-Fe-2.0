@@ -1,25 +1,39 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from 'react';
 import { Upload, message, UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import * as qiniu from 'qiniu-js';
 import { get } from '../../../../services/fetch';
+import { FileLinkPure } from '../files';
 import Submit from '../button';
 import './index.less';
+import { root } from '../../utils/deData';
+const { Dragger } = Upload;
 interface UploaderProps {
   className?: string;
   onChange: (files: UploadProps['fileList']) => void;
   defaultList?: string[];
   disabled?: boolean;
+  mobile?: boolean;
 }
 
 const Uploader: React.FC<UploaderProps> = (props) => {
   const [qntoken, setQntoken] = useState<string>('');
-  const { className, onChange, defaultList, disabled } = props;
-  const [fileList, setfileList] = useState<any[] | undefined>([]);
+  const { className, onChange, defaultList, disabled, mobile } = props;
+  const [fileList, setfileList] = useState<any[] | undefined>();
   useEffect(() => {
-    get('/auth/get-qntoken').then((res) => {
-      setQntoken(res.data.QiniuToken as string);
-    });
+    get('/auth/get-qntoken').then(
+      (res) => {
+        setQntoken(res.data.QiniuToken as string);
+      },
+      (e) => {
+        void message.error('xxx 失败，请稍后重试 ');
+        console.error(e);
+      },
+    );
   }, []);
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
@@ -39,8 +53,8 @@ const Uploader: React.FC<UploaderProps> = (props) => {
     }
   }, [defaultList]);
   const handleFileChange: UploadProps['onChange'] = (info) => {
-    setfileList(info.fileList);
     if (info.file.status === 'done') {
+      setfileList(info.fileList);
       onChange(info.fileList);
       message.success(`${info.file.name} 文件上传成功`);
     } else if (info.file.status === 'error') {
@@ -89,26 +103,78 @@ const Uploader: React.FC<UploaderProps> = (props) => {
     });
   };
   return (
-    <Upload
-      customRequest={customRequest}
-      onChange={handleFileChange}
-      onRemove={handleRemove}
-      showUploadList={true}
-      multiple={true}
-      className={`def-upload ${className as string}`}
-      fileList={fileList}
-      disabled={disabled ? disabled : false}
-    >
-      {
-        <Submit
-          className="def-button"
+    <>
+      {mobile ? (
+        <Dragger
+          customRequest={customRequest}
+          onChange={handleFileChange}
+          onRemove={handleRemove}
+          multiple={true}
+          className={`def-upload-mobile ${className as string}`}
+          fileList={fileList}
+          showUploadList={false}
           disabled={disabled ? disabled : false}
-          icon={<UploadOutlined />}
+          style={{
+            backgroundColor: '#fff',
+            border: '0',
+          }}
         >
-          上传
-        </Submit>
-      }
-    </Upload>
+          {fileList ? (
+            <FileLinkPure
+              preview
+              className="file-preview-mobile"
+              data={
+                fileList &&
+                fileList.map((item) => `${root}${item.response.key as string}`)
+              }
+            ></FileLinkPure>
+          ) : (
+            <img
+              src="https://s2.loli.net/2023/08/10/Wbg5lrvECMwHPSt.png"
+              className="ant-upload-drag-icon"
+            ></img>
+          )}
+          {!fileList && <div className="upload-mobile-mob">选择文件</div>}
+          <p className="ant-upload-hint">支持常见文件格式，可以批量上传</p>
+          {fileList && (
+            <div className="upload-havefile-mobile">
+              <div className="continue upload-mobile-mob">继续选择</div>
+              <div
+                className="clear upload-mobile-mob"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setfileList(undefined);
+                  message.success('文件清除成功');
+                }}
+              >
+                重新选择
+              </div>
+            </div>
+          )}
+        </Dragger>
+      ) : (
+        <Upload
+          customRequest={customRequest}
+          onChange={handleFileChange}
+          onRemove={handleRemove}
+          showUploadList={true}
+          multiple={true}
+          className={`def-upload ${className as string}`}
+          fileList={fileList}
+          disabled={disabled ? disabled : false}
+        >
+          {
+            <Submit
+              className="def-button"
+              disabled={disabled ? disabled : false}
+              icon={<UploadOutlined />}
+            >
+              上传
+            </Submit>
+          }
+        </Upload>
+      )}
+    </>
   );
 };
 

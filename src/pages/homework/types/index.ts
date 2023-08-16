@@ -44,3 +44,18 @@ export type TaskInfoType = {
   urls: string[];
   assignedTaskID?: string;
 };
+
+export type UserInfoType = {
+  avatar: string;
+  email: string;
+  group: string;
+  nickname: string;
+  student_id: string;
+};
+
+export interface SelectorProps {
+  title?: string;
+  data: dataType[];
+  className?: string;
+  onChange?: (item: dataType) => void;
+}

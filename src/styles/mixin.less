@@ -71,3 +71,44 @@
         transform: translateY(0);
     }
 }
+
+.drop-list-common(@width) {
+    .drop-list-wrap {
+        height: 26vh;
+        width: 100%;
+        overflow-y: auto;
+        .drop-item-wrap {
+            width: @width;
+        &:hover {
+            .colorChange(.4s);
+        }
+        .drop-down-list-item {
+            width: @width;
+            height: 3vh;
+            text-align: center;
+            align-items: center;
+            cursor: pointer;
+        }
+    }
+    }
+    
+    .new-task {
+        margin: auto;
+        width: 99%;
+        border: 1px solid @gray-200;
+        background-color: @orange;
+        color: @white;
+        margin-top: 3vh;
+        &:hover {
+            border: 1px solid @orange;
+            color: @orange;
+            animation: colorchange .3s ease-in-out forwards;
+            @keyframes colorchange {
+                100% {
+                    color: @orange;
+                    background-color: #fff;
+                }
+            }
+        }
+    }
+}

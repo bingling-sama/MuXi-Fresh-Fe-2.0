@@ -1,3 +1,8 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect } from 'react';
 import UploadSection from '../../../components/uploadWrap';
 import { get, post } from '../../../../../services/fetch';
@@ -6,7 +11,7 @@ import { message, UploadProps } from 'antd';
 import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
-import HomeComment from '../../adminMode/judge/comment';
+import HomeComment from '../../AdminMode/Judge/Comment';
 
 const HomeworkUserSubmit: React.FC = () => {
   const [taskList, setTaskList] = useState<taskListType[]>([{ id: '123', text: '123' }]);

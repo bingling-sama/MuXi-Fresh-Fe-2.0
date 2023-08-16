@@ -1,8 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect } from 'react';
-import HomePreview from './homePreview';
-import HomeComment from './comment';
+import HomePreview from './HomePreview';
+import HomeComment from './Comment';
 import './index.less';
-import WriteComment from './writeComment';
+import WriteComment from './WriteComment';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CommentType, TableType } from '../../../types';
 import { message } from 'antd';

@@ -15,18 +15,21 @@ export interface InputProps {
   className?: string;
   limit?: number;
   innerClassName?: string;
-  task_id?: string;
   disabled?: boolean;
   onChange: (form: string | string[] | UploadProps['fileList']) => void;
 }
+type valueType = {
+  value?: string;
+};
+
 type tmpProps = {
-  value: any;
+  value: valueType;
   list: string[];
 };
 const InputBox: React.FC<InputProps> = (props) => {
   const [flag, setFlag] = useState<number>(0);
   const [tmpdefault, settmpdefault] = useState<tmpProps>({ value: {}, list: [] });
-  const [def, setdef] = useState<any>(['']);
+  const [def, setdef] = useState<string[]>(['']);
   const {
     defaultValue,
     disabled,

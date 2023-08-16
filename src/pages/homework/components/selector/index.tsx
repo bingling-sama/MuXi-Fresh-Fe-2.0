@@ -1,13 +1,6 @@
 import React, { useState, HTMLAttributes, useEffect } from 'react';
 import './index.less';
-import { dataType } from '../../types';
-
-interface SelectorProps {
-  title: string;
-  data: dataType[];
-  className?: string;
-  onChange?: (item: dataType) => void;
-}
+import { dataType, SelectorProps } from '../../types';
 
 const Selector: React.FC<
   SelectorProps & Omit<HTMLAttributes<HTMLDivElement>, 'className'>

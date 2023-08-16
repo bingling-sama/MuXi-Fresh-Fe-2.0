@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-floating-promises */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, CSSProperties } from 'react';
 import { Card, UploadProps } from 'antd';
 import InputBox from '../input';
@@ -5,6 +9,7 @@ import './index.less';
 import Submit from '../button';
 import DropDown from '../dropDown';
 import Title from '../title';
+import { root } from '../../utils/deData';
 import { taskListType, choiceType, TaskInfoType } from '../../types';
 import FileLink from '../files';
 interface UploadSectionProps {
@@ -22,6 +27,10 @@ interface UploadSectionProps {
   onSwitch?: (item: any) => void;
   submitDisabled?: boolean;
 }
+type formTitleType = {
+  assignedTaskID?: string;
+  title_text: string;
+};
 
 const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const {
@@ -39,22 +48,24 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     taskList,
     submitDisabled,
   } = props;
-  const [formData, setformData] = useState<any>();
+  const [formData, setformData] = useState<string[]>();
   const [defaultValue, setDefaultValue] = useState<TaskInfoType>({
     title_text: '',
     content: '',
     urls: [''],
   });
-  const [formTitle, setFormTitle] = useState<any>();
+  const [formTitle, setFormTitle] = useState<formTitleType>({
+    title_text: '',
+    assignedTaskID: '',
+  });
   const [formContent, setFormContent] = useState<string>();
-  const root = 'http://ossfresh-test.muxixyz.com/';
   const statusList: string[] = ['未提交', '已提交', '已批阅'];
   const handleChangeTitle = (e: taskListType) => {
     if (choice.includes('edit')) {
-      setFormTitle({ title_text: e.text, assignedTaskID: e.id });
+      setFormTitle({ title_text: e.text as string, assignedTaskID: e.id });
       return;
     }
-    setFormTitle({ title_text: e.text });
+    setFormTitle({ title_text: e.text as string });
   };
   const handleSwitch = (e: TaskInfoType, id: string) => {
     if (e) {
@@ -75,8 +86,8 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const handleSubmit = () => {
     const query: TaskInfoType = {
       ...formTitle,
-      content: formContent,
-      urls: formData,
+      content: formContent as string,
+      urls: formData as string[],
     };
     onSubmit && onSubmit(query);
   };
@@ -125,7 +136,6 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             limit={500}
             defaultValue={[defaultValue.content]}
             onChange={(str) => handleChangeContent(str as string)}
-            task_id={formData?.assignedTaskID}
             disabled={choice.includes('user') ? true : false}
           ></InputBox>
           {!choice.includes('user') ? (
