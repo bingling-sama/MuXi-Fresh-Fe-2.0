@@ -1,0 +1,81 @@
+@import '../../../../styles/homework_index.less';
+.def-upload {
+    height: 15vh !important;
+    overflow-y: auto;
+}
+.def-upload-mobile {
+    margin-top: 2vh;
+    margin-bottom: 3vh;
+    background-color: @white !important;
+    display: flex;
+    flex-direction: column;
+    border-radius: 7px;
+    .upload-havefile-mobile {
+        margin: auto;
+        width: 80%;
+        display: flex;
+        justify-content: space-between;
+        .clear {
+            background-color: @light-blue;
+            color: @white;
+        }
+        
+    }
+    .upload-mobile-mob {
+        border: 1px solid @gray-400;
+        border-radius: 7px;
+        width: 26vw;
+        margin: 2% auto;
+        font-size: 2vh;
+        height: 4vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+}
+.file-preview-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    .file {
+        display: flex;
+        width: 90%;
+        height: 8vh;
+        background-color: @gray-200;
+        align-items: center;
+        border-radius: 7px;
+        margin-top: 2% ;
+        cursor: pointer;
+        .file-preview {
+            width: 4vh;
+            height: 4vh;
+            overflow: hidden;
+            margin-left: 20px;
+        }
+        .file-icon {
+            font-size: 3vh !important;
+            color: @gray-500;
+            margin: 2px;
+            margin-left: 4px;
+        }
+        a {
+            width: 90%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            font-size: 2vh !important;
+        }
+        .file-text {
+            margin: 20px;
+            margin-left: 20px;
+            overflow-x: auto;
+            font-size: .9vw;
+            color: @blue;
+        }
+        &:hover {
+            .colorChange(.3s);
+        }
+    }
+}

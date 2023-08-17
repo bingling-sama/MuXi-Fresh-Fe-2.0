@@ -1,0 +1,62 @@
+@import '../../../../../../styles/homework_index.less';
+
+.homePreview-wrap {
+    width: 39vw;
+    height: 80vh;
+    background: #FFFFFF;
+    box-shadow: @box-shadow;
+    border-radius: 7px 7px 7px 7px;
+    opacity: 1;
+    overflow: hidden;
+    .homePreview-card {
+        height: 59vh;
+        overflow-y: auto;
+        .uploader-card {
+            width: 18vw;
+            background-color: @gray-200;
+        }
+        .description-card {
+            width: 90%;
+            .tag-common;
+        }
+    }
+}
+.title-edit {
+    margin: 0;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 2000000000000000000;
+}
+.tag-common {
+    color:@black;
+    border-radius: 3px;
+    text-align: center;
+    overflow-wrap: break-word;
+    background-color: @gray-200;
+    border-radius: 7px;
+    padding: 5px;
+}
+.tag-wrap {
+    display: grid;
+    width: 98%;
+    grid-template-columns: 18% 1fr;
+    font-size: 1vw;
+    margin-bottom: 20px;
+    .tag-name {
+        color: @black;
+        margin: 10px;
+        .dashin(.2s,horizontal);
+    }
+    .tag-content {
+        margin-left: 10px;
+        position: relative;
+        .inp {
+            margin: 0;
+        }
+        //.file-text {
+        //    margin: 0;
+        //}
+        .dashin(.5s,horizontal);
+    }
+}

@@ -1,0 +1,26 @@
+@import '../../../../styles/homework_index.less';
+
+.submit {
+    background-color: @orange;
+    color: @white;
+    width: 6vw;
+    &:hover {
+        animation: button-color .3s ease-in-out forwards;
+    }
+    @keyframes button-color {
+        100% {
+            background: @white;
+            color: @orange;
+        }
+    }
+}
+.hover {
+    width: 6vw;
+    .pop(.3s);
+    position: sticky;
+    top:86%;
+    left: 86%;
+}
+.button-fix {
+    position: sticky;
+}

@@ -1,0 +1,40 @@
+@import '../../../../styles/homework_index.less';
+.input-wrap {
+    display: grid;
+    grid-template-columns: 8% 1fr;
+    align-items: baseline;
+    width: 100%;
+    margin-bottom: 10px;
+    .input-label {
+        height: 2vh;
+        color: @gray-600;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+    }
+    .input-element {
+        margin: 3%;
+        width: 60%;
+        background: @gray-200;
+        border: 1px dashed @gray-200;
+        input {
+            background-color: @gray-200;
+        }
+    }
+    .textarea-element {
+        margin: 3%;
+        width: 60%;
+        height: 30vh;
+        border: 1px dashed @gray-200;
+        textarea {
+            background-color: @gray-200;
+            resize: none;
+        }
+    }
+    .upload-element {
+        width: 60%;
+        height: 20px;
+        margin: 3%;
+    }
+}
