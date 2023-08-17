@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Upload, message, UploadProps } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import * as qiniu from 'qiniu-js';
-import { get } from '../../../../services/fetch';
+import { get } from '../../../../fetch.ts';
 import { FileLinkPure } from '../files';
 import Submit from '../button';
 import './index.less';
@@ -53,10 +53,13 @@ const Uploader: React.FC<UploaderProps> = (props) => {
     }
   }, [defaultList]);
   const handleFileChange: UploadProps['onChange'] = (info) => {
-    if (info.file.status === 'done') {
+    // eslint-disable-next-line no-constant-condition
+    if (info.file.status === 'done' || 'uploading') {
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} 文件上传成功`);
+      }
       setfileList(info.fileList);
       onChange(info.fileList);
-      message.success(`${info.file.name} 文件上传成功`);
     } else if (info.file.status === 'error') {
       message.error(`${info.file.name} 文件上传失败`);
     }
@@ -75,7 +78,6 @@ const Uploader: React.FC<UploaderProps> = (props) => {
       fname: `${Date.now()}--${options.file.name as string}`,
     };
     const config = {};
-
     const observable = qiniu.upload(
       options.file as File,
       `${Date.now()}--${options.file.name as string}`,
@@ -125,17 +127,28 @@ const Uploader: React.FC<UploaderProps> = (props) => {
               className="file-preview-mobile"
               data={
                 fileList &&
-                fileList.map((item) => `${root}${item.response.key as string}`)
+                fileList.map((item) => {
+                  const key: string | undefined = item.response?.key as
+                    | string
+                    | undefined;
+                  if (key) {
+                    return `${root}${key}`;
+                  }
+                  return item.url as string;
+                })
               }
             ></FileLinkPure>
           ) : (
             <img
               src="https://s2.loli.net/2023/08/10/Wbg5lrvECMwHPSt.png"
               className="ant-upload-drag-icon"
+              alt={''}
             ></img>
           )}
           {!fileList && <div className="upload-mobile-mob">选择文件</div>}
-          <p className="ant-upload-hint">支持常见文件格式，可以批量上传</p>
+          <p className="ant-upload-hint" style={{ marginTop: '20px' }}>
+            支持常见文件格式，可以批量上传
+          </p>
           {fileList && (
             <div className="upload-havefile-mobile">
               <div className="continue upload-mobile-mob">继续选择</div>

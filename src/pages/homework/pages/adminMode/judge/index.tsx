@@ -1,16 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect } from 'react';
 import HomePreview from './homePreview';
 import HomeComment from './comment';
 import './index.less';
 import WriteComment from './writeComment';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { CommentType, TableType } from '../../../types';
+import { backType, commentType, CommentType, TableType } from '../../../types';
 import { message } from 'antd';
-import { get, post } from '../../../../../services/fetch';
+import { get, post } from '../../../../../fetch.ts';
+import { nullFunc } from '../../../utils/deData.ts';
 
 const HomeworkJudge: React.FC = () => {
   const [Comment, setComment] = useState<CommentType[]>([]);
@@ -21,27 +18,26 @@ const HomeworkJudge: React.FC = () => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (SubmitID) handleCommentRequest();
-    console.log(infoItem);
     if (!infoItem) {
-      message.error('请先选择作业');
+      message.error('请先选择作业').then(nullFunc, nullFunc);
       setTimeout(() => {
         nav('/homework/admin/browse');
       }, 1000);
     }
   }, [SubmitID]);
   const handleCommentRequest = () => {
-    get(`/task/submitted/${SubmitID}/comment`).then((res) => {
+    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<commentType>) => {
       const comments = res.data?.comments;
       comments && setComment(comments as CommentType[]);
-    });
+    }, nullFunc);
   };
   const handleSubmit = (e: string) => {
     post(`/task/submitted/${SubmitID}/comment`, {
       content: e,
     }).then(() => {
-      message.success('评论已提交');
+      message.success('评论已提交').then(nullFunc, nullFunc);
       handleCommentRequest();
-    });
+    }, nullFunc);
   };
   const handleGetSubmittion = (str: string) => {
     setSubmitID(str);

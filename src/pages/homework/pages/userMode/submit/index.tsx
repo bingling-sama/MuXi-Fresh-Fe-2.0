@@ -1,14 +1,19 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect } from 'react';
 import UploadSection from '../../../components/uploadWrap';
-import { get, post } from '../../../../../services/fetch';
-import { CommentType, dataType, taskListType } from '../../../types';
+import { get, post } from '../../../../../fetch.ts';
+import {
+  backType,
+  commentType,
+  CommentType,
+  dataType,
+  statusType,
+  taskListType,
+  titleListType,
+  userInfoType,
+  userTaskType,
+} from '../../../types';
 import { message, UploadProps } from 'antd';
-import { defData } from '../../../utils/deData';
+import { defData, nullFunc } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
@@ -28,44 +33,47 @@ const HomeworkUserSubmit: React.FC = () => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     setLoading(true);
-    get('/users/').then((res) => {
+    get('/users/my-info').then((res: backType<userInfoType>) => {
       const groupRes = res.data.group;
       defData.forEach((item) => {
         if (item.key == groupRes) {
           setGroup(item);
         }
       });
-      get(`/task/assigned/list?group=${group.value}`).then((res) => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
-        if (res.data.titles) {
-          setTaskList(res.data.titles.reverse() as taskListType[]);
-        } else {
-          setTaskList([{ id: '', text: '暂时没有作业' }]);
-        }
-      });
-    });
+      get(`/task/assigned/list?group=${group.value}`).then(
+        (res: backType<titleListType>) => {
+          setTimeout(() => {
+            setLoading(false);
+          }, 200);
+          if (res.data.titles) {
+            setTaskList(res.data.titles.reverse());
+          } else {
+            setTaskList([{ id: '', text: '暂时没有作业' }]);
+          }
+        },
+        nullFunc,
+      );
+    }, nullFunc);
   }, []);
-  const handleSubmit = (query: any) => {
-    console.log(query);
+  const handleSubmit = () => {
     if (status != 2)
       post(`/task/submitted`, {
         urls: formData,
         assignedTaskID: selected,
       })
         .then(() => {
-          message.success('提交成功');
+          message.success('提交成功').then(nullFunc, nullFunc);
           handleSwitch(selected);
         })
         .catch(() => {
-          message.error(`提交失败`);
+          message.error(`提交失败`).then(nullFunc, nullFunc);
         });
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     if (e && e[0]) {
       const tmpList = e?.map((item) => {
-        if (item?.response) return ` ${root}${item.response.key as string}`;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        if (item?.response) return ` ${root}${item?.response?.key as string}`;
         else return `${item.url as string}`;
       });
       setformData(tmpList ? tmpList : ['']);
@@ -73,24 +81,24 @@ const HomeworkUserSubmit: React.FC = () => {
   };
   const handleSwitch = (id: string) => {
     setselected(id);
-    get(`/task/assigned/${id}/status`).then((res) => {
+    get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
       setdefList(['']);
-      if (res.data.task_status !== '未提交') {
-        get(`/task/submitted/myself/${id}`).then((res) => {
-          console.log('res', res.data);
-          getComment(res.data?.submission_id as string);
-          setdefList(res.data.urls as string[]);
-        });
-      }
+      get(`/task/submitted/myself/${id}`).then((resp: backType<userTaskType>) => {
+        if (res.data.task_status === '已审阅') {
+          getComment(resp.data?.submission_id as string);
+        }
+        setdefList(resp.data.urls);
+      }, nullFunc);
+
       const stat: string = res.data.task_status;
       setstatus(statusList.indexOf(stat));
-    });
+    }, nullFunc);
   };
   const getComment = (SubmitID: string) => {
-    get(`/task/submitted/${SubmitID}/comment`).then((res) => {
+    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<commentType>) => {
       const comments = res.data?.comments;
       comments && setComment(comments as CommentType[]);
-    });
+    }, nullFunc);
   };
   return (
     <>

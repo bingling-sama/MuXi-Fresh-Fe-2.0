@@ -1,31 +1,31 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-
 import React, { useState } from 'react';
 import './index.less';
 import Form from '../../../components/table';
 import Selector from '../../../components/selector';
-import { defData } from '../../../utils/deData';
-import { dataType, taskListType } from '../../../types';
-import { get } from '../../../../../services/fetch';
+import { defData, nullFunc } from '../../../utils/deData';
+import { backType, dataType, titleListType } from '../../../types';
+import { get } from '../../../../../fetch.ts';
 import { Collapse, CollapseProps } from 'antd';
 
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);
   const handleChange = (item: dataType): void => {
-    get(`/task/assigned/list?group=${item.value}`).then((res) => {
-      const Res = res.data.titles as taskListType[];
-      if (Res) {
-        const tasks: CollapseProps['items'] = Res.map((itm) => {
-          return {
-            key: itm.id,
-            label: itm.text,
-            children: <Form task_id={itm.id} group={item.value}></Form>,
-          };
-        });
-        setTaskList(tasks.reverse() as CollapseProps['items']);
-      }
-    });
+    get(`/task/assigned/list?group=${item.value}`).then(
+      (res: backType<titleListType>) => {
+        const Res = res.data.titles;
+        if (Res) {
+          const tasks: CollapseProps['items'] = Res.map((itm) => {
+            return {
+              key: itm.id,
+              label: itm.text,
+              children: <Form task_id={itm.id} group={item.value}></Form>,
+            };
+          });
+          setTaskList(tasks.reverse() as CollapseProps['items']);
+        }
+      },
+      nullFunc,
+    );
   };
   return (
     <div className="browse-wrap">

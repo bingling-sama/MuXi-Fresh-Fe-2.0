@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-floating-promises */
-
 import { Card, ConfigProvider, Input, message } from 'antd';
 import React, { ChangeEvent, HTMLAttributes, useState, useEffect } from 'react';
 import Submit from '../../../../components/button';
@@ -32,7 +30,14 @@ const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps>
     if (text) {
       onCommentSubmit && onCommentSubmit(text);
     } else {
-      message.error('评论内容为空');
+      message.error('评论内容为空').then(
+        () => {
+          return;
+        },
+        () => {
+          return;
+        },
+      );
     }
     settext('');
   };

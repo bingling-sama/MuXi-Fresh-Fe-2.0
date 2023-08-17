@@ -1,14 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-
 import React, { useState, useEffect } from 'react';
 import { Avatar, Card } from 'antd';
 import './index.less';
 import Title from '../../../../components/title';
 import FileLink from '../../../../components/files/index';
-import { defData } from '../../../../utils/deData';
-import { get } from '../../../../../../services/fetch';
-import { TableType, TaskInfoType } from '../../../../types';
+import { defData, nullFunc } from '../../../../utils/deData';
+import { get } from '../../../../../../fetch.ts';
+import { backType, TableType, TaskInfoType, userTaskType } from '../../../../types';
 const { Meta } = Card;
 interface TagListProps {
   tag_name: string;
@@ -37,13 +34,16 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
       }
     });
     info?.task_id &&
-      get(`/task/assigned/${info?.task_id}`).then((res) => {
-        setPreview(res.data as TaskInfoType);
-        get(`/task/submitted/${info?.user_id}/${info?.task_id}`).then((res) => {
-          seturls(res.data.urls as string[]);
-          getSubmittionID && getSubmittionID(res.data.submission_id as string);
-        });
-      });
+      get(`/task/assigned/${info?.task_id}`).then((res: backType<TaskInfoType>) => {
+        setPreview(res.data);
+        get(`/task/submitted/${info?.user_id}/${info?.task_id}`).then(
+          (res: backType<userTaskType>) => {
+            seturls(res.data.urls);
+            getSubmittionID && getSubmittionID(res.data.submission_id as string);
+          },
+          nullFunc,
+        );
+      }, nullFunc);
     setTimeout(() => {
       setLoading(!loading);
     }, 2000);

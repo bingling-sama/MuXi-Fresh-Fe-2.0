@@ -1,12 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useState, useEffect } from 'react';
-import { SelectorProps, UserInfoType, dataType } from '../../types';
+import {
+  SelectorProps,
+  UserInfoType,
+  dataType,
+  backType,
+  userInfoType,
+} from '../../types';
 import { Popover, List, Button, ConfigProvider, Avatar } from 'antd';
 import './index.less';
-import { defData } from '../../utils/deData';
+import { defData, nullFunc } from '../../utils/deData';
 import { UserOutlined } from '@ant-design/icons';
-import { get } from '../../../../services/fetch';
+import { get } from '../../../../fetch.ts';
 
 interface TopBarMobileProps {
   onChange?: (e: dataType) => void;
@@ -16,12 +20,12 @@ const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
   const { onChange } = props;
 
   useEffect(() => {
-    get('/users/').then((res) => {
+    get('/users/my-info').then((res: backType<userInfoType>) => {
       setuserInfo(res.data as UserInfoType);
-    });
+    }, nullFunc);
   }, []);
   const renderText = (str: string) => {
-    if (str?.length > 8) return (str = str.slice(0, 8) + '...');
+    if (str?.length > 8) return str.slice(0, 8) + '...';
     return str;
   };
   return (
@@ -89,6 +93,7 @@ const SelectorMobile: React.FC<SelectorProps> = (props) => {
               src={
                 'https://lanhu.oss-cn-beijing.aliyuncs.com/FigmaDDSSlicePNGd58be812f49ee63b0939d4f18beb0072.png'
               }
+              alt={''}
             />
           </Button>
         </Popover>

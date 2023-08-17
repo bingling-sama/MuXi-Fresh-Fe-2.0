@@ -13,6 +13,10 @@ interface FileLinkProps {
 }
 export const FileLinkPure: React.FC<FileLinkProps> = (props) => {
   const { data, className, preview } = props;
+  const renderText = (str: string) => {
+    if (str?.length > 8) return str.slice(0, 8) + '...';
+    return str;
+  };
   return (
     <>
       <div className={className}>
@@ -36,7 +40,10 @@ export const FileLinkPure: React.FC<FileLinkProps> = (props) => {
                   href={item}
                   download={true}
                 >
-                  {item.split('--')[1] ? item.split('--')[1] : `file-${index}`}
+                  {item &&
+                    renderText(
+                      item.split('--')[1] ? item.split('--')[1] : `file-${index}`,
+                    )}
                 </a>
               </List.Item>
             );

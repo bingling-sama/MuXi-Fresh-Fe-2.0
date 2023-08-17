@@ -1,10 +1,12 @@
-export type GroupType =
-  | 'Frontend'
-  | 'Product'
-  | 'Design'
-  | 'Frontend'
-  | 'Backend'
-  | 'Android';
+import React from 'react';
+
+export interface backType<T> {
+  code: number;
+  msg: string;
+  data: T;
+}
+
+export type GroupType = 'Product' | 'Design' | 'Frontend' | 'Backend' | 'Android';
 
 export type taskListType = {
   id: string;
@@ -59,3 +61,50 @@ export interface SelectorProps {
   className?: string;
   onChange?: (item: dataType) => void;
 }
+
+export type titleListType = {
+  titles: taskListType[];
+};
+
+export type userInfoType = {
+  avatar: string;
+  email: string;
+  group: string;
+  name: string;
+  nickname: string;
+  qq: string;
+  school: string;
+  student_id: string;
+};
+
+export type completionType = {
+  completions: completionInfoType[];
+};
+
+export type completionInfoType = {
+  avatar: string;
+  college: string;
+  email: string;
+  grade: string;
+  name: string;
+  status: string;
+  user_id: string;
+};
+export type userTaskType = {
+  urls: string[];
+  submission_id?: string;
+};
+export type commentType = {
+  comments: comment[];
+};
+
+export type comment = {
+  avatar: string;
+  content: string;
+  group: string;
+  nickname: string;
+};
+
+export type statusType = {
+  task_status: string;
+};

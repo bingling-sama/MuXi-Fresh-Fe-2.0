@@ -3,7 +3,7 @@ import { List, Popover, Button, ConfigProvider, Input } from 'antd';
 import './index.less';
 import { useNavigate } from 'react-router-dom';
 import { taskListType } from '../../types';
-import { get } from '../../../../services/fetch';
+import { get } from '../../../../fetch.ts';
 import { DownOutlined } from '@ant-design/icons';
 
 interface DropDownProps {

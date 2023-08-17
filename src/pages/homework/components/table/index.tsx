@@ -1,20 +1,20 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+// /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+// /* eslint-disable @typescript-eslint/no-floating-promises */
+// /* eslint-disable @typescript-eslint/no-unsafe-call */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState, useEffect, CSSProperties } from 'react';
 import { Card, Avatar, Tag } from 'antd';
 import { ConfigProvider } from 'antd';
 import './index.less';
-import { TableType } from '../../types';
-import { get } from '../../../../services/fetch';
+import { backType, completionType, TableType } from '../../types';
+import { get } from '../../../../fetch.ts';
 import Title from '../title';
 import { NavLink } from 'react-router-dom';
+import { nullFunc } from '../../utils/deData.ts';
 const { Meta } = Card;
 
 interface FormProps {
-  columnConfig?: any;
   classNames?: string;
   style?: CSSProperties;
   task_id?: string;
@@ -32,21 +32,23 @@ const Form: React.FC<FormProps> = (props) => {
     handleListRequest();
   }, []);
   const handleListRequest = () => {
-    get(`/task/assigned/${task_id as string}/completion?page=1`).then((res) => {
-      const { completions } = res.data;
-      if (completions) {
-        const com: TableType[] = completions.map((item: any) => {
-          /* eslint-disable @typescript-eslint/no-unsafe-return */
-          return {
-            ...item,
-            group: group,
-            key: item.user_id,
-            task_id: task_id,
-          };
-        });
-        setdataSet(com.reverse());
-      }
-    });
+    get(`/task/assigned/${task_id as string}/completion?page=1`).then(
+      (res: backType<completionType>) => {
+        const { completions } = res.data;
+        if (completions) {
+          const com: TableType[] = completions.map((item) => {
+            return {
+              ...item,
+              group: group as string,
+              key: item.user_id,
+              task_id: task_id as string,
+            };
+          });
+          setdataSet(com.reverse());
+        }
+      },
+      nullFunc,
+    );
   };
   return (
     <>
@@ -109,6 +111,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
           <img
             src="https://s2.loli.net/2023/08/06/haG14HpKk5gczIR.png"
             className="empty-image"
+            alt={''}
           ></img>
           <Title title="暂无数据" className="empty-text"></Title>
         </div>

@@ -1,13 +1,16 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-
 import React, { useState, useEffect, CSSProperties } from 'react';
 import './index.less';
 import Selector from '../selector';
 import UploadSection from '../uploadWrap';
-import { get, post } from '../../../../services/fetch';
-import { taskListType, dataType, choiceType, TaskInfoType } from '../../types';
+import { get, post } from '../../../../fetch.ts';
+import {
+  taskListType,
+  dataType,
+  choiceType,
+  TaskInfoType,
+  backType,
+  titleListType,
+} from '../../types';
 import { message } from 'antd';
 import { defData } from '../../utils/deData';
 interface HomeworkSubmitProps {
@@ -29,25 +32,44 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   const handleSubmit = (query: TaskInfoType) => {
     post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
       .then(() => {
-        message.success('提交成功');
+        message.success('提交成功').then(
+          () => {
+            return;
+          },
+          () => {
+            return;
+          },
+        );
       })
       .catch(() => {
-        message.error(`提交失败`);
+        message.error(`提交失败`).then(
+          () => {
+            return;
+          },
+          () => {
+            return;
+          },
+        );
       });
   };
   const handleChange = (item: dataType) => {
     setselected(item);
     setLoading(true);
-    get(`/task/assigned/list?group=${item.value}`).then((res) => {
-      setTimeout(() => {
-        setLoading(false);
-      }, 200);
-      if (res.data.titles) {
-        setTaskList(res.data.titles.reverse() as taskListType[]);
-      } else {
-        setTaskList([{ id: '', text: '暂时没有作业' }]);
-      }
-    });
+    get(`/task/assigned/list?group=${item.value}`).then(
+      (res: backType<titleListType>) => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 200);
+        if (res.data.titles) {
+          setTaskList(res.data.titles.reverse());
+        } else {
+          setTaskList([{ id: '', text: '暂时没有作业' }]);
+        }
+      },
+      (err) => {
+        console.log(err);
+      },
+    );
   };
   return (
     <div id="homework-edit-wrap" {...restProps}>
