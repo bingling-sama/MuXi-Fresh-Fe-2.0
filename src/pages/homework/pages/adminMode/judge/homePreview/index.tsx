@@ -3,7 +3,7 @@ import { Avatar, Card } from 'antd';
 import './index.less';
 import Title from '../../../../components/title';
 import FileLink from '../../../../components/files/index';
-import { defData, nullFunc } from '../../../../utils/deData';
+import { defData } from '../../../../utils/deData';
 import { get } from '../../../../../../fetch.ts';
 import { backType, TableType, TaskInfoType, userTaskType } from '../../../../types';
 const { Meta } = Card;
@@ -41,12 +41,10 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
             seturls(res.data.urls);
             getSubmittionID && getSubmittionID(res.data.submission_id as string);
           },
-          nullFunc,
+          null,
         );
-      }, nullFunc);
-    setTimeout(() => {
-      setLoading(!loading);
-    }, 2000);
+      }, null);
+    setLoading(!loading);
   }, []);
 
   return (
@@ -82,7 +80,7 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
               />
             </Card>
           </TagList>
-          <TagList tag_name="作业内容">
+          <TagList tag_name="作业概述">
             <div className="description-card" style={{ height: '30vh' }}>
               {Preview.content}
             </div>

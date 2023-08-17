@@ -23,7 +23,7 @@ const Selector: React.FC<
               className={
                 item.value === selected.value ? 'selector-item selected' : 'selector-item'
               }
-              key={`${item.value as string} ${index.toString(10)}`}
+              key={`${item.value as string} ${index.toString()}`}
               onClick={() => {
                 onChange && onChange(item);
                 setSelected(item);

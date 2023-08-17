@@ -7,7 +7,6 @@ import { get } from '../../../../../fetch.ts';
 import { ConfigProvider } from 'antd';
 import SubmitBeforeJudge from './submitBeforeJudge.tsx';
 import SubmitJudged from './submitJudged.tsx';
-import { nullFunc } from '../../../utils/deData.ts';
 
 const HomeworkUserSubmitMobile: React.FC = () => {
   const [selected, setSelected] = useState<dataType>();
@@ -24,7 +23,7 @@ const HomeworkUserSubmitMobile: React.FC = () => {
             setTaskList(res.data.titles.reverse());
           }
         },
-        nullFunc,
+        null,
       );
   }, [selected]);
 

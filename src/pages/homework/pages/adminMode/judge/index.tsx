@@ -4,10 +4,9 @@ import HomeComment from './comment';
 import './index.less';
 import WriteComment from './writeComment';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { backType, commentType, CommentType, TableType } from '../../../types';
+import { backType, cmtType, CommentType, TableType } from '../../../types';
 import { message } from 'antd';
 import { get, post } from '../../../../../fetch.ts';
-import { nullFunc } from '../../../utils/deData.ts';
 
 const HomeworkJudge: React.FC = () => {
   const [Comment, setComment] = useState<CommentType[]>([]);
@@ -19,25 +18,25 @@ const HomeworkJudge: React.FC = () => {
   useEffect(() => {
     if (SubmitID) handleCommentRequest();
     if (!infoItem) {
-      message.error('请先选择作业').then(nullFunc, nullFunc);
+      message.error('请先选择作业').then(null, null);
       setTimeout(() => {
         nav('/homework/admin/browse');
       }, 1000);
     }
   }, [SubmitID]);
   const handleCommentRequest = () => {
-    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<commentType>) => {
+    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {
       const comments = res.data?.comments;
-      comments && setComment(comments as CommentType[]);
-    }, nullFunc);
+      comments && setComment(comments);
+    }, null);
   };
   const handleSubmit = (e: string) => {
     post(`/task/submitted/${SubmitID}/comment`, {
       content: e,
     }).then(() => {
-      message.success('评论已提交').then(nullFunc, nullFunc);
+      message.success('评论已提交').then(null, null);
       handleCommentRequest();
-    }, nullFunc);
+    }, null);
   };
   const handleGetSubmittion = (str: string) => {
     setSubmitID(str);

@@ -31,10 +31,15 @@
     }
     .user-mobile-drop {
         display: block;
+        position: sticky;
+        top: 0 ;
         width: 90%;
+        z-index: 200;
+        background-color: @gray-300;
         font-size: 2.4vh;
         font-weight: bold;
         margin-top: 2vh;
+        border-bottom: 1px solid @gray-300;
         color: @gray-600;
         .popover {
             width: 100%;
