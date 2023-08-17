@@ -94,15 +94,8 @@ export type userTaskType = {
   urls: string[];
   submission_id?: string;
 };
-export type commentType = {
-  comments: comment[];
-};
-
-export type comment = {
-  avatar: string;
-  content: string;
-  group: string;
-  nickname: string;
+export type cmtType = {
+  comments: CommentType[];
 };
 
 export type statusType = {

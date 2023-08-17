@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../../../fetch.ts';
 import { CommentType } from '../../../types';
-import { nullFunc } from '../../../utils/deData.ts';
 
 interface SubmitJudgedProps {
   submissionID: string;
 }
+interface CommentMobileProps {
+  comments: CommentType[];
+}
+
 const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
   const { submissionID } = props;
   const [comments, setComments] = useState<CommentType[]>([]);
@@ -14,8 +17,19 @@ const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
     get(`/task/submitted/${submissionID}/comment`).then((res) => {
       console.log(res.data);
       setComments(res.data.comments as CommentType[]);
-    }, nullFunc);
+    }, null);
   }, [submissionID]);
+  return (
+    <>
+      <CommentMobile comments={comments}></CommentMobile>
+    </>
+  );
+};
+
+export default SubmitJudged;
+
+export const CommentMobile: React.FC<CommentMobileProps> = (props) => {
+  const { comments } = props;
   return (
     <>
       <div className={'comments-wrap-mobile'}>
@@ -33,5 +47,3 @@ const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
     </>
   );
 };
-
-export default SubmitJudged;

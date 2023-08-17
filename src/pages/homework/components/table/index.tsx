@@ -10,7 +10,6 @@ import { backType, completionType, TableType } from '../../types';
 import { get } from '../../../../fetch.ts';
 import Title from '../title';
 import { NavLink } from 'react-router-dom';
-import { nullFunc } from '../../utils/deData.ts';
 
 const { Meta } = Card;
 
@@ -47,7 +46,7 @@ const Form: React.FC<FormProps> = (props) => {
           setdataSet(com.reverse());
         }
       },
-      nullFunc,
+      null,
     );
   };
   return (
@@ -72,10 +71,8 @@ export default Form;
 export const DataTable: React.FC<DataTableProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 300);
-  }, []);
+    setLoading(false);
+  }, [props.dataSet]);
   const { className, dataSet } = props;
   return (
     <>

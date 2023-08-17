@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './index.less';
 import Form from '../../../components/table';
 import Selector from '../../../components/selector';
-import { defData, nullFunc } from '../../../utils/deData';
+import { defData } from '../../../utils/deData';
 import { backType, dataType, titleListType } from '../../../types';
 import { get } from '../../../../../fetch.ts';
 import { Collapse, CollapseProps } from 'antd';
@@ -24,18 +24,24 @@ const HomeworkBrowse: React.FC = () => {
           setTaskList(tasks.reverse() as CollapseProps['items']);
         }
       },
-      nullFunc,
+      null,
     );
   };
   return (
-    <div className="browse-wrap">
-      <Selector
-        title="选择组别"
-        data={defData}
-        onChange={(item) => handleChange(item as dataType)}
-        className="browse-selector"
-      ></Selector>
-      <Collapse bordered={false} items={taskList} className="browse-collapse"></Collapse>
+    <div className={'browse-wrapper'}>
+      <div className="browse-wrap">
+        <Selector
+          title="选择组别"
+          data={defData}
+          onChange={(item) => handleChange(item as dataType)}
+          className="browse-selector"
+        ></Selector>
+        <Collapse
+          bordered={false}
+          items={taskList}
+          className="browse-collapse"
+        ></Collapse>
+      </div>
     </div>
   );
 };

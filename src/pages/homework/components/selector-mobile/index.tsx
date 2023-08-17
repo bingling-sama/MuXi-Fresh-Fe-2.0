@@ -8,7 +8,7 @@ import {
 } from '../../types';
 import { Avatar, Button, ConfigProvider, List, Popover } from 'antd';
 import './index.less';
-import { defData, nullFunc } from '../../utils/deData';
+import { defData } from '../../utils/deData';
 import { UserOutlined } from '@ant-design/icons';
 import { get } from '../../../../fetch.ts';
 
@@ -22,7 +22,7 @@ const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
   useEffect(() => {
     get('/users/my-info').then((res: backType<userInfoType>) => {
       setuserInfo(res.data as UserInfoType);
-    }, nullFunc);
+    }, null);
   }, []);
   const renderText = (str: string) => {
     if (str?.length > 8) return str.slice(0, 8) + '...';

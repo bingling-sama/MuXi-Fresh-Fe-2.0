@@ -58,9 +58,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
     setLoading(true);
     get(`/task/assigned/list?group=${item.value}`).then(
       (res: backType<titleListType>) => {
-        setTimeout(() => {
-          setLoading(false);
-        }, 200);
+        setLoading(false);
         if (res.data.titles) {
           setTaskList(res.data.titles.reverse());
         } else {

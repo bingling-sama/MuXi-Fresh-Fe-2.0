@@ -1,8 +1,11 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-floating-promises */
-
 import React, { useState } from 'react';
-import { TaskInfoType, taskListType } from '../../../types';
+import {
+  backType,
+  statusType,
+  TaskInfoType,
+  taskListType,
+  userTaskType,
+} from '../../../types';
 import { get, post } from '../../../../../fetch.ts';
 import { message, UploadProps } from 'antd';
 import { root } from '../../../utils/deData.ts';
@@ -27,31 +30,34 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
       urls: formData,
     })
       .then(() => {
-        message.success('提交成功').then();
+        message.success('提交成功').then(null, null);
       })
       .catch(() => {
-        message.error(`提交失败`).then();
+        message.error(`提交失败`).then(null, null);
       });
   };
   const handleSwitch = (e: TaskInfoType, id: string) => {
-    get(`/task/assigned/${id}/status`).then((res) => {
-      if (res.data?.task_status) {
-        get(`/task/submitted/myself/${id}`).then((resp) => {
-          setUploadHistory(resp.data?.urls as string[]);
+    get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
+      if (res.data.task_status != '未提交') {
+        get(`/task/submitted/myself/${id}`).then((resp: backType<userTaskType>) => {
+          console.log(res.data);
+          setUploadHistory(resp.data.urls);
           onTaskChange &&
             onTaskChange(
               res.data?.task_status === '已审阅',
               resp.data?.submission_id as string,
             );
-        });
+        }, null);
+      } else {
+        setUploadHistory(undefined);
       }
-    });
-
+    }, null);
     setCurrentTaskID(id);
     setCurrentTaskInfo(e);
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     const tmpList = e?.map((item) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       if (item?.response) return `${root}${item.response.key as string}`;
       else return `${item.url as string}`;
     });

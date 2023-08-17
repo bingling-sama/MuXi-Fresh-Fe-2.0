@@ -3,7 +3,7 @@ import UploadSection from '../../../components/uploadWrap';
 import { get, post } from '../../../../../fetch.ts';
 import {
   backType,
-  commentType,
+  cmtType,
   CommentType,
   dataType,
   statusType,
@@ -13,7 +13,7 @@ import {
   userTaskType,
 } from '../../../types';
 import { message, UploadProps } from 'antd';
-import { defData, nullFunc } from '../../../utils/deData';
+import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
@@ -42,18 +42,16 @@ const HomeworkUserSubmit: React.FC = () => {
       });
       get(`/task/assigned/list?group=${group.value}`).then(
         (res: backType<titleListType>) => {
-          setTimeout(() => {
-            setLoading(false);
-          }, 200);
+          setLoading(false);
           if (res.data.titles) {
             setTaskList(res.data.titles.reverse());
           } else {
             setTaskList([{ id: '', text: '暂时没有作业' }]);
           }
         },
-        nullFunc,
+        null,
       );
-    }, nullFunc);
+    }, null);
   }, []);
   const handleSubmit = () => {
     if (status != 2)
@@ -62,11 +60,11 @@ const HomeworkUserSubmit: React.FC = () => {
         assignedTaskID: selected,
       })
         .then(() => {
-          message.success('提交成功').then(nullFunc, nullFunc);
+          message.success('提交成功').then(null, null);
           handleSwitch(selected);
         })
         .catch(() => {
-          message.error(`提交失败`).then(nullFunc, nullFunc);
+          message.error(`提交失败`).then(null, null);
         });
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
@@ -88,21 +86,21 @@ const HomeworkUserSubmit: React.FC = () => {
           getComment(resp.data?.submission_id as string);
         }
         setdefList(resp.data.urls);
-      }, nullFunc);
+      }, null);
 
       const stat: string = res.data.task_status;
       setstatus(statusList.indexOf(stat));
-    }, nullFunc);
+    }, null);
   };
   const getComment = (SubmitID: string) => {
-    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<commentType>) => {
+    get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {
       const comments = res.data?.comments;
-      comments && setComment(comments as CommentType[]);
-    }, nullFunc);
+      comments && setComment(comments);
+    }, null);
   };
   return (
     <>
-      <div style={{ display: 'flex' }}>
+      <div className={'user-submit'} style={{ display: 'flex' }}>
         <UploadSection
           onSwitch={handleSwitch}
           taskList={taskList}

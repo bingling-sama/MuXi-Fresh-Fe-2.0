@@ -1,5 +1,5 @@
 import { Card, ConfigProvider, Input, message } from 'antd';
-import React, { ChangeEvent, HTMLAttributes, useEffect, useState } from 'react';
+import React, { ChangeEvent, HTMLAttributes, useState } from 'react';
 import Submit from '../../../../components/button';
 import Title from '../../../../components/title';
 import './index.less';
@@ -13,15 +13,8 @@ interface WriteCommentProps {
 const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps> = (
   props,
 ) => {
-  const [loading, setLoading] = useState<boolean>(true);
   const [text, settext] = useState<string>('');
   const { onCommentSubmit, onValueChange, ...restProps } = props;
-  /* eslint-disable react-hooks/exhaustive-deps */
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(!loading);
-    }, 1000);
-  }, []);
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     settext(value);
@@ -54,7 +47,6 @@ const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps>
         <Card
           title={<Title title="评语" style={{ marginLeft: 0 }}></Title>}
           className="write-comment-wrap"
-          loading={loading}
         >
           <TextArea
             placeholder={'快来发表评论吧'}
