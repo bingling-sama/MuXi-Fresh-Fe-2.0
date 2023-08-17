@@ -21,6 +21,10 @@ export async function post(url = '', data = {}, isToken = true) {
     body: JSON.stringify(data),
   });
 
+  if (!response.ok) {
+    throw new Error(`${response.status}`);
+  }
+
   return response.json();
 }
 
@@ -43,6 +47,10 @@ export async function get(url = '', isToken = true) {
     redirect: 'follow',
   });
 
+  if (!response.ok) {
+    throw new Error(`${response.status}`);
+  }
+
   return response.json();
 }
 
@@ -64,6 +72,10 @@ export async function put(url = '', data = {}, isToken = true) {
     headers,
     body: JSON.stringify(data),
   });
+
+  if (!response.ok) {
+    throw new Error(`${response.status}`);
+  }
 
   return response.json();
 }
