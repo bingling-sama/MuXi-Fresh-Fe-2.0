@@ -81,7 +81,7 @@ const Layout: React.FC = () => {
               <Menu.Item key="/1" className={'layoutLink'}>
                 报名表
               </Menu.Item>
-              <Menu.Item key="/2" className={'layoutLink'}>
+              <Menu.Item key="/progress" className={'layoutLink'}>
                 进度查询
               </Menu.Item>
               <Menu.SubMenu key="/3" className={'layoutLinkTestTitle'} title={'作业'}>

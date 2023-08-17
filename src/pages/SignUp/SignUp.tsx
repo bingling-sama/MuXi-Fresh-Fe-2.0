@@ -93,6 +93,7 @@ const SignUp: React.FC = () => {
         if (code === 0) {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
+          void post('/schedule/create', true);
         } else if (code === -1) {
           void message.error('出错了');
         }

@@ -39,50 +39,56 @@
             display: flex;
             flex-direction: column;
 
-            .avatar {
-                display: flex;
-                position: relative;
-                height: 180px;
-                width: 180px;
-
-                img {
-                    position: absolute;
-                    z-index: 0;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    border-radius: 50%;
-                }
-
-                .avatar-label {
-                    position: absolute;
-                    background-color: transparent;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    z-index: 1;
-                }
-            }
-
-            .change-avatar-box {
-                margin-top: 3vh;
+            .ant-upload-wrapper {
                 display: flex;
                 justify-content: center;
 
-                .change-avatar-btn {
-                    background-color: #FFAF25;
-                    color: #fff;
-                    font-size: 20px;
-                    padding: 6px 16px;
-                    border-radius: 5px;
-                    cursor: pointer;
+                .avatar {
+                    display: flex;
+                    position: relative;
+                    height: 180px;
+                    width: 180px;
+
+                    img {
+                        position: absolute;
+                        z-index: 0;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        border-radius: 50%;
+                    }
+
+                    .avatar-label {
+                        position: absolute;
+                        background-color: transparent;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        z-index: 1;
+                    }
                 }
 
-                #upload-btn {
-                    display: none;
+                .change-avatar-box {
+                    margin-top: 3vh;
+                    display: flex;
+                    justify-content: center;
+
+                    .change-avatar-btn {
+                        background-color: #FFAF25;
+                        color: #fff;
+                        font-size: 20px;
+                        padding: 6px 16px;
+                        border-radius: 5px;
+                        cursor: pointer;
+                    }
+
+                    #upload-btn {
+                        display: none;
+                    }
                 }
             }
+
         }
 
         .detail-info-box {
@@ -279,4 +285,34 @@
             border-radius: 8px;
         }
     }
+}
+
+.studentId-modal {
+    display: flex;
+    flex-direction: column;
+
+    .studentId-box,
+    .password-box {
+        margin-top: 32px;
+        display: flex;
+        align-items: center;
+
+        .box-label {
+            width: 96px;
+            font-size: 20px;
+            color: #505050;
+        }
+
+        .input-field {
+            font-size: 20px;
+            width: 350px;
+            margin-right: 16px;
+        }
+    }
+
+    .password-box {
+        margin: 24px 0;
+        ;
+    }
+
 }
