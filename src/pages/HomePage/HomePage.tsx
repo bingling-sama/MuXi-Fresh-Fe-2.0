@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Input, message, Modal, Select } from 'antd';
+import { Input, message, Modal, Select, Spin, Upload } from 'antd';
+import ImgCrop from 'antd-img-crop';
+import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import './Homepage.less';
 import {
   ChangeEmailResult,
+  ChangeUserInfoResult,
   GetQiniuTokenResult,
   GetUserInfoResult,
   UserInfo,
@@ -10,7 +13,6 @@ import {
 import { get, post } from '../../fetch';
 import schoolData from './SchoolData';
 import * as qiniu from 'qiniu-js';
-import { nanoid } from 'nanoid';
 import { SendEmailResult } from '../SignUp/SignUp';
 
 const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
@@ -25,20 +27,25 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     qq: '',
   });
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [newEmail, setNewEmail] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
-
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  // const [isIdModalOpen, setIsIdModalOpen] = useState(true);
+
+  const [studentId, setStudentId] = useState('');
+  const [password, setPassword] = useState('');
+  const [isIdModalOpen, setIsIdModalOpen] = useState(false);
 
   useEffect(() => {
     void get('/users/my-info', true).then(
       (r: GetUserInfoResult) => {
         const { data } = r;
         setUserInfo(data);
+        setIsLoading(false);
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取个人信息失败，请重试');
       },
     );
@@ -68,7 +75,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('邮箱绑定失败，请重试！');
         setNewEmail('');
         setVerifyCode('');
@@ -98,10 +105,49 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取验证码失败，请重试');
       },
     );
+  };
+
+  const showStudentIdModal = () => {
+    setIsIdModalOpen(true);
+  };
+
+  const changeStudentId = () => {
+    const req = {
+      student_id: studentId,
+      password: password,
+    };
+    void post('/auth/set-student-id', req, true).then(
+      (r: ChangeUserInfoResult) => {
+        if (r.code === 0) {
+          const student_id = studentId;
+          setUserInfo({ ...userInfo, student_id });
+          void (r.data.flag && message.success('学号绑定成功！'));
+          setStudentId('');
+          setPassword('');
+        } else {
+          void message.error('学号绑定失败，请重试！');
+          setStudentId('');
+          setPassword('');
+        }
+      },
+      (e) => {
+        console.error(e);
+        void message.error('学号绑定失败，请重试！');
+        setStudentId('');
+        setPassword('');
+      },
+    );
+    setIsIdModalOpen(false);
+  };
+
+  const cancelStudentIdModal = () => {
+    setIsIdModalOpen(false);
+    setStudentId('');
+    setPassword('');
   };
 
   return (
@@ -109,31 +155,53 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
       <div className="detail-info-box">
         <div className="name-box">
           <div className="box-title">姓名:</div>
-          <div className="box-content">{userInfo.name || '待补充'}</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.name || '待补充'}</div>
+          )}
         </div>
         <div className="nickName-box">
           <div className="box-title">昵称:</div>
-          <div className="box-content">{userInfo.nickname || '待补充'}</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.nickname || '待补充'}</div>
+          )}
         </div>
         <div className="college-box">
           <div className="box-title">学院:</div>
-          <div className="box-content">{userInfo.school || '待补充'}</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.school || '待补充'}</div>
+          )}
         </div>
         <div className="account-box">
           <div className="box-title">学号:</div>
-          <div className="box-content">{userInfo.student_id || '未绑定'}</div>
-          <div className="change-btn">修改</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.student_id || '未绑定'}</div>
+          )}
+          <div className="change-btn" onClick={showStudentIdModal}>
+            修改
+          </div>
         </div>
         <div className="email-box">
           <div className="box-title">邮箱:</div>
-          <div className="box-content">{userInfo.email}</div>
+          {isLoading ? <Spin /> : <div className="box-content">{userInfo.email}</div>}
           <div className="change-btn" onClick={showEmailModal}>
             修改
           </div>
         </div>
         <div className="qq-box">
           <div className="box-title">QQ:</div>
-          <div className="box-content">{userInfo.qq || '待补充'}</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.qq || '待补充'}</div>
+          )}
         </div>
         <div className="change-info-btn" onClick={changeEditState}>
           修改信息
@@ -169,6 +237,32 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           </div>
         </div>
       </Modal>
+      <Modal
+        className="studentId-modal"
+        open={isIdModalOpen}
+        onOk={changeStudentId}
+        onCancel={cancelStudentIdModal}
+        okText="确认"
+        cancelText="取消"
+      >
+        <div className="studentId-box">
+          <div className="box-label">学号:</div>
+          <Input
+            className="input-field"
+            onChange={(e) => setStudentId(e.target.value)}
+            value={studentId}
+            placeholder="请输入学号"
+          />
+        </div>
+        <div className="password-box">
+          <div className="box-label">密码:</div>
+          <Input.Password
+            className="input-field"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
@@ -187,9 +281,11 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
 
   const [newEmail, setNewEmail] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
-
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-  // const [isIdModalOpen, setIsIdModalOpen] = useState(true);
+
+  const [studentId, setStudentId] = useState('');
+  const [password, setPassword] = useState('');
+  const [isIdModalOpen, setIsIdModalOpen] = useState(false);
 
   useEffect(() => {
     void get('/users/my-info', true).then(
@@ -285,6 +381,45 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     );
   };
 
+  const showStudentIdModal = () => {
+    setIsIdModalOpen(true);
+  };
+
+  const changeStudentId = () => {
+    const req = {
+      student_id: studentId,
+      password: password,
+    };
+    void post('/auth/set-student-id', req, true).then(
+      (r: ChangeUserInfoResult) => {
+        if (r.code === 0) {
+          const student_id = studentId;
+          setUserInfo({ ...userInfo, student_id });
+          void (r.data.flag && message.success('学号绑定成功！'));
+          setStudentId('');
+          setPassword('');
+        } else {
+          void message.error('学号绑定失败，请重试！');
+          setStudentId('');
+          setPassword('');
+        }
+      },
+      (e) => {
+        console.error(e);
+        void message.error('学号绑定失败，请重试！');
+        setStudentId('');
+        setPassword('');
+      },
+    );
+    setIsIdModalOpen(false);
+  };
+
+  const cancelStudentIdModal = () => {
+    setIsIdModalOpen(false);
+    setStudentId('');
+    setPassword('');
+  };
+
   const submit = () => {
     const req = {
       avatar: userInfo.avatar,
@@ -334,7 +469,9 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         <div className="account-box">
           <div className="box-title">学号:</div>
           <div className="box-content">{userInfo.student_id || '未绑定'}</div>
-          <div className="change-btn">修改</div>
+          <div className="change-btn" onClick={showStudentIdModal}>
+            修改
+          </div>
         </div>
         <div className="email-box">
           <div className="box-title">邮箱:</div>
@@ -386,6 +523,32 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           </div>
         </div>
       </Modal>
+      <Modal
+        className="studentId-modal"
+        open={isIdModalOpen}
+        onOk={changeStudentId}
+        onCancel={cancelStudentIdModal}
+        okText="确认"
+        cancelText="取消"
+      >
+        <div className="studentId-box">
+          <div className="box-label">学号:</div>
+          <Input
+            className="input-field"
+            onChange={(e) => setStudentId(e.target.value)}
+            value={studentId}
+            placeholder="请输入学号"
+          />
+        </div>
+        <div className="password-box">
+          <div className="box-label">密码:</div>
+          <Input.Password
+            className="input-field"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+      </Modal>
     </>
   );
 };
@@ -393,6 +556,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
 const HomePage: React.FC = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [qiniuToken, setQiniuToken] = useState('');
+  const [uploadUrl, setUploadUrl] = useState('');
 
   const [userInfo, setUserInfo] = useState<UserInfo>({
     avatar: '',
@@ -420,54 +584,53 @@ const HomePage: React.FC = () => {
     void get('/auth/get-qntoken', true).then((r: GetQiniuTokenResult) => {
       const { QiniuToken } = r.data;
       setQiniuToken(QiniuToken);
+      const config = {
+        useCdnDomain: true,
+        region: qiniu.region.z2,
+      };
+      void qiniu.getUploadUrl(config, QiniuToken).then((r) => {
+        setUploadUrl(r);
+        console.log(r);
+      });
     });
   }, []);
 
-  const changeAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) {
-      return;
+  interface ResponseType {
+    key: string;
+    hash: string;
+  }
+
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+    const response = newFileList[0].response;
+    console.log(response);
+    if (response) {
+      const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
+      console.log(avatar);
+      const req = {
+        avatar: avatar,
+        name: userInfo.name,
+        nickname: userInfo.nickname,
+        school: userInfo.school,
+        qq: userInfo.qq,
+      };
+      setUserInfo({ ...userInfo, avatar });
+      void post('/users/', req, true).then(
+        (r: ChangeUserInfoResult) => {
+          if (r.code === 0) {
+            void message.success('更改成功！');
+          } else {
+            void message.error('更换头像失败，请重试！');
+          }
+        },
+        (e) => {
+          console.error(e);
+          void message.error('更换头像失败，请重试！');
+        },
+      );
     }
-    const file = files[0];
-    const key = file.name + nanoid(10);
-    let avatar = URL.createObjectURL(file);
-    setUserInfo({ ...userInfo, avatar });
-    const putExtra = {};
-    const config = {
-      useCdnDomain: true,
-      region: qiniu.region.z2,
-    };
-    const observable = qiniu.upload(files[0], key, qiniuToken, putExtra, config);
-
-    const observer = {
-      error(err: unknown) {
-        // ...
-        console.log(err);
-        void message.error('更改头像失败，请重试');
-      },
-      complete(res: { hash: string; key: string }) {
-        console.log(res);
-        avatar = 'http://ossfresh-test.muxixyz.com/' + res.key;
-        setUserInfo({ ...userInfo, avatar });
-        const req = {
-          avatar: avatar,
-          name: userInfo.name,
-          nickname: userInfo.nickname,
-          school: userInfo.school,
-          qq: userInfo.qq,
-        };
-        void post('/users/', req, true).then((r) => {
-          console.log(r);
-          void message.success('更改成功！');
-        });
-        /*  const avatar_url = "http://ossfresh-test.muxixyz.com/" + res.key
-         */
-        /*  setmsg({...msg,avatar}) */
-        /*  console.log(res) */
-      },
-    };
-
-    observable.subscribe(observer);
   };
 
   const changeEditState = () => {
@@ -479,16 +642,34 @@ const HomePage: React.FC = () => {
       <div className="homePage-header">个人主页</div>
       <div className="person-info-box">
         <div className="avatar-box">
-          <div className="avatar">
-            <img src={userInfo.avatar} alt="" />
-            <label htmlFor="upload-btn" className="avatar-label"></label>
-          </div>
-          <div className="change-avatar-box">
-            <label htmlFor="upload-btn" className="change-avatar-btn">
-              更换头像
-            </label>
-            <input onChange={changeAvatar} type="file" id="upload-btn" accept="image/*" />
-          </div>
+          <ImgCrop>
+            <Upload<ResponseType>
+              action={uploadUrl}
+              data={{ token: qiniuToken }}
+              fileList={fileList}
+              onChange={onChange}
+              showUploadList={false}
+              maxCount={1}
+            >
+              <div className="avatar">
+                <img src={userInfo.avatar} alt="" />
+              </div>
+            </Upload>
+          </ImgCrop>
+          <ImgCrop>
+            <Upload<ResponseType>
+              action={uploadUrl}
+              data={{ token: qiniuToken }}
+              fileList={fileList}
+              onChange={onChange}
+              showUploadList={false}
+              maxCount={1}
+            >
+              <div className="change-avatar-box">
+                <div className="change-avatar-btn">更换头像</div>
+              </div>
+            </Upload>
+          </ImgCrop>
         </div>
         {isEdit ? (
           <EditInfo changeEditState={changeEditState} />

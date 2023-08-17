@@ -30,3 +30,11 @@ export interface ChangeEmailResult {
     flag: boolean;
   };
 }
+
+export interface ChangeUserInfoResult {
+  code: 0;
+  msg: 'OK';
+  data: {
+    flag: boolean;
+  };
+}

@@ -5,6 +5,7 @@ import Review from './pages/Review/Review.tsx';
 import SignIn from './pages/SignIn/SignIn.tsx';
 import SignUp from './pages/SignUp/SignUp.tsx';
 import HomePage from './pages/HomePage/HomePage.tsx';
+import Progress from './pages/Progress/Progress.tsx';
 import Verify from './components/Verify/Verify.tsx';
 
 const router = createBrowserRouter([
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     element: <Verify element={<Layout />} />,
     children: [
       { path: '/home', element: <HomePage /> },
+      { path: '/progress', element: <Progress /> },
       { path: '/review', element: <Review /> },
       {
         path: '/authority-manage',

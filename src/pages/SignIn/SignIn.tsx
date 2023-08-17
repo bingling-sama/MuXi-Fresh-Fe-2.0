@@ -58,7 +58,7 @@ const SignIn: React.FC = () => {
               navigate('/');
             },
             (e) => {
-              console.log(e);
+              console.error(e);
             },
           );
         } else {
@@ -69,7 +69,7 @@ const SignIn: React.FC = () => {
       (e) => {
         void message.error('验证码错误，请重试');
         getCodeImg();
-        console.log(e);
+        console.error(e);
       },
     );
   };
