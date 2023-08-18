@@ -20,6 +20,7 @@ const HomeworkUserSubmitMobile: React.FC = () => {
       get(`/task/assigned/list?group=${selected.value}`).then(
         (res: backType<titleListType>) => {
           if (res.data.titles) {
+            setJudged(false);
             setTaskList(res.data.titles.reverse());
           }
         },

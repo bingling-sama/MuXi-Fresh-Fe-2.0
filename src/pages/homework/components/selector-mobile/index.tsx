@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, CSSProperties } from 'react';
 import {
   SelectorProps,
   UserInfoType,
@@ -15,10 +15,23 @@ import { get } from '../../../../fetch.ts';
 interface TopBarMobileProps {
   onChange?: (e: dataType) => void;
 }
+interface AvatarWrapProps {
+  className?: string;
+  style?: CSSProperties;
+}
 const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
-  const [userInfo, setuserInfo] = useState<UserInfoType>();
   const { onChange } = props;
 
+  return (
+    <div className="top-bar-mobile">
+      <AvatarWrap></AvatarWrap>
+      <SelectorMobile data={defData} onChange={onChange}></SelectorMobile>
+    </div>
+  );
+};
+export default TopBarMobile;
+export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
+  const [userInfo, setuserInfo] = useState<UserInfoType>();
   useEffect(() => {
     get('/users/my-info').then((res: backType<userInfoType>) => {
       setuserInfo(res.data as UserInfoType);
@@ -29,8 +42,8 @@ const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
     return str;
   };
   return (
-    <div className="top-bar-mobile">
-      <div className="avatar-wrap">
+    <>
+      <div className={`avatar-wrap ${props.className as string}`} style={props.style}>
         <Avatar
           className="top-bar-avatar"
           src={userInfo?.avatar}
@@ -38,12 +51,9 @@ const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
         ></Avatar>
         {renderText(userInfo?.nickname as string)}
       </div>
-      <SelectorMobile data={defData} onChange={onChange}></SelectorMobile>
-    </div>
+    </>
   );
 };
-export default TopBarMobile;
-
 const SelectorMobile: React.FC<SelectorProps> = (props) => {
   const { data, className, onChange } = props;
   const [open, setopen] = useState<boolean>(false);

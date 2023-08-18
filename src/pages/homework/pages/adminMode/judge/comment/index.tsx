@@ -9,6 +9,7 @@ interface CommentProps {
 }
 interface TitleTagProps {
   item: CommentType;
+  className?: string;
 }
 const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (props) => {
   const { CommentData, ...restProps } = props;
@@ -59,14 +60,14 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
 
 export default HomeComment;
 export const TitleTag: React.FC<TitleTagProps> = (props) => {
-  const { item } = props;
+  const { item, className } = props;
   const renderName = (name: string) => {
-    if (!name) return 'admin';
-    if (name.length > 10) return `${name.slice(0, 1)}...`;
+    if (!name) return '管理员管理';
+    if (name.length > 8) return `${name.slice(0, 8)}...`;
     return name;
   };
   return (
-    <div>
+    <div className={className}>
       {renderName(item.nickname)}
       <Tag color="orange" className="comment-tag">
         {item.group.length > 8 ? item.group.slice(-8) : item.group}
