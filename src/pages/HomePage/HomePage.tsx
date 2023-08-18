@@ -3,6 +3,8 @@ import { Input, message, Modal, Select, Spin, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import './Homepage.less';
+import bigLogo from '../../assets/muxilogo2.png';
+import smallLogo from '../../assets/muxilogo.png';
 import {
   ChangeEmailResult,
   ChangeUserInfoResult,
@@ -260,6 +262,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
             className="input-field"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="请输入一站式密码"
           />
         </div>
       </Modal>
@@ -546,6 +549,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
             className="input-field"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            placeholder="请输入一站式密码"
           />
         </div>
       </Modal>
@@ -676,6 +680,17 @@ const HomePage: React.FC = () => {
         ) : (
           <ShowInfo changeEditState={changeEditState} />
         )}
+      </div>
+      <div className="flower-box">
+        <div className="flower1">
+          <img src={smallLogo} alt="" />
+        </div>
+        <div className="flower2">
+          <img src={bigLogo} alt="" />
+        </div>
+        <div className="flower3">
+          <img src={smallLogo} alt="" />
+        </div>
       </div>
     </div>
   );
