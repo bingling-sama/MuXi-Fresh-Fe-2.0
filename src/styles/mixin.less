@@ -13,6 +13,9 @@
     & when (@direction = vertical) {
         animation: slideY @duration ease-in-out forwards;
     }
+    & when (@direction = verticalReverse) {
+        animation: slideYReverse @duration ease-in-out forwards;
+    }
 }
 .pop(@duration) {
     animation: pop @duration ease-in-out forwards;
@@ -61,6 +64,16 @@
     0% {
         opacity: 0;
         transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideYReverse {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
     }
     100% {
         opacity: 1;

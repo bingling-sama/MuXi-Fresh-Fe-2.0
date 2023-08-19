@@ -39,7 +39,6 @@ const Uploader: React.FC<UploaderProps> = (props) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     if (defaultList) {
-      console.log('def', defaultList);
       const tmp = defaultList
         .filter((item) => item)
         ?.map((item, index) => {

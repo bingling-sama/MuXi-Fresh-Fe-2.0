@@ -1,16 +1,49 @@
 @import '../../../../styles/homework_index.less';
-
+.file-pre {
+    .file-f-common;
+    width: 80%;
+    height: 8vh;
+    border-radius: 10px;
+    background-color: @gray-200;
+    margin: 1vh auto;
+    padding: 1vh;
+    box-shadow: @box-shadow;
+    .file-text {
+        margin: 2px 2px 2px 2vh;
+        font-size: 2vh;
+        align-items: center;
+        display: flex;
+        color: @blue;
+    }
+}
+.file-success {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    color: #1afa29;
+    img {
+        width: 20px;
+        height: 20px;
+    }
+}
 .file {
+    .file-icon {
+        color: @gray-500;
+        margin: 2px 2px 2px 4px;
+    }
+    .file-f-common;
+}
+.file-f-common {
+    position: relative;
     display: flex;
     width: 92%;
     align-items: center;
     border-radius: 3px;
     margin-top: 2% ;
     cursor: pointer;
-    .file-icon {
-        color: @gray-500;
-        margin: 2px 2px 2px 4px;
-    }
     a {
         width: 90%;
         height: 100%;
@@ -18,7 +51,9 @@
     .file-text {
         margin: 2px 2px 2px 4px;
         overflow-x: auto;
-        font-size: .9vw;
+        font-size: .9vh;
+        align-items: center;
+        display: flex;
         color: @blue;
     }
     &:hover {
@@ -26,7 +61,7 @@
     }
 }
 .empty-files {
-    width: 80vw;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;

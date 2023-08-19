@@ -8,27 +8,37 @@ interface FileLinkProps {
   data: string[] | undefined;
   title?: string;
   className?: string;
+  innerClass?: string;
   preview?: boolean;
 }
 export const FileLinkPure: React.FC<FileLinkProps> = (props) => {
-  const { data, className, preview } = props;
+  const { data, innerClass, preview } = props;
   const renderText = (str: string) => {
     if (str?.length > 8) return str.slice(0, 8) + '...';
     return str;
   };
   return (
     <>
-      <div className={className}>
+      <div className={innerClass}>
         {data &&
           data.map((item, index) => {
             return (
-              <List.Item className="file" key={item}>
+              <List.Item className={preview ? 'file-pre' : 'file'} key={item}>
                 {preview ? (
-                  <img
-                    className="file-preview"
-                    src="https://s2.loli.net/2023/08/10/Wbg5lrvECMwHPSt.png"
-                    alt=""
-                  ></img>
+                  <>
+                    <img
+                      className="file-preview"
+                      src="https://s2.loli.net/2023/08/10/Wbg5lrvECMwHPSt.png"
+                      alt=""
+                    ></img>
+                    <span className={'file-success'}>
+                      <img
+                        alt={''}
+                        src={'https://s2.loli.net/2023/08/19/zTWilhg63dH8ING.png'}
+                      ></img>
+                      已上传
+                    </span>
+                  </>
                 ) : (
                   <PaperClipOutlined className="file-icon" />
                 )}
