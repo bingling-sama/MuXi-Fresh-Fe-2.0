@@ -64,9 +64,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
           setTaskList([{ id: '', text: '暂时没有作业' }]);
         }
       },
-      (err) => {
-        console.log(err);
-      },
+      null,
     );
   };
   return (

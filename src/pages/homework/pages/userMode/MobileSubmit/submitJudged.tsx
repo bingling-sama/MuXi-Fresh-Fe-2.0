@@ -26,7 +26,6 @@ const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
   const [comments, setComments] = useState<CommentType[]>([]);
   useEffect(() => {
     get(`/task/submitted/${submissionID as string}/comment`).then((res) => {
-      console.log(res.data);
       setComments(res.data.comments as CommentType[]);
     }, null);
   }, [submissionID]);
@@ -54,7 +53,6 @@ export const CommentMobile: React.FC<CommentMobileProps> = (props) => {
         {comments &&
           comments.map((item, index) => {
             const { content, avatar } = item;
-            console.log(content);
             return (
               <List.Item className={'comment-list-item-mobile'} key={index}>
                 <div className={'comment-list-item-title-mobile'}>

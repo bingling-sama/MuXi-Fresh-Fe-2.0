@@ -45,7 +45,6 @@ const HomeworkUserSubmitMobile: React.FC = () => {
       if (res.data.task_status != '未提交') {
         get(`/task/submitted?user_id=${'myself'}&assigned_task_id=${id}`).then(
           (resp: backType<userTaskType>) => {
-            console.log(res.data);
             setUploadHistory(resp.data.urls);
             setJudged(res.data?.task_status === '已审阅');
             setSubmissionID(resp.data?.submission_id as string);
