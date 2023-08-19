@@ -1,28 +1,18 @@
 import React, { useState } from 'react';
-import {
-  backType,
-  statusType,
-  TaskInfoType,
-  taskListType,
-  userTaskType,
-} from '../../../types';
-import { get, post } from '../../../../../fetch.ts';
+import { TaskInfoType } from '../../../types';
+import { post } from '../../../../../fetch.ts';
 import { message, UploadProps } from 'antd';
 import { root } from '../../../utils/deData.ts';
-import { DropDownPure } from '../../../components/dropDown';
-import InputBox from '../../../components/input';
 import FileLink from '../../../components/files';
 import Uploader from '../../../components/upload';
 interface SubmitBeforeJudgeMobileProps {
-  taskList: taskListType[];
-  onTaskChange?: (judged: boolean, submissionID?: string) => void;
+  currentTaskID: string | undefined;
+  currentTaskInfo: TaskInfoType | undefined;
+  uploadHistory: string[] | undefined;
 }
 const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
   const [formData, setFormData] = useState<string[]>();
-  const [currentTaskInfo, setCurrentTaskInfo] = useState<TaskInfoType>();
-  const [currentTaskID, setCurrentTaskID] = useState<string>();
-  const [uploadHistory, setUploadHistory] = useState<string[]>();
-  const { taskList, onTaskChange } = props;
+  const { currentTaskInfo, uploadHistory, currentTaskID } = props;
   const handleSubmit = () => {
     post(`/task/submitted`, {
       assignedTaskID: currentTaskID,
@@ -35,25 +25,7 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
         message.error(`提交失败`).then(null, null);
       });
   };
-  const handleSwitch = (e: TaskInfoType, id: string) => {
-    get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
-      if (res.data.task_status != '未提交') {
-        get(`/task/submitted/myself/${id}`).then((resp: backType<userTaskType>) => {
-          console.log(res.data);
-          setUploadHistory(resp.data.urls);
-          onTaskChange &&
-            onTaskChange(
-              res.data?.task_status === '已审阅',
-              resp.data?.submission_id as string,
-            );
-        }, null);
-      } else {
-        setUploadHistory(undefined);
-      }
-    }, null);
-    setCurrentTaskID(id);
-    setCurrentTaskInfo(e);
-  };
+
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     const tmpList = e?.map((item) => {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -64,35 +36,36 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
   };
   return (
     <>
-      <div className="user-mobile-submit">
-        <div className="user-mobile-drop">
-          {'标题'}
-          <DropDownPure
-            pure
-            type="user"
-            data={taskList}
-            onSwitch={handleSwitch}
-          ></DropDownPure>
+      <div className={'mobile-bef-wrap'}>
+        <div className="user-mobile-submit">
+          <div className={'task-title-wrap-mobile'}>
+            <div className={'img-wrap '}>
+              <img
+                alt={''}
+                src={
+                  'https://lanhu.oss-cn-beijing.aliyuncs.com/FigmaDDSSlicePNGeaaee7feabd1b277381d760cd3d5f474.png'
+                }
+                className={'task-title-mobile-img'}
+              ></img>
+            </div>
+            <h3>{currentTaskInfo?.title_text}</h3>
+          </div>
+          <div className={'textbox-mobile'}>{[currentTaskInfo?.content]}</div>
+          <FileLink
+            className="file-file-mobile"
+            title={'附件:'}
+            data={currentTaskInfo?.urls}
+          ></FileLink>
         </div>
-        <InputBox
-          type="textarea"
-          label="内容简介"
-          disabled
-          className="input-mobile"
-          limit={500}
-          defaultValue={[currentTaskInfo?.content as string]}
-          onChange={() => {
-            console.log();
-          }}
-        ></InputBox>
-        <FileLink className="file-mobile" data={currentTaskInfo?.urls}></FileLink>
-        <div className="user-mobile-drop">
-          {'标题'}
-          <Uploader
-            mobile
-            onChange={handleChangeUpload}
-            defaultList={uploadHistory}
-          ></Uploader>
+        <div className="user-mobile-submit">
+          <div className="user-mobile-drop">
+            {'作业附件 :'}
+            <Uploader
+              mobile
+              onChange={handleChangeUpload}
+              defaultList={uploadHistory}
+            ></Uploader>
+          </div>
         </div>
       </div>
       <div className="user-submit-button" onClick={handleSubmit}>

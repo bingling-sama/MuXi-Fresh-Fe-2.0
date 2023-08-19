@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../../../fetch.ts';
-import { CommentType } from '../../../types';
+import { CommentType, TaskInfoType } from '../../../types';
 import { List, Avatar } from 'antd';
 import { TitleTag } from '../../adminMode/judge/comment';
 import './index.less';
@@ -10,7 +10,9 @@ import { AvatarWrap } from '../../../components/selector-mobile';
 import FileLink from '../../../components/files';
 
 interface SubmitJudgedProps {
-  submissionID: string;
+  submissionID: string | undefined;
+  uploadHistory: string[] | undefined;
+  currentTaskInfo: TaskInfoType | undefined;
 }
 interface CommentMobileProps {
   comments: CommentType[];
@@ -18,18 +20,23 @@ interface CommentMobileProps {
 interface ModalMobileProps {
   children?: React.ReactNode;
 }
+type CheckhomeMobileProps = Omit<SubmitJudgedProps, 'submissionID'>;
 const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
-  const { submissionID } = props;
+  const { submissionID, uploadHistory, currentTaskInfo } = props;
   const [comments, setComments] = useState<CommentType[]>([]);
   useEffect(() => {
-    get(`/task/submitted/${submissionID}/comment`).then((res) => {
+    get(`/task/submitted/${submissionID as string}/comment`).then((res) => {
       console.log(res.data);
       setComments(res.data.comments as CommentType[]);
     }, null);
   }, [submissionID]);
   return (
     <>
-      <CheckHomeworkMobile></CheckHomeworkMobile>
+      <CheckHomeworkMobile
+        uploadHistory={uploadHistory}
+        currentTaskInfo={currentTaskInfo}
+      ></CheckHomeworkMobile>
+      <h2 style={{ textAlign: 'center' }}>作业已批改，无法修改</h2>
       <CommentMobile comments={comments}></CommentMobile>
     </>
   );
@@ -64,11 +71,7 @@ export const CommentMobile: React.FC<CommentMobileProps> = (props) => {
                       className={'comment-list-item-tag-mobile'}
                       item={item}
                     ></TitleTag>
-                    <div className={'comment-content-mobile'}>
-                      {
-                        '管理2后欸u都会从违法和从i2哦hi会从福娃欸是v弄i饿啊who i和2哦i额活动i后iChoi文化·'
-                      }
-                    </div>
+                    <div className={'comment-content-mobile'}>{content}</div>
                   </div>
                 </div>
               </List.Item>
@@ -78,21 +81,18 @@ export const CommentMobile: React.FC<CommentMobileProps> = (props) => {
     </>
   );
 };
-export const CheckHomeworkMobile: React.FC = () => {
-  const handleClick = () => {
-    Modal.open(Children);
-  };
-  const handleTest = () => {
-    console.log(123);
-  };
+export const CheckHomeworkMobile: React.FC<CheckhomeMobileProps> = (props) => {
+  const { uploadHistory, currentTaskInfo } = props;
   const Children: React.ReactNode = (
     <>
-      <div className={'head'} onClick={handleTest}>
-        132874
-      </div>
-      <AvatarWrap style={{ width: '95%' }}></AvatarWrap>
-      <div className={'homework-pre-mobile'}></div>
-      <FileLink className={'file-pre-mobile'} data={['1', '2', '3']}></FileLink>
+      <h2 className={'homework-pre-head-mobile'}>{currentTaskInfo?.title_text}</h2>
+      <AvatarWrap style={{ width: '100%' }}></AvatarWrap>
+      <div className={'homework-pre-mobile'}>{currentTaskInfo?.content}</div>
+      <FileLink
+        title={'附件:'}
+        className={'file-pre-mobile'}
+        data={uploadHistory}
+      ></FileLink>
       <div className={'back-button'} onClick={() => Modal.close()}>
         返 回
       </div>
@@ -101,8 +101,8 @@ export const CheckHomeworkMobile: React.FC = () => {
   return (
     <>
       <div className={'check-home-work-wrap'}>
-        {'12hiucasbicuwe'}
-        <div className={'check-homework-button'} onClick={handleClick}>
+        {currentTaskInfo?.title_text}
+        <div className={'check-homework-button'} onClick={() => Modal.open(Children)}>
           查看
         </div>
       </div>

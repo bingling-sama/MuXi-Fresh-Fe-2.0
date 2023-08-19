@@ -1,97 +1,88 @@
 @import '../../../../../styles/homework_index.less';
-
+.mobile-bef-wrap {
+    height: 60vh;
+    overflow-y: auto;
+    position: relative;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
 .user-mobile-submit {
     background-color: @gray-300;
     border-radius: 10px;
-    height: 70vh;
+    min-height: 30.3vh;
     overflow-y: auto;
     margin-top: 2vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .file-mobile {
-        display: block;
+    .task-title-wrap-mobile {
         width: 90%;
+        display: flex;
+        align-items: center;
+        margin-top: 2vh;
+        h3 {
+            margin-left: 5vw;
+        }
+        .img-wrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            box-shadow: @box-shadow;
+            overflow: hidden;
+            background-color: @white;
+            .task-title-mobile-img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+    .textbox-mobile {
+        width: 86%;
+        border-radius: 7px;
+        color: @black;
+        padding: 2%;
+        background-color: @white;
+        margin-top: 2vh;
+        height: 8vh;
+        box-shadow: @box-shadow;
+    }
+    .file-file-mobile {
+        width: 90%;
+        margin-top: 2vh;
+        height: 10vh;
+        display: flex;
+        align-items: baseline;
         .tag-name {
             margin-left: 0;
             font-size: 2.4vh;
-            font-weight: bold;
             color: @gray-600;
         }
         .tag-content {
             margin-left: 0;
+            width: 80%;
             .file {
-                width: 110%;
-                background-color: @white;
+                //width: 110%;
+                //background-color: @white;
+                height: 100%;
+                font-size: 2vh;
                 .file-text {
-                    font-size: .9vh;
+                    font-size: 2vh !important;
                 }
             }
         }
     }
     .user-mobile-drop {
         display: block;
-        position: sticky;
-        top: 0 ;
         width: 90%;
-        z-index: 200;
         background-color: @gray-300;
         font-size: 2.4vh;
-        font-weight: bold;
-        margin-top: 2vh;
+        margin: 2vh 0 0 0;
         border-bottom: 1px solid @gray-300;
         color: @gray-600;
-        .popover {
-            width: 100%;
-            border:  1px transparent;
-            margin-top: 2%;
-            input {
-                height: 5vh ;
-            }
-        }
-        #drop-down-list {
-            width: 100%;
-            max-height: 34vh;
-            .drop-list-common(50vh);
-        }
-        #drop-down-list-user {
-            width: 100%;
-            max-height: 28vh;
-            .drop-list-common(50vh);
-        }
-    }
-    .input-mobile {
-        display: block;
-        width: 90%;
-        // height: 10vh;
-        margin-top: 2vh;
-        .input-label {
-            margin-bottom: 2%;
-            font-size: 2.4vh;
-            font-weight: bold;
-            display: block;
-        }
-
-        .input-element {
-            margin-left: 0;
-            background-color: @white;
-            border-radius: 2vw;
-            width: 100%;
-            input {
-                background-color: @white;
-                height: 4vh;
-            }
-        }
-        .textarea-element {
-            margin-left: 0;
-            background-color: @white;
-            border-radius: 2vw;
-            width: 100%;
-            height: 23vh !important;
-            textarea {
-                background-color: @white;
-            }
-        }
     }
 }
 .user-submit-button {
@@ -115,10 +106,13 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
     .comment-list-item-mobile {
         width: 98%;
         display: block;
-        min-height: 10vh;
+        //min-height: 10vh;
         border-bottom: 1px solid @gray-200;
 
         .comment-list-item-title-mobile {
@@ -145,7 +139,7 @@
                         position: absolute;
                         top: 50%;
                         transform: translateY(-50%);
-                        right: 0%;
+                        right: 0;
                     }
                 }
             }
@@ -167,7 +161,7 @@
 .check-home-work-wrap {
     width: 90%;
     padding: 16px;
-    margin: auto;
+    margin: 20px auto;
     background-color: @gray-200;
     border-radius: 7px;
     position: relative;
@@ -202,7 +196,7 @@
     width: 80vw;
     border-radius: 30px 30px 0 0;
     background-color: @white;
-    height: 60vh;
+    height: 70vh;
     z-index: 1000;
     box-shadow: @box-shadow;
     display: flex;
@@ -211,17 +205,35 @@
     padding: 6vh 10vw 10vw;
     .dashin(.3s, verticalReverse);
     .file-pre-mobile {
+        width: 100%;
         font-size: 2vh;
+        height: 10vh;
+        overflow-y: auto;
+        grid-template-columns: 20% 1fr;
+        .tag-content {
+            margin-top: 8px;
+            font-size: 3vh;
+            .file-text {
+                font-size: 2vh;
+            }
+        }
+    }
+    .homework-pre-head-mobile {
+        margin-bottom: 3vh;
     }
     .homework-pre-mobile {
-        width: 95%;
+        width: 80%;
+        padding: 2% 10% 10% 2%;
         min-height: 20vh;
+        margin: 3vh 0 3vh 0;
         background-color: @gray-200;
         border-radius: 9px;
+        font-size: 2vh;
         box-shadow: @box-shadow;
     }
     .back-button {
-        width: 95%;
+        position: absolute;
+        width: 80%;
         height: 6vh;
         border-radius: 3vh;
         background-color: @white;
@@ -232,6 +244,33 @@
         justify-content: center;
         align-items: center;
         display: flex;
+        bottom: 20px;
+    }
+}
+.user-mobile-drop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 2.4vh;
+    margin-top: 2vh;
+    color: @gray-600;
+    .popover {
+        width: 70% !important;
+        border:  1px solid  @gray-400 !important;
+        input {
+            height: 5vh ;
+        }
+    }
+    #drop-down-list {
+        width: 100%;
+        max-height: 34vh;
+        .drop-list-common(50vh);
+    }
+    #drop-down-list-user {
+        width: 100%;
+        max-height: 28vh;
+        .drop-list-common(50vh);
     }
 }
 @keyframes blurani {
