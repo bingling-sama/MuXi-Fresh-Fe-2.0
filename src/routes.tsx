@@ -11,10 +11,6 @@ import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 
 import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 const Router = () => {
-  localStorage.setItem(
-    'token',
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2OTI1MzYxNzksImlhdCI6MTY5MjE3NjE3OSwiand0VXNlcklkIjoiNjRjNzE3MWVjMDBkYjE4ODdhZjM4YzgwIn0.Hm_8ZPMIlYcceOmUsvy4ox7GTGLAQmUdiJuKmM0VLhU',
-  );
   return (
     <>
       <BrowserRouter>
