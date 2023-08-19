@@ -43,12 +43,15 @@ const HomeworkUserSubmitMobile: React.FC = () => {
   const handleSwitch = (e: TaskInfoType, id: string) => {
     get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
       if (res.data.task_status != '未提交') {
-        get(`/task/submitted/myself/${id}`).then((resp: backType<userTaskType>) => {
-          console.log(res.data);
-          setUploadHistory(resp.data.urls);
-          setJudged(res.data?.task_status === '已审阅');
-          setSubmissionID(resp.data?.submission_id as string);
-        }, null);
+        get(`/task/submitted?user_id=${'myself'}&assigned_task_id=${id}`).then(
+          (resp: backType<userTaskType>) => {
+            console.log(res.data);
+            setUploadHistory(resp.data.urls);
+            setJudged(res.data?.task_status === '已审阅');
+            setSubmissionID(resp.data?.submission_id as string);
+          },
+          null,
+        );
       } else {
         setUploadHistory(undefined);
         setJudged(false);
