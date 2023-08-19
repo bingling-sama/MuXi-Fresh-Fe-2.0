@@ -1,0 +1,55 @@
+.mobileLayout {
+  height: 100vh;
+  background-color: #ffc93f;
+
+  .mobileLayoutHeader {
+    position: sticky;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px 0 30px;
+    margin-top: 12px;
+    background-color: transparent;
+
+    .mobileLayoutHeaderBox {
+      display: flex;
+      width: 30%;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+
+  .mobileLayoutContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    .mobileLayoutContentBox {
+      border-radius: 32px 32px 0 0;
+      background-color: white;
+      width: 100vw;
+      height: calc(100vh - 59.75vw - 50px);
+      padding: 2vw 11vw 0 11vw;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-content: flex-start;
+
+      .mobileLayoutContentBoxs {
+        width: 20vw;
+        height: calc(20vw + 30px);
+        margin-top: 8vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        color: #38454F;
+        font-size: 19px;
+        font-family: Inter-Regular, Inter, system-ui;
+        font-weight: 400;
+      }
+    }
+  }
+}
