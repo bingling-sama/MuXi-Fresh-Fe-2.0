@@ -5,13 +5,23 @@
     margin-top: 8vh;
     display: flex;
     justify-content: center;
-    box-shadow: 0px 3px 6px 1px rgba(0, 0, 0, 0.16);
+    box-shadow: 0px 6px 12px 2px rgba(0, 0, 0, 0.16);
     background-color: #fff;
-    border-radius: 7px;
+    border-radius: 10px;
+    overflow: hidden;
 
     .progress-table {
-        width: 80%;
-        margin: 48px 0;
+        width: 100%;
+        border-radius: 10px;
+
+        thead {
+            font-size: 28px;
+
+            .table-title {
+                padding: 24px 16px;
+                background-color: #fbda7f;
+            }
+        }
 
         tbody {
             width: 100%;
@@ -22,15 +32,20 @@
                 text-align: center;
             }
 
-            tr:nth-child(even) {
+            tr:nth-child(odd) {
                 background-color: #F1F1F1;
             }
 
+            tr:nth-child(even) {
+                background-color: #F9F9F9;
+            }
+
+
             .tr-title {
-                padding: 24px 16px;
+                padding: 32px 16px;
                 width: 30%;
-                border-right: 1px solid #505050;
-                ;
+                border-right: 1px solid #d3d3d3;
+                font-weight: bold;
             }
         }
     }
