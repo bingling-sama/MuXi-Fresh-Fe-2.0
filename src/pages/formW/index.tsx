@@ -219,7 +219,7 @@ const FormForWeb: React.FC = () => {
                 maxCount={1}
               >
                 <div className="avatar">
-                  <img src={avatar} alt="点击上传照片·" />
+                  <img src={avatar} alt="点击上传照片" />
                 </div>
               </Upload>
             </ImgCrop>
