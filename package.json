@@ -7,12 +7,18 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint --fix .",
     "preview": "vite preview",
     "prepare": "husky install",
     "commit": "./node_modules/cz-customizable/standalone.js"
   },
   "dependencies": {
+    "antd": "^5.7.2",
+    "antd-img-crop": "^4.12.2",
+    "echarts": "^5.4.3",
+    "qiniu-js": "^3.4.1",
     "react": "^18.2.0",
+    "react-avatar-edit": "^1.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.14.1"
   },
@@ -33,6 +39,6 @@
     "less": "^4.1.3",
     "prettier": "3.0.0",
     "typescript": "^5.0.2",
-    "vite": "^4.4.0"
+    "vite": "^4.4.3"
   }
 }
