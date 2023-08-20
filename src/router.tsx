@@ -4,6 +4,7 @@ import { isDesktop } from 'react-device-detect';
 import HomeWork from './pages/homework/pages';
 import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 import HomeworkUserMode from './pages/homework/pages/userMode';
+import FormForMobile from './pages/formM';
 
 export const router = createBrowserRouter(
   isDesktop
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
           path: '/',
           element: <Verify />,
         },
+        { path: '/form', element: <FormForMobile /> }, // 报名表
         {
           // 作业
           path: '/homework',

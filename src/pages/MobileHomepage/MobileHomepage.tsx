@@ -105,7 +105,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/');
+                navigationClick('/form');
               }}
             >
               <Image src={progressQuery} width={'20vw'} preview={false}></Image>
