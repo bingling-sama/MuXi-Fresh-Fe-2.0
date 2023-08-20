@@ -8,7 +8,7 @@ import {
   Image,
 } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { get } from '../../fetch.ts';
 import { PersonalInformation } from '../../type/PersonalInformation.ts';
 import { useNavigate } from 'react-router-dom';
@@ -20,7 +20,7 @@ import submit from '../../assets/submit.png';
 import submitTest from '../../assets/submit-test.png';
 import './MobileHomepage.less';
 
-const MobileHomepage = () => {
+const MobileHomepage: React.FC = () => {
   const [avatar, setAvatar] = useState(defaultAvatar);
   const [name, setName] = useState('');
 
