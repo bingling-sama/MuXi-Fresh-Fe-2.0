@@ -4,15 +4,16 @@ import Review from './pages/Review/Review.tsx';
 import Verify from './components/Verify/Verify.tsx';
 import { isDesktop } from 'react-device-detect';
 
-const router = createBrowserRouter(
+export const router = createBrowserRouter(
   isDesktop
     ? [
         {
           path: '/',
           element: <Verify />,
           children: [
-            { path: '/review', element: <Review /> },
+            { path: '/review', element: <Review /> }, // 审阅
             {
+              // 权限管理
               path: '/authority-manage',
               element: <AuthorityManage />,
             },
@@ -26,5 +27,3 @@ const router = createBrowserRouter(
         },
       ],
 );
-
-export default router;

@@ -1,6 +1,6 @@
 import './App.less';
 import { RouterProvider } from 'react-router-dom';
-import router from './router.tsx';
+import { router } from './router.tsx';
 import { ConfigProvider } from 'antd';
 
 function App() {
