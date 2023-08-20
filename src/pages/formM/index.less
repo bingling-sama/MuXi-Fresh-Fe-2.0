@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
 }
-.page{
+.page_formM{
     width: 100vw;
     height: 100vh;
     background-color: #FFC93F;   
@@ -10,17 +10,18 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    box-sizing: content-box;
 }
-.top_title{
+.top_title_formM{
     padding-top: 2vh;
     font-size: 5vw;
     font-weight: 500;
 }
-.details{
+.details_formM{
     font-size: 4vw;
     color: #666666;
 }
-.break{
+.break_formM{
     padding-bottom: 6vh;
 }
 .formImg::after{
@@ -34,7 +35,7 @@
     background-repeat: no-repeat;
 }
 
-.avatar{
+.avatar_formM{
     width: 14vh;
     height: 14vh;
     position: absolute;
@@ -45,7 +46,7 @@
         border-radius: 50%;
      }
 }
-.mainbox{
+.mainbox_formM{
     width: 100vw;
     height: 90vh;
     background-color: white;
@@ -57,7 +58,7 @@
     align-items: center;
     box-sizing: border-box;
 }
-.firstbox{
+.firstbox_formM{
     height: 77vh;   
 }
 .cameraImg{
@@ -67,20 +68,20 @@
    bottom: 69vh;
    left: 14vh;
 }
-input[type='text']:not(.contactContent){
+.input_formM[type='text']:not(.contactContent_formM){
     display: block;
-    width: 67vw;
+    width: 72vw;
     height: 6vh;
     font-size: 4vw;
     border: 1px solid black;
     border-radius: 2vw;
     padding-left: 5vw;
 }
-.box_detail{
+.box_detail_formM{
     color: #A3A39A;
     font-size: 2vw;
 }
-.term_detail_box{
+.term_detail_box_formM{
     width: 81vw;
     display: flex;
     align-items: center;
@@ -92,12 +93,12 @@ input[type='text']:not(.contactContent){
     background-color: #FFC93F;
     border-radius: 50%;
 }
-.term_detail{
+.term_detail_formM{
     font-size: 4vw;
     font-weight: 530;
     padding-left: 2vw;
 }
-.change_next{
+.change_next_formM{
     width: 72vw;
     height: 7vh;
     border: none;
@@ -105,14 +106,14 @@ input[type='text']:not(.contactContent){
     background-color: #FFC93F;
     font-size: 6vw;
 }
-.returnBtn{
+.returnBtn_formM{
     position: absolute;
     top: 5vw;
     left: 5vw;
     width: 9vw;
     height: 9vw;
 }
-.sexbox{
+.sexbox_formM{
     width: 72vw;
     height: 11vh;
     display: flex;
@@ -124,21 +125,20 @@ input[type='text']:not(.contactContent){
     height: 11vh;  
     position: relative; 
     border-radius: 3vw; 
-    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 .enmale{
     font-size: 2vh;
     color:#5858AF ;
-    position: absolute;
-    top:3vh;
-    right: 10vw;
+    padding-left: 25vw;
 }
 .cnmale{
     font-size: 2vh;
     color: #52525F;
-    position: absolute;
-    bottom: 3vh;
-    right: 10vw;
+    padding-left: 28vw;
 }
 .male::before{
     content: "";
@@ -166,9 +166,9 @@ input[type='text']:not(.contactContent){
     width: 7vw;
     height:7vw ;
     margin-top: 4vh;
-    margin-left: 10vw;
+    margin-left: 8vw;
 }
-#GroupSelect,#schoolSelect{
+#GroupSelect_formM,#schoolSelect_formM{
     width: 72vw;
     padding-left: 5vw;
     height: 6vh;
@@ -176,10 +176,10 @@ input[type='text']:not(.contactContent){
     font-size: 4vw;
     border: #52525F 1 solid;
 }
-#GroupSelect>option,#schoolSelect>option{
+#GroupSelect_formM>option,#schoolSelect_formM>option{
     font-size: 3vw;
 }
-#group_reason,#group_know{
+#group_reason_formM,#group_know_formM{
     width: 71vw;
     height: 20vh;
     padding: 1vw;
@@ -197,14 +197,14 @@ input[type='text']:not(.contactContent){
     line-height: 2vh;
     font-size: 3.6vw;
 }
-#self_introduction{
+#self_introduction_formM{
     width: 70vw;
     height: 56vh;
     padding: 1vw;
     border: #52525F 1.5px solid;
     border-radius: 2px;
 }
-.lastbox{
+.lastbox_formM{
     height: 65vh;
 }
 .muxiplanet{
@@ -214,37 +214,20 @@ input[type='text']:not(.contactContent){
     top: 6vh;
     left: 3vw;
 }
-input[type="radio"] {
-    -webkit-appearance: none; /* 隐藏浏览器默认样式 */
-    -moz-appearance: none;
-    appearance: none;
-    width: 16px;
-    height: 16px;
-    border: 2px solid #999;
-    border-radius: 50%; /* 设置为圆形 */
-    outline: none;
-    transition: all 0.3s ease-in-out;
-  }
-input[type="radio"]:checked {
-    background-color: #FFC93F;
-    border-color:#FFC93F;
-  }
-  .questionbox{
+  .questionbox_formM{
     width: 84vw;
   }
-.question{
+.question_formM{
     font-size: 5vw;
 }
-.answerbox>label{
+.answerbox_formM>label{
     margin: 10vw;
 }
 input[type='radio']{
     margin-right: 3vw;
 }
-#avatar-upload{
-    opacity: 0;
-}
-#GradeSelect{
+
+#GradeSelect_formM{
     display: block;
     width: 72vw;
     height: 6vh;
@@ -253,29 +236,33 @@ input[type='radio']{
     border-radius: 2vw;
     padding-left: 5vw;
 }
-.contactWaybox{
+.contactWaybox_formM{
     width: 72vw;
     height: 13vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
-.contactWayterm{
+.contactWayterm_formM{
     width: 72vw;
     height: 5.5vh;
     display: flex;
     justify-content: space-between;
 }
-#contactWayselect1,#contactWayselect2{
+#contactWayselect1_formM,#contactWayselect2_formM{
     width: 23vw;
     height: 5.5vh;
     padding-left: 2vw;
     font-size: 4vw;
     border-radius: 1vh;
 }
-.contactContent{
+.contactContent_formM{
     width: 41vw;
     padding-left: 3vw;
     border-radius: 1vh;
     font-size: 4vw;
+    border: 1px solid black;
+}
+textarea{
+    resize: none;
 }

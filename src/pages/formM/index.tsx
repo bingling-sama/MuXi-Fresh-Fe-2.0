@@ -6,7 +6,7 @@ import cameraImg from '../../assets/images/form/camera.png';
 import muxiplanet from '../../assets/images/form/MuXi.png';
 import avatarDefault from '../../assets/images/form/avatarDefault.png';
 import { post, put, get } from '../../fetch';
-import { message, Upload } from 'antd';
+import { message, Upload, Input, Radio, ConfigProvider } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
@@ -147,6 +147,12 @@ const FormForMobile: React.FC = () => {
     });
   };
   useEffect(() => {
+    if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
+  }, [contactWayselect1]);
+  useEffect(() => {
+    if (contactWayselect2 == 'email') void message.info('邮箱请在个人主页修改');
+  }, [contactWayselect2]);
+  useEffect(() => {
     const formdata = get(`/form/view?entry_form_id=myself`);
     formdata
       .then((data: FormData) => {
@@ -215,12 +221,12 @@ const FormForMobile: React.FC = () => {
   };
   const element: JSX.Element[] = [];
   element[0] = (
-    <div className="page">
-      <img src={backImg} className="returnBtn"></img>
-      <div className="top_title">报名表</div>
-      <div className="details formImg">完善你的简历</div>
-      <div className="details break">让木犀团队更好地了解你吧</div>
-      <div className="mainbox firstbox">
+    <div className="page_formM">
+      <img src={backImg} className="returnBtn_formM"></img>
+      <div className="top_title_formM">报名表</div>
+      <div className="details_formM formImg">完善你的简历</div>
+      <div className="details_formM break_formM">让木犀团队更好地了解你吧</div>
+      <div className="mainbox_formM firstbox_formM">
         <ImgCrop>
           <Upload<ResponseType>
             action={uploadUrl}
@@ -230,18 +236,19 @@ const FormForMobile: React.FC = () => {
             showUploadList={false}
             maxCount={1}
           >
-            <div className="avatar">
+            <div className="avatar_formM">
               <img src={avatar} alt="" />
             </div>
           </Upload>
         </ImgCrop>
         <img src={cameraImg} alt="" className="cameraImg" />
-        <div className="box_detail">点击上传你的照片</div>
-        <div className="term_detail_box">
+        <div className="box_detail_formM">点击上传你的照片</div>
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">姓名</div>
+          <div className="term_detail_formM">姓名</div>
         </div>
-        <input
+        <Input
+          className="input_formM"
           placeholder="请输入你的真实姓名"
           type="text"
           value={name}
@@ -249,11 +256,11 @@ const FormForMobile: React.FC = () => {
             setName(e.target.value);
           }}
         />
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">性别</div>
+          <div className="term_detail_formM">性别</div>
         </div>
-        <div className="sexbox">
+        <div className="sexbox_formM">
           <div
             className="sexboxleft male"
             onClick={() => {
@@ -269,7 +276,7 @@ const FormForMobile: React.FC = () => {
           </div>
           {sex == 'male' ? <img className="checkedImg" src={checkedImg}></img> : ''}
         </div>
-        <div className="sexbox">
+        <div className="sexbox_formM">
           <div
             className="sexboxleft female"
             onClick={() => {
@@ -286,7 +293,7 @@ const FormForMobile: React.FC = () => {
           {sex == 'female' ? <img className="checkedImg" src={checkedImg}></img> : ''}
         </div>
         <button
-          className="change_next"
+          className="change_next_formM"
           disabled={name && sex ? false : true}
           onClick={turnNext}
           style={
@@ -301,25 +308,26 @@ const FormForMobile: React.FC = () => {
     </div>
   );
   element[1] = (
-    <div className="page">
-      <img src={backImg} className="returnBtn" onClick={backPage}></img>
-      <div className="top_title">个人信息</div>
-      <div className="mainbox">
-        <div className="term_detail_box">
+    <div className="page_formM">
+      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <div className="top_title_formM">个人信息</div>
+      <div className="mainbox_formM">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">学号</div>
+          <div className="term_detail_formM">学号</div>
         </div>
-        <input
+        <Input
+          className="input_formM"
           type="text"
           value={stu_number}
-          onClick={() => void message.error('学号请在个人主页修改')}
+          onClick={() => void message.info('学号请在个人主页修改')}
         />
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">学院</div>
+          <div className="term_detail_formM">学院</div>
         </div>
         <select
-          id="schoolSelect"
+          id="schoolSelect_formM"
           value={academy}
           onChange={(e) => setacademy(e.target.value)}
         >
@@ -349,11 +357,12 @@ const FormForMobile: React.FC = () => {
           <option value="物理科学与技术学院">物理科学与技术学院</option>
           <option value="化学学院">化学学院</option>
         </select>
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">专业</div>
+          <div className="term_detail_formM">专业</div>
         </div>
-        <input
+        <Input
+          className="input_formM"
           placeholder="请输入你的专业"
           type="text"
           value={major}
@@ -361,11 +370,15 @@ const FormForMobile: React.FC = () => {
             setmajor(e.target.value);
           }}
         />
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">年级</div>
+          <div className="term_detail_formM">年级</div>
         </div>
-        <select id="GradeSelect" value={grade} onChange={(e) => setgrade(e.target.value)}>
+        <select
+          id="GradeSelect_formM"
+          value={grade}
+          onChange={(e) => setgrade(e.target.value)}
+        >
           <option value="大一">大一</option>
           <option value="大二">大二</option>
           <option value="大三">大三</option>
@@ -373,14 +386,14 @@ const FormForMobile: React.FC = () => {
           <option value="研一">研一</option>
           <option value="研二">研二</option>
         </select>
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">联系方式</div>
+          <div className="term_detail_formM">联系方式</div>
         </div>
-        <div className="contactWaybox">
-          <div className="contactWayterm">
+        <div className="contactWaybox_formM">
+          <div className="contactWayterm_formM">
             <select
-              id="contactWayselect1"
+              id="contactWayselect1_formM"
               value={contactWayselect1}
               onChange={(e) => {
                 setcontactWayselect1(e.target.value);
@@ -393,9 +406,9 @@ const FormForMobile: React.FC = () => {
               <option value="qq">QQ</option>
               <option value="phone">手机</option>
             </select>
-            <input
+            <Input
               type="text"
-              className="contactContent"
+              className="contactContent_formM"
               placeholder="请输入"
               name={contactWayselect1}
               value={contactWay[contactWayselect1]}
@@ -404,9 +417,9 @@ const FormForMobile: React.FC = () => {
               }
             />
           </div>
-          <div className="contactWayterm">
+          <div className="contactWayterm_formM">
             <select
-              id="contactWayselect2"
+              id="contactWayselect2_formM"
               value={contactWayselect2}
               onChange={(e) => setcontactWayselect2(e.target.value)}
             >
@@ -417,9 +430,9 @@ const FormForMobile: React.FC = () => {
               <option value="qq">QQ</option>
               <option value="phone">手机</option>
             </select>
-            <input
+            <Input
               type="text"
-              className="contactContent"
+              className="contactContent_formM"
               name={contactWayselect2}
               value={contactWay[contactWayselect2]}
               onChange={(e) =>
@@ -428,24 +441,24 @@ const FormForMobile: React.FC = () => {
             />
           </div>
         </div>
-        <button className="change_next" onClick={turnNext}>
+        <button className="change_next_formM" onClick={turnNext}>
           Next →
         </button>
       </div>
     </div>
   );
   element[2] = (
-    <div className="page">
-      <img src={backImg} className="returnBtn" onClick={backPage}></img>
-      <div className="top_title">报名信息</div>
+    <div className="page_formM">
+      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <div className="top_title_formM">报名信息</div>
       <img src="" alt="" />
-      <div className="mainbox">
-        <div className="term_detail_box">
+      <div className="mainbox_formM">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">心动组别</div>
+          <div className="term_detail_formM">心动组别</div>
         </div>
         <select
-          id="GroupSelect"
+          id="GroupSelect_formM"
           value={wantGroup}
           onChange={(e) => setwantGroup(e.target.value)}
         >
@@ -458,111 +471,106 @@ const FormForMobile: React.FC = () => {
           <option value="Backend">后端组</option>
           <option value="Android">安卓组</option>
         </select>
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">心动理由</div>
+          <div className="term_detail_formM">心动理由</div>
         </div>
         <textarea
           name=""
-          id="group_reason"
+          id="group_reason_formM"
           placeholder="请输入你的理由"
           value={reason}
           onChange={(e) => setreason(e.target.value)}
         ></textarea>
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">对组别的认识</div>
+          <div className="term_detail_formM">对组别的认识</div>
         </div>
         <textarea
           name=""
-          id="group_know"
+          id="group_know_formM"
           placeholder="请输入你对所选组别的了解"
           value={knowledge}
           onChange={(e) => setknowledge(e.target.value)}
         ></textarea>
-        <button className="change_next" onClick={turnNext}>
+        <button className="change_next_formM" onClick={turnNext}>
           Next →
         </button>
       </div>
     </div>
   );
   element[3] = (
-    <div className="page">
-      <img src={backImg} className="returnBtn" onClick={backPage}></img>
-      <div className="top_title">个人自述</div>
-      <div className="mainbox">
+    <div className="page_formM">
+      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <div className="top_title_formM">个人自述</div>
+      <div className="mainbox_formM">
         <div className="self_tip">
           <span className="yellow">提示: </span>
           <span className="grey">
             进行一个自我介绍，内容需要包含自己的性格、能力、获得过的相关的成就以及假如自己进入木犀后的想法，可加入其他内容。
           </span>
         </div>
-        <div className="term_detail_box">
+        <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
-          <div className="term_detail">自我介绍</div>
+          <div className="term_detail_formM">自我介绍</div>
         </div>
         <textarea
           name=""
-          id="self_introduction"
+          id="self_introduction_formM"
           placeholder=" "
           value={self_intro}
           onChange={(e) => setself_intro(e.target.value)}
         ></textarea>
-        <button className="change_next" onClick={turnNext}>
+        <button className="change_next_formM" onClick={turnNext}>
           Next →
         </button>
       </div>
     </div>
   );
   element[4] = (
-    <div className="page">
-      <img src={backImg} className="returnBtn" onClick={backPage}></img>
+    <div className="page_formM">
+      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
       <img className="muxiplanet" src={muxiplanet} alt="" />
-      <div className="top_title">小问题</div>
-      <div className="mainbox lastbox">
-        <div className="questionbox">
+      <div className="top_title_formM">小问题</div>
+      <div className="mainbox_formM lastbox_formM">
+        <div className="questionbox_formM">
           <span
             className="yellowBot"
             style={{ display: 'inline-block', marginLeft: '6vw', marginRight: '3vw' }}
           ></span>
-          <span className="question">
+          <span className="question_formM">
             你是否有加入/正在加入一些其他组织或担任学生工作
           </span>
         </div>
-        <div className="answerbox">
-          <label>
-            <input
-              type="radio"
-              value="Y"
-              className="checkboxcss"
-              name="answer"
-              checked={extra_question === 'Y'}
-              onChange={() => setextra_question('Y')}
-              id=""
-            />
-            是
-          </label>
-          <label>
-            <input
-              type="radio"
-              value="N"
-              className="checkboxcss"
-              name="answer"
-              checked={extra_question === 'N'}
-              onChange={() => setextra_question('N')}
-              id=""
-            />
-            否
-          </label>
+        <div className="answerbox_formM">
+          <Radio.Group
+            onChange={(e) => setextra_question(e.target.value as string)}
+            value={extra_question}
+          >
+            <Radio value={'Y'}>是</Radio>
+            <Radio value={'N'}>否</Radio>
+          </Radio.Group>
         </div>
 
-        <button className="change_next" onClick={formSetted ? setForm : changeForm}>
+        <button className="change_next_formM" onClick={formSetted ? setForm : changeForm}>
           提交报名表
         </button>
       </div>
     </div>
   );
 
-  return <div>{element[pageNum]}</div>;
+  return (
+    <div>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#ffb841',
+          },
+        }}
+      >
+        {element[pageNum]}
+      </ConfigProvider>
+    </div>
+  );
 };
 export default FormForMobile;
