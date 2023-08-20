@@ -2,10 +2,10 @@ import {
   Avatar,
   ConfigProvider,
   Dropdown,
+  Image,
   Layout,
   MenuProps,
   message,
-  Image,
 } from 'antd';
 import { Content, Header } from 'antd/es/layout/layout';
 import React, { useEffect, useState } from 'react';
@@ -123,7 +123,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/');
+                navigationClick('/homework/user/submit');
               }}
             >
               <Image src={submit} width={'20vw'} preview={false}></Image>

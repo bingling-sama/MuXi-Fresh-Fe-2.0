@@ -1,0 +1,280 @@
+@import '../../../../../styles/homework_index.less';
+.mobile-bef-wrap {
+    height: 60vh;
+    overflow-y: auto;
+    position: relative;
+    &::-webkit-scrollbar {
+        display: none;
+    }
+}
+.user-mobile-submit {
+    background-color: @gray-300;
+    border-radius: 10px;
+    min-height: 30.3vh;
+    overflow-y: auto;
+    margin-top: 2vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .task-title-wrap-mobile {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        margin-top: 2vh;
+        h3 {
+            margin-left: 5vw;
+        }
+        .img-wrap{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            box-shadow: @box-shadow;
+            overflow: hidden;
+            background-color: @white;
+            .task-title-mobile-img {
+                width: 40px;
+                height: 40px;
+            }
+        }
+    }
+    .textbox-mobile {
+        width: 86%;
+        border-radius: 7px;
+        color: @black;
+        padding: 2%;
+        background-color: @white;
+        margin-top: 2vh;
+        height: 8vh;
+        box-shadow: @box-shadow;
+    }
+    .file-file-mobile {
+        width: 90%;
+        margin-top: 2vh;
+        height: 10vh;
+        display: flex;
+        align-items: baseline;
+        .tag-name {
+            margin-left: 0;
+            font-size: 2.4vh;
+            color: @gray-600;
+        }
+        .tag-content {
+            margin-left: 0;
+            width: 80%;
+            .file {
+                //width: 110%;
+                //background-color: @white;
+                height: 100%;
+                font-size: 2vh;
+                .file-text {
+                    font-size: 2vh !important;
+                }
+            }
+        }
+    }
+    .user-mobile-drop {
+        display: block;
+        width: 90%;
+        background-color: @gray-300;
+        font-size: 2.4vh;
+        margin: 2vh 0 0 0;
+        border-bottom: 1px solid @gray-300;
+        color: @gray-600;
+    }
+}
+.user-submit-button {
+    position: absolute;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    border-radius: 3vh;
+    height: 6vh;
+    margin: auto;
+    background-color: @orangeYellow;
+    font-size: 2.5vh;
+    color: @black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comments-wrap-mobile {
+    margin-top: 5vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+    .comment-list-item-mobile {
+        width: 98%;
+        display: block;
+        //min-height: 10vh;
+        border-bottom: 1px solid @gray-200;
+
+        .comment-list-item-title-mobile {
+            display: flex;
+            //align-items: center;
+            margin-top: 10px;
+            .right-sec {
+                display: flex;
+                flex-direction: column;
+                margin-left: 10px;
+                .comment-content-mobile {
+                    color: @gray-500;
+                    font-size: 2vh;
+                    margin-top: 10px;
+                    margin-bottom: 20px;
+                    width: 70vw;
+                }
+                .comment-list-item-tag-mobile {
+                    width: 70vw;
+                    position: relative;
+                    line-height: 40px;
+                    font-size: 2vh;
+                    .comment-tag {
+                        position: absolute;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        right: 0;
+                    }
+                }
+            }
+        }
+    }
+    .comment-title-mobile {
+        width: 100%;
+        font-weight: 550;
+        font-size: 2.4vh;
+        color: @gray-600;
+    }
+    .comment-underline-mobile {
+        margin-top: 2vh;
+        width: 100%;
+        height: 1px;
+        background-color: @gray-400;
+    }
+}
+.check-home-work-wrap {
+    width: 90%;
+    padding: 16px;
+    margin: 20px auto;
+    background-color: @gray-200;
+    border-radius: 7px;
+    position: relative;
+    .check-homework-button {
+        position: absolute;
+        width: 12vw;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5%;
+        padding: 2px 5px 2px 5px;
+        border-radius: 7px;
+        background-color: @light-purple;
+        text-align: center;
+        align-items: center;
+        color: @white;
+    }
+}
+.modal-hover-mobile {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    background-color: rgba(0,0,0,.2);
+    animation: blurani .3s ease-in-out forwards;
+}
+.modal-modal-mobile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 80vw;
+    border-radius: 30px 30px 0 0;
+    background-color: @white;
+    height: 70vh;
+    z-index: 1000;
+    box-shadow: @box-shadow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6vh 10vw 10vw;
+    .dashin(.3s, verticalReverse);
+    .file-pre-mobile {
+        width: 100%;
+        font-size: 2vh;
+        height: 10vh;
+        overflow-y: auto;
+        grid-template-columns: 20% 1fr;
+        .tag-content {
+            margin-top: 8px;
+            font-size: 3vh;
+            .file-text {
+                font-size: 2vh;
+            }
+        }
+    }
+    .homework-pre-head-mobile {
+        margin-bottom: 3vh;
+    }
+    .homework-pre-mobile {
+        width: 80%;
+        padding: 2% 10% 10% 2%;
+        min-height: 20vh;
+        margin: 3vh 0 3vh 0;
+        background-color: @gray-200;
+        border-radius: 9px;
+        font-size: 2vh;
+        box-shadow: @box-shadow;
+    }
+    .back-button {
+        position: absolute;
+        width: 80%;
+        height: 6vh;
+        border-radius: 3vh;
+        background-color: @white;
+        border: 3px solid @orangeYellow;
+        color: @orangeYellow;
+        font-size: 3vh;
+        font-weight: bold;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        bottom: 20px;
+    }
+}
+.user-mobile-drop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 2.4vh;
+    margin-top: 2vh;
+    color: @gray-600;
+    .popover {
+        width: 70% !important;
+        border:  1px solid  @gray-400 !important;
+        input {
+            height: 5vh ;
+        }
+    }
+    #drop-down-list {
+        width: 100%;
+        max-height: 34vh;
+        .drop-list-common(50vh);
+    }
+    #drop-down-list-user {
+        width: 100%;
+        max-height: 28vh;
+        .drop-list-common(50vh);
+    }
+}
+@keyframes blurani {
+    100% {
+        backdrop-filter: blur(5px);
+    }
+}

@@ -1,0 +1,47 @@
+@import '../../../../../styles/homework_index.less';
+.button-fix {
+    position: sticky;
+}
+.user-submit {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.user-submit-preview {
+    width: 90vw ;
+    animation: bigrani .4s ease-in-out forwards;
+}
+.user-submit-preview-small {
+    width: 50vw ;
+    animation: smallerani .4s ease-in-out forwards;
+
+}
+.user-submit-comment {
+    width: 40vw;
+    .comment-card {
+        border-radius: 7px !important;
+        margin-top: 20px;
+        margin-left: 20px;
+        box-shadow: @box-shadow;
+        .pop(.5s);
+    }
+}
+@keyframes bigrani {
+    0% {
+        width: 50vw;
+    }
+    100% {
+        width: 70vw;
+    }
+}
+@keyframes smallerani {
+    0% {
+        width: 70vw;
+    }
+    100% {
+        width: 50vw;
+    }
+}
