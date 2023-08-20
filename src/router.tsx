@@ -24,9 +24,9 @@ const router = createBrowserRouter([
     path: '/',
     element: <Verify />,
     children: [
-      { path: '/home', element: <HomePage /> },
-      { path: '/form', element: <FormForWeb /> },
-      { path: '/progress', element: <Progress /> },
+      { path: '/home', element: <HomePage /> }, // 个人主页
+      { path: '/form', element: <FormForWeb /> }, // 报名表
+      { path: '/progress', element: <Progress /> }, // 进度查询
       {
         // 作业
         path: '/homework',
@@ -68,8 +68,9 @@ const router = createBrowserRouter([
           },
         ],
       },
-      { path: '/review', element: <Review /> },
+      { path: '/review', element: <Review /> }, // 审阅
       {
+        // 权限管理
         path: '/authority-manage',
         element: <AuthorityManage />,
       },
