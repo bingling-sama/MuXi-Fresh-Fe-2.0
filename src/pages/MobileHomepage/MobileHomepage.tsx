@@ -98,7 +98,9 @@ const MobileHomepage = () => {
           </Dropdown>
         </Header>
         <Content className={'mobileLayoutContent'}>
-          <Image src={background} width={'80vw'} preview={false}></Image>
+          <div className={'mobileLayoutContentImg'}>
+            <Image src={background} width={'80vw'} preview={false}></Image>
+          </div>
           <div className={'mobileLayoutContentBox'}>
             <div
               className={'mobileLayoutContentBoxs'}

@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: '/mobile-homepage',
+    path: '/m',
     element: <MobileHomepage></MobileHomepage>,
   },
 ]);
