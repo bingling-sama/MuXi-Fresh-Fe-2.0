@@ -72,7 +72,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
 
   const menus: MenuProps['items'] = [
     {
-      key: '/1',
+      key: '/form',
       title: '报名表',
       label: <div className={'layoutLink'}>报名表</div>,
     },

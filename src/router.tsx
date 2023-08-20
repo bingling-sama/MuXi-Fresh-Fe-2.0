@@ -15,6 +15,7 @@ import HomeworkJudge from './pages/homework/pages/adminMode/judge';
 import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
+import FormForWeb from './pages/formW';
 
 const router = createBrowserRouter([
   { path: '/login', element: <SignIn /> },
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
     element: <Verify />,
     children: [
       { path: '/home', element: <HomePage /> },
+      { path: '/form', element: <FormForWeb /> },
       { path: '/progress', element: <Progress /> },
       {
         // 作业
