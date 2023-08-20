@@ -13,10 +13,7 @@ const Verify: React.FC = () => {
     return <VerifyToken />;
   } else {
     void message.error('未登录，请先登录');
-    if (isDesktop)
-      return <Navigate to="/login" replace state={{ message: '未登录，请先登录' }} />;
-    else
-      return <Navigate to="/m-login" replace state={{ message: '未登录，请先登录' }} />;
+    return <Navigate to="/login" replace state={{ message: '未登录，请先登录' }} />;
   }
 };
 
@@ -38,14 +35,7 @@ const VerifyToken: React.FC = () => {
 
   if (errCode === 401) {
     void message.error('登录已过期，请重新登录');
-    if (isDesktop)
-      return (
-        <Navigate to="/login" replace state={{ message: '登录已过期，请重新登录' }} />
-      );
-    else
-      return (
-        <Navigate to="/m-login" replace state={{ message: '登录已过期，请重新登录' }} />
-      );
+    return <Navigate to="/login" replace state={{ message: '登录已过期，请重新登录' }} />;
   } else {
     if (isDesktop) return <Layout identity={identity} isForm={isForm} />;
     else return <MobileHomepage />;
