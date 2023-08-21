@@ -1,16 +1,18 @@
-import React, { useEffect, useState } from 'react';
-import { Input, message } from 'antd';
-import './SignUp.less';
+import { useState, useEffect } from 'react';
+import join from '../../assets/join.png';
 import logo from '../../assets/muxilogo.png';
+import './MobileSignUp.less';
+import { Input, message } from 'antd';
+import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
 import { post } from '../../fetch';
-import { SendEmailResult, SignUpResult } from './SignUp';
+import { SendEmailResult, SignUpResult } from '../SignUp/SignUp';
 import { useNavigate } from 'react-router-dom';
 
-const SignUp: React.FC = () => {
+const MobileSignUp: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [checkPassword, setCheckPassword] = useState('');
-  const [VerifyCode, setVerifyCode] = useState('');
+  const [verifyCode, setVerifyCode] = useState('');
 
   const [isEmail, setIsEmail] = useState(true);
   const [isPasswordFormat, setIsPasswordFormat] = useState(true);
@@ -62,6 +64,7 @@ const SignUp: React.FC = () => {
   const checkPasswordFormat = () => {
     if (password.length < 6) {
       setIsPasswordFormat(false);
+      void message.error('密码不能少于6位');
     } else {
       setIsPasswordFormat(true);
     }
@@ -72,10 +75,11 @@ const SignUp: React.FC = () => {
       setIsPasswordMatch(true);
     } else {
       setIsPasswordMatch(false);
+      void message.error('密码不一致');
     }
   };
 
-  const submit = () => {
+  const signUp = () => {
     if (!isEmail || !isPasswordFormat || !isPasswordMatch) {
       void message.error('注册信息填写有误，请重试！');
       return;
@@ -84,7 +88,7 @@ const SignUp: React.FC = () => {
     const req = {
       email: email,
       password: password,
-      verify_code: VerifyCode,
+      verify_code: verifyCode,
     };
 
     post('/auth/register', req, false).then(
@@ -94,6 +98,7 @@ const SignUp: React.FC = () => {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
           void post('/schedule/create', true);
+          // 用已经声明好的navigate跳转到首页
         } else if (code === -1) {
           void message.error('出错了');
         }
@@ -106,63 +111,64 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="signUp-wrap">
-      <div className="signUp-wrap-header">
-        <img src={logo} alt="" />
-        <div className="header-title">MUXI</div>
+    <div className="mobileSignUp-wrap">
+      <div className="header-box">
+        <img src={join} alt="" />
       </div>
-      <div className="signUp-form">
-        <div className={`email-box ${!isEmail ? 'email-tooltip' : ''}`}>
-          <div className="box-label">邮箱:</div>
+      <div className="form-box">
+        <div className="form-title-box">
+          <div className="logo-box">
+            <img src={logo} alt="" />
+          </div>
+          <div className="team-name-box">木犀团队</div>
+        </div>
+        <div className="account-box">
           <Input
             className="input-field"
+            prefix={isEmail ? <SmileOutlined /> : <FrownOutlined />}
             onChange={(e) => {
               setEmail(e.target.value);
             }}
-            onBlur={checkEmail}
             value={email}
-            status={!isEmail ? 'error' : ''}
+            onBlur={checkEmail}
             placeholder="请输入邮箱"
+            status={!isEmail ? 'error' : ''}
           />
         </div>
-        <div className={`password-box ${!isPasswordFormat ? 'password-tooltip' : ''}`}>
-          <div className="box-label">密码:</div>
+        <div className="password-box">
           <Input.Password
             className="input-field"
+            prefix={isPasswordFormat ? <SmileOutlined /> : <FrownOutlined />}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
-            onBlur={checkPasswordFormat}
             value={password}
-            status={!isPasswordFormat ? 'error' : ''}
+            onBlur={checkPasswordFormat}
             placeholder="请输入密码"
+            status={!isPasswordFormat ? 'error' : ''}
           />
         </div>
-        <div
-          className={`check-password-box ${
-            !isPasswordMatch ? 'check-password-tooltip' : ''
-          }`}
-        >
-          <div className="box-label">确认密码:</div>
+        <div className="check-password-box">
           <Input.Password
             className="input-field"
+            prefix={isPasswordMatch ? <SmileOutlined /> : <FrownOutlined />}
             onChange={(e) => {
               setCheckPassword(e.target.value);
             }}
             onBlur={checkPasswordMatch}
             value={checkPassword}
-            status={!isPasswordMatch ? 'error' : ''}
             placeholder="请确认密码"
+            status={!isPasswordMatch ? 'error' : ''}
           />
         </div>
-        <div className="verifyCode-box">
-          <div className="box-label">验证码:</div>
+        <div className="verification-code-box">
           <Input
             className="input-field"
             onChange={(e) => {
               setVerifyCode(e.target.value);
             }}
-            value={VerifyCode}
+            value={verifyCode}
+            placeholder="验证码"
           />
           {!isSend ? (
             <div className="get-verifyCode-btn" onClick={sendVerificationCode}>
@@ -173,15 +179,10 @@ const SignUp: React.FC = () => {
           )}
         </div>
         <div className="btn-box">
-          <div
-            className="signIn-btn"
-            onClick={() => {
-              navigate('/signIn');
-            }}
-          >
+          <div className="signIn-btn" onClick={() => navigate('/login')}>
             登录
           </div>
-          <div className="signUp-btn" onClick={submit}>
+          <div className="signUp-btn" onClick={signUp}>
             注册
           </div>
         </div>
@@ -190,4 +191,4 @@ const SignUp: React.FC = () => {
   );
 };
 
-export default SignUp;
+export default MobileSignUp;

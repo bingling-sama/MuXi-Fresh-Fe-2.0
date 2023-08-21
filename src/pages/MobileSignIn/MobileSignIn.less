@@ -1,0 +1,108 @@
+.mobileSignIn-wrap {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #f1f1f1;
+
+    .header-box {
+        width: 100%;
+        background-color: #15151D;
+        padding-bottom: 10vh;
+
+        img {
+            width: 100%;
+        }
+    }
+
+    .form-box {
+        margin-top: -10vh;
+        height: 70vh;
+        width: 100%;
+        background-color: #f1f1f1;
+        border-radius: 28px 28px 0 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .form-title-box {
+            width: 86vw;
+            padding-top: 16px;
+            display: flex;
+            align-items: center;
+
+            .logo-box {
+                width: 5rem;
+
+                img {
+                    width: 100%;
+                }
+            }
+
+            .team-name-box {
+                font-size: 28px;
+                font-weight: bold;
+            }
+        }
+
+        .account-box,
+        .password-box {
+            width: 86vw;
+
+            .ant-input-affix-wrapper {
+                box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+            }
+
+            .input-field {
+                width: 86vw;
+                font-size: 24px;
+            }
+        }
+
+        .password-box {
+            margin-top: 32px;
+        }
+
+        .verification-code-box {
+            margin-top: 32px;
+            width: 86vw;
+            display: flex;
+            gap: 28px;
+
+            .input-field {
+                width: 32vw;
+                font-size: 24px;
+            }
+
+            .code-img-box {
+                width: 42vw;
+                height: 28px;
+
+                .code-img {
+                    width: 100%;
+                }
+            }
+        }
+
+        .btn-box {
+            margin-top: 64px;
+            font-size: 20px;
+            display: flex;
+            gap: 64px;
+
+            .signIn-btn {
+                background-color: #FFC93F;
+                text-align: center;
+                border-radius: 8px;
+                padding: 8px 32px;
+            }
+
+            .signUp-btn {
+                background-color: #d0d0d0;
+                text-align: center;
+                border-radius: 8px;
+                padding: 8px 32px;
+            }
+        }
+
+    }
+}
