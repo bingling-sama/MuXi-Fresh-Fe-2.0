@@ -37,7 +37,7 @@ const SignUp: React.FC = () => {
   const sendVerificationCode = () => {
     const req = {
       email: email,
-      type: 'auth_register',
+      type: 'register',
     };
 
     post('/auth/send-verification-code', req, false).then(
@@ -94,6 +94,7 @@ const SignUp: React.FC = () => {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
           void post('/schedule/create', true);
+          navigate('/');
         } else if (code === -1) {
           void message.error('出错了');
         }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Progress.less';
 import { GetScheduleResult, Schedule } from './Progress';
 import { get } from '../../fetch';
-import { Spin, message } from 'antd';
+import { message, Spin } from 'antd';
 import { Group } from '../Review/ReviewFitler';
 
 const Progress: React.FC = () => {
@@ -51,27 +51,39 @@ const Progress: React.FC = () => {
         <tbody>
           <tr>
             <td className="tr-title">姓名</td>
-            {isLoading ? <Spin /> : <td>{schedule.name}</td>}
+            {isLoading ? <Spin /> : <td className="tr-content">{schedule.name}</td>}
           </tr>
           <tr>
             <td className="tr-title">学院</td>
-            {isLoading ? <Spin /> : <td>{schedule.school}</td>}
+            {isLoading ? <Spin /> : <td className="tr-content">{schedule.school}</td>}
           </tr>
           <tr>
             <td className="tr-title">专业</td>
-            {isLoading ? <Spin /> : <td>{schedule.major}</td>}
+            {isLoading ? <Spin /> : <td className="tr-content">{schedule.major}</td>}
           </tr>
           <tr>
             <td className="tr-title">报名组别</td>
-            {isLoading ? <Spin /> : <td>{chineseGroups[schedule.group]}</td>}
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <td className="tr-content">{chineseGroups[schedule.group]}</td>
+            )}
           </tr>
           <tr>
             <td className="tr-title">报名表状态</td>
-            {isLoading ? <Spin /> : <td>{schedule.entry_form_status}</td>}
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <td className="tr-content">{schedule.entry_form_status}</td>
+            )}
           </tr>
           <tr>
             <td className="tr-title">录取状态</td>
-            {isLoading ? <Spin /> : <td>{schedule.admission_status}</td>}
+            {isLoading ? (
+              <Spin />
+            ) : (
+              <td className="tr-content">{schedule.admission_status}</td>
+            )}
           </tr>
         </tbody>
       </table>
