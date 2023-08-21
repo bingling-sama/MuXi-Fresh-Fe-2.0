@@ -94,6 +94,7 @@ const SignUp: React.FC = () => {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
           void post('/schedule/create', true);
+          // 用已经声明的navigate跳转到首页
         } else if (code === -1) {
           void message.error('出错了');
         }

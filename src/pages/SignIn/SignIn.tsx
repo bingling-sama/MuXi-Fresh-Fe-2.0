@@ -55,6 +55,8 @@ const SignIn: React.FC = () => {
             (r: SignInResult) => {
               console.log(r);
               localStorage.setItem('token', r.data.token);
+              void message.success('登录成功！');
+              // 用已经声明的navigate跳转到首页
             },
             (e) => {
               console.error(e);
