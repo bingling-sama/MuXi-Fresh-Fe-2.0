@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import AuthorityManage from './pages/AuthorityManage/AuthorityManage.tsx';
 import Review from './pages/Review/Review.tsx';
 import Verify from './components/Verify/Verify.tsx';
@@ -27,6 +27,7 @@ export const router = createBrowserRouter(
           path: '/',
           element: <Verify />,
           children: [
+            { path: '', element: <Navigate to="/form" /> },
             { path: '/home', element: <HomePage /> }, // 个人主页
             { path: '/form', element: <FormForWeb /> }, // 报名表
             { path: '/progress', element: <Progress /> }, // 进度查询
