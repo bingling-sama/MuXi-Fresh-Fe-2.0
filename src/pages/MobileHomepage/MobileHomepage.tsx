@@ -15,6 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { MenuOutlined, PoweroffOutlined, UserOutlined } from '@ant-design/icons';
 import defaultAvatar from '../../assets/defaultAvatar.png';
 import background from '../../assets/homepage-background.png';
+import registrationForm from '../../assets/registration-form.png';
 import progressQuery from '../../assets/progress-query.png';
 import submit from '../../assets/submit.png';
 import submitTest from '../../assets/submit-test.png';
@@ -108,7 +109,7 @@ const MobileHomepage: React.FC = () => {
                 navigationClick('/');
               }}
             >
-              <Image src={progressQuery} width={'20vw'} preview={false}></Image>
+              <Image src={registrationForm} width={'20vw'} preview={false}></Image>
               报名表
             </div>
             <div
