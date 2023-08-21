@@ -54,7 +54,7 @@ const MobileHomepage: React.FC = () => {
       label: (
         <div
           onClick={() => {
-            navigationClick('/mobile-home');
+            navigationClick('/home');
           }}
         >
           <UserOutlined />
@@ -114,7 +114,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/');
+                navigationClick('/progress');
               }}
             >
               <Image src={progressQuery} width={'20vw'} preview={false}></Image>
