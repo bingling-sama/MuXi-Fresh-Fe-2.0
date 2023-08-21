@@ -14,20 +14,20 @@ import {
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
-import AvatarDefault from '../../assets/images/form/avatarDefaultW.png';
+import TextArea from 'antd/es/input/TextArea';
 
 const FormForWeb: React.FC = () => {
   const [qiniuToken, setQiniuToken] = useState('');
   const [uploadUrl, setUploadUrl] = useState('');
   const [name, setName] = useState(''); //姓名
-  const [sex, setsex] = useState('请选择'); //性别
+  const [sex, setsex] = useState(''); //性别
   const [nickname, setnickname] = useState('');
   const [avatar2, setavatar2] = useState('');
-  const [avatar, setavatar] = useState<string | undefined>(AvatarDefault);
+  const [avatar, setavatar] = useState<string | undefined>('');
   const [stu_number] = useState(''); //学号
-  const [academy, setacademy] = useState('请选择'); //学院
+  const [academy, setacademy] = useState(''); //学院
   const [major, setmajor] = useState(''); //专业
-  const [grade, setgrade] = useState('大一'); //年级
+  const [grade, setgrade] = useState(''); //年级
   const [contactWay, setcontactWay] = useState<{ [key: string]: string }>({
     email: '',
     qq: '',
@@ -37,7 +37,7 @@ const FormForWeb: React.FC = () => {
   const [contactWayselect2, setcontactWayselect2] = useState('联系方式2'); //联系方式2
   const [reason, setreason] = useState(''); //心动原因
   const [knowledge, setknowledge] = useState(''); //组别了解
-  const [wantGroup, setwantGroup] = useState('请选择'); //心动组别
+  const [wantGroup, setwantGroup] = useState(''); //心动组别
   const [self_intro, setself_intro] = useState(''); //自我介绍
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState<number>(0);
@@ -82,7 +82,31 @@ const FormForWeb: React.FC = () => {
     code: number;
   }
   const setForm = () => {
-    if (wantGroup != '请选择') {
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
+    const send = () => {
       post(`/form/`, {
         avatar: avatar,
         major: major,
@@ -111,45 +135,85 @@ const FormForWeb: React.FC = () => {
       }).catch((e) => {
         console.error(e);
       });
-    } else void message.warning('请选择心动组别！');
+    };
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === '') {
+        void message.info(arrCN[i]);
+        return;
+      }
+    }
+    send();
   };
   const changeForm = () => {
-    put(`/form/`, {
-      form_id: form_id,
-      avatar: avatar,
-      major: major,
-      grade: grade,
-      gender: sex,
-      phone: contactWay['phone'],
-      group: wantGroup,
-      reason: reason,
-      knowledge: knowledge,
-      self_intro: self_intro,
-      extra_question: extra_question,
-    })
-      .then((data: res) => {
-        if (data.code === 0) void message.success('提交成功^_^');
-        else void message.error('提交失败，请重试');
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
+    const send = () => {
+      put(`/form/`, {
+        form_id: form_id,
+        avatar: avatar,
+        major: major,
+        grade: grade,
+        gender: sex,
+        phone: contactWay['phone'],
+        group: wantGroup,
+        reason: reason,
+        knowledge: knowledge,
+        self_intro: self_intro,
+        extra_question: extra_question,
       })
-      .catch((e) => {
+        .then((data: res) => {
+          if (data.code === 0) void message.success('提交成功^_^');
+          else void message.error('提交失败，请重试');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      post('/users/', {
+        avatar: avatar2,
+        name: name,
+        nickname: nickname,
+        qq: contactWay['qq'],
+        school: academy,
+      }).catch((e) => {
         console.error(e);
       });
-    post('/users/', {
-      avatar: avatar2,
-      name: name,
-      nickname: nickname,
-      qq: contactWay['qq'],
-      school: academy,
-    }).catch((e) => {
-      console.error(e);
-    });
+    };
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === '') {
+        void message.info(arrCN[i]);
+        return;
+      }
+    }
+    send();
   };
   useEffect(() => {
     const formdata = get(`/form/view?entry_form_id=myself`);
     formdata
       .then((data: FormData) => {
+        setformSetted(data.code);
         if (data.code == 0) {
-          setformSetted(data.code);
           setavatar(data.data.avatar);
           setform_id(data.data.form_id);
           setsex(data.data.gender);
@@ -240,7 +304,14 @@ const FormForWeb: React.FC = () => {
                   maxCount={1}
                 >
                   <div className="avatar_formweb">
-                    <img src={avatar} />
+                    {avatar ? (
+                      <img src={avatar} />
+                    ) : (
+                      <div className="avatarDefault">
+                        <div style={{ fontSize: '20px' }}>+</div>
+                        <div>上传照片</div>
+                      </div>
+                    )}
                   </div>
                 </Upload>
               </ImgCrop>
@@ -293,12 +364,13 @@ const FormForWeb: React.FC = () => {
                       value={grade}
                       onChange={(e) => setgrade(e)}
                       options={[
-                        { value: '大一', label: '大一' },
-                        { value: '大二', label: '大二' },
-                        { value: '大三', label: '大三' },
-                        { value: '大四', label: '大四' },
-                        { value: '研一', label: '研一' },
-                        { value: '研二', label: '研二' },
+                        { value: '2023', label: '2023' },
+                        { value: '2022', label: '2022' },
+                        { value: '2021', label: '2021' },
+                        { value: '2020', label: '2020' },
+                        { value: '2019', label: '2018' },
+                        { value: '2017', label: '2017' },
+                        { value: '2016', label: '2016' },
                       ]}
                     />
                   </Space>
@@ -331,7 +403,6 @@ const FormForWeb: React.FC = () => {
                         城市与环境科学学院
                       </Select.Option>
                       <Select.Option value="美术学院">美术学院</Select.Option>
-                      <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
                       <Select.Option value="政治与国际关系学院">
                         政治与国际关系学院
                       </Select.Option>
@@ -447,36 +518,42 @@ const FormForWeb: React.FC = () => {
               </div>
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
-                <Input
+                <TextArea
+                  maxLength={500}
+                  style={{ resize: 'none' }}
                   className="textarea_formweb"
                   name=""
                   id="group_reason"
                   placeholder="请输入你的心动理由"
                   value={reason}
                   onChange={(e) => setreason(e.target.value)}
-                ></Input>
+                ></TextArea>
               </div>
               <div className="knowledgebox">
                 <div className="detail_formweb">对组别的认识:</div>
-                <Input
+                <TextArea
+                  maxLength={500}
+                  style={{ resize: 'none' }}
                   className="textarea_formweb"
                   name=""
                   id="group_knowledge"
                   placeholder="请输入你对所选组别的了解"
                   value={knowledge}
                   onChange={(e) => setknowledge(e.target.value)}
-                ></Input>
+                ></TextArea>
               </div>
               <div className="self_introbox">
                 <div className="detail_formweb">自我介绍:</div>
-                <Input
+                <TextArea
+                  style={{ resize: 'none' }}
+                  maxLength={500}
                   className="textarea_formweb"
                   name=""
                   id="self_inro"
                   placeholder="进行一个自我介绍，内容需要包含自己的性格、能力、获得过的相关的成就以及假如自己进入木犀后的想法，可加入其他内容。"
                   value={self_intro}
                   onChange={(e) => setself_intro(e.target.value)}
-                ></Input>
+                ></TextArea>
               </div>
               <div className="questionbox_formweb">
                 你是否有加入/正在加入一些其他组织或担任学生工作?

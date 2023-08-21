@@ -19,11 +19,11 @@ const FormForMobile: React.FC = () => {
   const [nickname, setnickname] = useState('');
   const [avatar2, setavatar2] = useState('');
   const [sex, setsex] = useState(''); //性别
-  const [avatar, setavatar] = useState<string | undefined>(avatarDefault);
+  const [avatar, setavatar] = useState<string | undefined>('');
   const [stu_number] = useState(''); //学号
-  const [academy, setacademy] = useState('请选择'); //学院
+  const [academy, setacademy] = useState(''); //学院
   const [major, setmajor] = useState(''); //专业
-  const [grade, setgrade] = useState('大一'); //年级
+  const [grade, setgrade] = useState(''); //年级
   const [contactWay, setcontactWay] = useState<{ [key: string]: string }>({
     email: '',
     qq: '',
@@ -33,7 +33,7 @@ const FormForMobile: React.FC = () => {
   const [contactWayselect2, setcontactWayselect2] = useState('选填'); //联系方式2
   const [reason, setreason] = useState(''); //心动原因
   const [knowledge, setknowledge] = useState(''); //组别了解
-  const [wantGroup, setwantGroup] = useState('请选择'); //心动组别
+  const [wantGroup, setwantGroup] = useState(''); //心动组别
   const [self_intro, setself_intro] = useState(''); //自我介绍
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState<number>(-1);
@@ -84,7 +84,31 @@ const FormForMobile: React.FC = () => {
     code: number;
   }
   const setForm = () => {
-    if (wantGroup != '请选择') {
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
+    const send = () => {
       post(`/form/`, {
         avatar: avatar,
         major: major,
@@ -113,38 +137,78 @@ const FormForMobile: React.FC = () => {
       }).catch((e) => {
         console.error(e);
       });
-    } else void message.error('请选择心动组别');
+    };
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === '') {
+        void message.info(arrCN[i]);
+        return;
+      }
+    }
+    send();
   };
   const changeForm = () => {
-    put(`/form/`, {
-      form_id: form_id,
-      avatar: avatar,
-      major: major,
-      grade: grade,
-      gender: sex,
-      phone: contactWay['phone'],
-      group: wantGroup,
-      reason: reason,
-      knowledge: knowledge,
-      self_intro: self_intro,
-      extra_question: extra_question,
-    })
-      .then((data: res) => {
-        if (data.code === 0) void message.success('提交成功^_^');
-        else void message.error('提交失败，请重试');
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
+    const send = () => {
+      put(`/form/`, {
+        form_id: form_id,
+        avatar: avatar,
+        major: major,
+        grade: grade,
+        gender: sex,
+        phone: contactWay['phone'],
+        group: wantGroup,
+        reason: reason,
+        knowledge: knowledge,
+        self_intro: self_intro,
+        extra_question: extra_question,
       })
-      .catch((e) => {
+        .then((data: res) => {
+          if (data.code === 0) void message.success('提交成功^_^');
+          else void message.error('提交失败，请重试');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      post('/users/', {
+        avatar: avatar2,
+        name: name,
+        nickname: nickname,
+        qq: contactWay['qq'],
+        school: academy,
+      }).catch((e) => {
         console.error(e);
       });
-    post('/users/', {
-      avatar: avatar2,
-      name: name,
-      nickname: nickname,
-      qq: contactWay['qq'],
-      school: academy,
-    }).catch((e) => {
-      console.error(e);
-    });
+    };
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === '') {
+        void message.info(arrCN[i]);
+        return;
+      }
+    }
+    send();
   };
   useEffect(() => {
     if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
@@ -156,9 +220,9 @@ const FormForMobile: React.FC = () => {
     const formdata = get(`/form/view?entry_form_id=myself`);
     formdata
       .then((data: FormData) => {
+        setformSetted(data.code);
         if (data.code == 0) {
           setavatar(data.data.avatar);
-          setformSetted(data.code);
           setform_id(data.data.form_id);
           setsex(data.data.gender);
           setmajor(data.data.major);
@@ -237,7 +301,7 @@ const FormForMobile: React.FC = () => {
             maxCount={1}
           >
             <div className="avatar_formM">
-              <img src={avatar} alt="" />
+              {avatar ? <img src={avatar} /> : <img src={avatarDefault}></img>}
             </div>
           </Upload>
         </ImgCrop>
@@ -379,12 +443,13 @@ const FormForMobile: React.FC = () => {
           value={grade}
           onChange={(e) => setgrade(e.target.value)}
         >
-          <option value="大一">大一</option>
-          <option value="大二">大二</option>
-          <option value="大三">大三</option>
-          <option value="大四">大四</option>
-          <option value="研一">研一</option>
-          <option value="研二">研二</option>
+          <option value="2023">2023</option>
+          <option value="2022">2022</option>
+          <option value="2021">2021</option>
+          <option value="2020">2020</option>
+          <option value="2019">2019</option>
+          <option value="2018">2018</option>
+          <option value="2017">2017</option>
         </select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
@@ -476,6 +541,7 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">心动理由</div>
         </div>
         <textarea
+          maxLength={500}
           name=""
           id="group_reason_formM"
           placeholder="请输入你的理由"
@@ -487,6 +553,7 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">对组别的认识</div>
         </div>
         <textarea
+          maxLength={500}
           name=""
           id="group_know_formM"
           placeholder="请输入你对所选组别的了解"
@@ -515,6 +582,7 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">自我介绍</div>
         </div>
         <textarea
+          maxLength={500}
           name=""
           id="self_introduction_formM"
           placeholder=" "
