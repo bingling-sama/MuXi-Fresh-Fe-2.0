@@ -11,9 +11,11 @@ import { useNavigate } from 'react-router-dom';
 const MobileSignIn: React.FC = () => {
   const [codeImg, setCodeImg] = useState('');
   const [imgId, setImgId] = useState('');
-  const [email, setEmail] = useState('');
+  const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
+
+  const [isEmail, setIsEmail] = useState(true);
 
   const navigate = useNavigate();
 
@@ -35,6 +37,11 @@ const MobileSignIn: React.FC = () => {
     );
   };
 
+  const checkEmail = () => {
+    const isEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-]{2,})+(.[a-zA-Z]{2,3})$/;
+    setIsEmail(isEmail.test(account));
+  };
+
   const signIn = () => {
     const verifyReq = {
       image_id: imgId,
@@ -45,23 +52,45 @@ const MobileSignIn: React.FC = () => {
       (r: VerifyResult) => {
         const { code } = r;
         if (code === 0) {
-          const signInReq = {
-            user_name: email,
-            password: password,
-          };
-
-          post('/auth/login', signInReq, false).then(
-            (r: SignInResult) => {
-              console.log(r);
-              localStorage.setItem('token', r.data.token);
-              void message.success('登录成功！');
-              navigate('/');
-            },
-            (e) => {
-              console.error(e);
-              void message.error('登录失败，请重试！');
-            },
-          );
+          if (isEmail) {
+            // 是email就邮箱登录
+            const signInReq = {
+              user_name: account,
+              password: password,
+            };
+            post('/auth/login', signInReq, false).then(
+              (r: SignInResult) => {
+                localStorage.setItem('token', r.data.token);
+                void message.success('登录成功！');
+                navigate('/');
+              },
+              (e) => {
+                console.error(e);
+                void message.error('登录失败，请重试！');
+              },
+            );
+          } else {
+            // 不是email就学号登录
+            const signInReq = {
+              student_id: account,
+              password: password,
+            };
+            post('/auth/ccnuLogin', signInReq, false).then(
+              (r: SignInResult) => {
+                if (r.code === 0) {
+                  localStorage.setItem('token', r.data.token);
+                  void message.success('登录成功！');
+                  navigate('/');
+                } else {
+                  void message.error('该学号未绑定账号，请重试！');
+                }
+              },
+              (e) => {
+                console.error(e);
+                void message.error('登录失败，请重试！');
+              },
+            );
+          }
         } else {
           void message.error('验证码错误，请重试');
           getCodeImg();
@@ -92,9 +121,10 @@ const MobileSignIn: React.FC = () => {
             className="input-field"
             prefix={<SmileOutlined />}
             onChange={(e) => {
-              setEmail(e.target.value);
+              setAccount(e.target.value);
             }}
-            value={email}
+            value={account}
+            onBlur={checkEmail}
             placeholder="请输入邮箱/学号"
           />
         </div>

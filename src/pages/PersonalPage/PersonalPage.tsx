@@ -48,6 +48,23 @@ const PersonalPage: React.FC = () => {
   const [newPassword, setNewPassword] = useState('');
   const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
+  const [isSend, setIsSend] = useState(false);
+  const [countdown, setCountdown] = useState(60);
+
+  useEffect(() => {
+    if (isSend) {
+      const timer = setTimeout(() => {
+        if (countdown > 0) {
+          setCountdown((countdown) => countdown - 1);
+        } else {
+          setIsSend(false);
+          setCountdown(60);
+          clearTimeout(timer);
+        }
+      }, 1000);
+    }
+  }, [countdown, isSend]);
+
   useEffect(() => {
     void get('/users/my-info', true).then(
       (r: GetUserInfoResult) => {
@@ -166,19 +183,16 @@ const PersonalPage: React.FC = () => {
           const email = newEmail;
           setUserInfo({ ...userInfo, email });
           void (r.data.flag && message.success('邮箱绑定成功！'));
-          setNewEmail('');
-          setVerifyCode('');
+          cancelEmailModal();
         } else {
           void message.error('邮箱绑定失败，请重试！');
-          setNewEmail('');
-          setVerifyCode('');
+          cancelEmailModal();
         }
       },
       (e) => {
         console.log(e);
         void message.error('邮箱绑定失败，请重试！');
-        setNewEmail('');
-        setVerifyCode('');
+        cancelEmailModal();
       },
     );
     setIsEmailModalOpen(false);
@@ -188,6 +202,8 @@ const PersonalPage: React.FC = () => {
     setIsEmailModalOpen(false);
     setNewEmail('');
     setVerifyCode('');
+    setIsSend(false);
+    setCountdown(60);
   };
 
   const sendVerificationCode = (email: string, type: string) => {
@@ -201,7 +217,7 @@ const PersonalPage: React.FC = () => {
         const { flag } = r.data;
         if (flag) {
           void message.success('验证码已发送！');
-          // setIsSend(true);
+          setIsSend(true);
         }
       },
       (e) => {
@@ -234,20 +250,24 @@ const PersonalPage: React.FC = () => {
                 cancelPasswordModal();
               } else {
                 void message.error('修改密码失败，请重试！');
+                cancelPasswordModal();
               }
             },
             (e) => {
               console.error(e);
               void message.error('修改密码失败，请重试！');
+              cancelPasswordModal();
             },
           );
         } else {
           void message.error('验证码错误，请重试！');
+          cancelPasswordModal();
         }
       },
       (e) => {
         console.error(e);
         void message.error('修改密码失败，请重试！');
+        cancelPasswordModal();
       },
     );
   };
@@ -256,6 +276,8 @@ const PersonalPage: React.FC = () => {
     setIsPasswordModalOpen(false);
     setVerifyCode('');
     setNewPassword('');
+    setIsSend(false);
+    setCountdown(60);
   };
 
   const navigate = useNavigate();
@@ -266,14 +288,14 @@ const PersonalPage: React.FC = () => {
   return (
     <>
       <div className="personalPage-wrap">
+        <div className="back-btn-box" onClick={backToHome}>
+          <img src={back} alt="" />
+        </div>
         <div className="header-box">
           <div className="background-box">
             <img src={join} alt="" />
           </div>
           <div className="title-box">个人主页</div>
-          <div className="back-btn-box" onClick={backToHome}>
-            <img src={back} alt="" />
-          </div>
         </div>
         <ImgCrop>
           <Upload<ResponseType>
@@ -328,6 +350,7 @@ const PersonalPage: React.FC = () => {
         onCancel={cancelStudentIdModal}
         okText="确认"
         cancelText="取消"
+        centered
       >
         <div className="studentId-box">
           <div className="box-label">学号:</div>
@@ -355,6 +378,7 @@ const PersonalPage: React.FC = () => {
         onCancel={cancelEmailModal}
         okText="确认"
         cancelText="取消"
+        centered
       >
         <div className="email-box">
           <div className="box-label">邮箱:</div>
@@ -373,12 +397,16 @@ const PersonalPage: React.FC = () => {
             value={verifyCode}
             onChange={(e) => setVerifyCode(e.target.value)}
           />
-          <div
-            className="get-verifyCode-btn"
-            onClick={() => sendVerificationCode(newEmail, 'set_email')}
-          >
-            获取验证码
-          </div>
+          {!isSend ? (
+            <div
+              className="get-verifyCode-btn"
+              onClick={() => sendVerificationCode(newEmail, 'set_email')}
+            >
+              获取验证码
+            </div>
+          ) : (
+            <div className="countdown-box">{`${countdown}s`}</div>
+          )}
         </div>
       </Modal>
       <Modal
@@ -388,6 +416,7 @@ const PersonalPage: React.FC = () => {
         onCancel={cancelPasswordModal}
         okText="确认"
         cancelText="取消"
+        centered
       >
         <div className="password-box">
           <div className="box-label">新密码:</div>
@@ -405,12 +434,16 @@ const PersonalPage: React.FC = () => {
             value={verifyCode}
             onChange={(e) => setVerifyCode(e.target.value)}
           />
-          <div
-            className="get-verifyCode-btn"
-            onClick={() => sendVerificationCode(userInfo.email, 'set_password')}
-          >
-            获取验证码
-          </div>
+          {!isSend ? (
+            <div
+              className="get-verifyCode-btn"
+              onClick={() => sendVerificationCode(userInfo.email, 'set_password')}
+            >
+              获取验证码
+            </div>
+          ) : (
+            <div className="countdown-box">{`${countdown}s`}</div>
+          )}
         </div>
       </Modal>
     </>
