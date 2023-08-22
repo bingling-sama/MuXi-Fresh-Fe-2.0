@@ -47,8 +47,14 @@ const HomeworkJudge: React.FC = () => {
         <HomePreview getSubmittionID={handleGetSubmittion} info={infoItem}></HomePreview>
       </div>
       <div className="comment-write">
-        <WriteComment onCommentSubmit={handleSubmit}></WriteComment>
-        <HomeComment CommentData={Comment}></HomeComment>
+        <WriteComment
+          style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+          onCommentSubmit={handleSubmit}
+        ></WriteComment>
+        <HomeComment
+          style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
+          CommentData={Comment}
+        ></HomeComment>
       </div>
     </div>
   );
