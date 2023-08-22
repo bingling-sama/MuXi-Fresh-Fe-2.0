@@ -22,7 +22,7 @@ export const router = createBrowserRouter(
   isDesktop
     ? [
         { path: '/login', element: <SignIn /> },
-        { path: '/signUp', element: <SignUp /> },
+        { path: '/register', element: <SignUp /> },
         {
           path: '/',
           element: <Verify />,
