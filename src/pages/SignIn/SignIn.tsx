@@ -12,9 +12,11 @@ import { SignInResult } from './SignIn.ts';
 const SignIn: React.FC = () => {
   const [codeImg, setCodeImg] = useState('');
   const [imgId, setImgId] = useState('');
-  const [email, setEmail] = useState('');
+  const [account, setAccount] = useState('');
   const [password, setPassword] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
+
+  const [isEmail, setIsEmail] = useState(true);
 
   const navigate = useNavigate();
 
@@ -36,6 +38,11 @@ const SignIn: React.FC = () => {
     );
   };
 
+  const checkEmail = () => {
+    const isEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-]{2,})+(.[a-zA-Z]{2,3})$/;
+    setIsEmail(isEmail.test(account));
+  };
+
   const signIn = () => {
     const verifyReq = {
       image_id: imgId,
@@ -46,22 +53,45 @@ const SignIn: React.FC = () => {
       (r: VerifyResult) => {
         const { code } = r;
         if (code === 0) {
-          const signInReq = {
-            user_name: email,
-            password: password,
-          };
-
-          post('/auth/login', signInReq, false).then(
-            (r: SignInResult) => {
-              console.log(r);
-              localStorage.setItem('token', r.data.token);
-              void message.success('登录成功！');
-              // 用已经声明的navigate跳转到首页
-            },
-            (e) => {
-              console.error(e);
-            },
-          );
+          if (isEmail) {
+            // 是email就邮箱登录
+            const signInReq = {
+              user_name: account,
+              password: password,
+            };
+            post('/auth/login', signInReq, false).then(
+              (r: SignInResult) => {
+                localStorage.setItem('token', r.data.token);
+                void message.success('登录成功！');
+                // 用已经声明好的navigate跳转到首页
+              },
+              (e) => {
+                console.error(e);
+                void message.error('登录失败，请重试！');
+              },
+            );
+          } else {
+            // 不是email就学号登录
+            const signInReq = {
+              student_id: account,
+              password: password,
+            };
+            post('/auth/ccnuLogin', signInReq, false).then(
+              (r: SignInResult) => {
+                if (r.code === 0) {
+                  localStorage.setItem('token', r.data.token);
+                  void message.success('登录成功！');
+                  // 用已经声明好的navigate跳转到首页
+                } else {
+                  void message.error('该学号未绑定账号，请重试！');
+                }
+              },
+              (e) => {
+                console.error(e);
+                void message.error('登录失败，请重试！');
+              },
+            );
+          }
         } else {
           void message.error('验证码错误，请重试');
           getCodeImg();
@@ -88,14 +118,15 @@ const SignIn: React.FC = () => {
       </div>
       <div className="signIn-form">
         <div className="email-box">
-          <div className="box-label">邮箱:</div>
+          <div className="box-label">账号:</div>
           <Input
             className="input-field"
             onChange={(e) => {
-              setEmail(e.target.value);
+              setAccount(e.target.value);
             }}
-            value={email}
-            placeholder="请输入邮箱"
+            value={account}
+            onBlur={checkEmail}
+            placeholder="请输入邮箱/学号"
           />
         </div>
         <div className="password-box">

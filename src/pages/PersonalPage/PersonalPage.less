@@ -3,6 +3,24 @@
     flex-direction: column;
     width: 100%;
 
+    .back-btn-box {
+        position: absolute;
+        z-index: 999;
+        top: 3%;
+        left: 3%;
+        display: flex;
+        align-items: center;
+        width: 36px;
+        border-radius: 8px;
+        padding: 8px;
+        background-color: #FFC93F;
+        cursor: pointer;
+
+        img {
+            width: 100%;
+        }
+    }
+
     .header-box {
         width: 100%;
         position: relative;
@@ -29,22 +47,6 @@
             transform: translateX(-50%);
         }
 
-        .back-btn-box {
-            position: absolute;
-            top: 5%;
-            left: 3%;
-            display: flex;
-            align-items: center;
-            width: 36px;
-            border-radius: 8px;
-            padding: 8px;
-            background-color: #FFC93F;
-            cursor: pointer;
-
-            img {
-                width: 100%;
-            }
-        }
     }
 
     .ant-upload-wrapper {
@@ -53,6 +55,8 @@
         margin-top: -25%;
         width: 35vw;
         align-self: center;
+        display: flex;
+        justify-content: center;
 
         .avatar-box {
             img {
@@ -183,12 +187,12 @@
 
         .box-label {
             width: 96px;
-            font-size: 20px;
+            font-size: medium;
             color: #505050;
         }
 
         .input-field {
-            font-size: 20px;
+            font-size: me;
             width: 350px;
             margin-right: 16px;
         }
@@ -211,13 +215,13 @@
 
         .box-label {
             width: 96px;
-            font-size: larger;
+            font-size: medium;
             color: #505050;
         }
 
 
         .input-field {
-            font-size: 20px;
+            font-size: medium;
             width: 350px;
             margin-right: 16px;
         }
@@ -230,12 +234,12 @@
 
         .box-label {
             width: 96px;
-            font-size: larger;
+            font-size: medium;
             color: #505050;
         }
 
         .input-field {
-            font-size: small;
+            font-size: medium;
             width: 100px;
             margin-right: 16px;
         }
@@ -251,7 +255,7 @@
 
         .countdown-box {
             background-color: #808080;
-            font-size: 20px;
+            font-size: small;
             color: #fff;
             padding: 6px 18px;
             border-radius: 8px;
@@ -270,12 +274,12 @@
 
         .box-label {
             width: 96px;
-            font-size: larger;
+            font-size: medium;
             color: #505050;
         }
 
         .input-field {
-            font-size: 20px;
+            font-size: medium;
             width: 350px;
             margin-right: 16px;
         }
@@ -288,7 +292,7 @@
 
         .box-label {
             width: 96px;
-            font-size: larger;
+            font-size: medium;
             color: #505050;
         }
 
@@ -309,7 +313,7 @@
 
         .countdown-box {
             background-color: #808080;
-            font-size: 20px;
+            font-size: small;
             color: #fff;
             padding: 6px 18px;
             border-radius: 8px;

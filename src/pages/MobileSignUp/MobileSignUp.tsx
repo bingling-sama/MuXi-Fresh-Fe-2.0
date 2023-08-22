@@ -46,6 +46,7 @@ const MobileSignUp: React.FC = () => {
       (r: SendEmailResult) => {
         const { flag } = r.data;
         if (flag) {
+          void message.success('验证码已发送！');
           setIsSend(true);
         }
       },
