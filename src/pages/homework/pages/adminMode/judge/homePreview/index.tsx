@@ -36,13 +36,12 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
     info?.task_id &&
       get(`/task/assigned/${info?.task_id}`).then((res: backType<TaskInfoType>) => {
         setPreview(res.data);
-        get(`/task/submitted/${info?.user_id}/${info?.task_id}`).then(
-          (res: backType<userTaskType>) => {
-            seturls(res.data.urls);
-            getSubmittionID && getSubmittionID(res.data.submission_id as string);
-          },
-          null,
-        );
+        get(
+          `/task/submitted?user_id=${info?.user_id}&assigned_task_id=${info?.task_id}`,
+        ).then((res: backType<userTaskType>) => {
+          seturls(res.data.urls);
+          getSubmittionID && getSubmittionID(res.data.submission_id as string);
+        }, null);
       }, null);
     setLoading(!loading);
   }, []);

@@ -71,7 +71,7 @@ const HomeworkUserSubmitMobile: React.FC = () => {
           },
         }}
       >
-        <PageWrapMobile title="提交作业">
+        <PageWrapMobile title="提交作业" backPath={'/homework/user'}>
           <TopBarMobile onChange={handleChange}></TopBarMobile>
           <div className="user-mobile-drop">
             {'选择作业 : '}
