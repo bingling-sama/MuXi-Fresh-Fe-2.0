@@ -15,8 +15,6 @@ const MobileSignIn: React.FC = () => {
   const [password, setPassword] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
 
-  const [isEmail, setIsEmail] = useState(true);
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,11 +35,6 @@ const MobileSignIn: React.FC = () => {
     );
   };
 
-  const checkEmail = () => {
-    const isEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-]{2,})+(.[a-zA-Z]{2,3})$/;
-    setIsEmail(isEmail.test(account));
-  };
-
   const signIn = () => {
     const verifyReq = {
       image_id: imgId,
@@ -52,6 +45,10 @@ const MobileSignIn: React.FC = () => {
       (r: VerifyResult) => {
         const { code } = r;
         if (code === 0) {
+          const testEmail =
+            /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+          const isEmail = testEmail.test(account);
+
           if (isEmail) {
             // 是email就邮箱登录
             const signInReq = {
@@ -60,9 +57,13 @@ const MobileSignIn: React.FC = () => {
             };
             post('/auth/login', signInReq, false).then(
               (r: SignInResult) => {
-                localStorage.setItem('token', r.data.token);
-                void message.success('登录成功！');
-                navigate('/');
+                if (r.code === 0) {
+                  localStorage.setItem('token', r.data.token);
+                  void message.success('登录成功！');
+                  navigate('/');
+                } else {
+                  void message.error('登录失败，请重试！');
+                }
               },
               (e) => {
                 console.error(e);
@@ -124,7 +125,6 @@ const MobileSignIn: React.FC = () => {
               setAccount(e.target.value);
             }}
             value={account}
-            onBlur={checkEmail}
             placeholder="请输入邮箱/学号"
           />
         </div>
