@@ -20,6 +20,7 @@ export interface ReviewRow {
   name: string;
   schedule_id: string;
   school: string;
+  user_id: string;
 }
 
 export interface ReviewList {
