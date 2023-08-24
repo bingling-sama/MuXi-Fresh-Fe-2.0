@@ -79,3 +79,26 @@ export async function put(url = '', data = {}, isToken = true) {
 
   return response.json();
 }
+
+export async function postPwd(url = '', data = {}, token: string) {
+  const headers = new Headers({
+    'Content-Type': 'application/json;charset=utf-8',
+  });
+
+  if (token) headers.append('Authorization', token);
+  else {
+    void message.error(' 未登录！');
+  }
+
+  const response = await fetch(`${preUrl}${url}`, {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    throw new Error(`${response.status}`);
+  }
+
+  return response.json();
+}

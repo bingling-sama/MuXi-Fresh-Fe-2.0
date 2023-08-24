@@ -1,0 +1,85 @@
+.layout {
+  background-color: #efefef;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-start;
+
+  .layoutLogoBox {
+    width: 10vw;
+    height: 100%;
+    background-color: #ffaf24;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .layoutLogo {
+      width: 8vw;
+      height: 80%;
+      border-radius: 15px;
+      background-color: #030303;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      img {
+        width: 25%;
+        min-width: 45px;
+      }
+
+      div {
+        line-height: 25px;
+        font-size: 22px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .layoutSidebar {
+    width: 10vw;
+    height: calc(100vh - 64px);
+    background-color: #ffb841;
+
+    .layoutLink {
+      display: flex;
+      align-items: center;
+      font-size: 1.3vw;
+      line-height: 1.3vw;
+    }
+
+    .layoutLinkTestTitle {
+      font-size: 1.3vw;
+
+      .layoutLinkTest {
+        display: flex;
+        align-items: center;
+        font-size: 1vw;
+      }
+    }
+
+    .layoutLinkTestTitle:hover {
+      color: #1d1507;
+    }
+
+
+  }
+
+  .layoutBox {
+    .layoutHeader {
+      width: 88vw;
+      height: 9vh;
+      min-height: 88px;
+      background-color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      box-shadow: 0 5px 10px #d4d4d4;
+    }
+  }
+}
+
+
+
+
