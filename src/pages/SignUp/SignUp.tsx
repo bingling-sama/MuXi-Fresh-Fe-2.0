@@ -48,7 +48,7 @@ const SignUp: React.FC = () => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取验证码失败，请重试');
       },
     );
@@ -100,7 +100,7 @@ const SignUp: React.FC = () => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('注册失败，请重试');
       },
     );

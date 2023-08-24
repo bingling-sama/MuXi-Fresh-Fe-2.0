@@ -28,8 +28,12 @@ const Progress: React.FC = () => {
   useEffect(() => {
     void get(`/schedule/?schedule_id=${'myself'}`, true).then(
       (r: GetScheduleResult) => {
-        setSchedule(r.data);
-        setIsLoading(false);
+        if (r.code === 0) {
+          setSchedule(r.data);
+          setIsLoading(false);
+        } else {
+          void message.error('查询进度失败，请重试！');
+        }
       },
       (e) => {
         console.error(e);
