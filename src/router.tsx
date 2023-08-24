@@ -17,6 +17,12 @@ import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
 import FormForWeb from './pages/formW';
 import { isDesktop } from 'react-device-detect';
+import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
+import FormForMobile from './pages/formM';
+import MobileSignIn from './pages/MobileSignIn/MobileSignIn.tsx';
+import MobileSignUp from './pages/MobileSignUp/MobileSignUp.tsx';
+import MobileProgress from './pages/MobileProgress/MobileProgress.tsx';
+import PersonalPage from './pages/PersonalPage/PersonalPage.tsx';
 
 export const router = createBrowserRouter(
   isDesktop
@@ -82,9 +88,32 @@ export const router = createBrowserRouter(
         },
       ]
     : [
+        { path: '/login', element: <MobileSignIn /> },
+        { path: '/register', element: <MobileSignUp /> },
         {
           path: '/',
           element: <Verify />,
+        },
+        { path: '/home', element: <PersonalPage /> }, // 个人主页
+        { path: '/form', element: <FormForMobile /> }, // 报名表
+        { path: '/progress', element: <MobileProgress /> }, // 进度查询
+        {
+          // 作业
+          path: '/homework',
+          element: <HomeWork></HomeWork>,
+          children: [
+            {
+              // 用户
+              path: 'user',
+              element: <HomeworkUserMode></HomeworkUserMode>,
+              children: [
+                {
+                  path: 'submit',
+                  element: <HomeworkUserSubmitMobile></HomeworkUserSubmitMobile>,
+                },
+              ],
+            },
+          ],
         },
       ],
 );
