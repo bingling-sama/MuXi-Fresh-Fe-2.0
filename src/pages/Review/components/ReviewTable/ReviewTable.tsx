@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './ReviewTable.less';
 import type { ColumnsType, TableProps } from 'antd/es/table';
-import { AdmissionStatus, ExamStatus, ReviewRow } from '../../ReviewList.ts';
+import { AdmissionStatus, ReviewRow } from '../../ReviewList.ts';
 import { Link } from 'react-router-dom';
 import { message, Select, Table } from 'antd';
 import { post } from '../../../../fetch.ts';
@@ -103,10 +103,10 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     },
     {
       title: '报名表',
-      dataIndex: 'form',
-      key: 'form',
-      render: () => (
-        <Link to={``} target={'_blank'}>
+      dataIndex: 'form_id',
+      key: 'form_id',
+      render: (form_id: string) => (
+        <Link to={`/form/${form_id}`} target={'_blank'}>
           查看报名表
         </Link>
       ),
@@ -115,10 +115,10 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       title: '测验',
       dataIndex: 'exam_status',
       key: 'exam_status',
-      render: (exam_status: ExamStatus) => (
+      render: (_, record: ReviewRow) => (
         <div>
-          {exam_status === '已提交' ? (
-            <Link to={``} target={'_blank'}>
+          {record.exam_status === '已提交' ? (
+            <Link to={`/test/${record.user_id}`} target={'_blank'}>
               已提交
             </Link>
           ) : (
