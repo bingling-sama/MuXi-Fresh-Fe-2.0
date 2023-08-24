@@ -71,7 +71,7 @@ const PersonalPage: React.FC = () => {
         setUserInfo(data);
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取个人信息失败，请重试');
       },
     );
@@ -85,7 +85,6 @@ const PersonalPage: React.FC = () => {
       };
       void qiniu.getUploadUrl(config, QiniuToken).then((r) => {
         setUploadUrl(r);
-        console.log(r);
       });
     });
   }, []);
@@ -100,10 +99,8 @@ const PersonalPage: React.FC = () => {
   const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     const response = newFileList[0].response;
-    console.log(response);
     if (response) {
       const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
-      console.log(avatar);
       const req = {
         avatar: avatar,
         name: userInfo.name,
@@ -189,7 +186,7 @@ const PersonalPage: React.FC = () => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('邮箱绑定失败，请重试！');
         cancelEmailModal();
       },
@@ -220,7 +217,7 @@ const PersonalPage: React.FC = () => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取验证码失败，请重试');
       },
     );

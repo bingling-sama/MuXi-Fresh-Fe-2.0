@@ -297,7 +297,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         setUserInfo(data);
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取个人信息失败，请重试');
       },
     );
@@ -315,7 +315,6 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
 
   const changeSchool = (value: string) => {
     const school = value;
-    console.log(school);
     setUserInfo({ ...userInfo, school });
   };
 
@@ -348,7 +347,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('邮箱绑定失败，请重试！');
         setNewEmail('');
         setVerifyCode('');
@@ -378,7 +377,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
         }
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取验证码失败，请重试');
       },
     );
@@ -432,10 +431,20 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
       qq: userInfo.qq,
     };
 
-    void post('/users/', req, true).then((r) => {
-      console.log(r);
-      changeEditState();
-    });
+    void post('/users/', req, true).then(
+      (r: ChangeUserInfoResult) => {
+        if (r.code === 0) {
+          void message.success('修改信息成功！');
+          changeEditState();
+        } else {
+          void message.success('修改信息失败，请重试！');
+        }
+      },
+      (e) => {
+        console.error(e);
+        void message.success('修改信息失败，请重试！');
+      },
+    );
   };
 
   return (
@@ -580,7 +589,7 @@ const HomePage: React.FC = () => {
         setUserInfo(data);
       },
       (e) => {
-        console.log(e);
+        console.error(e);
         void message.error('获取个人信息失败，请重试');
       },
     );
@@ -594,7 +603,6 @@ const HomePage: React.FC = () => {
       };
       void qiniu.getUploadUrl(config, QiniuToken).then((r) => {
         setUploadUrl(r);
-        console.log(r);
       });
     });
   }, []);
@@ -609,10 +617,8 @@ const HomePage: React.FC = () => {
   const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     const response = newFileList[0].response;
-    console.log(response);
     if (response) {
       const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
-      console.log(avatar);
       const req = {
         avatar: avatar,
         name: userInfo.name,

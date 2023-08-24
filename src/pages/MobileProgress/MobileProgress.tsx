@@ -35,24 +35,28 @@ const MobileProgress: React.FC = () => {
   useEffect(() => {
     void get(`/schedule/?schedule_id=${'myself'}`, true).then(
       (r: GetScheduleResult) => {
-        setSchedule(r.data);
-        setIsLoading(false);
-        const { admission_status } = r.data;
-        if (admission_status === '已报名') {
-          setStep({
-            current: 0,
-            status: 'finish',
-          });
-        } else if (admission_status === '实习期') {
-          setStep({
-            current: 1,
-            status: 'process',
-          });
-        } else if (admission_status === '已转正') {
-          setStep({
-            current: 2,
-            status: 'finish',
-          });
+        if (r.code === 0) {
+          setSchedule(r.data);
+          setIsLoading(false);
+          const { admission_status } = r.data;
+          if (admission_status === '已报名') {
+            setStep({
+              current: 0,
+              status: 'finish',
+            });
+          } else if (admission_status === '实习期') {
+            setStep({
+              current: 1,
+              status: 'process',
+            });
+          } else if (admission_status === '已转正') {
+            setStep({
+              current: 2,
+              status: 'finish',
+            });
+          }
+        } else {
+          void message.error('查询进度失败，请重试！');
         }
       },
       (e) => {
