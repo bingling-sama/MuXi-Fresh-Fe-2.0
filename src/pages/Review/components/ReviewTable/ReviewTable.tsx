@@ -105,8 +105,8 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       title: '报名表',
       dataIndex: 'form_id',
       key: 'form_id',
-      render: (form_id: string) => (
-        <Link to={`/form/${form_id}`} target={'_blank'}>
+      render: (_, record: ReviewRow) => (
+        <Link to={`/form/${record.user_id}/${record.form_id}`} target={'_blank'}>
           查看报名表
         </Link>
       ),
