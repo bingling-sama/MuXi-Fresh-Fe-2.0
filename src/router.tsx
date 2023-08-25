@@ -30,6 +30,7 @@ export const router = createBrowserRouter(
             { path: '', element: <Navigate to="/form" /> },
             { path: '/home', element: <HomePage /> }, // 个人主页
             { path: '/form', element: <FormForWeb /> }, // 报名表
+            { path: '/form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
             { path: '/progress', element: <Progress /> }, // 进度查询
             {
               // 作业
