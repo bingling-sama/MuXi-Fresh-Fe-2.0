@@ -332,7 +332,7 @@ const FormForMobile: React.FC = () => {
             }}
             style={{
               backgroundColor: sex == 'male' ? '' : '#F5F5F5',
-              border: sex == 'male' ? '2px solid #5858AF' : '',
+              border: sex == 'male' ? '2px solid #5858AF' : '2px solid  transparent',
             }}
           >
             <div className="enmale">Male</div>
@@ -348,7 +348,7 @@ const FormForMobile: React.FC = () => {
             }}
             style={{
               backgroundColor: sex == 'female' ? '' : '#F5F5F5',
-              border: sex == 'female' ? '2px solid #5858AF' : '',
+              border: sex == 'female' ? '2px solid #5858AF' : '2px solid transparent',
             }}
           >
             <div className="enmale">Female</div>

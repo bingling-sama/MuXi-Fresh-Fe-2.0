@@ -7,8 +7,11 @@ import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
 import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
+import { useParams } from 'react-router-dom';
 
 const FormForWeb: React.FC = () => {
+  const { form_id } = useParams();
+  const { user_id } = useParams();
   const [qiniuToken, setQiniuToken] = useState('');
   const [uploadUrl, setUploadUrl] = useState('');
   const [name, setName] = useState(''); //姓名
@@ -33,7 +36,7 @@ const FormForWeb: React.FC = () => {
   const [self_intro, setself_intro] = useState(''); //自我介绍
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState<number>(0);
-  const [form_id, setform_id] = useState('');
+  const [form_id_self, setform_id_self] = useState('');
   interface FormData {
     code: number;
     data: {
@@ -163,7 +166,7 @@ const FormForWeb: React.FC = () => {
     ];
     const send = () => {
       put(`/form/`, {
-        form_id: form_id,
+        form_id: form_id_self,
         avatar: avatar,
         major: major,
         grade: grade,
@@ -201,13 +204,13 @@ const FormForWeb: React.FC = () => {
     send();
   };
   useEffect(() => {
-    const formdata = get(`/form/view?entry_form_id=myself`);
+    const formdata = get(`/form/view?entry_form_id=${form_id ? form_id : 'myself'}`);
     formdata
       .then((data: FormData) => {
         setformSetted(data.code);
         if (data.code == 0) {
           setavatar(data.data.avatar);
-          setform_id(data.data.form_id);
+          setform_id_self(data.data.form_id);
           setsex(data.data.gender);
           setmajor(data.data.major);
           setgrade(data.data.grade);
@@ -222,7 +225,7 @@ const FormForWeb: React.FC = () => {
       .catch((e) => {
         console.error(e);
       });
-    const userdata = get(`/users/my-info`);
+    const userdata = get(`/users/${user_id ? `info/${user_id}` : `my-info`}`);
     userdata
       .then((data: User) => {
         setName(data.data.name);
@@ -247,10 +250,9 @@ const FormForWeb: React.FC = () => {
       };
       void qiniu.getUploadUrl(config, QiniuToken).then((r) => {
         setUploadUrl(r);
-        console.log(r);
       });
     });
-  }, []);
+  }, [form_id, user_id]);
   interface ResponseType {
     key: string;
     hash: string;
@@ -261,7 +263,6 @@ const FormForWeb: React.FC = () => {
   const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     const response = newFileList[0].response;
-    console.log(response);
     if (response) {
       const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
       setavatar(avatar);
@@ -294,6 +295,7 @@ const FormForWeb: React.FC = () => {
                   onChange={onChange}
                   showUploadList={false}
                   maxCount={1}
+                  disabled={form_id ? true : false}
                 >
                   <div className="avatar_formweb">
                     {avatar ? (
@@ -311,6 +313,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">姓名:</div>
                   <Input
+                    disabled={form_id ? true : false}
                     className="input_formweb"
                     type="text"
                     value={name}
@@ -323,6 +326,7 @@ const FormForWeb: React.FC = () => {
                   <div className="detail_formweb">性别:</div>
                   <Space wrap>
                     <Select
+                      disabled={form_id ? true : false}
                       size="large"
                       className="select_formweb"
                       defaultValue=""
@@ -340,6 +344,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">学号:</div>
                   <Input
+                    disabled={form_id ? true : false}
                     className="input_formweb"
                     type="text"
                     value={stu_number}
@@ -350,6 +355,7 @@ const FormForWeb: React.FC = () => {
                   <div className="detail_formweb">年级:</div>
                   <Space wrap>
                     <Select
+                      disabled={form_id ? true : false}
                       size="large"
                       className="select_formweb"
                       defaultValue="大一"
@@ -373,6 +379,7 @@ const FormForWeb: React.FC = () => {
                   <div className="detail_formweb">学院:</div>
                   <Space wrap>
                     <Select
+                      disabled={form_id ? true : false}
                       size="large"
                       id="academy"
                       defaultValue=""
@@ -420,6 +427,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">专业:</div>
                   <Input
+                    disabled={form_id ? true : false}
                     type="text"
                     className="input_formweb"
                     value={major}
@@ -445,6 +453,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
+                    disabled={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -472,6 +481,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
+                    disabled={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -494,6 +504,7 @@ const FormForWeb: React.FC = () => {
 
                 <Space wrap>
                   <Select
+                    disabled={form_id ? true : false}
                     style={{ width: '120px', textAlign: 'center' }}
                     id="GroupSelect"
                     value={wantGroup}
@@ -511,6 +522,7 @@ const FormForWeb: React.FC = () => {
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
                 <TextArea
+                  disabled={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -524,6 +536,7 @@ const FormForWeb: React.FC = () => {
               <div className="knowledgebox">
                 <div className="detail_formweb">对组别的认识:</div>
                 <TextArea
+                  disabled={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -537,6 +550,7 @@ const FormForWeb: React.FC = () => {
               <div className="self_introbox">
                 <div className="detail_formweb">自我介绍:</div>
                 <TextArea
+                  disabled={form_id ? true : false}
                   style={{ resize: 'none' }}
                   maxLength={500}
                   className="textarea_formweb"
@@ -551,6 +565,7 @@ const FormForWeb: React.FC = () => {
                 你是否有加入/正在加入一些其他组织或担任学生工作?
                 <div className="answerbox_formweb">
                   <Radio.Group
+                    disabled={form_id ? true : false}
                     buttonStyle="solid"
                     onChange={(e) => setextra_question(e.target.value as string)}
                     value={extra_question}
@@ -561,7 +576,11 @@ const FormForWeb: React.FC = () => {
                 </div>
               </div>
             </div>
-            <div className="send_formweb" onClick={formSetted ? setForm : changeForm}>
+            <div
+              style={{ display: form_id ? 'none' : '' }}
+              className="send_formweb"
+              onClick={formSetted ? setForm : changeForm}
+            >
               完成修改
             </div>
           </div>
