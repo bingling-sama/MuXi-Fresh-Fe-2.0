@@ -1,7 +1,7 @@
 import './ReviewGroupSelect.less';
 import React, { useCallback, useMemo, useState } from 'react';
 import { Group, ReviewFilter } from '../../ReviewFitler.ts';
-import { Menu } from 'antd';
+import { ConfigProvider, Menu } from 'antd';
 
 type ReviewGroupSelectProps = {
   reviewFilter: ReviewFilter;
@@ -37,17 +37,27 @@ const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
   return (
     <div className={'reviewGroupSelect'}>
       <div className={'reviewGroupSelectTitle'}>成员分组</div>
-      <Menu
-        mode="inline"
-        selectedKeys={[selectedGroup]}
-        onClick={(e) => handleChange(e.key as Group)}
+      <ConfigProvider
+        theme={{
+          components: {
+            Menu: {
+              itemHeight: 76,
+            },
+          },
+        }}
       >
-        {groups.map((group) => (
-          <Menu.Item key={group} className={`reviewGroups`}>
-            {chineseGroups[group]}
-          </Menu.Item>
-        ))}
-      </Menu>
+        <Menu
+          mode="inline"
+          selectedKeys={[selectedGroup]}
+          onClick={(e) => handleChange(e.key as Group)}
+          items={groups.map((group) => ({
+            key: group,
+            title: chineseGroups[group],
+            label: <div className={'reviewGroups'}>{chineseGroups[group]}</div>,
+          }))}
+          style={{ height: '40vh' }}
+        />
+      </ConfigProvider>
     </div>
   );
 };

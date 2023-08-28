@@ -16,6 +16,7 @@ import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
 import FormForWeb from './pages/formW';
+import TestW from './pages/personalityTestW';
 import { isDesktop } from 'react-device-detect';
 import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 import FormForMobile from './pages/formM';
@@ -36,7 +37,10 @@ export const router = createBrowserRouter(
             { path: '', element: <Navigate to="/form" /> },
             { path: '/home', element: <HomePage /> }, // 个人主页
             { path: '/form', element: <FormForWeb /> }, // 报名表
+            { path: '/form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
             { path: '/progress', element: <Progress /> }, // 进度查询
+            { path: '/test', element: <TestW /> }, // 入职测验
+            { path: '/test/:user_id', element: <TestW /> }, // 入职测验
             {
               // 作业
               path: '/homework',
