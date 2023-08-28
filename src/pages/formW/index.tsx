@@ -321,7 +321,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">姓名:</div>
                   <Input
-                    disabled={form_id ? true : false}
+                    readOnly={form_id ? true : false}
                     className="input_formweb"
                     type="text"
                     value={name}
@@ -332,110 +332,137 @@ const FormForWeb: React.FC = () => {
                 </div>
                 <div className="term_formweb">
                   <div className="detail_formweb">性别:</div>
-                  <Space wrap>
-                    <Select
-                      disabled={form_id ? true : false}
-                      size="large"
+                  {form_id ? (
+                    <Input
                       className="select_formweb"
-                      defaultValue=""
-                      value={sex}
-                      onChange={(e) => setsex(e)}
-                      options={[
-                        { value: 'male', label: '男生' },
-                        { value: 'female', label: '女生' },
-                      ]}
-                    />
-                  </Space>
+                      value={sex == 'male' ? '男生' : '女生'}
+                      readOnly={true}
+                    ></Input>
+                  ) : (
+                    <Space wrap>
+                      <Select
+                        size="large"
+                        className="select_formweb"
+                        defaultValue=""
+                        value={sex}
+                        onChange={(e) => setsex(e)}
+                        options={[
+                          { value: 'male', label: '男生' },
+                          { value: 'female', label: '女生' },
+                        ]}
+                      />
+                    </Space>
+                  )}
                 </div>
               </div>
               <div className="personInfoContent">
                 <div className="term_formweb">
                   <div className="detail_formweb">学号:</div>
                   <Input
-                    disabled={form_id ? true : false}
+                    readOnly={form_id ? true : false}
                     className="input_formweb"
                     type="text"
                     value={stu_number}
-                    onClick={() => void message.info('学号请在个人主页修改')}
+                    onClick={() => {
+                      if (!form_id) void message.info('学号请在个人主页修改');
+                    }}
                   />
                 </div>
                 <div className="term_formweb">
                   <div className="detail_formweb">年级:</div>
-                  <Space wrap>
-                    <Select
-                      disabled={form_id ? true : false}
-                      size="large"
+                  {form_id ? (
+                    <Input
                       className="select_formweb"
-                      defaultValue="大一"
                       value={grade}
-                      onChange={(e) => setgrade(e)}
-                      options={[
-                        { value: '2023', label: '2023' },
-                        { value: '2022', label: '2022' },
-                        { value: '2021', label: '2021' },
-                        { value: '2020', label: '2020' },
-                        { value: '2019', label: '2018' },
-                        { value: '2017', label: '2017' },
-                        { value: '2016', label: '2016' },
-                      ]}
-                    />
-                  </Space>
+                      readOnly={true}
+                    ></Input>
+                  ) : (
+                    <Space wrap>
+                      <Select
+                        disabled={form_id ? true : false}
+                        size="large"
+                        className="select_formweb"
+                        defaultValue="大一"
+                        value={grade}
+                        onChange={(e) => setgrade(e)}
+                        options={[
+                          { value: '2023', label: '2023' },
+                          { value: '2022', label: '2022' },
+                          { value: '2021', label: '2021' },
+                          { value: '2020', label: '2020' },
+                          { value: '2019', label: '2018' },
+                          { value: '2017', label: '2017' },
+                          { value: '2016', label: '2016' },
+                        ]}
+                      />
+                    </Space>
+                  )}
                 </div>
               </div>
               <div className="personInfoContent">
                 <div className="term_formweb">
                   <div className="detail_formweb">学院:</div>
-                  <Space wrap>
-                    <Select
-                      disabled={form_id ? true : false}
-                      size="large"
-                      id="academy"
-                      defaultValue=""
-                      style={{ width: '180px' }}
-                      value={academy}
-                      onChange={(e) => setacademy(e)}
+                  {form_id ? (
+                    <Input
                       className="select_formweb"
-                    >
-                      <Select.Option value="计算机学院">计算机学院</Select.Option>
-                      <Select.Option value="人工智能教育学部">
-                        人工智能教育学部
-                      </Select.Option>
-                      <Select.Option value="心理学院">心理学院</Select.Option>
-                      <Select.Option value="经济与工商管理学院">
-                        经济与工商管理学院
-                      </Select.Option>
-                      <Select.Option value="公共管理学院">公共管理学院</Select.Option>
-                      <Select.Option value="信息管理学院">信息管理学院</Select.Option>
-                      <Select.Option value="城市与环境科学学院">
-                        城市与环境科学学院
-                      </Select.Option>
-                      <Select.Option value="美术学院">美术学院</Select.Option>
-                      <Select.Option value="政治与国际关系学院">
-                        政治与国际关系学院
-                      </Select.Option>
-                      <Select.Option value="教育学院">教育学院</Select.Option>
-                      <Select.Option value="文学院">文学院</Select.Option>
-                      <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
-                      <Select.Option value="历史文化学院">历史文化学院</Select.Option>
-                      <Select.Option value="马克思主义学院">马克思主义学院</Select.Option>
-                      <Select.Option value="法学院">法学院</Select.Option>
-                      <Select.Option value="社会学院">社会学院</Select.Option>
-                      <Select.Option value="外国语学院">外国语学院</Select.Option>
-                      <Select.Option value="音乐学院">音乐学院</Select.Option>
-                      <Select.Option value="数学与统计学学院">
-                        数学与统计学学院
-                      </Select.Option>
-                      <Select.Option value="物理科学与技术学院">
-                        物理科学与技术学院
-                      </Select.Option>
-                      <Select.Option value="化学学院">化学学院</Select.Option>
-                    </Select>
-                  </Space>
+                      value={academy}
+                      readOnly={true}
+                    ></Input>
+                  ) : (
+                    <Space wrap>
+                      <Select
+                        disabled={form_id ? true : false}
+                        size="large"
+                        id="academy"
+                        defaultValue=""
+                        style={{ width: '180px' }}
+                        value={academy}
+                        onChange={(e) => setacademy(e)}
+                        className="select_formweb"
+                      >
+                        <Select.Option value="计算机学院">计算机学院</Select.Option>
+                        <Select.Option value="人工智能教育学部">
+                          人工智能教育学部
+                        </Select.Option>
+                        <Select.Option value="心理学院">心理学院</Select.Option>
+                        <Select.Option value="经济与工商管理学院">
+                          经济与工商管理学院
+                        </Select.Option>
+                        <Select.Option value="公共管理学院">公共管理学院</Select.Option>
+                        <Select.Option value="信息管理学院">信息管理学院</Select.Option>
+                        <Select.Option value="城市与环境科学学院">
+                          城市与环境科学学院
+                        </Select.Option>
+                        <Select.Option value="美术学院">美术学院</Select.Option>
+                        <Select.Option value="政治与国际关系学院">
+                          政治与国际关系学院
+                        </Select.Option>
+                        <Select.Option value="教育学院">教育学院</Select.Option>
+                        <Select.Option value="文学院">文学院</Select.Option>
+                        <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
+                        <Select.Option value="历史文化学院">历史文化学院</Select.Option>
+                        <Select.Option value="马克思主义学院">
+                          马克思主义学院
+                        </Select.Option>
+                        <Select.Option value="法学院">法学院</Select.Option>
+                        <Select.Option value="社会学院">社会学院</Select.Option>
+                        <Select.Option value="外国语学院">外国语学院</Select.Option>
+                        <Select.Option value="音乐学院">音乐学院</Select.Option>
+                        <Select.Option value="数学与统计学学院">
+                          数学与统计学学院
+                        </Select.Option>
+                        <Select.Option value="物理科学与技术学院">
+                          物理科学与技术学院
+                        </Select.Option>
+                        <Select.Option value="化学学院">化学学院</Select.Option>
+                      </Select>
+                    </Space>
+                  )}
                 </div>
                 <div className="term_formweb">
                   <div className="detail_formweb">专业:</div>
                   <Input
-                    disabled={form_id ? true : false}
+                    readOnly={form_id ? true : false}
                     type="text"
                     className="input_formweb"
                     value={major}
@@ -461,7 +488,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
-                    disabled={form_id ? true : false}
+                    readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -489,7 +516,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
-                    disabled={form_id ? true : false}
+                    readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -509,28 +536,35 @@ const FormForWeb: React.FC = () => {
             <div className="registerInformationbox">
               <div className="term_formweb wantGroup">
                 <div className="detail_formweb">心动组别:</div>
-
-                <Space wrap>
-                  <Select
-                    disabled={form_id ? true : false}
-                    style={{ width: '120px', textAlign: 'center' }}
-                    id="GroupSelect"
+                {form_id ? (
+                  <Input
+                    className="select_formweb"
                     value={wantGroup}
-                    onChange={(e) => setwantGroup(e)}
-                    options={[
-                      { value: 'Product', label: '产品组' },
-                      { value: 'Design', label: '设计组' },
-                      { value: 'Frontend', label: '前端组' },
-                      { value: 'Backend', label: '后端组' },
-                      { value: 'Android', label: '安卓组' },
-                    ]}
-                  />
-                </Space>
+                    readOnly={true}
+                  ></Input>
+                ) : (
+                  <Space wrap>
+                    <Select
+                      disabled={form_id ? true : false}
+                      style={{ width: '120px', textAlign: 'center' }}
+                      id="GroupSelect"
+                      value={wantGroup}
+                      onChange={(e) => setwantGroup(e)}
+                      options={[
+                        { value: 'Product', label: '产品组' },
+                        { value: 'Design', label: '设计组' },
+                        { value: 'Frontend', label: '前端组' },
+                        { value: 'Backend', label: '后端组' },
+                        { value: 'Android', label: '安卓组' },
+                      ]}
+                    />
+                  </Space>
+                )}
               </div>
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
                 <TextArea
-                  disabled={form_id ? true : false}
+                  readOnly={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -544,7 +578,7 @@ const FormForWeb: React.FC = () => {
               <div className="knowledgebox">
                 <div className="detail_formweb">对组别的认识:</div>
                 <TextArea
-                  disabled={form_id ? true : false}
+                  readOnly={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -558,7 +592,7 @@ const FormForWeb: React.FC = () => {
               <div className="self_introbox">
                 <div className="detail_formweb">自我介绍:</div>
                 <TextArea
-                  disabled={form_id ? true : false}
+                  readOnly={form_id ? true : false}
                   style={{ resize: 'none' }}
                   maxLength={500}
                   className="textarea_formweb"

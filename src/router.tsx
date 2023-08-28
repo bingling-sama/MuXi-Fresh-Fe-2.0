@@ -17,6 +17,7 @@ import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
 import FormForWeb from './pages/formW';
 import { isDesktop } from 'react-device-detect';
+import TestW from './pages/personalityTestW';
 
 export const router = createBrowserRouter(
   isDesktop
@@ -32,6 +33,7 @@ export const router = createBrowserRouter(
             { path: '/form', element: <FormForWeb /> }, // 报名表
             { path: '/form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
             { path: '/progress', element: <Progress /> }, // 进度查询
+            { path: '/test', element: <TestW /> }, // 进度查询
             {
               // 作业
               path: '/homework',

@@ -151,7 +151,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
     identity === 'super_admin' || identity === 'admin'
       ? ({} as ItemType)
       : {
-          key: '/9',
+          key: '/test',
           title: '入职测验',
           label: <div className={'layoutLink'}>入职测验</div>,
         },
