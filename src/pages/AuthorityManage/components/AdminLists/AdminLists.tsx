@@ -2,6 +2,7 @@ import { Avatar, List } from 'antd';
 import React from 'react';
 import { AdminRow } from '../../AdminList.ts';
 import ChangeUserTypeBox from './components/ChangeUserTypeBox/ChangeUserTypeBox.tsx';
+import './AdminLists.less';
 
 type AdminListsProps = {
   header: string;
@@ -20,7 +21,7 @@ const AdminLists: React.FC<AdminListsProps> = ({
   return (
     <List
       header={
-        <div>
+        <div className={'adminListHeader'}>
           <b>{header}</b>
           <ChangeUserTypeBox
             header={header}
@@ -30,6 +31,7 @@ const AdminLists: React.FC<AdminListsProps> = ({
         </div>
       }
       bordered
+      className={'adminLists'}
       loading={loading}
       style={{ width: '15vw' }}
       pagination={{
@@ -41,7 +43,7 @@ const AdminLists: React.FC<AdminListsProps> = ({
       }}
       dataSource={dataSource}
       renderItem={(item) => (
-        <List.Item>
+        <List.Item className={'adminList'}>
           <List.Item.Meta
             avatar={<Avatar src={item.avatar} />}
             title={item.nickname}
