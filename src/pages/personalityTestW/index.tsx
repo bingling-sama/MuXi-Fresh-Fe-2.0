@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as echarts from 'echarts';
 import { post } from '../../fetch';
 import './index.less';
