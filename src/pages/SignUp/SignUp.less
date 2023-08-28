@@ -1,124 +1,136 @@
-.signUp-wrap {
-    margin: 0 auto;
-    margin-top: 8%;
+.signUp-box {
     display: flex;
-    flex-direction: column;
-    width: 720px;
-    box-shadow: 0 0 20px 0 rgba(0, 0, 0, .15);
-    background-color: #fff;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    background-color: #eee;
+    background-image: url('../../assets/join.png');
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: 50%;
+    background-size: 1200px;
 
-    .signUp-wrap-header {
-        display: flex;
-        align-items: center;
-        width: 100%;
-        background-color: #ffaf24;
-        font-size: 32px;
-        color: #fff;
-        font-weight: 700;
-
-        img {
-            margin-left: 16px;
-        }
-    }
-
-    .signUp-form {
-        margin-top: 48px;
-        width: 100%;
+    .signUp-wrap {
+        margin: 0 auto;
         display: flex;
         flex-direction: column;
-        gap: 24px;
+        width: 720px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, .15);
         background-color: #fff;
-        align-items: center;
-        margin-bottom: 10%;
 
-        .email-box,
-        .password-box,
-        .check-password-box {
-            margin-left: 14%;
-            width: 70%;
+        .signUp-wrap-header {
             display: flex;
             align-items: center;
+            width: 100%;
+            background-color: #ffaf24;
+            font-size: 32px;
+            color: #fff;
+            font-weight: 700;
 
-            .box-label {
-                width: 96px;
-                font-size: 20px;
-                color: #505050;
-            }
-
-            .input-field {
-                font-size: 20px;
-                width: 300px;
+            img {
+                margin-left: 16px;
             }
         }
 
-        .email-tooltip::after {
-            content: '邮箱格式错误！';
-            margin-left: 8px;
-            color: #ff4d4f;
-        }
-
-        .password-tooltip::after {
-            content: '密码不少于6位！';
-            margin-left: 8px;
-            color: #ff4d4f;
-        }
-
-        .check-password-tooltip::after {
-            content: '密码不一致！';
-            margin-left: 8px;
-            color: #ff4d4f;
-        }
-
-        .verifyCode-box {
-            margin-left: 14%;
-            width: 70%;
+        .signUp-form {
+            margin-top: 48px;
+            width: 100%;
             display: flex;
+            flex-direction: column;
+            gap: 24px;
+            background-color: #fff;
             align-items: center;
+            margin-bottom: 10%;
 
-            .box-label {
-                width: 96px;
-                font-size: 20px;
-                color: #505050;
+            .email-box,
+            .password-box,
+            .check-password-box {
+                margin-left: 14%;
+                width: 70%;
+                display: flex;
+                align-items: center;
+
+                .box-label {
+                    width: 96px;
+                    font-size: 20px;
+                    color: #505050;
+                }
+
+                .input-field {
+                    font-size: 20px;
+                    width: 300px;
+                }
             }
 
-            .input-field {
-                font-size: 20px;
-                width: 150px;
-                margin-right: 16px;
+            .email-tooltip::after {
+                content: '邮箱格式错误！';
+                margin-left: 8px;
+                color: #ff4d4f;
             }
 
-            .get-verifyCode-btn {
-                background-color: #ffaf24;
-                font-size: 20px;
-                color: #fff;
-                padding: 6px 18px;
-                border-radius: 8px;
-                cursor: pointer;
+            .password-tooltip::after {
+                content: '密码不少于6位！';
+                margin-left: 8px;
+                color: #ff4d4f;
             }
 
-            .countdown-box {
-                background-color: #808080;
-                font-size: 20px;
-                color: #fff;
-                padding: 6px 18px;
-                border-radius: 8px;
+            .check-password-tooltip::after {
+                content: '密码不一致！';
+                margin-left: 8px;
+                color: #ff4d4f;
             }
-        }
 
-        .btn-box {
-            width: 70%;
-            margin-top: 24px;
-            display: flex;
-            justify-content: space-around;
+            .verifyCode-box {
+                margin-left: 14%;
+                width: 70%;
+                display: flex;
+                align-items: center;
 
-            .signIn-btn,
-            .signUp-btn {
-                font-size: 20px;
-                color: #fff;
-                padding: 6px 24px;
-                border-radius: 8px;
-                cursor: pointer;
-                background-color: #ffaf24;
+                .box-label {
+                    width: 96px;
+                    font-size: 20px;
+                    color: #505050;
+                }
+
+                .input-field {
+                    font-size: 20px;
+                    width: 150px;
+                    margin-right: 16px;
+                }
+
+                .get-verifyCode-btn {
+                    background-color: #ffaf24;
+                    font-size: 20px;
+                    color: #fff;
+                    padding: 6px 18px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                }
+
+                .countdown-box {
+                    background-color: #808080;
+                    font-size: 20px;
+                    color: #fff;
+                    padding: 6px 18px;
+                    border-radius: 8px;
+                }
+            }
+
+            .btn-box {
+                width: 70%;
+                margin-top: 24px;
+                display: flex;
+                justify-content: space-around;
+
+                .signIn-btn,
+                .signUp-btn {
+                    font-size: 20px;
+                    color: #fff;
+                    padding: 6px 24px;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    background-color: #ffaf24;
+                }
             }
         }
     }

@@ -4,7 +4,7 @@ import logo from '../../assets/muxilogo.png';
 import './MobileSignUp.less';
 import { Input, message } from 'antd';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
-import { post } from '../../fetch';
+import { get, post } from '../../fetch';
 import { SendEmailResult, SignUpResult } from '../SignUp/SignUp';
 import { useNavigate } from 'react-router-dom';
 
@@ -58,7 +58,8 @@ const MobileSignUp: React.FC = () => {
   };
 
   const checkEmail = () => {
-    const isEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-]{2,})+(.[a-zA-Z]{2,3})$/;
+    const isEmail =
+      /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
     setIsEmail(isEmail.test(email));
   };
 
@@ -98,7 +99,7 @@ const MobileSignUp: React.FC = () => {
         if (code === 0) {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
-          void post('/schedule/create', true);
+          void get('/schedule/create', true);
           navigate('/');
         } else if (code === -1) {
           void message.error('出错了');
