@@ -133,7 +133,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/');
+                navigationClick('/test');
               }}
             >
               <Image src={submitTest} width={'20vw'} preview={false}></Image>

@@ -9,6 +9,7 @@ import MobileSignIn from './pages/MobileSignIn/MobileSignIn.tsx';
 import MobileSignUp from './pages/MobileSignUp/MobileSignUp.tsx';
 import MobileProgress from './pages/MobileProgress/MobileProgress.tsx';
 import PersonalPage from './pages/PersonalPage/PersonalPage.tsx';
+import TestM from './pages/personalityTestM';
 
 export const router = createBrowserRouter(
   isDesktop
@@ -47,5 +48,6 @@ export const router = createBrowserRouter(
             },
           ],
         },
+        { path: '/test', element: <TestM /> }, // 入职测验
       ],
 );
