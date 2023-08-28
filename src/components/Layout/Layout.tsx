@@ -15,7 +15,6 @@ import {
   message,
 } from 'antd';
 import { UserIdentity, UserIsForm } from '../Verify/UserIdentity.ts';
-import { ItemType } from 'antd/es/menu/hooks/useItems';
 
 const { Header, Content, Sider } = LayoutAntd;
 
@@ -140,16 +139,16 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
           title: '审阅',
           label: <div className={'layoutLink'}>审阅</div>,
         }
-      : ({} as ItemType),
+      : null,
     identity === 'super_admin' || identity === 'admin'
       ? {
           key: '/authority-manage',
           title: '权限管理',
           label: <div className={'layoutLink'}>权限管理</div>,
         }
-      : ({} as ItemType),
+      : null,
     identity === 'super_admin' || identity === 'admin'
-      ? ({} as ItemType)
+      ? null
       : {
           key: '/test',
           title: '入职测验',
