@@ -36,7 +36,7 @@ const HomeworkUserSubmit: React.FC = () => {
     get('/users/my-info').then((res: backType<userInfoType>) => {
       const groupRes = res.data.group;
       defData.forEach((item) => {
-        if (item.key == groupRes) {
+        if (groupRes.includes(item.key)) {
           setGroup(item);
         }
       });
