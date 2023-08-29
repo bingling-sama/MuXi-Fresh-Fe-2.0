@@ -184,11 +184,13 @@ const MobileSignIn: React.FC = () => {
                   navigate('/');
                 } else {
                   void message.error('登录失败，请重试！');
+                  getCodeImg();
                 }
               },
               (e) => {
                 console.error(e);
                 void message.error('登录失败，请重试！');
+                getCodeImg();
               },
             );
           } else {
@@ -205,11 +207,13 @@ const MobileSignIn: React.FC = () => {
                   navigate('/');
                 } else {
                   void message.error('该学号未绑定账号，请重试！');
+                  getCodeImg();
                 }
               },
               (e) => {
                 console.error(e);
                 void message.error('登录失败，请重试！');
+                getCodeImg();
               },
             );
           }
