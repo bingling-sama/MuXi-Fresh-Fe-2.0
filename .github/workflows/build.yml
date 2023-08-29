@@ -11,7 +11,7 @@ on:
 
 # 设置权限。
 permissions:
-  contents: read
+  contents: write
 
 # 允许并发
 concurrency:
