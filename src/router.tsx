@@ -26,6 +26,7 @@ import MobileProgress from './pages/MobileProgress/MobileProgress.tsx';
 import PersonalPage from './pages/PersonalPage/PersonalPage.tsx';
 import TestM from './pages/personalityTestM';
 import Join from './pages/Join/Join.tsx';
+import MobileJoin from './pages/MobileJoin/MobileJoin.tsx';
 
 export const router = createBrowserRouter(
   isDesktop
@@ -95,6 +96,7 @@ export const router = createBrowserRouter(
         },
       ]
     : [
+        { path: '/join', element: <MobileJoin /> },
         { path: '/login', element: <MobileSignIn /> },
         { path: '/register', element: <MobileSignUp /> },
         {

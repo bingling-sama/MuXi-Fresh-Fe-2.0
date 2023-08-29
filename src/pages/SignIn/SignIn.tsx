@@ -32,6 +32,20 @@ const SignIn: React.FC = () => {
     getCodeImg();
   }, []);
 
+  useEffect(() => {
+    if (isSend) {
+      const timer = setTimeout(() => {
+        if (countdown > 0) {
+          setCountdown((countdown) => countdown - 1);
+        } else {
+          setIsSend(false);
+          setCountdown(60);
+          clearTimeout(timer);
+        }
+      }, 1000);
+    }
+  }, [countdown, isSend]);
+
   const getCodeImg = () => {
     get('/auth/get-captcha', false).then(
       (r: CodeImg) => {
@@ -137,6 +151,7 @@ const SignIn: React.FC = () => {
   const cancelPasswordModal = () => {
     setIsPasswordModalOpen(false);
     setVerifyCode('');
+    setEmail('');
     setNewPassword('');
     setIsSend(false);
     setCountdown(60);

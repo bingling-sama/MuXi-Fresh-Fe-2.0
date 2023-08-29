@@ -83,6 +83,23 @@
             }
         }
 
+        .forget-password-box {
+            width: 86vw;
+            text-align: right;
+            margin-top: 12px;
+            margin-bottom: -12px;
+            font-size: 14px;
+            color: #585E6D;
+
+            .box-content {
+                cursor: pointer;
+            }
+
+            .box-content:hover {
+                color: #999;
+            }
+        }
+
         .btn-box {
             margin-top: 64px;
             font-size: 20px;
@@ -104,5 +121,63 @@
             }
         }
 
+    }
+}
+
+.mobile-forget-password-modal {
+    display: flex;
+    flex-direction: column;
+
+    .email-box,
+    .password-box {
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+
+        .box-label {
+            width: 96px;
+            font-size: medium;
+            color: #505050;
+        }
+
+        .input-field {
+            font-size: medium;
+            width: 300px;
+        }
+    }
+
+    .verifyCode-box {
+        margin: 24px 0;
+        display: flex;
+        align-items: center;
+
+        .box-label {
+            width: 96px;
+            font-size: medium;
+            color: #505050;
+        }
+
+        .input-field {
+            font-size: small;
+            width: 100px;
+            margin-right: 16px;
+        }
+
+        .get-verifyCode-btn {
+            background-color: #ffaf24;
+            font-size: small;
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .countdown-box {
+            background-color: #808080;
+            font-size: small;
+            color: #fff;
+            padding: 6px 18px;
+            border-radius: 8px;
+        }
     }
 }
