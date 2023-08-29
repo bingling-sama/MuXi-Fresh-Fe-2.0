@@ -5,13 +5,15 @@ import checkedImg from '../../assets/images/form/checked.png';
 import cameraImg from '../../assets/images/form/camera.png';
 import muxiplanet from '../../assets/images/form/MuXi.png';
 import avatarDefault from '../../assets/images/form/avatarDefault.png';
-import { get, post, put } from '../../fetch';
-import { ConfigProvider, Input, message, Radio, Upload } from 'antd';
+import { post, put, get } from '../../fetch';
+import { message, Upload, Input, Radio, ConfigProvider } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
+import { useNavigate } from 'react-router-dom';
 
 const FormForMobile: React.FC = () => {
+  const navigate = useNavigate();
   const [qiniuToken, setQiniuToken] = useState('');
   const [uploadUrl, setUploadUrl] = useState('');
   const [pageNum, setPageNum] = useState(0); //页数
@@ -145,6 +147,9 @@ const FormForMobile: React.FC = () => {
       }
     }
     send();
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
   const changeForm = () => {
     const arr = [
@@ -209,6 +214,9 @@ const FormForMobile: React.FC = () => {
       }
     }
     send();
+    setTimeout(() => {
+      navigate('/');
+    }, 1000);
   };
   useEffect(() => {
     if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
@@ -286,7 +294,7 @@ const FormForMobile: React.FC = () => {
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM"></img>
+      <img src={backImg} className="returnBtn_formM" onClick={() => navigate('/')}></img>
       <div className="top_title_formM">报名表</div>
       <div className="details_formM formImg">完善你的简历</div>
       <div className="details_formM break_formM">让木犀团队更好地了解你吧</div>

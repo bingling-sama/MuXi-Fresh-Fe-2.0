@@ -1,19 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { get, post, put } from '../../fetch';
+import { get, put, post } from '../../fetch';
 import './index.less';
-import {
-  ConfigProvider,
-  Input,
-  message,
-  Radio,
-  Select,
-  Space,
-  Upload,
-  Watermark,
-} from 'antd';
+import { ConfigProvider, message, Radio, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
+import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
 
@@ -45,6 +37,15 @@ const FormForWeb: React.FC = () => {
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState<number>(0);
   const [form_id_self, setform_id_self] = useState('');
+  const chineseDict: { [key: string]: string } = {
+    male: '男生',
+    female: '女生',
+    Android: '安卓组',
+    Backend: '后端组',
+    Design: '设计组',
+    Frontend: '前端组',
+    Product: '产品组',
+  };
   interface FormData {
     code: number;
     data: {
@@ -335,7 +336,7 @@ const FormForWeb: React.FC = () => {
                   {form_id ? (
                     <Input
                       className="select_formweb"
-                      value={sex == 'male' ? '男生' : '女生'}
+                      value={chineseDict[sex] ? chineseDict[sex] : sex}
                       readOnly={true}
                     ></Input>
                   ) : (
@@ -407,6 +408,7 @@ const FormForWeb: React.FC = () => {
                       className="select_formweb"
                       value={academy}
                       readOnly={true}
+                      style={{ width: '180px' }}
                     ></Input>
                   ) : (
                     <Space wrap>
@@ -539,7 +541,7 @@ const FormForWeb: React.FC = () => {
                 {form_id ? (
                   <Input
                     className="select_formweb"
-                    value={wantGroup}
+                    value={chineseDict[wantGroup]}
                     readOnly={true}
                   ></Input>
                 ) : (

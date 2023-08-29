@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { post } from '../../fetch';
 import './index.less';
 import backimg from '../../assets/images/form/back.png';
@@ -6,8 +6,10 @@ import backimgB from '../../assets/images/personalityTest/backBlack.png';
 import lightImg from '../../assets/images/personalityTest/light.png';
 import * as echarts from 'echarts';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const TestM: React.FC = () => {
+  const navigate = useNavigate();
   const [doneOrNot, setdone] = useState(false);
   const [name, setname] = useState<string>('');
   const [score, setscore] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
@@ -115,8 +117,12 @@ const TestM: React.FC = () => {
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_testM">
-      <img src={backimg} className="returnBtn_testM" alt="" />
-      {/*返回写在这 */}
+      <img
+        src={backimg}
+        className="returnBtn_testM"
+        onClick={() => navigate('/')}
+        alt=""
+      />
       <div className="top_title_testM">入职测验</div>
       <div className="mainbox_testM">
         <img src={lightImg} className="lightImg_testM" alt="" />
@@ -313,7 +319,9 @@ const TestM: React.FC = () => {
               怀疑性:<span>{paras.huai_yi_xing}</span>/20
             </div>
           </div>
-          <div className="returntoHome">返回主页</div>
+          <div className="returntoHome" onClick={() => navigate('/')}>
+            返回主页
+          </div>
           {/*返回写在这 */}
         </div>
       </div>
