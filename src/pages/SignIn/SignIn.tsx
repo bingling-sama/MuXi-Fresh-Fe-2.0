@@ -182,7 +182,7 @@ const SignIn: React.FC = () => {
                 if (r.code === 0) {
                   localStorage.setItem('token', r.data.token);
                   void message.success('登录成功！');
-                  navigate('/');
+                  navigate('/app');
                 } else {
                   void message.error('登录失败，请重试！');
                   getCodeImg();
@@ -205,7 +205,7 @@ const SignIn: React.FC = () => {
                 if (r.code === 0) {
                   localStorage.setItem('token', r.data.token);
                   void message.success('登录成功！');
-                  navigate('/');
+                  navigate('/app');
                 } else {
                   void message.error('该学号未绑定账号，请重试！');
                   getCodeImg();

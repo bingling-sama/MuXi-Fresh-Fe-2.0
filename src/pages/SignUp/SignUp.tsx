@@ -95,7 +95,7 @@ const SignUp: React.FC = () => {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
           void get('/schedule/create', true);
-          navigate('/');
+          navigate('/app');
         } else if (code === -1) {
           void message.error('出错了');
         }

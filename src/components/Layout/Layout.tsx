@@ -55,13 +55,13 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
       label: (
         <div
           onClick={() => {
-            navigationClick('/home');
+            navigationClick('/app/home');
           }}
         >
           个人主页
         </div>
       ),
-      key: '/home',
+      key: '/app/home',
     },
     {
       label: <div onClick={logOut}>退出登录</div>,
@@ -71,25 +71,25 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
 
   const menus: MenuProps['items'] = [
     {
-      key: '/form',
+      key: '/app/form',
       title: '报名表',
       label: <div className={'layoutLink'}>报名表</div>,
     },
     {
-      key: '/progress',
+      key: '/app/progress',
       title: '进度查询',
       label: <div className={'layoutLink'}>进度查询</div>,
     },
     isForm === '已交表'
       ? {
-          key: '/homework',
+          key: '/app/homework',
           title: '作业',
           label: <div className={'layoutLinkTestTitle'}>作业</div>,
           children:
             identity === 'super_admin' || identity === 'admin'
               ? [
                   {
-                    key: '/homework/admin/new',
+                    key: '/app/homework/admin/new',
                     title: '新作业',
                     label: (
                       <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
@@ -98,7 +98,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     ),
                   },
                   {
-                    key: '/homework/admin/edit',
+                    key: '/app/homework/admin/edit',
                     title: '修改作业',
                     label: (
                       <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
@@ -107,7 +107,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     ),
                   },
                   {
-                    key: '/homework/admin/browse',
+                    key: '/app/homework/admin/browse',
                     title: '查看作业',
                     label: (
                       <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
@@ -118,7 +118,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                 ]
               : [
                   {
-                    key: '/homework/user/submit',
+                    key: '/app/homework/user/submit',
                     title: '提交作业',
                     label: (
                       <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
@@ -129,20 +129,20 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                 ],
         }
       : {
-          key: '/homework/visitor',
+          key: '/app/homework/visitor',
           title: '作业',
           label: <div className={'layoutLink'}>作业</div>,
         },
     identity === 'super_admin' || identity === 'admin'
       ? {
-          key: '/review',
+          key: '/app/review',
           title: '审阅',
           label: <div className={'layoutLink'}>审阅</div>,
         }
       : null,
     identity === 'super_admin' || identity === 'admin'
       ? {
-          key: '/authority-manage',
+          key: '/app/authority-manage',
           title: '权限管理',
           label: <div className={'layoutLink'}>权限管理</div>,
         }
@@ -150,7 +150,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
     identity === 'super_admin' || identity === 'admin'
       ? null
       : {
-          key: '/test',
+          key: '/app/test',
           title: '入职测验',
           label: <div className={'layoutLink'}>入职测验</div>,
         },

@@ -148,7 +148,7 @@ const FormForMobile: React.FC = () => {
     }
     send();
     setTimeout(() => {
-      navigate('/');
+      navigate('/app');
     }, 1000);
   };
   const changeForm = () => {
@@ -215,7 +215,7 @@ const FormForMobile: React.FC = () => {
     }
     send();
     setTimeout(() => {
-      navigate('/');
+      navigate('/app');
     }, 1000);
   };
   useEffect(() => {
@@ -294,7 +294,11 @@ const FormForMobile: React.FC = () => {
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM" onClick={() => navigate('/')}></img>
+      <img
+        src={backImg}
+        className="returnBtn_formM"
+        onClick={() => navigate('/app')}
+      ></img>
       <div className="top_title_formM">报名表</div>
       <div className="details_formM formImg">完善你的简历</div>
       <div className="details_formM break_formM">让木犀团队更好地了解你吧</div>

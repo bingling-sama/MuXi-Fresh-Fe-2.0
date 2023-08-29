@@ -120,7 +120,7 @@ const TestM: React.FC = () => {
       <img
         src={backimg}
         className="returnBtn_testM"
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/app')}
         alt=""
       />
       <div className="top_title_testM">入职测验</div>
@@ -319,7 +319,7 @@ const TestM: React.FC = () => {
               怀疑性:<span>{paras.huai_yi_xing}</span>/20
             </div>
           </div>
-          <div className="returntoHome" onClick={() => navigate('/')}>
+          <div className="returntoHome" onClick={() => navigate('/app')}>
             返回主页
           </div>
           {/*返回写在这 */}

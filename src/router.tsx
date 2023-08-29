@@ -34,20 +34,21 @@ export const router = createBrowserRouter(
         { path: '/join', element: <Join /> },
         { path: '/login', element: <SignIn /> },
         { path: '/register', element: <SignUp /> },
+        { path: '/', element: <Navigate to="/join" /> },
         {
-          path: '/',
+          path: '/app',
           element: <Verify />,
           children: [
-            { path: '', element: <Navigate to="/form" /> },
-            { path: '/home', element: <HomePage /> }, // 个人主页
-            { path: '/form', element: <FormForWeb /> }, // 报名表
-            { path: '/form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
-            { path: '/progress', element: <Progress /> }, // 进度查询
-            { path: '/test', element: <TestW /> }, // 入职测验
-            { path: '/test/:user_id', element: <TestW /> }, // 入职测验
+            { path: '', element: <Navigate to="/app/form" /> },
+            { path: 'home', element: <HomePage /> }, // 个人主页
+            { path: 'form', element: <FormForWeb /> }, // 报名表
+            { path: 'form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
+            { path: 'progress', element: <Progress /> }, // 进度查询
+            { path: 'test', element: <TestW /> }, // 入职测验
+            { path: 'test/:user_id', element: <TestW /> }, // 入职测验
             {
               // 作业
-              path: '/homework',
+              path: 'homework',
               element: <HomeWork></HomeWork>,
               children: [
                 // { path: '/', element: <HomeworkVisitorMode></HomeworkVisitorMode> },
@@ -86,10 +87,10 @@ export const router = createBrowserRouter(
                 },
               ],
             },
-            { path: '/review', element: <Review /> }, // 审阅
+            { path: 'review', element: <Review /> }, // 审阅
             {
               // 权限管理
-              path: '/authority-manage',
+              path: 'authority-manage',
               element: <AuthorityManage />,
             },
           ],
@@ -99,8 +100,9 @@ export const router = createBrowserRouter(
         { path: '/join', element: <MobileJoin /> },
         { path: '/login', element: <MobileSignIn /> },
         { path: '/register', element: <MobileSignUp /> },
+        { path: '/', element: <Navigate to="/join" /> },
         {
-          path: '/',
+          path: '/app',
           element: <Verify />,
         },
         { path: '/home', element: <PersonalPage /> }, // 个人主页
