@@ -38,7 +38,7 @@ export const DropDownPure: React.FC<DropDownProps> = (props) => {
       });
   };
   const handleNewClick = () => {
-    navigate('/homework/admin/new');
+    navigate('/app/homework/admin/new');
   };
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setOpen(false);
