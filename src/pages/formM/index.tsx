@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
-import backImg from '../../assets/images/form/back.png';
-import checkedImg from '../../assets/images/form/checked.png';
-import cameraImg from '../../assets/images/form/camera.png';
-import muxiplanet from '../../assets/images/form/MuXi.png';
-import avatarDefault from '../../assets/images/form/avatarDefault.png';
 import { post, put, get } from '../../fetch';
 import { message, Upload, Input, Radio, ConfigProvider } from 'antd';
 import ImgCrop from 'antd-img-crop';
@@ -295,11 +290,7 @@ const FormForMobile: React.FC = () => {
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_formM">
-      <img
-        src={backImg}
-        className="returnBtn_formM"
-        onClick={() => navigate('/app')}
-      ></img>
+      <img src='https://muxi-fresh.muxixyz.com/fe-static/back.png'className="returnBtn_formM" onClick={() => navigate('/')}></img>
       <div className="top_title_formM">报名表</div>
       <div className="details_formM formImg">完善你的简历</div>
       <div className="details_formM break_formM">让木犀团队更好地了解你吧</div>
@@ -314,11 +305,11 @@ const FormForMobile: React.FC = () => {
             maxCount={1}
           >
             <div className="avatar_formM">
-              {avatar ? <img src={avatar} /> : <img src={avatarDefault}></img>}
+              {avatar ? <img src={avatar} /> : <img src='https://muxi-fresh.muxixyz.com/fe-static/avatarDefault.png'></img>}
             </div>
           </Upload>
         </ImgCrop>
-        <img src={cameraImg} alt="" className="cameraImg" />
+        <img src='https://muxi-fresh.muxixyz.com/fe-static/camera.png'alt="" className="cameraImg" />
         <div className="box_detail_formM">点击上传你的照片</div>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
@@ -351,7 +342,7 @@ const FormForMobile: React.FC = () => {
             <div className="enmale">Male</div>
             <div className="cnmale">男生</div>
           </div>
-          {sex == 'male' ? <img className="checkedImg" src={checkedImg}></img> : ''}
+          {sex == 'male' ? <img className="checkedImg" src='https://muxi-fresh.muxixyz.com/fe-static/checked.png'></img> : ''}
         </div>
         <div className="sexbox_formM">
           <div
@@ -367,7 +358,7 @@ const FormForMobile: React.FC = () => {
             <div className="enmale">Female</div>
             <div className="cnmale">女生</div>
           </div>
-          {sex == 'female' ? <img className="checkedImg" src={checkedImg}></img> : ''}
+          {sex == 'female' ? <img className="checkedImg" src='https://muxi-fresh.muxixyz.com/fe-static/checked.png'></img> : ''}
         </div>
         <button
           className="change_next_formM"
@@ -386,7 +377,7 @@ const FormForMobile: React.FC = () => {
   );
   element[1] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <img src='https://muxi-fresh.muxixyz.com/fe-static/back.png'className="returnBtn_formM" onClick={backPage}></img>
       <div className="top_title_formM">个人信息</div>
       <div className="mainbox_formM">
         <div className="term_detail_box_formM">
@@ -527,7 +518,7 @@ const FormForMobile: React.FC = () => {
   );
   element[2] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <img src='https://muxi-fresh.muxixyz.com/fe-static/back.png'className="returnBtn_formM" onClick={backPage}></img>
       <div className="top_title_formM">报名信息</div>
       <img src="" alt="" />
       <div className="mainbox_formM">
@@ -581,7 +572,7 @@ const FormForMobile: React.FC = () => {
   );
   element[3] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
+      <img src='https://muxi-fresh.muxixyz.com/fe-static/back.png' className="returnBtn_formM" onClick={backPage}></img>
       <div className="top_title_formM">个人自述</div>
       <div className="mainbox_formM">
         <div className="self_tip">
@@ -610,8 +601,8 @@ const FormForMobile: React.FC = () => {
   );
   element[4] = (
     <div className="page_formM">
-      <img src={backImg} className="returnBtn_formM" onClick={backPage}></img>
-      <img className="muxiplanet" src={muxiplanet} alt="" />
+      <img src='https://muxi-fresh.muxixyz.com/fe-static/back.png' className="returnBtn_formM" onClick={backPage}></img>
+      <img className="muxiplanet" src='https://muxi-fresh.muxixyz.com/fe-static/MuXi.png'alt="" />
       <div className="top_title_formM">小问题</div>
       <div className="mainbox_formM lastbox_formM">
         <div className="questionbox_formM">
