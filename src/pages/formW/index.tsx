@@ -491,6 +491,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
+                    disabled={contactWayselect1=='email'}
                     readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
@@ -519,6 +520,7 @@ const FormForWeb: React.FC = () => {
                     />
                   </Space>
                   <Input
+                    disabled={contactWayselect2=='email'}
                     readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
