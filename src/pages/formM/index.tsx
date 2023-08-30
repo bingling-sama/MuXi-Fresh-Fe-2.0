@@ -22,7 +22,7 @@ const FormForMobile: React.FC = () => {
   const [avatar2, setavatar2] = useState('');
   const [sex, setsex] = useState(''); //性别
   const [avatar, setavatar] = useState<string | undefined>('');
-  const [stu_number] = useState(''); //学号
+  const [stu_number,setstu_number] = useState(''); //学号
   const [academy, setacademy] = useState(''); //学院
   const [major, setmajor] = useState(''); //专业
   const [grade, setgrade] = useState(''); //年级
@@ -250,6 +250,7 @@ const FormForMobile: React.FC = () => {
     userdata
       .then((data: User) => {
         setName(data.data.name);
+        setstu_number(data.data.student_id);
         setnickname(data.data.nickname);
         setavatar2(data.data.avatar);
         setacademy(data.data.school);
