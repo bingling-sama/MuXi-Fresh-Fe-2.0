@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input, message } from 'antd';
 import './SignUp.less';
-import logo from '../../assets/muxilogo.png';
 import { get, post } from '../../fetch';
 import { SendEmailResult, SignUpResult } from './SignUp';
 import { useNavigate } from 'react-router-dom';
@@ -111,7 +110,7 @@ const SignUp: React.FC = () => {
     <div className="signUp-box">
       <div className="signUp-wrap">
         <div className="signUp-wrap-header">
-          <img src={logo} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
           <div className="header-title">MUXI</div>
         </div>
         <div className="signUp-form">

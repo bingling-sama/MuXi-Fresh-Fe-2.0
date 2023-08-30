@@ -1,8 +1,6 @@
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import './Layout.less';
 import React, { useEffect, useState } from 'react';
-import logo from '../../assets/muxilogo.png';
-import defaultAvatar from '../../assets/default_avatar.png';
 import { get } from '../../fetch.ts';
 import { PersonalInformation } from '../../type/PersonalInformation.ts';
 import type { MenuProps } from 'antd';
@@ -17,6 +15,9 @@ import {
 import { UserIdentity, UserIsForm } from '../Verify/UserIdentity.ts';
 
 const { Header, Content, Sider } = LayoutAntd;
+
+const logo = 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png';
+const defaultAvatar = 'https://muxi-fresh.muxixyz.com/fe-static/default_avatar.png';
 
 type LayoutProps = {
   identity: UserIdentity;

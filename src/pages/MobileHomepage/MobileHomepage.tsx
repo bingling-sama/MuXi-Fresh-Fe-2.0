@@ -13,13 +13,9 @@ import { get } from '../../fetch.ts';
 import { PersonalInformation } from '../../type/PersonalInformation.ts';
 import { useNavigate } from 'react-router-dom';
 import { MenuOutlined, PoweroffOutlined, UserOutlined } from '@ant-design/icons';
-import defaultAvatar from '../../assets/defaultAvatar.png';
-import background from '../../assets/homepage-background.png';
-import registrationForm from '../../assets/registration-form.png';
-import progressQuery from '../../assets/progress-query.png';
-import submit from '../../assets/submit.png';
-import submitTest from '../../assets/submit-test.png';
 import './MobileHomepage.less';
+
+const defaultAvatar = 'https://muxi-fresh.muxixyz.com/fe-static/defaultAvatar.png';
 
 const MobileHomepage: React.FC = () => {
   const [avatar, setAvatar] = useState(defaultAvatar);
@@ -100,7 +96,11 @@ const MobileHomepage: React.FC = () => {
         </Header>
         <Content className={'mobileLayoutContent'}>
           <div className={'mobileLayoutContentImg'}>
-            <Image src={background} width={'80vw'} preview={false}></Image>
+            <Image
+              src={'https://muxi-fresh.muxixyz.com/fe-static/homepage-background.png'}
+              width={'80vw'}
+              preview={false}
+            ></Image>
           </div>
           <div className={'mobileLayoutContentBox'}>
             <div
@@ -109,7 +109,11 @@ const MobileHomepage: React.FC = () => {
                 navigationClick('/form');
               }}
             >
-              <Image src={registrationForm} width={'20vw'} preview={false}></Image>
+              <Image
+                src={'https://muxi-fresh.muxixyz.com/fe-static/registration-form.png'}
+                width={'20vw'}
+                preview={false}
+              ></Image>
               报名表
             </div>
             <div
@@ -118,7 +122,11 @@ const MobileHomepage: React.FC = () => {
                 navigationClick('/progress');
               }}
             >
-              <Image src={progressQuery} width={'20vw'} preview={false}></Image>
+              <Image
+                src={'https://muxi-fresh.muxixyz.com/fe-static/progress-query.png'}
+                width={'20vw'}
+                preview={false}
+              ></Image>
               进度查询
             </div>
             <div
@@ -127,7 +135,11 @@ const MobileHomepage: React.FC = () => {
                 navigationClick('/homework/user/submit');
               }}
             >
-              <Image src={submit} width={'20vw'} preview={false}></Image>
+              <Image
+                src={'https://muxi-fresh.muxixyz.com/fe-static/submit.png'}
+                width={'20vw'}
+                preview={false}
+              ></Image>
               提交作业
             </div>
             <div
@@ -136,7 +148,11 @@ const MobileHomepage: React.FC = () => {
                 navigationClick('/test');
               }}
             >
-              <Image src={submitTest} width={'20vw'} preview={false}></Image>
+              <Image
+                src={'https://muxi-fresh.muxixyz.com/fe-static/submit-test.png'}
+                width={'20vw'}
+                preview={false}
+              ></Image>
               入职测验
             </div>
           </div>

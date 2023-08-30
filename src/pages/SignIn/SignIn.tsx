@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input, Modal, message } from 'antd';
 import './SignIn.less';
-import signInImg from '../../assets/signInImg.png';
-import logo1 from '../../assets/muxilogo2.png';
-import logo2 from '../../assets/muxilogo.png';
 import { get, post, postPwd } from '../../fetch';
 import { CodeImg, VerifyResult } from './Captcha.ts';
 import { useNavigate } from 'react-router-dom';
@@ -236,12 +233,19 @@ const SignIn: React.FC = () => {
       <div className="signIn-box">
         <div className="signIn-wrap">
           <div className="signIn-img-box">
-            <img className="signIn-background" src={signInImg} alt="" />
+            <img
+              className="signIn-background"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/signInImg.png'}
+              alt=""
+            />
             <div className="logo-box1">
-              <img src={logo1} alt="" />
+              <img
+                src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo2.png'}
+                alt=""
+              />
             </div>
             <div className="logo-box2">
-              <img src={logo2} alt="" />
+              <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
             </div>
           </div>
           <div className="signIn-form">

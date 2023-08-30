@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './PersonalPage.less';
-import join from '../../assets/join.png';
-import back from '../../assets/back.png';
-import name from '../../assets/name.png';
-import group from '../../assets/group.png';
-import studentIdIcon from '../../assets/studentIdIcon.png';
-import emailIcon from '../../assets/emailIcon.png';
-import passwordIcon from '../../assets/passwordIcon.png';
 import { Input, message, Modal, Upload, UploadFile, UploadProps } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import * as qiniu from 'qiniu-js';
@@ -286,11 +279,11 @@ const PersonalPage: React.FC = () => {
     <>
       <div className="personalPage-wrap">
         <div className="back-btn-box" onClick={backToHome}>
-          <img src={back} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/back.png'} alt="" />
         </div>
         <div className="header-box">
           <div className="background-box">
-            <img src={join} alt="" />
+            <img src={'https://muxi-fresh.muxixyz.com/fe-static/join.png'} alt="" />
           </div>
           <div className="title-box">个人主页</div>
         </div>
@@ -314,12 +307,20 @@ const PersonalPage: React.FC = () => {
         </div>
         <div className="info-box2">
           <div className="info-box2-box1">
-            <img className="box-logo" src={name} alt="" />
+            <img
+              className="box-logo"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/name.png'}
+              alt=""
+            />
             <div className="box-title">姓名学号</div>
             <div className="box-content">{`${userInfo.name} ${userInfo.student_id}`}</div>
           </div>
           <div className="info-box2-box2">
-            <img className="box-logo" src={group} alt="" />
+            <img
+              className="box-logo"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/group.png'}
+              alt=""
+            />
             <div className="box-title">所在组别</div>
             <div className="box-content">{userInfo.group}</div>
           </div>
@@ -327,15 +328,27 @@ const PersonalPage: React.FC = () => {
         <div className="change-info-box">
           <div className="box-title">信息修改</div>
           <div className="change-studentId-box" onClick={showStudentIdModal}>
-            <img className="box-logo" src={studentIdIcon} alt="" />
+            <img
+              className="box-logo"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/studentIdIcon.png'}
+              alt=""
+            />
             <div className="box-title">绑定/修改学号</div>
           </div>
           <div className="change-email-box" onClick={showEmailModal}>
-            <img className="box-logo" src={emailIcon} alt="" />
+            <img
+              className="box-logo"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/emailIcon.png'}
+              alt=""
+            />
             <div className="box-title">修改邮箱</div>
           </div>
           <div className="change-password-box" onClick={showPasswordModal}>
-            <img className="box-logo" src={passwordIcon} alt="" />
+            <img
+              className="box-logo"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/passwordIcon.png'}
+              alt=""
+            />
             <div className="box-title">修改密码</div>
           </div>
         </div>

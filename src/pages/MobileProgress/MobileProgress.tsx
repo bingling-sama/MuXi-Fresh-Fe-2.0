@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './MobileProgress.less';
-import back from '../../assets/back.png';
 import { message, Spin, Steps } from 'antd';
 import { get } from '../../fetch';
 import { GetScheduleResult, Schedule } from '../Progress/Progress';
@@ -76,7 +75,7 @@ const MobileProgress: React.FC = () => {
     <div className="mobileProgress-wrap">
       <div className="header-box">
         <div className="back-btn-box" onClick={backToHome}>
-          <img src={back} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/back.png'} alt="" />
         </div>
         <div className="title-box">进度查询</div>
       </div>

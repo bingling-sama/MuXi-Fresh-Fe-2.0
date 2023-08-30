@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import join from '../../assets/join.png';
-import logo from '../../assets/muxilogo.png';
 import './MobileSignUp.less';
 import { Input, message } from 'antd';
 import { FrownOutlined, SmileOutlined } from '@ant-design/icons';
@@ -115,12 +113,12 @@ const MobileSignUp: React.FC = () => {
   return (
     <div className="mobileSignUp-wrap">
       <div className="header-box">
-        <img src={join} alt="" />
+        <img src={'https://muxi-fresh.muxixyz.com/fe-static/join.png'} alt="" />
       </div>
       <div className="form-box">
         <div className="form-title-box">
           <div className="logo-box">
-            <img src={logo} alt="" />
+            <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
           </div>
           <div className="team-name-box">木犀团队</div>
         </div>

@@ -1,6 +1,4 @@
 import './MobileJoin.less';
-import muxistudio from '../../assets/muxistudio.png';
-import join from '../../assets/join.png';
 import { useNavigate } from 'react-router-dom';
 
 export default function MobileJoin() {
@@ -13,7 +11,7 @@ export default function MobileJoin() {
           木犀官网
         </div>
         <div className="muxi-logo-box">
-          <img src={muxistudio} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxistudio.png'} alt="" />
         </div>
         <div
           className="muxi101-box"
@@ -23,7 +21,7 @@ export default function MobileJoin() {
         </div>
       </div>
       <div className="join-pic-box">
-        <img src={join} alt="" />
+        <img src={'https://muxi-fresh.muxixyz.com/fe-static/join.png'} alt="" />
       </div>
       <div className="join-btn-box">
         <span className="join-btn" onClick={() => navigate('/login')}>

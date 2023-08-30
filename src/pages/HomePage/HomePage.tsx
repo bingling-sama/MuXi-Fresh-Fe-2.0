@@ -3,8 +3,6 @@ import { Input, message, Modal, Select, Spin, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import './Homepage.less';
-import bigLogo from '../../assets/muxilogo2.png';
-import smallLogo from '../../assets/muxilogo.png';
 import {
   ChangeEmailResult,
   ChangeUserInfoResult,
@@ -689,13 +687,13 @@ const HomePage: React.FC = () => {
       </div>
       <div className="flower-box">
         <div className="flower1">
-          <img src={smallLogo} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
         </div>
         <div className="flower2">
-          <img src={bigLogo} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo2.png'} alt="" />
         </div>
         <div className="flower3">
-          <img src={smallLogo} alt="" />
+          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
         </div>
       </div>
     </div>
