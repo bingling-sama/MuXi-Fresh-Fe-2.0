@@ -15,16 +15,20 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
   const [formData, setFormData] = useState<string[]>();
   const { currentTaskInfo, uploadHistory, currentTaskID } = props;
   const handleSubmit = () => {
-    post(`/task/submitted`, {
-      assignedTaskID: currentTaskID,
-      urls: formData,
-    })
-      .then(() => {
-        message.success('提交成功').then(null, null);
+    if (currentTaskID) {
+      post(`/task/submitted`, {
+        assignedTaskID: currentTaskID,
+        urls: formData,
       })
-      .catch(() => {
-        message.error(`提交失败`).then(null, null);
-      });
+        .then(() => {
+          message.success('提交成功').then(null, null);
+        })
+        .catch(() => {
+          message.error(`提交失败`).then(null, null);
+        });
+    } else {
+      message.error('暂时还没有作业哦').then(null, null);
+    }
   };
 
   const handleChangeUpload = (e: UploadProps['fileList']) => {
