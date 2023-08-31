@@ -118,7 +118,7 @@ const HomeworkUserSubmit: React.FC = () => {
             type="file"
             label="上传作业"
             defaultValue={defList}
-            disabled={status == 2}
+            disabled={status == 2 || (taskList && !taskList[0].id)}
             onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
           ></InputBox>
         </UploadSection>

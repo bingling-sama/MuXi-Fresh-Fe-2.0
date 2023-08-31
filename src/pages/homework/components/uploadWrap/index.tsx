@@ -136,7 +136,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             limit={500}
             defaultValue={[defaultValue.content]}
             onChange={(str) => handleChangeContent(str as string)}
-            disabled={choice.includes('user') ? true : false}
+            disabled={choice.includes('user')}
           ></InputBox>
           {!choice.includes('user') ? (
             <InputBox
@@ -145,7 +145,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
               className="inp"
               onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
               defaultValue={defaultValue.urls}
-              disabled={choice.includes('user') ? true : false}
+              disabled={choice.includes('user') || (taskList && !taskList[0].id)}
             ></InputBox>
           ) : (
             <FileLink className="inp" data={defaultValue.urls}></FileLink>

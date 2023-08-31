@@ -60,7 +60,6 @@ const InputBox: React.FC<InputProps> = (props) => {
     settmpdefault({ value: { value: e.target.value }, list: tmpdefault.list });
     onChange(e.target.value);
   };
-
   return (
     <ConfigProvider
       theme={{
