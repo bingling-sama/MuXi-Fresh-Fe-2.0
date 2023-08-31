@@ -36,6 +36,11 @@ export const DropDownPure: React.FC<DropDownProps> = (props) => {
       get(`/task/assigned/${item.id}`).then((res) => {
         onSwitch && onSwitch(res.data, item.id);
       });
+      else onSwitch && onSwitch({
+        title_text: '暂无作业',
+        content: '',
+        urls: [],
+    }, '');
   };
   const handleNewClick = () => {
     navigate('/app/homework/admin/new');
