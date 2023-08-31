@@ -63,6 +63,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
           setTaskList(res.data.titles.reverse());
         } else {
           setTaskList([{ id: '', text: '暂时没有作业' }]);
+          message.error('暂时没有作业').then(null, null);
         }
       },
       null,
