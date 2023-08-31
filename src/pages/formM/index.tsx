@@ -293,7 +293,7 @@ const FormForMobile: React.FC = () => {
       <img
         src="https://muxi-fresh.muxixyz.com/fe-static/back.png"
         className="returnBtn_formM"
-        onClick={() => navigate('/')}
+        onClick={() => navigate('/app')}
       ></img>
       <div className="top_title_formM">报名表</div>
       <div className="details_formM formImg">完善你的简历</div>
