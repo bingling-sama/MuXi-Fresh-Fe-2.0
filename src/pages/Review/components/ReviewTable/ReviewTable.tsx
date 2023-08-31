@@ -106,7 +106,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       dataIndex: 'form_id',
       key: 'form_id',
       render: (_, record: ReviewRow) => (
-        <Link to={`/form/${record.user_id}/${record.form_id}`} target={'_blank'}>
+        <Link to={`/app/form/${record.user_id}/${record.form_id}`} target={'_blank'}>
           查看报名表
         </Link>
       ),
@@ -118,7 +118,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       render: (_, record: ReviewRow) => (
         <div>
           {record.exam_status === '已提交' ? (
-            <Link to={`/test/${record.user_id}`} target={'_blank'}>
+            <Link to={`/app/test/${record.user_id}`} target={'_blank'}>
               已提交
             </Link>
           ) : (

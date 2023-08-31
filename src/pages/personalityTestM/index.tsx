@@ -115,14 +115,18 @@ const TestM: React.FC = () => {
   element[0] = (
     <div className="page_testM">
       <img
-        src='https://muxi-fresh.muxixyz.com/fe-static/back2.png'
+        src="https://muxi-fresh.muxixyz.com/fe-static/back2.png"
         className="returnBtn_testM"
         onClick={() => navigate('/app')}
         alt=""
       />
       <div className="top_title_testM">入职测验</div>
       <div className="mainbox_testM">
-        <img src="https://muxi-fresh.muxixyz.com/fe-static/light.png" className="lightImg_testM" alt="" />
+        <img
+          src="https://muxi-fresh.muxixyz.com/fe-static/light.png"
+          className="lightImg_testM"
+          alt=""
+        />
         <div className="lightTitle_testM">前言</div>
         <div className="lightDetail_testM">
           &nbsp;本测验将会测验您的职业性格特点，以了解您的性格与您的意愿职位之间的符合程度。本测验由卡特尔16PF测验改编而成，请受测者在测验过程中尽量保证连续性，本测验的结果仅将作为录取过程中的参考，因此请按照自己的真实想法进行填写，同时在测验过程中请仔细读题，在理解题目之后再作答，以防出现不符合您真实情况的测验结果。本测验共85题，预计用时7~9分钟,测验结果只能提交一次，请在确认后提交。
@@ -135,7 +139,12 @@ const TestM: React.FC = () => {
   );
   element[1] = (
     <div className="page_testM">
-      <img src='https://muxi-fresh.muxixyz.com/fe-static/backBlack.png' className="returnBtn_testM" alt="" onClick={backPage} />
+      <img
+        src="https://muxi-fresh.muxixyz.com/fe-static/backBlack.png"
+        className="returnBtn_testM"
+        alt=""
+        onClick={backPage}
+      />
       <span className="questionList_testM">
         Qusetion <span style={{ color: '#FFC93F', fontSize: '5vw' }}>{issueNum + 1}</span>
         /85

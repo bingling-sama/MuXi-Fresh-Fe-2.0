@@ -19,7 +19,7 @@ const FormForWeb: React.FC = () => {
   const [nickname, setnickname] = useState('');
   const [avatar2, setavatar2] = useState('');
   const [avatar, setavatar] = useState<string | undefined>('');
-  const [stu_number,setstu_number] = useState(''); //学号
+  const [stu_number, setstu_number] = useState(''); //学号
   const [academy, setacademy] = useState(''); //学院
   const [major, setmajor] = useState(''); //专业
   const [grade, setgrade] = useState(''); //年级
@@ -484,14 +484,22 @@ const FormForWeb: React.FC = () => {
                       value={contactWayselect1}
                       onChange={(value) => setcontactWayselect1(value)}
                       options={[
-                        { value: 'email', label: '邮箱' },
-                        { value: 'qq', label: 'QQ' },
-                        { value: 'phone', label: '手机' },
+                        {
+                          value: 'email',
+                          label: '邮箱',
+                          disabled: contactWayselect2 == 'email',
+                        },
+                        { value: 'qq', label: 'QQ', disabled: contactWayselect2 == 'qq' },
+                        {
+                          value: 'phone',
+                          label: '手机',
+                          disabled: contactWayselect2 == 'phone',
+                        },
                       ]}
                     />
                   </Space>
                   <Input
-                    disabled={contactWayselect1=='email'}
+                    disabled={contactWayselect1 == 'email'}
                     readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
@@ -513,14 +521,22 @@ const FormForWeb: React.FC = () => {
                       value={contactWayselect2}
                       onChange={(value) => setcontactWayselect2(value)}
                       options={[
-                        { value: 'email', label: '邮箱' },
-                        { value: 'qq', label: 'QQ' },
-                        { value: 'phone', label: '手机' },
+                        {
+                          value: 'email',
+                          label: '邮箱',
+                          disabled: contactWayselect1 == 'email',
+                        },
+                        { value: 'qq', label: 'QQ', disabled: contactWayselect1 == 'qq' },
+                        {
+                          value: 'phone',
+                          label: '手机',
+                          disabled: contactWayselect1 == 'phone',
+                        },
                       ]}
                     />
                   </Space>
                   <Input
-                    disabled={contactWayselect2=='email'}
+                    disabled={contactWayselect2 == 'email'}
                     readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
