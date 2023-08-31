@@ -96,7 +96,7 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             </Tag>
             <NavLink
               className="data-table-card"
-              to={`/homework/admin/judge`}
+              to={`/app/homework/admin/judge`}
               state={item}
             >
               点击查看
