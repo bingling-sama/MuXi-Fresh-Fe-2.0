@@ -484,9 +484,9 @@ const FormForWeb: React.FC = () => {
                       value={contactWayselect1}
                       onChange={(value) => setcontactWayselect1(value)}
                       options={[
-                        { value: 'email', label: '邮箱' },
-                        { value: 'qq', label: 'QQ' },
-                        { value: 'phone', label: '手机' },
+                        { value: 'email', label: '邮箱',disabled:contactWayselect2=='email'},
+                        { value: 'qq', label: 'QQ' ,disabled:contactWayselect2=='qq'},
+                        { value: 'phone', label: '手机' ,disabled:contactWayselect2=='phone'},
                       ]}
                     />
                   </Space>
@@ -513,9 +513,9 @@ const FormForWeb: React.FC = () => {
                       value={contactWayselect2}
                       onChange={(value) => setcontactWayselect2(value)}
                       options={[
-                        { value: 'email', label: '邮箱' },
-                        { value: 'qq', label: 'QQ' },
-                        { value: 'phone', label: '手机' },
+                        { value: 'email', label: '邮箱' ,disabled:contactWayselect1=='email'},
+                        { value: 'qq', label: 'QQ' ,disabled:contactWayselect1=='qq'},
+                        { value: 'phone', label: '手机' ,disabled:contactWayselect1=='phone'},
                       ]}
                     />
                   </Space>
