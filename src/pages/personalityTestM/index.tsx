@@ -217,7 +217,7 @@ const TestM: React.FC = () => {
               if (answerSheet[issueNum] != '' && issueNum != 84) {
                 setissuenum(issueNum + 1);
               } else if (issueNum == 84 && answerSheet[issueNum] != '') {
-                submit;
+                submit();
               }
             }}
           >
