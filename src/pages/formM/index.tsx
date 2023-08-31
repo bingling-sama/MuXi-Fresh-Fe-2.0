@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
 import { post, put, get } from '../../fetch';
-import { message, Upload, Input, Radio, ConfigProvider } from 'antd';
+import { message, Upload, Input, Radio, ConfigProvider,Select } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
@@ -140,6 +140,10 @@ const FormForMobile: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
+      if(contactWay['qq']==''&&contactWay['phone']==''){
+        void message.info('请至少输入QQ或手机中的一项');
+        return;
+      }
     }
     send();
     setTimeout(() => {
@@ -207,12 +211,21 @@ const FormForMobile: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
+      if(contactWay['qq']==''&&contactWay['phone']==''){
+        void message.info('请至少输入QQ或手机中的一项');
+        return;
+      }
     }
     send();
     setTimeout(() => {
       navigate('/app');
     }, 1000);
   };
+  useEffect(()=>{
+    console.log(academy);
+    console.log(grade);
+    
+  },[academy,grade])
   useEffect(() => {
     if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
   }, [contactWayselect1]);
@@ -230,6 +243,7 @@ const FormForMobile: React.FC = () => {
           setsex(data.data.gender);
           setmajor(data.data.major);
           setgrade(data.data.grade);
+          if(data.data.phone){setcontactWayselect1('phone')}
           setcontactWay((pre) => ({ ...pre, ['phone']: data.data.phone }));
           setwantGroup(data.data.group);
           setreason(data.data.reason);
@@ -249,6 +263,7 @@ const FormForMobile: React.FC = () => {
         setnickname(data.data.nickname);
         setavatar2(data.data.avatar);
         setacademy(data.data.school);
+        if(data.data.qq){setcontactWayselect2('qq')}
         setcontactWay((pre) => ({
           ...pre,
           ['qq']: data.data.qq,
@@ -280,7 +295,6 @@ const FormForMobile: React.FC = () => {
   const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     const response = newFileList[0].response;
-    console.log(response);
     if (response) {
       const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
       setavatar(avatar);
@@ -423,37 +437,36 @@ const FormForMobile: React.FC = () => {
           <div className="yellowBot"></div>
           <div className="term_detail_formM">学院</div>
         </div>
-        <select
+        <Select
           id="schoolSelect_formM"
+          style={{width:'72vw'}}
           value={academy}
-          onChange={(e) => setacademy(e.target.value)}
+          size='large'
+          onChange={(e) => setacademy(e)}
         >
-          <option value="请选择" disabled>
-            请选择
-          </option>
-          <option value="计算机学院">计算机学院</option>
-          <option value="人工智能教育学部">人工智能教育学部</option>
-          <option value="心理学院">心理学院</option>
-          <option value="经济与工商管理学院">经济与工商管理学院</option>
-          <option value="公共管理学院">公共管理学院</option>
-          <option value="信息管理学院">信息管理学院</option>
-          <option value="城市与环境科学学院">城市与环境科学学院</option>
-          <option value="美术学院">美术学院</option>
-          <option value="新闻传播学院">新闻传播学院</option>
-          <option value="政治与国际关系学院">政治与国际关系学院</option>
-          <option value="教育学院">教育学院</option>
-          <option value="文学院">文学院</option>
-          <option value="新闻传播学院">新闻传播学院</option>
-          <option value="历史文化学院">历史文化学院</option>
-          <option value="马克思主义学院">马克思主义学院</option>
-          <option value="法学院">法学院</option>
-          <option value="社会学院">社会学院</option>
-          <option value="外国语学院">外国语学院</option>
-          <option value="音乐学院">音乐学院</option>
-          <option value="数学与统计学学院">数学与统计学学院</option>
-          <option value="物理科学与技术学院">物理科学与技术学院</option>
-          <option value="化学学院">化学学院</option>
-        </select>
+          <Select.Option value="计算机学院">计算机学院</Select.Option>
+          <Select.Option value="人工智能教育学部">人工智能教育学部</Select.Option>
+          <Select.Option value="心理学院">心理学院</Select.Option>
+          <Select.Option value="经济与工商管理学院">经济与工商管理学院</Select.Option>
+          <Select.Option value="公共管理学院">公共管理学院</Select.Option>
+          <Select.Option value="信息管理学院">信息管理学院</Select.Option>
+          <Select.Option value="城市与环境科学学院">城市与环境科学学院</Select.Option>
+          <Select.Option value="美术学院">美术学院</Select.Option>
+          <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
+          <Select.Option value="政治与国际关系学院">政治与国际关系学院</Select.Option>
+          <Select.Option value="教育学院">教育学院</Select.Option>
+          <Select.Option value="文学院">文学院</Select.Option>
+          <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
+          <Select.Option value="历史文化学院">历史文化学院</Select.Option>
+          <Select.Option value="马克思主义学院">马克思主义学院</Select.Option>
+          <Select.Option value="法学院">法学院</Select.Option>
+          <Select.Option value="社会学院">社会学院</Select.Option>
+          <Select.Option value="外国语学院">外国语学院</Select.Option>
+          <Select.Option value="音乐学院">音乐学院</Select.Option>
+          <Select.Option value="数学与统计学学院">数学与统计学学院</Select.Option>
+          <Select.Option value="物理科学与技术学院">物理科学与技术学院</Select.Option>
+          <Select.Option value="化学学院">化学学院</Select.Option>
+        </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
           <div className="term_detail_formM">专业</div>
@@ -471,39 +484,40 @@ const FormForMobile: React.FC = () => {
           <div className="yellowBot"></div>
           <div className="term_detail_formM">年级</div>
         </div>
-        <select
+        <Select
           id="GradeSelect_formM"
           value={grade}
-          onChange={(e) => setgrade(e.target.value)}
+          style={{width:'72vw'}}
+          size='large'
+          onChange={(e) => setgrade(e)}
         >
-          <option value="2023">2023</option>
-          <option value="2022">2022</option>
-          <option value="2021">2021</option>
-          <option value="2020">2020</option>
-          <option value="2019">2019</option>
-          <option value="2018">2018</option>
-          <option value="2017">2017</option>
-        </select>
+          <Select.Option value="2023">2023</Select.Option>
+          <Select.Option value="2022">2022</Select.Option>
+          <Select.Option value="2021">2021</Select.Option>
+          <Select.Option value="2020">2020</Select.Option>
+          <Select.Option value="2019">2019</Select.Option>
+          <Select.Option value="2018">2018</Select.Option>
+          <Select.Option value="2017">2017</Select.Option>
+        </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
           <div className="term_detail_formM">联系方式</div>
         </div>
         <div className="contactWaybox_formM">
           <div className="contactWayterm_formM">
-            <select
+            <Select
               id="contactWayselect1_formM"
               value={contactWayselect1}
+              style={{width:'25vw'}}
+              size='large'
               onChange={(e) => {
-                setcontactWayselect1(e.target.value);
+                setcontactWayselect1(e);
               }}
             >
-              <option value="请选择" disabled>
-                请选择
-              </option>
-              <option value="email">邮箱</option>
-              <option value="qq">QQ</option>
-              <option value="phone">手机</option>
-            </select>
+              <Select.Option value="email" disabled={contactWayselect2 == 'email'}>邮箱</Select.Option>
+              <Select.Option value="qq" disabled={contactWayselect2 == 'QQ'}>QQ</Select.Option>
+              <Select.Option value="phone" disabled={contactWayselect2 == 'phone'}>手机</Select.Option>
+            </Select>
             <Input
               type="text"
               className="contactContent_formM"
@@ -516,18 +530,17 @@ const FormForMobile: React.FC = () => {
             />
           </div>
           <div className="contactWayterm_formM">
-            <select
+            <Select
               id="contactWayselect2_formM"
               value={contactWayselect2}
-              onChange={(e) => setcontactWayselect2(e.target.value)}
+              style={{width:'25vw'}}
+              size='large'
+              onChange={(e) => setcontactWayselect2(e)}
             >
-              <option value="选填" disabled>
-                选填
-              </option>
-              <option value="email">邮箱</option>
-              <option value="qq">QQ</option>
-              <option value="phone">手机</option>
-            </select>
+              <Select.Option value="email" disabled={contactWayselect1 == 'email'}>邮箱</Select.Option>
+              <Select.Option value="qq" disabled={contactWayselect1 == 'QQ'}>QQ</Select.Option>
+              <Select.Option value="phone" disabled={contactWayselect1 == 'phone'}>手机</Select.Option>
+            </Select>
             <Input
               type="text"
               className="contactContent_formM"
@@ -559,20 +572,19 @@ const FormForMobile: React.FC = () => {
           <div className="yellowBot"></div>
           <div className="term_detail_formM">心动组别</div>
         </div>
-        <select
+        <Select
           id="GroupSelect_formM"
           value={wantGroup}
-          onChange={(e) => setwantGroup(e.target.value)}
+          size='large'
+          style={{width:'72vw'}}
+          onChange={(e) => setwantGroup(e)}
         >
-          <option value="请选择" disabled>
-            请选择
-          </option>
-          <option value="Product">产品组</option>
-          <option value="Design">设计组</option>
-          <option value="Frontend">前端组</option>
-          <option value="Backend">后端组</option>
-          <option value="Android">安卓组</option>
-        </select>
+          <Select.Option value="Product">产品组</Select.Option>
+          <Select.Option value="Design">设计组</Select.Option>
+          <Select.Option value="Frontend">前端组</Select.Option>
+          <Select.Option value="Backend">后端组</Select.Option>
+          <Select.Option value="Android">安卓组</Select.Option>
+        </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
           <div className="term_detail_formM">心动理由</div>
@@ -678,15 +690,9 @@ const FormForMobile: React.FC = () => {
 
   return (
     <div>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#ffb841',
-          },
-        }}
-      >
+
         {element[pageNum]}
-      </ConfigProvider>
+
     </div>
   );
 };

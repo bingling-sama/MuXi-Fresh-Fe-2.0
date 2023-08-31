@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { post } from '../../fetch';
+import { post,get } from '../../fetch';
 import './index.less';
 import * as echarts from 'echarts';
 import { message } from 'antd';
@@ -31,6 +31,22 @@ const TestM: React.FC = () => {
     code: number;
     data: {
       flag: boolean;
+    };
+  }
+  interface FormData {
+    code: number;
+    data: {
+      avatar: string;
+      extra_question: string;
+      gender: string;
+      grade: string;
+      group: string;
+      knowledge: string;
+      major: string;
+      phone: string;
+      reason: string;
+      self_intro: string;
+      form_id: string;
     };
   }
   const strnumber =
@@ -91,6 +107,15 @@ const TestM: React.FC = () => {
     };
     // eslint-disable-next-line
     fetchTextFile();
+    const formdata = get(`/form/view?entry_form_id=myself`);
+    formdata.then((data:FormData)=>{
+        if(data.code==-1){
+          void message.info('先填写完报名表再来吧');
+          setTimeout(() => {
+            navigate('/app');
+          }, 1000);
+        }
+    }).catch((e) => console.error(e));
     const getRes = post(`/user/test/result?user_id=myself`);
     getRes
       .then((data: tesResModel) => {
