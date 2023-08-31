@@ -20,7 +20,7 @@ const HomeworkJudge: React.FC = () => {
     if (!infoItem) {
       message.error('请先选择作业').then(null, null);
       setTimeout(() => {
-        nav('/homework/admin/browse');
+        nav('/app/homework/admin/browse');
       }, 1000);
     }
   }, [SubmitID]);
