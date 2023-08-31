@@ -100,9 +100,7 @@ const SelectorMobile: React.FC<SelectorProps> = (props) => {
             {`${selected?.key}作业`}
             <img
               className="icon_2"
-              src={
-                'https://lanhu.oss-cn-beijing.aliyuncs.com/FigmaDDSSlicePNGd58be812f49ee63b0939d4f18beb0072.png'
-              }
+              src={'https://s2.loli.net/2023/08/31/JAK6Lyq9nWG2tBj.png'}
               alt={''}
             />
           </Button>

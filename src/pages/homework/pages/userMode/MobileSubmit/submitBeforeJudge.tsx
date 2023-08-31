@@ -47,9 +47,7 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
             <div className={'img-wrap '}>
               <img
                 alt={''}
-                src={
-                  'https://lanhu.oss-cn-beijing.aliyuncs.com/FigmaDDSSlicePNGeaaee7feabd1b277381d760cd3d5f474.png'
-                }
+                src={'https://s2.loli.net/2023/08/31/C3fgIyNxX6sAkRF.png'}
                 className={'task-title-mobile-img'}
               ></img>
             </div>
