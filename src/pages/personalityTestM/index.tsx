@@ -12,7 +12,7 @@ const TestM: React.FC = () => {
   const [score, setscore] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
   const [pageNum, setPageNum] = useState(0); //页数
   const [textarr, setTextarr] = useState<string[]>([]);
-  const [answerSheet, setanswersheet] = useState<string[]>(Array(85).fill('A'));
+  const [answerSheet, setanswersheet] = useState<string[]>(Array(85).fill(''));
   const [issueNum, setissuenum] = useState(0);
   const turnNext = () => {
     setPageNum(pageNum + 1); //换页函数
