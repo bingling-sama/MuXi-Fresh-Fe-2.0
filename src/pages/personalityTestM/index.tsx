@@ -78,7 +78,7 @@ const TestM: React.FC = () => {
   useEffect(() => {
     const fetchTextFile = async () => {
       try {
-        const response = await fetch('/src/assets/txt/test.txt');
+        const response = await fetch('/test.txt');
         const content = await response.text();
         const contentarr = content.split(/\s/);
         const contentarrNew = contentarr.filter((item) => {
