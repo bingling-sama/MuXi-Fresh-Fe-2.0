@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
 import { post, put, get } from '../../fetch';
-import { message, Upload, Input, Radio, ConfigProvider,Select } from 'antd';
+import { message, Upload, Input, Radio,Select } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
@@ -522,6 +522,7 @@ const FormForMobile: React.FC = () => {
               type="text"
               className="contactContent_formM"
               placeholder="请输入"
+              disabled={contactWayselect1 == 'email'}
               name={contactWayselect1}
               value={contactWay[contactWayselect1]}
               onChange={(e) =>
@@ -546,6 +547,7 @@ const FormForMobile: React.FC = () => {
               className="contactContent_formM"
               name={contactWayselect2}
               value={contactWay[contactWayselect2]}
+              disabled={contactWayselect2 == 'email'}
               onChange={(e) =>
                 setcontactWay((pre) => ({ ...pre, [e.target.name]: e.target.value }))
               }
