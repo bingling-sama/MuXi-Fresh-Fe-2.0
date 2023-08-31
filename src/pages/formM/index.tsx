@@ -267,7 +267,6 @@ const FormForMobile: React.FC = () => {
       };
       void qiniu.getUploadUrl(config, QiniuToken).then((r) => {
         setUploadUrl(r);
-        console.log(r);
       });
     });
   }, []);
