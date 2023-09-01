@@ -27,6 +27,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [taskList, setTaskList] = useState<taskListType[]>([]);
   const { title, button_title, choice, ...restProps } = props;
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     handleChange(defData[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps

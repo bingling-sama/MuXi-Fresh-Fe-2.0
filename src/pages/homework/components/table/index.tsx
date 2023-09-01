@@ -103,16 +103,19 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             </NavLink>
           </Card>
         ))}
-      {!dataSet[0] && (
-        <div className="empty-image-wrap">
-          <img
-            src="https://s2.loli.net/2023/08/06/haG14HpKk5gczIR.png"
-            className="empty-image"
-            alt={''}
-          ></img>
-          <Title title="暂无数据" className="empty-text"></Title>
-        </div>
-      )}
+      {!dataSet[0] && <Empty />}
     </>
+  );
+};
+export const Empty: React.FC = () => {
+  return (
+    <div className="empty-image-wrap">
+      <img
+        src="https://s2.loli.net/2023/08/06/haG14HpKk5gczIR.png"
+        className="empty-image"
+        alt={''}
+      ></img>
+      <Title title="暂无数据" className="empty-text"></Title>
+    </div>
   );
 };
