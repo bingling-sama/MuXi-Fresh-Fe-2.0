@@ -222,10 +222,6 @@ const FormForMobile: React.FC = () => {
     }, 1000);
   };
   useEffect(() => {
-    console.log(academy);
-    console.log(grade);
-  }, [academy, grade]);
-  useEffect(() => {
     if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
   }, [contactWayselect1]);
   useEffect(() => {
