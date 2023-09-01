@@ -17,37 +17,28 @@ import { useNavigate } from 'react-router-dom';
 interface TopBarMobileProps {
   onChange?: (e: dataType) => void;
 }
-interface SelectorMobileProps extends SelectorProps {
-  userInfo?: userInfoType;
-}
 interface AvatarWrapProps {
   className?: string;
   style?: CSSProperties;
-  userInfo?: userInfoType;
 }
 const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
   const { onChange } = props;
+  return (
+    <div className="top-bar-mobile">
+      <AvatarWrap></AvatarWrap>
+      <SelectorMobile data={defData} onChange={onChange}></SelectorMobile>
+    </div>
+  );
+};
+export default TopBarMobile;
+export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
   const [userInfo, setUserInfo] = useState<userInfoType>();
   useEffect(() => {
     get('/users/my-info').then((res: backType<userInfoType>) => {
       setUserInfo(res.data);
     }, null);
   }, []);
-  return (
-    <div className="top-bar-mobile">
-      <AvatarWrap userInfo={userInfo}></AvatarWrap>
-      <SelectorMobile
-        userInfo={userInfo}
-        data={defData}
-        onChange={onChange}
-      ></SelectorMobile>
-    </div>
-  );
-};
-export default TopBarMobile;
-export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
-  // const [userInfo, setuserInfo] = useState<UserInfoType>();
-  const { userInfo, className, style } = props;
+  const { className, style } = props;
   const renderText = (str: string) => {
     if (str?.length > 8) return str.slice(0, 8) + '...';
     return str;
@@ -65,7 +56,7 @@ export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
     </>
   );
 };
-const SelectorMobile: React.FC<SelectorMobileProps> = (props) => {
+const SelectorMobile: React.FC<SelectorProps> = (props) => {
   const { data, className, onChange } = props;
   const [open, setopen] = useState<boolean>(false);
   const [selected, setselected] = useState<dataType>(data[0]);

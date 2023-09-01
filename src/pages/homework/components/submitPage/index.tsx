@@ -33,29 +33,19 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   const handleSubmit = (query: TaskInfoType) => {
     post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
       .then(() => {
-        message.success('提交成功').then(
-          () => {
-            return;
-          },
-          () => {
-            return;
-          },
-        );
+        UpdateTaskList(selected as dataType);
+        message.success('提交成功').then(null, null);
       })
       .catch(() => {
-        message.error(`提交失败`).then(
-          () => {
-            return;
-          },
-          () => {
-            return;
-          },
-        );
+        message.error(`提交失败`).then(null, null);
       });
   };
   const handleChange = (item: dataType) => {
     setselected(item);
     setLoading(true);
+    UpdateTaskList(item);
+  };
+  const UpdateTaskList = (item: dataType) => {
     get(`/task/assigned/list?group=${item.value}`).then(
       (res: backType<titleListType>) => {
         setLoading(false);
