@@ -29,6 +29,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   const { title, button_title, choice, ...restProps } = props;
   useEffect(() => {
     handleChange(defData[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleSubmit = (query: TaskInfoType) => {
     post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
