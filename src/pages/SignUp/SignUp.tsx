@@ -175,14 +175,6 @@ const SignUp: React.FC = () => {
             )}
           </div>
           <div className="btn-box">
-            <div
-              className="signIn-btn"
-              onClick={() => {
-                navigate('/login');
-              }}
-            >
-              登录
-            </div>
             <div className="signUp-btn" onClick={submit}>
               注册
             </div>
