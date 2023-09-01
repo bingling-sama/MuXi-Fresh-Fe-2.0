@@ -5,7 +5,7 @@ import Selector from '../../../components/selector';
 import { defData } from '../../../utils/deData';
 import { backType, dataType, titleListType } from '../../../types';
 import { get } from '../../../../../fetch.ts';
-import {Collapse, CollapseProps, message} from 'antd';
+import { Collapse, CollapseProps, message } from 'antd';
 
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);

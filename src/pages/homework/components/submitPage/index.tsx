@@ -31,6 +31,11 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   useEffect(() => {
     handleChange(defData[0]);
   }, []);
+  const handleChange = (item: dataType) => {
+    setselected(item);
+    setLoading(true);
+    UpdateTaskList(item);
+  };
   const handleSubmit = (query: TaskInfoType) => {
     post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
       .then(() => {
@@ -41,11 +46,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
         message.error(`提交失败`).then(null, null);
       });
   };
-  const handleChange = (item: dataType) => {
-    setselected(item);
-    setLoading(true);
-    UpdateTaskList(item);
-  };
+
   const UpdateTaskList = (item: dataType) => {
     get(`/task/assigned/list?group=${item.value}`).then(
       (res: backType<titleListType>) => {
