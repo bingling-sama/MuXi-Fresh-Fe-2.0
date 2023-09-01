@@ -7,9 +7,10 @@ interface PageWrapProps {
   children?: React.ReactNode;
   title?: string;
   backPath?: string;
+  classNames?: string;
 }
 const PageWrapMobile: React.FC<PageWrapProps> = (props) => {
-  const { children, backPath, title } = props;
+  const { children, classNames, backPath, title } = props;
   const navi = useNavigate();
   const handleNavi = () => {
     navi(backPath as string);
@@ -23,7 +24,7 @@ const PageWrapMobile: React.FC<PageWrapProps> = (props) => {
           </div>
           <div className="page-title">{title}</div>
         </div>
-        <div className="page-container">
+        <div className={`page-container ${classNames as string}`}>
           <div className="page-container-inner">{children}</div>
         </div>
       </div>

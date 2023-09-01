@@ -71,7 +71,7 @@ export const TitleTag: React.FC<TitleTagProps> = (props) => {
     <div className={className}>
       {renderName(item.nickname)}
       <Tag color="orange" className="comment-tag">
-        {item.group.length > 8 ? item.group.slice(-8) : item.group}
+        {item.group}
       </Tag>
     </div>
   );

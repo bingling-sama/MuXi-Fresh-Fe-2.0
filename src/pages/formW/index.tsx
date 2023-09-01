@@ -145,7 +145,7 @@ const FormForWeb: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
-      if(contactWay['qq']==''&&contactWay['phone']==''){
+      if (contactWay['qq'] == '' && contactWay['phone'] == '') {
         void message.info('请至少输入QQ或手机中的一项');
         return;
       }
@@ -213,7 +213,7 @@ const FormForWeb: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
-      if(contactWay['qq']==''&&contactWay['phone']==''){
+      if (contactWay['qq'] == '' && contactWay['phone'] == '') {
         void message.info('请至少输入QQ或手机中的一项');
         return;
       }
@@ -231,7 +231,9 @@ const FormForWeb: React.FC = () => {
           setsex(data.data.gender);
           setmajor(data.data.major);
           setgrade(data.data.grade);
-          if(data.data.phone){setcontactWayselect1('phone')}
+          if (data.data.phone) {
+            setcontactWayselect1('phone');
+          }
           setcontactWay((pre) => ({ ...pre, ['phone']: data.data.phone }));
           setwantGroup(data.data.group);
           setreason(data.data.reason);
@@ -251,7 +253,9 @@ const FormForWeb: React.FC = () => {
         setnickname(data.data.nickname);
         setavatar2(data.data.avatar);
         setacademy(data.data.school);
-        if(data.data.qq){setcontactWayselect2('qq')}
+        if (data.data.qq) {
+          setcontactWayselect2('qq');
+        }
         setcontactWay((pre) => ({
           ...pre,
           ['qq']: data.data.qq,
