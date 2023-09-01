@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { post,get } from '../../fetch';
+import { post, get } from '../../fetch';
 import './index.less';
 import * as echarts from 'echarts';
 import { message } from 'antd';
@@ -108,14 +108,16 @@ const TestM: React.FC = () => {
     // eslint-disable-next-line
     fetchTextFile();
     const formdata = get(`/form/view?entry_form_id=myself`);
-    formdata.then((data:FormData)=>{
-        if(data.code==-1){
+    formdata
+      .then((data: FormData) => {
+        if (data.code == -1) {
           void message.info('先填写完报名表再来吧');
           setTimeout(() => {
             navigate('/app');
           }, 1000);
         }
-    }).catch((e) => console.error(e));
+      })
+      .catch((e) => console.error(e));
     const getRes = post(`/user/test/result?user_id=myself`);
     getRes
       .then((data: tesResModel) => {
@@ -134,7 +136,7 @@ const TestM: React.FC = () => {
         }
       })
       .catch((e) => console.error(e));
-  }, []);
+  }, [navigate]);
 
   const element: JSX.Element[] = [];
   element[0] = (
@@ -242,7 +244,7 @@ const TestM: React.FC = () => {
               if (answerSheet[issueNum] != '' && issueNum != 84) {
                 setissuenum(issueNum + 1);
               } else if (issueNum == 84 && answerSheet[issueNum] != '') {
-                submit();
+                void submit();
               }
             }}
           >

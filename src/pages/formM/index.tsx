@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.less';
 import { post, put, get } from '../../fetch';
-import { message, Upload, Input, Radio,Select } from 'antd';
+import { message, Upload, Input, Radio, Select } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
@@ -140,7 +140,7 @@ const FormForMobile: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
-      if(contactWay['qq']==''&&contactWay['phone']==''){
+      if (contactWay['qq'] == '' && contactWay['phone'] == '') {
         void message.info('请至少输入QQ或手机中的一项');
         return;
       }
@@ -211,7 +211,7 @@ const FormForMobile: React.FC = () => {
         void message.info(arrCN[i]);
         return;
       }
-      if(contactWay['qq']==''&&contactWay['phone']==''){
+      if (contactWay['qq'] == '' && contactWay['phone'] == '') {
         void message.info('请至少输入QQ或手机中的一项');
         return;
       }
@@ -221,11 +221,10 @@ const FormForMobile: React.FC = () => {
       navigate('/app');
     }, 1000);
   };
-  useEffect(()=>{
+  useEffect(() => {
     console.log(academy);
     console.log(grade);
-    
-  },[academy,grade])
+  }, [academy, grade]);
   useEffect(() => {
     if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
   }, [contactWayselect1]);
@@ -243,7 +242,9 @@ const FormForMobile: React.FC = () => {
           setsex(data.data.gender);
           setmajor(data.data.major);
           setgrade(data.data.grade);
-          if(data.data.phone){setcontactWayselect1('phone')}
+          if (data.data.phone) {
+            setcontactWayselect1('phone');
+          }
           setcontactWay((pre) => ({ ...pre, ['phone']: data.data.phone }));
           setwantGroup(data.data.group);
           setreason(data.data.reason);
@@ -263,7 +264,9 @@ const FormForMobile: React.FC = () => {
         setnickname(data.data.nickname);
         setavatar2(data.data.avatar);
         setacademy(data.data.school);
-        if(data.data.qq){setcontactWayselect2('qq')}
+        if (data.data.qq) {
+          setcontactWayselect2('qq');
+        }
         setcontactWay((pre) => ({
           ...pre,
           ['qq']: data.data.qq,
@@ -439,9 +442,9 @@ const FormForMobile: React.FC = () => {
         </div>
         <Select
           id="schoolSelect_formM"
-          style={{width:'72vw'}}
+          style={{ width: '72vw' }}
           value={academy}
-          size='large'
+          size="large"
           onChange={(e) => setacademy(e)}
         >
           <Select.Option value="计算机学院">计算机学院</Select.Option>
@@ -487,8 +490,8 @@ const FormForMobile: React.FC = () => {
         <Select
           id="GradeSelect_formM"
           value={grade}
-          style={{width:'72vw'}}
-          size='large'
+          style={{ width: '72vw' }}
+          size="large"
           onChange={(e) => setgrade(e)}
         >
           <Select.Option value="2023">2023</Select.Option>
@@ -508,15 +511,21 @@ const FormForMobile: React.FC = () => {
             <Select
               id="contactWayselect1_formM"
               value={contactWayselect1}
-              style={{width:'25vw'}}
-              size='large'
+              style={{ width: '25vw' }}
+              size="large"
               onChange={(e) => {
                 setcontactWayselect1(e);
               }}
             >
-              <Select.Option value="email" disabled={contactWayselect2 == 'email'}>邮箱</Select.Option>
-              <Select.Option value="qq" disabled={contactWayselect2 == 'QQ'}>QQ</Select.Option>
-              <Select.Option value="phone" disabled={contactWayselect2 == 'phone'}>手机</Select.Option>
+              <Select.Option value="email" disabled={contactWayselect2 == 'email'}>
+                邮箱
+              </Select.Option>
+              <Select.Option value="qq" disabled={contactWayselect2 == 'QQ'}>
+                QQ
+              </Select.Option>
+              <Select.Option value="phone" disabled={contactWayselect2 == 'phone'}>
+                手机
+              </Select.Option>
             </Select>
             <Input
               type="text"
@@ -534,13 +543,19 @@ const FormForMobile: React.FC = () => {
             <Select
               id="contactWayselect2_formM"
               value={contactWayselect2}
-              style={{width:'25vw'}}
-              size='large'
+              style={{ width: '25vw' }}
+              size="large"
               onChange={(e) => setcontactWayselect2(e)}
             >
-              <Select.Option value="email" disabled={contactWayselect1 == 'email'}>邮箱</Select.Option>
-              <Select.Option value="qq" disabled={contactWayselect1 == 'QQ'}>QQ</Select.Option>
-              <Select.Option value="phone" disabled={contactWayselect1 == 'phone'}>手机</Select.Option>
+              <Select.Option value="email" disabled={contactWayselect1 == 'email'}>
+                邮箱
+              </Select.Option>
+              <Select.Option value="qq" disabled={contactWayselect1 == 'QQ'}>
+                QQ
+              </Select.Option>
+              <Select.Option value="phone" disabled={contactWayselect1 == 'phone'}>
+                手机
+              </Select.Option>
             </Select>
             <Input
               type="text"
@@ -577,8 +592,8 @@ const FormForMobile: React.FC = () => {
         <Select
           id="GroupSelect_formM"
           value={wantGroup}
-          size='large'
-          style={{width:'72vw'}}
+          size="large"
+          style={{ width: '72vw' }}
           onChange={(e) => setwantGroup(e)}
         >
           <Select.Option value="Product">产品组</Select.Option>
@@ -690,12 +705,6 @@ const FormForMobile: React.FC = () => {
     </div>
   );
 
-  return (
-    <div>
-
-        {element[pageNum]}
-
-    </div>
-  );
+  return <div>{element[pageNum]}</div>;
 };
 export default FormForMobile;
