@@ -101,3 +101,19 @@ export type cmtType = {
 export type statusType = {
   task_status: string;
 };
+export type formStatusType = {
+  form_status: string;
+  user_type: string;
+};
+export type formInfoType = {
+  avatar: string;
+  extra_question: string;
+  gender: string;
+  grade: string;
+  group: string;
+  knowledge: string;
+  major: string;
+  phone: string;
+  reason: string;
+  self_intro: string;
+};

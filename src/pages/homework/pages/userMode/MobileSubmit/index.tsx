@@ -31,7 +31,6 @@ const HomeworkUserSubmitMobile: React.FC = () => {
     selected &&
       get(`/task/assigned/list?group=${selected.value}`).then(
         (res: backType<titleListType>) => {
-          console.log(res.data);
           setTaskList([{ id: '', text: '暂时没有作业' }]);
           if (res.data.titles) {
             setJudged(false);
@@ -45,8 +44,8 @@ const HomeworkUserSubmitMobile: React.FC = () => {
   const handleSwitch = (e: TaskInfoType, id: string) => {
     get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
       setUploadHistory(undefined);
-      if (res.data.task_status != '未提交') {
-        get(`/task/submitted?user_id=${'myself'}&assigned_task_id=${id}`).then(
+      if (res.code != -1 && res.data.task_status != '未提交') {
+        get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
           (resp: backType<userTaskType>) => {
             setUploadHistory(resp.data.urls);
             setJudged(res.data?.task_status === '已审阅');

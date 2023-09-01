@@ -3,47 +3,58 @@ import {
   backType,
   dataType,
   SelectorProps,
-  UserInfoType,
   userInfoType,
+  formStatusType,
+  formInfoType,
 } from '../../types';
-import { Avatar, Button, ConfigProvider, List, Popover } from 'antd';
+import { Avatar, Button, ConfigProvider, List, message, Popover } from 'antd';
 import './index.less';
 import { defData } from '../../utils/deData';
 import { UserOutlined } from '@ant-design/icons';
 import { get } from '../../../../fetch.ts';
+import { useNavigate } from 'react-router-dom';
 
 interface TopBarMobileProps {
   onChange?: (e: dataType) => void;
 }
+interface SelectorMobileProps extends SelectorProps {
+  userInfo?: userInfoType;
+}
 interface AvatarWrapProps {
   className?: string;
   style?: CSSProperties;
+  userInfo?: userInfoType;
 }
 const TopBarMobile: React.FC<TopBarMobileProps> = (props) => {
   const { onChange } = props;
-
+  const [userInfo, setUserInfo] = useState<userInfoType>();
+  useEffect(() => {
+    get('/users/my-info').then((res: backType<userInfoType>) => {
+      setUserInfo(res.data);
+    }, null);
+  }, []);
   return (
     <div className="top-bar-mobile">
-      <AvatarWrap></AvatarWrap>
-      <SelectorMobile data={defData} onChange={onChange}></SelectorMobile>
+      <AvatarWrap userInfo={userInfo}></AvatarWrap>
+      <SelectorMobile
+        userInfo={userInfo}
+        data={defData}
+        onChange={onChange}
+      ></SelectorMobile>
     </div>
   );
 };
 export default TopBarMobile;
 export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
-  const [userInfo, setuserInfo] = useState<UserInfoType>();
-  useEffect(() => {
-    get('/users/my-info').then((res: backType<userInfoType>) => {
-      setuserInfo(res.data as UserInfoType);
-    }, null);
-  }, []);
+  // const [userInfo, setuserInfo] = useState<UserInfoType>();
+  const { userInfo, className, style } = props;
   const renderText = (str: string) => {
     if (str?.length > 8) return str.slice(0, 8) + '...';
     return str;
   };
   return (
     <>
-      <div className={`avatar-wrap ${props.className as string}`} style={props.style}>
+      <div className={`avatar-wrap ${className as string}`} style={style}>
         <Avatar
           className="top-bar-avatar"
           src={userInfo?.avatar}
@@ -54,14 +65,26 @@ export const AvatarWrap: React.FC<AvatarWrapProps> = (props) => {
     </>
   );
 };
-const SelectorMobile: React.FC<SelectorProps> = (props) => {
+const SelectorMobile: React.FC<SelectorMobileProps> = (props) => {
   const { data, className, onChange } = props;
   const [open, setopen] = useState<boolean>(false);
   const [selected, setselected] = useState<dataType>(data[0]);
-
+  const nav = useNavigate();
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    onChange && onChange(data[0]);
+    get('/form/judge').then((res: backType<formStatusType>) => {
+      if (res.data.form_status == '已交表') {
+        get('/form/view?entry_form_id=myself').then((res: backType<formInfoType>) => {
+          const group = data.filter((item) => item.value === res.data.group)[0];
+          setselected(group);
+          onChange && onChange(group);
+        }, null);
+      } else {
+        message.info('请先填写报名表').then(() => {
+          nav('/app');
+        }, null);
+      }
+    }, null);
   }, []);
   const handleClick = (e: dataType) => {
     onChange && onChange(e);
