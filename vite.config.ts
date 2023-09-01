@@ -10,7 +10,7 @@ export default defineConfig({
     host: '0.0.0.0',
     proxy: {
       '/api': {
-        target: 'http://fresh.muxixyz.com',
+        target: 'https://fresh.muxixyz.com',
         changeOrigin: true,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
