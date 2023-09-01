@@ -30,6 +30,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     handleChange(defData[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const handleChange = (item: dataType) => {
     setselected(item);

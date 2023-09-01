@@ -51,6 +51,10 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
     navigate('/login');
   };
 
+  const toMuxiSite = () => {
+    window.location.href = 'https://muxi-tech.xyz';
+  };
+
   const items: MenuProps['items'] = [
     {
       label: (
@@ -169,7 +173,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
         }}
       >
         <div className={'layoutLogoBox'}>
-          <div className="layoutLogo">
+          <div className="layoutLogo" onClick={toMuxiSite}>
             <img src={logo} alt="logo" />
             <div>木犀官网</div>
           </div>
