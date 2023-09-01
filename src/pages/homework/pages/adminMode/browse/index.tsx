@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './index.less';
-import Form from '../../../components/table';
+import Form, { Empty } from '../../../components/table';
 import Selector from '../../../components/selector';
 import { defData } from '../../../utils/deData';
 import { backType, dataType, titleListType } from '../../../types';
 import { get } from '../../../../../fetch.ts';
-import { Collapse, CollapseProps } from 'antd';
+import {Collapse, CollapseProps, message} from 'antd';
 
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);
@@ -22,6 +22,19 @@ const HomeworkBrowse: React.FC = () => {
             };
           });
           setTaskList(tasks.reverse() as CollapseProps['items']);
+        } else {
+          message.info('暂无作业😵').then(null, null);
+          setTaskList([
+            {
+              key: '',
+              label: '暂无作业😵',
+              children: (
+                <div style={{ height: '40vh' }}>
+                  <Empty />
+                </div>
+              ),
+            },
+          ]);
         }
       },
       null,
