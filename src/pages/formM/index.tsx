@@ -427,6 +427,7 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">学号</div>
         </div>
         <Input
+          disabled={true}
           className="input_formM"
           type="text"
           value={stu_number}
@@ -497,6 +498,7 @@ const FormForMobile: React.FC = () => {
           <Select.Option value="2019">2019</Select.Option>
           <Select.Option value="2018">2018</Select.Option>
           <Select.Option value="2017">2017</Select.Option>
+          <Select.Option value="2016">2016</Select.Option>
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>

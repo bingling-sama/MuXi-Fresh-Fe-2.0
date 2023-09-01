@@ -12,7 +12,7 @@ const TestM: React.FC = () => {
   const [score, setscore] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
   const [pageNum, setPageNum] = useState(0); //页数
   const [textarr, setTextarr] = useState<string[]>([]);
-  const [answerSheet, setanswersheet] = useState<string[]>(Array(85).fill(''));
+  const [answerSheet, setanswersheet] = useState<string[]>(Array(64).fill(''));
   const [issueNum, setissuenum] = useState(0);
   const turnNext = () => {
     setPageNum(pageNum + 1); //换页函数
@@ -50,7 +50,7 @@ const TestM: React.FC = () => {
     };
   }
   const strnumber =
-    '1 2 3 4 5 8 9 10 13 27 28 29 30 33 34 35 36 38 51 52 53 54 55 58 59 60 61 63 64 76 77 78 79 80 82 83 84 85 86 88 89 101 102 103 104 105 107 108 109 110 111 113 114 126 127 128 129 130 132 133 134 135 136 139 151 152 153 154 156 157 158 159 160 161 164 176 177 178 179 182 183 184 185 186 187';
+    '1 2 3 4 8 10 29 30 33 35 36 51 52 55 58 61 63 64 76 77 78 79 80 82 83 84 89 101 102 103 104 105 108 109 110 111 113 114 127 128 130 132 134 135 136 139 151 152 153 156 158 159 160 161 164 177 178 179 182 183 184 185 186 187';
   const numberforEach = strnumber.split(' ');
   async function submit() {
     const postSheet: PostSheet = {
@@ -94,7 +94,7 @@ const TestM: React.FC = () => {
   useEffect(() => {
     const fetchTextFile = async () => {
       try {
-        const response = await fetch('/test.txt');
+        const response = await fetch('/test-new.txt');
         const content = await response.text();
         const contentarr = content.split(/\s/);
         const contentarrNew = contentarr.filter((item) => {
@@ -174,7 +174,7 @@ const TestM: React.FC = () => {
       />
       <span className="questionList_testM">
         Qusetion <span style={{ color: '#FFC93F', fontSize: '5vw' }}>{issueNum + 1}</span>
-        /85
+        /64
       </span>
       <div className="answerbox_testM">
         <div className="questionContent_testM">{textarr[issueNum * 4]}</div>
@@ -241,14 +241,14 @@ const TestM: React.FC = () => {
                 : { backgroundColor: '#FFC93F' }
             }
             onClick={() => {
-              if (answerSheet[issueNum] != '' && issueNum != 84) {
+              if (answerSheet[issueNum] != '' && issueNum != 63) {
                 setissuenum(issueNum + 1);
-              } else if (issueNum == 84 && answerSheet[issueNum] != '') {
-                submit().then(null, null);
+              } else if (issueNum == 63 && answerSheet[issueNum] != '') {
+                submit().catch((e) => console.error(e));
               }
             }}
           >
-            {issueNum == 84 ? '提交' : '下一题'}
+            {issueNum == 63 ? '提交' : '下一题'}
           </div>
         </div>
       </div>
@@ -290,13 +290,13 @@ const TestM: React.FC = () => {
         radar: {
           // shape: 'circle',
           indicator: [
-            { name: '乐群性', max: 18 },
-            { name: '聪慧性', max: 13 },
-            { name: '稳定性', max: 26 },
-            { name: '兴奋性', max: 26 },
-            { name: '有恒性', max: 20 },
-            { name: '交际性', max: 26 },
-            { name: '怀疑性', max: 20 },
+            { name: '乐群性', max: 12 },
+            { name: '聪慧性', max: 10 },
+            { name: '稳定性', max: 20 },
+            { name: '兴奋性', max: 20 },
+            { name: '有恒性', max: 14 },
+            { name: '交际性', max: 20 },
+            { name: '怀疑性', max: 14 },
           ],
         },
         series: [
@@ -331,22 +331,22 @@ const TestM: React.FC = () => {
           <div id="main_testM" style={{ width: '95vw', height: '50vh' }}></div>
           <div className="resultbox_testM">
             <div className="result_detailM">
-              乐群性:<span>{paras.le_qun_xing}</span>/18
+              乐群性:<span>{paras.le_qun_xing}</span>/12
             </div>
             <div className="result_detailM">
-              聪慧性:<span>{paras.cong_hui_xing}</span>/13
+              聪慧性:<span>{paras.cong_hui_xing}</span>/10
             </div>
             <div className="result_detailM">
-              稳定性:<span>{paras.wen_ding_xing}</span>/26
+              稳定性:<span>{paras.wen_ding_xing}</span>/20
             </div>
             <div className="result_detailM">
-              兴奋性:<span>{paras.xing_fen_fen_xing}</span>/26
+              兴奋性:<span>{paras.xing_fen_fen_xing}</span>/20
             </div>
             <div className="result_detailM">
-              有恒性:<span>{paras.you_heng_xing}</span>/20
+              有恒性:<span>{paras.you_heng_xing}</span>/14
             </div>
             <div className="result_detailM">
-              交际性:<span>{paras.jiao_ji_xing}</span>/26
+              交际性:<span>{paras.jiao_ji_xing}</span>/14
             </div>
             <div className="result_detailM">
               怀疑性:<span>{paras.huai_yi_xing}</span>/20

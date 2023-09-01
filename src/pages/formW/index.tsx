@@ -307,7 +307,11 @@ const FormForWeb: React.FC = () => {
           },
         }}
       >
-        <Watermark content="MUXI-STUDIO" style={{ width: '1190px' }}>
+        <Watermark
+          font={{ fontWeight: 200 }}
+          content="MUXI-STUDIO"
+          style={{ width: '1190px' }}
+        >
           <div className="FromForWeb">
             <div className="title_formweb">个人信息</div>
             <div className="personInformationbox">
@@ -375,7 +379,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">学号:</div>
                   <Input
-                    readOnly={form_id ? true : false}
+                    disabled={true}
                     className="input_formweb"
                     type="text"
                     value={stu_number}
@@ -406,7 +410,8 @@ const FormForWeb: React.FC = () => {
                           { value: '2022', label: '2022' },
                           { value: '2021', label: '2021' },
                           { value: '2020', label: '2020' },
-                          { value: '2019', label: '2018' },
+                          { value: '2019', label: '2019' },
+                          { value: '2018', label: '2018' },
                           { value: '2017', label: '2017' },
                           { value: '2016', label: '2016' },
                         ]}

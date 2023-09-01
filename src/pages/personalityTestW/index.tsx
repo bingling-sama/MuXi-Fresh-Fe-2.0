@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
 import * as echarts from 'echarts';
-import { post } from '../../fetch';
+import { post, get } from '../../fetch';
 import './index.less';
 import type { PaginationProps } from 'antd';
 import { ConfigProvider, message, Pagination, Radio } from 'antd';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function TestW() {
   const { user_id } = useParams();
+  const navigate = useNavigate();
   const [name, setname] = useState<string>('');
   const [done, setdone] = useState(false);
   const [check, setcheck] = useState(false);
   const [score, setscore] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
   const [current, setCurrent] = useState(1);
   const [textarr, setTextarr] = useState<string[]>([]);
-  const [answerSheet, setanswersheet] = useState<string[]>(Array(85).fill(''));
+  const [answerSheet, setanswersheet] = useState<string[]>(Array(64).fill(''));
   const [finished, setfinished] = useState(0);
   useEffect(() => {
     let num = 0;
@@ -36,8 +38,24 @@ function TestW() {
       flag: boolean;
     };
   }
+  interface FormData {
+    code: number;
+    data: {
+      avatar: string;
+      extra_question: string;
+      gender: string;
+      grade: string;
+      group: string;
+      knowledge: string;
+      major: string;
+      phone: string;
+      reason: string;
+      self_intro: string;
+      form_id: string;
+    };
+  }
   const strnumber =
-    '1 2 3 4 5 8 9 10 13 27 28 29 30 33 34 35 36 38 51 52 53 54 55 58 59 60 61 63 64 76 77 78 79 80 82 83 84 85 86 88 89 101 102 103 104 105 107 108 109 110 111 113 114 126 127 128 129 130 132 133 134 135 136 139 151 152 153 154 156 157 158 159 160 161 164 176 177 178 179 182 183 184 185 186 187';
+    '1 2 3 4 8 10 29 30 33 35 36 51 52 55 58 61 63 64 76 77 78 79 80 82 83 84 89 101 102 103 104 105 108 109 110 111 113 114 127 128 130 132 134 135 136 139 151 152 153 156 158 159 160 161 164 177 178 179 182 183 184 185 186 187';
   const numberforEach = strnumber.split(' ');
   async function submit() {
     const postSheet: PostSheet = {
@@ -81,7 +99,7 @@ function TestW() {
   useEffect(() => {
     const fetchTextFile = async () => {
       try {
-        const response = await fetch('/test.txt');
+        const response = await fetch('/test-new.txt');
         const content = await response.text();
         const contentarr = content.split(/\s/);
         const contentarrNew = contentarr.filter((item) => {
@@ -94,7 +112,18 @@ function TestW() {
     };
     // eslint-disable-next-line
     fetchTextFile();
-    if (user_id) setCurrent(8);
+    const formdata = get(`/form/view?entry_form_id=myself`);
+    formdata
+      .then((data: FormData) => {
+        if (data.code == -1) {
+          void message.info('先填写完报名表再来吧');
+          setTimeout(() => {
+            navigate('/app');
+          }, 1000);
+        }
+      })
+      .catch((e) => console.error(e));
+    if (user_id) setCurrent(6);
     const getRes = post(`/user/test/result?user_id=${user_id ? user_id : 'myself'}`);
     getRes
       .then((data: tesResModel) => {
@@ -122,7 +151,7 @@ function TestW() {
         }
       })
       .catch((e) => console.error(e));
-  }, [user_id]);
+  }, [user_id, navigate]);
   const onChangePage: PaginationProps['onChange'] = (page) => {
     setCurrent(page);
   };
@@ -208,13 +237,13 @@ function TestW() {
         radar: {
           // shape: 'circle',
           indicator: [
-            { name: '乐群性', max: 18 },
-            { name: '聪慧性', max: 13 },
-            { name: '稳定性', max: 26 },
-            { name: '兴奋性', max: 26 },
-            { name: '有恒性', max: 20 },
-            { name: '交际性', max: 26 },
-            { name: '怀疑性', max: 20 },
+            { name: '乐群性', max: 12 },
+            { name: '聪慧性', max: 10 },
+            { name: '稳定性', max: 20 },
+            { name: '兴奋性', max: 20 },
+            { name: '有恒性', max: 14 },
+            { name: '交际性', max: 20 },
+            { name: '怀疑性', max: 14 },
           ],
         },
         series: [
@@ -247,25 +276,25 @@ function TestW() {
         <div id="main" style={{ width: '500px', height: '400px' }}></div>
         <div className="resultbox_testW">
           <div className="result_detail">
-            乐群性:<span>{paras.le_qun_xing}</span>/18
+            乐群性:<span>{paras.le_qun_xing}</span>/12
           </div>
           <div className="result_detail">
-            聪慧性:<span>{paras.cong_hui_xing}</span>/13
+            聪慧性:<span>{paras.cong_hui_xing}</span>/10
           </div>
           <div className="result_detail">
-            稳定性:<span>{paras.wen_ding_xing}</span>/26
+            稳定性:<span>{paras.wen_ding_xing}</span>/20
           </div>
           <div className="result_detail">
-            兴奋性:<span>{paras.xing_fen_fen_xing}</span>/26
+            兴奋性:<span>{paras.xing_fen_fen_xing}</span>/20
           </div>
           <div className="result_detail">
-            有恒性:<span>{paras.you_heng_xing}</span>/20
+            有恒性:<span>{paras.you_heng_xing}</span>/14
           </div>
           <div className="result_detail">
-            交际性:<span>{paras.jiao_ji_xing}</span>/26
+            交际性:<span>{paras.jiao_ji_xing}</span>/20
           </div>
           <div className="result_detail">
-            怀疑性:<span>{paras.huai_yi_xing}</span>/20
+            怀疑性:<span>{paras.huai_yi_xing}</span>/14
           </div>
         </div>
       </div>
@@ -403,66 +432,22 @@ function TestW() {
         })}
       </div>
       <div className="rightbox_testW">
-        {Array.from([64, 65, 66, 67, 68, 69], (index) => {
-          return (
-            <div>
-              <Question num={index} key={index} />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-  element[6] = (
-    <div className="mainbox_testW">
-      <div className="leftbox_testW">
-        {Array.from([70, 71, 72, 73, 74, 75], (index) => {
-          return (
-            <div>
-              <Question num={index} key={index} />
-            </div>
-          );
-        })}
-      </div>
-      <div className="rightbox_testW">
-        {Array.from([76, 77, 78, 79, 80, 81], (index) => {
-          return (
-            <div>
-              <Question num={index} key={index} />
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-  element[7] = (
-    <div className="mainbox_testW">
-      <div className="leftbox_testW">
-        {Array.from([82, 83, 84], (index) => {
-          return (
-            <div>
-              <Question num={index} key={index} />
-            </div>
-          );
-        })}
         <div
           className="sendbox_testW"
           onClick={
-            finished == 85
+            finished == 64
               ? submit
               : () => {
                   void message.info('请完成所有的题目再提交');
                 }
           }
           style={{
-            display: user_id || done ? 'none' : '',
-            backgroundColor: finished == 85 ? '#FFB940' : '#DADADA',
+            display: !user_id || done ? 'none' : '',
+            backgroundColor: finished == 64 ? '#FFB940' : '#DADADA',
           }}
         >
           完成作答
         </div>
-      </div>
-      <div className="rightbox_testW">
         <TestRes
           choice={[]}
           cong_hui_xing={score[1]}
@@ -480,6 +465,7 @@ function TestW() {
       </div>
     </div>
   );
+
   const testPage = (
     <div className="TestForWeb">
       <ConfigProvider
@@ -493,11 +479,11 @@ function TestW() {
         <Pagination
           current={current}
           onChange={onChangePage}
-          total={8}
+          total={6}
           defaultPageSize={1}
         />
         <div style={{ display: user_id ? 'none' : '' }} className="finishedbox_testW">
-          已完成<span className="finished_testW">{finished}</span>/85
+          已完成<span className="finished_testW">{finished}</span>/64
         </div>
       </ConfigProvider>
     </div>
