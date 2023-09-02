@@ -41,9 +41,12 @@ const SignUp: React.FC = () => {
 
     post('/auth/send-verification-code', req, false).then(
       (r: SendEmailResult) => {
-        const { flag } = r.data;
-        if (flag) {
+        const { code } = r;
+        if (code === 0) {
           setIsSend(true);
+          void message.success('验证码已发送！');
+        } else {
+          void message.error(`${r.msg}，请重试！`);
         }
       },
       (e) => {
@@ -95,8 +98,8 @@ const SignUp: React.FC = () => {
           localStorage.setItem('token', r.data.token);
           void get('/schedule/create', true);
           navigate('/app');
-        } else if (code === -1) {
-          void message.error('出错了');
+        } else {
+          void message.error(`${r.msg}，请重试！`);
         }
       },
       (e) => {
