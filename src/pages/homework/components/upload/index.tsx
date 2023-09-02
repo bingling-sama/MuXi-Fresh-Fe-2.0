@@ -31,7 +31,7 @@ const Uploader: React.FC<UploaderProps> = (props) => {
         setQntoken(res.data.QiniuToken as string);
       },
       (e) => {
-        void message.error('xxx 失败，请稍后重试 ');
+        void message.error('网络状况不佳');
         console.error(e);
       },
     );

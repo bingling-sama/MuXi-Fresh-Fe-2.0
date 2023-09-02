@@ -60,7 +60,8 @@ const HomeworkUserSubmit: React.FC = () => {
         assignedTaskID: selected,
       })
         .then(() => {
-          message.success('提交成功').then(null, null);
+          if (formData[0]) message.success('提交成功').then(null, null);
+          else message.error('作业内容不能为空').then(null, null);
           handleSwitch(selected);
         })
         .catch(() => {
