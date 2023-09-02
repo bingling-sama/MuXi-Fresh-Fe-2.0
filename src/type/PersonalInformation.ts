@@ -1,5 +1,5 @@
 export interface PersonalInformation {
-  code: 0;
+  code: number;
   msg: 'OK';
   data: {
     avatar: string;

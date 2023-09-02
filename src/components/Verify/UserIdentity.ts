@@ -1,5 +1,5 @@
 export interface UserJudge {
-  code: 0 | -1;
+  code: number;
   msg: 'OK';
   data: {
     form_status: UserIsForm;
