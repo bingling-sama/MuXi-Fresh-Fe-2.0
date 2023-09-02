@@ -81,12 +81,15 @@ const HomeworkUserSubmit: React.FC = () => {
     setselected(id);
     get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
       setdefList(['']);
-      get(`/task/submitted/myself/${id}`).then((resp: backType<userTaskType>) => {
-        if (res.data.task_status === '已审阅') {
-          getComment(resp.data?.submission_id as string);
-        }
-        setdefList(resp.data.urls);
-      }, null);
+      get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
+        (resp: backType<userTaskType>) => {
+          if (res.data.task_status === '已审阅') {
+            getComment(resp.data?.submission_id as string);
+          }
+          setdefList(resp.data.urls);
+        },
+        null,
+      );
 
       const stat: string = res.data.task_status;
       setstatus(statusList.indexOf(stat));

@@ -32,8 +32,8 @@ const HomeworkUserSubmitMobile: React.FC = () => {
       get(`/task/assigned/list?group=${selected.value}`).then(
         (res: backType<titleListType>) => {
           setTaskList([{ id: '', text: '暂时没有作业' }]);
+          setJudged(false);
           if (res.data.titles) {
-            setJudged(false);
             setTaskList(res.data.titles.reverse());
           }
         },
