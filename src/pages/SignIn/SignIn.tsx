@@ -75,12 +75,12 @@ const SignIn: React.FC = () => {
 
     post('/auth/send-verification-code', req, false).then(
       (r: SendEmailResult) => {
-        const { flag } = r.data;
-        if (flag) {
+        const { code } = r;
+        if (code === 0) {
           void message.success('验证码已发送！');
           setIsSend(true);
         } else {
-          void message.success('验证码发送失败！');
+          void message.error(`${r.msg}，请重试！`);
         }
       },
       (e) => {
@@ -101,6 +101,11 @@ const SignIn: React.FC = () => {
 
     if (!isEmail) {
       void message.error('邮箱填写有误，请重试！');
+      return;
+    }
+
+    if (verifyCode === '') {
+      void message.error('请填写验证码！');
       return;
     }
 
@@ -181,7 +186,7 @@ const SignIn: React.FC = () => {
                   void message.success('登录成功！');
                   navigate('/app');
                 } else {
-                  void message.error('登录失败，请重试！');
+                  void message.error(`${r.msg}，请重试`);
                   getCodeImg();
                 }
               },
@@ -204,7 +209,7 @@ const SignIn: React.FC = () => {
                   void message.success('登录成功！');
                   navigate('/app');
                 } else {
-                  void message.error('该学号未绑定账号，请重试！');
+                  void message.error(`${r.msg}，请重试！`);
                   getCodeImg();
                 }
               },
@@ -216,12 +221,12 @@ const SignIn: React.FC = () => {
             );
           }
         } else {
-          void message.error('验证码错误，请重试');
+          void message.error(`${r.msg}，请重试`);
           getCodeImg();
         }
       },
       (e) => {
-        void message.error('验证码错误，请重试');
+        void message.error('验证失败，请重试');
         getCodeImg();
         console.error(e);
       },
@@ -338,6 +343,7 @@ const SignIn: React.FC = () => {
             className="input-field"
             value={verifyCode}
             onChange={(e) => setVerifyCode(e.target.value)}
+            required
           />
           {!isSend ? (
             <div
