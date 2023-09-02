@@ -157,15 +157,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           <Submit
             className={`submit-page  ${submitClass as string}`}
             onClick={handleSubmit}
-<<<<<<< HEAD
             disabled={submitDisabled ? submitDisabled : taskList && !taskList[0]?.id}
-=======
-            disabled={
-              submitDisabled
-                ? submitDisabled
-                : taskList && !taskList[0]?.id && !choice.includes('new')
-            }
->>>>>>> 6bbe6ed11c16b6d718ee3c82930ae5ec09b5b67f
           >
             {button_title}
           </Submit>
