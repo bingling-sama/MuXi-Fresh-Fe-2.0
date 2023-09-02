@@ -2,7 +2,7 @@
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { CSSProperties, useState } from 'react';
-import { Card, UploadProps } from 'antd';
+import { Card, message, UploadProps } from 'antd';
 import InputBox from '../input';
 import './index.less';
 import Submit from '../button';
@@ -89,6 +89,18 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
       content: formContent as string,
       urls: formData as string[],
     };
+    if (!formTitle.title_text.length) {
+      message.error('作业名称不能为空').then(null, null);
+      return;
+    }
+    if (!formContent?.length) {
+      message.error('内容简介不能为空').then(null, null);
+      return;
+    }
+    if (!formData?.length && !choice.includes('user')) {
+      message.error('附件不能为空').then(null, null);
+      return;
+    }
     onSubmit && onSubmit(query);
   };
 
