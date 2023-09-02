@@ -129,7 +129,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           setStudentId('');
           setPassword('');
         } else {
-          void message.error('学号绑定失败，请重试！');
+          void message.error(`${r.msg}，请重试！`);
           setStudentId('');
           setPassword('');
         }
@@ -399,7 +399,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           setStudentId('');
           setPassword('');
         } else {
-          void message.error('学号绑定失败，请重试！');
+          void message.error(`${r.msg}，请重试！`);
           setStudentId('');
           setPassword('');
         }
