@@ -13,6 +13,7 @@ import {
 } from '../../types';
 import { message } from 'antd';
 import { defData } from '../../utils/deData';
+import { useNavigate } from 'react-router-dom';
 
 interface HomeworkSubmitProps {
   title?: string;
@@ -31,6 +32,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   useEffect(() => {
     handleChange(defData[0]);
   }, []);
+  const nav = useNavigate();
   const handleChange = (item: dataType) => {
     setselected(item);
     setLoading(true);
@@ -40,6 +42,9 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
     post(`/task/assigned?group=${selected ? selected?.value : ''}`, query)
       .then(() => {
         UpdateTaskList(selected as dataType);
+        if (choice && choice.includes('new')) {
+          nav('/app/homework/admin/edit');
+        }
         message.success('提交成功').then(null, null);
       })
       .catch(() => {
