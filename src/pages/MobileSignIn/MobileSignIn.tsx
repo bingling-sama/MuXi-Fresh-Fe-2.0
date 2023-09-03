@@ -76,7 +76,7 @@ const MobileSignIn: React.FC = () => {
     post('/auth/send-verification-code', req, false).then(
       (r: SendEmailResult) => {
         const { code } = r;
-        if (code === 0) {
+        if (code === 200) {
           void message.success('验证码已发送！');
           setIsSend(true);
         } else {
@@ -116,14 +116,14 @@ const MobileSignIn: React.FC = () => {
 
     void post('/auth/auth-set-password', req, true).then(
       (r: GetAuthSetPasswordResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const { auth_set_password_token } = r.data;
           const data = {
             password: newPassword,
           };
           void postPwd('/auth/set-password', data, auth_set_password_token).then(
             (r: ChangeUserInfoResult) => {
-              if (r.code === 0) {
+              if (r.code === 200) {
                 void message.success('修改密码成功！');
                 cancelPasswordModal();
               } else {
@@ -168,7 +168,7 @@ const MobileSignIn: React.FC = () => {
     post('/auth/verify-captcha', verifyReq, false).then(
       (r: VerifyResult) => {
         const { code } = r;
-        if (code === 0) {
+        if (code === 200) {
           const testEmail =
             /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
           const isEmail = testEmail.test(account);
@@ -181,7 +181,7 @@ const MobileSignIn: React.FC = () => {
             };
             post('/auth/login', signInReq, false).then(
               (r: SignInResult) => {
-                if (r.code === 0) {
+                if (r.code === 200) {
                   localStorage.setItem('token', r.data.token);
                   void message.success('登录成功！');
                   navigate('/app');
@@ -204,7 +204,7 @@ const MobileSignIn: React.FC = () => {
             };
             post('/auth/ccnuLogin', signInReq, false).then(
               (r: SignInResult) => {
-                if (r.code === 0) {
+                if (r.code === 200) {
                   localStorage.setItem('token', r.data.token);
                   void message.success('登录成功！');
                   navigate('/app');

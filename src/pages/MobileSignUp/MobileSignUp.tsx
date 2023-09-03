@@ -43,7 +43,7 @@ const MobileSignUp: React.FC = () => {
     post('/auth/send-verification-code', req, false).then(
       (r: SendEmailResult) => {
         const { code } = r;
-        if (code === 0) {
+        if (code === 200) {
           setIsSend(true);
           void message.success('验证码已发送！');
         } else {
@@ -96,7 +96,7 @@ const MobileSignUp: React.FC = () => {
     post('/auth/register', req, false).then(
       (r: SignUpResult) => {
         const { code } = r;
-        if (code === 0) {
+        if (code === 200) {
           void message.success('注册成功！');
           localStorage.setItem('token', r.data.token);
           void get('/schedule/create', true);

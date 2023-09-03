@@ -1,5 +1,5 @@
 export interface SignInResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     token: string;

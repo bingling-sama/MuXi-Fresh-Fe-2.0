@@ -10,7 +10,7 @@ export interface Schedule {
 }
 
 export interface GetScheduleResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: Schedule;
 }

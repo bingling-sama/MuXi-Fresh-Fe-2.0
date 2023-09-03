@@ -1,5 +1,5 @@
 export interface SendEmailResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     flag: boolean;
@@ -7,7 +7,7 @@ export interface SendEmailResult {
 }
 
 export interface SignUpResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     token: string;

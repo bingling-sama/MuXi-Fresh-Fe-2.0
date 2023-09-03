@@ -35,7 +35,7 @@ const MobileProgress: React.FC = () => {
   useEffect(() => {
     void get(`/schedule/?schedule_id=${'myself'}`, true).then(
       (r: GetScheduleResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           setSchedule(r.data);
           setIsLoading(false);
           const { admission_status } = r.data;

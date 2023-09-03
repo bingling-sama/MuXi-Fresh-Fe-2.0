@@ -10,13 +10,13 @@ export interface UserInfo {
 }
 
 export interface GetUserInfoResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: UserInfo;
 }
 
 export interface GetQiniuTokenResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     QiniuToken: string;
@@ -24,7 +24,7 @@ export interface GetQiniuTokenResult {
 }
 
 export interface ChangeEmailResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     flag: boolean;
@@ -32,7 +32,7 @@ export interface ChangeEmailResult {
 }
 
 export interface ChangeUserInfoResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     flag: boolean;

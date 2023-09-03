@@ -105,7 +105,7 @@ const PersonalPage: React.FC = () => {
       setUserInfo({ ...userInfo, avatar });
       void post('/users/', req, true).then(
         (r: ChangeUserInfoResult) => {
-          if (r.code === 0) {
+          if (r.code === 200) {
             void message.success('更改成功！');
           } else {
             void message.error('更换头像失败，请重试！');
@@ -130,7 +130,7 @@ const PersonalPage: React.FC = () => {
     };
     void post('/auth/set-student-id', req, true).then(
       (r: ChangeUserInfoResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const student_id = studentId;
           setUserInfo({ ...userInfo, student_id });
           void (r.data.flag && message.success('学号绑定成功！'));
@@ -169,7 +169,7 @@ const PersonalPage: React.FC = () => {
     };
     void post('/auth/email', req, true).then(
       (r: ChangeEmailResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const email = newEmail;
           setUserInfo({ ...userInfo, email });
           void (r.data.flag && message.success('邮箱绑定成功！'));
@@ -228,14 +228,14 @@ const PersonalPage: React.FC = () => {
     };
     void post('/auth/auth-set-password', req, true).then(
       (r: GetAuthSetPasswordResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const { auth_set_password_token } = r.data;
           const data = {
             password: newPassword,
           };
           void postPwd('/auth/set-password', data, auth_set_password_token).then(
             (r: ChangeUserInfoResult) => {
-              if (r.code === 0) {
+              if (r.code === 200) {
                 void message.success('修改密码成功！');
                 cancelPasswordModal();
               } else {

@@ -62,7 +62,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     };
     void post('/auth/email', req, true).then(
       (r: ChangeEmailResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const email = newEmail;
           setUserInfo({ ...userInfo, email });
           void (r.data.flag && message.success('邮箱绑定成功！'));
@@ -122,7 +122,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     };
     void post('/auth/set-student-id', req, true).then(
       (r: ChangeUserInfoResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const student_id = studentId;
           setUserInfo({ ...userInfo, student_id });
           void (r.data.flag && message.success('学号绑定成功！'));
@@ -332,7 +332,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     };
     void post('/auth/email', req, true).then(
       (r: ChangeEmailResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const email = newEmail;
           setUserInfo({ ...userInfo, email });
           void (r.data.flag && message.success('邮箱绑定成功！'));
@@ -392,7 +392,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
     };
     void post('/auth/set-student-id', req, true).then(
       (r: ChangeUserInfoResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           const student_id = studentId;
           setUserInfo({ ...userInfo, student_id });
           void (r.data.flag && message.success('学号绑定成功！'));
@@ -431,7 +431,7 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
 
     void post('/users/', req, true).then(
       (r: ChangeUserInfoResult) => {
-        if (r.code === 0) {
+        if (r.code === 200) {
           void message.success('修改信息成功！');
           changeEditState();
         } else {
@@ -627,7 +627,7 @@ const HomePage: React.FC = () => {
       setUserInfo({ ...userInfo, avatar });
       void post('/users/', req, true).then(
         (r: ChangeUserInfoResult) => {
-          if (r.code === 0) {
+          if (r.code === 200) {
             void message.success('更改成功！');
           } else {
             void message.error('更换头像失败，请重试！');

@@ -1,5 +1,5 @@
 export interface CodeImg {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     image_base64: string;
@@ -8,7 +8,7 @@ export interface CodeImg {
 }
 
 export interface VerifyResult {
-  code: 0;
+  code: 200;
   msg: 'OK';
   data: {
     flag: boolean;
