@@ -2,13 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { post, get } from '../../fetch';
 import './index.less';
 import * as echarts from 'echarts';
-import { message } from 'antd';
+import { Spin, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 const TestM: React.FC = () => {
   const navigate = useNavigate();
   const [doneOrNot, setdone] = useState(false);
+  const [loading, setloading] = useState(true);
   const [name, setname] = useState<string>('');
+  const [user_idself, setuser_idself] = useState('');
   const [score, setscore] = useState<number[]>([0, 0, 0, 0, 0, 0, 0]);
   const [pageNum, setPageNum] = useState(0); //页数
   const [textarr, setTextarr] = useState<string[]>([]);
@@ -75,7 +77,9 @@ const TestM: React.FC = () => {
     const checkRes = post(`/user/test/result?user_id=myself`);
     checkRes
       .then((data: tesResModel) => {
-        if (data.code == 0) {
+        if (data.code == 200) {
+          localStorage.removeItem(`${data.data.user_id}-tempAnswer`);
+          localStorage.removeItem(`tempAnswer`);
           setdone(true);
           setname(data.data.name);
           setscore([
@@ -110,7 +114,15 @@ const TestM: React.FC = () => {
     const formdata = get(`/form/view?entry_form_id=myself`);
     formdata
       .then((data: FormData) => {
-        if (data.code == -1) {
+        if (data.code != 200) {
+          void message.info('先填写完报名表再来吧');
+          setTimeout(() => {
+            navigate('/app');
+          }, 1000);
+        }
+      })
+      .catch((data: FormData) => {
+        if (data.code != 200) {
           void message.info('先填写完报名表再来吧');
           setTimeout(() => {
             navigate('/app');
@@ -118,9 +130,14 @@ const TestM: React.FC = () => {
         }
       })
       .catch((e) => console.error(e));
+
     const getRes = post(`/user/test/result?user_id=myself`);
     getRes
       .then((data: tesResModel) => {
+        const temp = localStorage.getItem(`${data.data.user_id}-tempAnswer`);
+        if (temp) setanswersheet(JSON.parse(temp) as string[]);
+        setloading(false);
+        setuser_idself(data.data.user_id);
         if (data.data.choice.length != 0) {
           setdone(true);
           setname(data.data.name);
@@ -135,9 +152,14 @@ const TestM: React.FC = () => {
           ]);
         }
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        setloading(false);
+        console.error(e);
+      });
   }, [navigate]);
-
+  useEffect(() => {
+    localStorage.setItem(`${user_idself}-tempAnswer`, JSON.stringify(answerSheet));
+  }, [user_idself, answerSheet]);
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_testM">
@@ -156,7 +178,7 @@ const TestM: React.FC = () => {
         />
         <div className="lightTitle_testM">前言</div>
         <div className="lightDetail_testM">
-          &nbsp;本测验将会测验您的职业性格特点，以了解您的性格与您的意愿职位之间的符合程度。本测验由卡特尔16PF测验改编而成，请受测者在测验过程中尽量保证连续性，本测验的结果仅将作为录取过程中的参考，因此请按照自己的真实想法进行填写，同时在测验过程中请仔细读题，在理解题目之后再作答，以防出现不符合您真实情况的测验结果。本测验共85题，预计用时7~9分钟,测验结果只能提交一次，请在确认后提交。
+          &nbsp;本测验将会测验您的职业性格特点，以了解您的性格与您的意愿职位之间的符合程度。本测验由卡特尔16PF测验改编而成，请受测者在测验过程中尽量保证连续性，本测验的结果仅将作为录取过程中的参考，因此请按照自己的真实想法进行填写，同时在测验过程中请仔细读题，在理解题目之后再作答，以防出现不符合您真实情况的测验结果。本测验共64题，预计用时7~9分钟,测验结果只能提交一次，请在确认后提交。
         </div>
         <button className="change_next_testM" onClick={turnNext}>
           开始测试
@@ -260,6 +282,7 @@ const TestM: React.FC = () => {
     code: number;
   }
   interface testRes {
+    user_id: string;
     choice: string[];
     cong_hui_xing: number;
     gender: string;
@@ -360,8 +383,15 @@ const TestM: React.FC = () => {
       </div>
     );
   }
+  const loadingpage = (
+    <div className="page_testM">
+      <Spin size="large" style={{ marginTop: '40vh' }} />
+    </div>
+  );
 
-  return !doneOrNot ? (
+  return loading ? (
+    loadingpage
+  ) : !doneOrNot ? (
     <div>{element[pageNum]}</div>
   ) : (
     <TestRes
@@ -377,6 +407,7 @@ const TestM: React.FC = () => {
       wen_ding_xing={score[2]}
       xing_fen_fen_xing={score[3]}
       you_heng_xing={score[4]}
+      user_id={''}
     ></TestRes>
   );
 };

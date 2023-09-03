@@ -35,7 +35,7 @@ const FormForWeb: React.FC = () => {
   const [wantGroup, setwantGroup] = useState(''); //心动组别
   const [self_intro, setself_intro] = useState(''); //自我介绍
   const [extra_question, setextra_question] = useState(''); //额外问题
-  const [formSetted, setformSetted] = useState<number>(0);
+  const [formSetted, setformSetted] = useState(false);
   const [form_id_self, setform_id_self] = useState('');
   const chineseDict: { [key: string]: string } = {
     male: '男生',
@@ -76,7 +76,7 @@ const FormForWeb: React.FC = () => {
     };
   }
   interface GetQiniuTokenResult {
-    code: 0;
+    code: number;
     msg: 'OK';
     data: {
       QiniuToken: string;
@@ -124,8 +124,8 @@ const FormForWeb: React.FC = () => {
         extra_question: extra_question,
       })
         .then((data: res) => {
-          if (data.code === 0) void message.success('提交成功^_^');
-          else void message.error('提交失败，请重试');
+          if (data.code === 200) void message.success('提交成功^_^');
+          else void message.error('提交失败');
         })
         .catch((e) => {
           console.error(e);
@@ -192,8 +192,8 @@ const FormForWeb: React.FC = () => {
         extra_question: extra_question,
       })
         .then((data: res) => {
-          if (data.code === 0) void message.success('提交成功^_^');
-          else void message.error('提交失败，请重试');
+          if (data.code === 200) void message.success('提交成功^_^');
+          else void message.error('提交失败');
         })
         .catch((e) => {
           console.error(e);
@@ -224,8 +224,8 @@ const FormForWeb: React.FC = () => {
     const formdata = get(`/form/view?entry_form_id=${form_id ? form_id : 'myself'}`);
     formdata
       .then((data: FormData) => {
-        setformSetted(data.code);
-        if (data.code == 0) {
+        if (data.code == 200) {
+          setformSetted(true);
           setavatar(data.data.avatar);
           setform_id_self(data.data.form_id);
           setsex(data.data.gender);
@@ -661,7 +661,7 @@ const FormForWeb: React.FC = () => {
             <div
               style={{ display: form_id ? 'none' : '' }}
               className="send_formweb"
-              onClick={formSetted ? setForm : changeForm}
+              onClick={formSetted ? changeForm : setForm}
             >
               完成修改
             </div>

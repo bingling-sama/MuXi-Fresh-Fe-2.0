@@ -3,13 +3,15 @@ import * as echarts from 'echarts';
 import { post, get } from '../../fetch';
 import './index.less';
 import type { PaginationProps } from 'antd';
-import { ConfigProvider, message, Pagination, Radio } from 'antd';
+import { ConfigProvider, message, Pagination, Radio, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 function TestW() {
   const { user_id } = useParams();
   const navigate = useNavigate();
+  const [loading, setloading] = useState(true);
+  const [user_idself, setuser_idself] = useState('');
   const [name, setname] = useState<string>('');
   const [done, setdone] = useState(false);
   const [check, setcheck] = useState(false);
@@ -72,7 +74,7 @@ function TestW() {
     const submitRes = post(`/user/test/`, postSheet);
     await submitRes
       .then((data: response) => {
-        if (data.code == 0) {
+        if (data.code == 200) {
           void message.success('完成做答^_^');
         }
       })
@@ -80,7 +82,9 @@ function TestW() {
     const checkRes = post(`/user/test/result?user_id=myself`);
     checkRes
       .then((data: tesResModel) => {
-        if (data.code == 0) {
+        if (data.code == 200) {
+          localStorage.removeItem(`${data.data.user_id}-tempAnswer`);
+          localStorage.removeItem(`tempAnswer`);
           setdone(true);
           setname(data.data.name);
           setscore([
@@ -115,7 +119,15 @@ function TestW() {
     const formdata = get(`/form/view?entry_form_id=myself`);
     formdata
       .then((data: FormData) => {
-        if (data.code == -1) {
+        if (data.code != 200) {
+          void message.info('先填写完报名表再来吧');
+          setTimeout(() => {
+            navigate('/app');
+          }, 1000);
+        }
+      })
+      .catch((data: FormData) => {
+        if (data.code != 200) {
           void message.info('先填写完报名表再来吧');
           setTimeout(() => {
             navigate('/app');
@@ -123,11 +135,15 @@ function TestW() {
         }
       })
       .catch((e) => console.error(e));
-    if (user_id) setCurrent(6);
+    if (user_id) {
+      setCurrent(6);
+    }
     const getRes = post(`/user/test/result?user_id=${user_id ? user_id : 'myself'}`);
     getRes
       .then((data: tesResModel) => {
-        if (data.data.choice.length != 0) {
+        setloading(false);
+        setuser_idself(data.data.user_id);
+        if (data.code == 200 && data.data.choice.length != 0) {
           setdone(true);
           setcheck(true);
           setname(data.data.name);
@@ -149,8 +165,13 @@ function TestW() {
             return newarr;
           });
         }
+        const temp = localStorage.getItem(`${data.data.user_id}-tempAnswer`);
+        if (temp) setanswersheet(JSON.parse(temp) as string[]);
       })
-      .catch((e) => console.error(e));
+      .catch((e) => {
+        setloading(false);
+        console.error(e);
+      });
   }, [user_id, navigate]);
   const onChangePage: PaginationProps['onChange'] = (page) => {
     setCurrent(page);
@@ -182,6 +203,7 @@ function TestW() {
               setanswersheet((pre) => {
                 const newarr = [...pre];
                 newarr[num] = e.target.value as string;
+                localStorage.setItem(`${user_idself}-tempAnswer`, JSON.stringify(newarr));
                 return newarr;
               });
             }}
@@ -205,6 +227,7 @@ function TestW() {
     cong_hui_xing: number;
     gender: string;
     grade: string;
+    user_id: string;
     huai_yi_xing: number;
     jiao_ji_xing: number;
     le_qun_xing: number;
@@ -224,7 +247,6 @@ function TestW() {
     const huai_yi_xing = paras.huai_yi_xing;
     useEffect(() => {
       type EChartsOption = echarts.EChartsOption;
-
       const chartDom = document.getElementById('main')!;
       const myChart = echarts.init(chartDom);
       const option: EChartsOption = {
@@ -310,7 +332,7 @@ function TestW() {
           程度。本测验由卡特尔16PF测验改编而成，请受测者在测验过程中尽量保证连续
           性，本测验的结果仅将作为录取过程中的参考，因此请按照自己的真实想法进行
           填写，同时在测验过程中请仔细读题，在理解题目之后再作答，以防出现不符合
-          您真实情况的测验结果。本测验共85题，预计用时7~9分钟,测验结果只能提交一次，
+          您真实情况的测验结果。本测验共64题，预计用时7~9分钟,测验结果只能提交一次，
           请在确认后提交。
         </div>
         {Array.from([0, 1, 2, 3], (index) => {
@@ -435,14 +457,14 @@ function TestW() {
         <div
           className="sendbox_testW"
           onClick={
-            finished == 64
+            finished == 64 && !user_id
               ? submit
               : () => {
                   void message.info('请完成所有的题目再提交');
                 }
           }
           style={{
-            display: !user_id || done ? 'none' : '',
+            display: user_id || done ? 'none' : '',
             backgroundColor: finished == 64 ? '#FFB940' : '#DADADA',
           }}
         >
@@ -461,6 +483,7 @@ function TestW() {
           wen_ding_xing={score[2]}
           xing_fen_fen_xing={score[3]}
           you_heng_xing={score[4]}
+          user_id={''}
         ></TestRes>
       </div>
     </div>
@@ -503,10 +526,20 @@ function TestW() {
         wen_ding_xing={score[2]}
         xing_fen_fen_xing={score[3]}
         you_heng_xing={score[4]}
+        user_id={''}
       ></TestRes>
     </div>
   );
+  const loadingpage = (
+    <div className="TestForWeb">
+      <Spin size="large" />
+    </div>
+  );
 
-  return <div className="TestWebpage">{!user_id && check ? resPage : testPage}</div>;
+  return (
+    <div className="TestWebpage">
+      {loading ? loadingpage : !user_id && check ? resPage : testPage}
+    </div>
+  );
 }
 export default TestW;
