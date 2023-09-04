@@ -15,6 +15,13 @@ const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps>
 ) => {
   const [text, settext] = useState<string>('');
   const { onCommentSubmit, onValueChange, ...restProps } = props;
+  const inputBox = document.querySelector('.write-comment-input') as HTMLInputElement;
+  inputBox &&
+    inputBox.addEventListener('keydown', (e: KeyboardEvent) => {
+      if (e.key === 'Enter') {
+        handleClick();
+      }
+    });
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     const value = e.target.value;
     settext(value);
@@ -24,14 +31,7 @@ const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps>
     if (text) {
       onCommentSubmit && onCommentSubmit(text);
     } else {
-      message.error('评论内容为空').then(
-        () => {
-          return;
-        },
-        () => {
-          return;
-        },
-      );
+      message.error('评论内容为空').then(null, null);
     }
     settext('');
   };
