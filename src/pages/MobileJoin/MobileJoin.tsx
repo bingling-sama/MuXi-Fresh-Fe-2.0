@@ -24,7 +24,7 @@ export default function MobileJoin() {
         <img src={'https://muxi-fresh.muxixyz.com/fe-static/join.png'} alt="" />
       </div>
       <div className="join-btn-box">
-        <span className="join-btn" onClick={() => navigate('/login')}>
+        <span className="join-btn" onClick={() => navigate('/app')}>
           加入我们
         </span>
       </div>
