@@ -206,7 +206,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
               onSelect={(e) => {
                 navigationClick(e.key);
               }}
-              style={{ minWidth: 0, flex: 'auto' }}
+              style={{ minWidth: 0, flex: 'auto', borderInlineEnd: 0 }}
             />
           </ConfigProvider>
         </div>
