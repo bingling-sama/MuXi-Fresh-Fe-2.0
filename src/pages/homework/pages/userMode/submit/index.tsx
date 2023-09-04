@@ -9,8 +9,8 @@ import {
   statusType,
   taskListType,
   titleListType,
-  userInfoType,
   userTaskType,
+  formInfoType,
 } from '../../../types';
 import { message, UploadProps } from 'antd';
 import { defData } from '../../../utils/deData';
@@ -25,32 +25,32 @@ const HomeworkUserSubmit: React.FC = () => {
   const [defList, setdefList] = useState<string[]>(['']);
   const [formData, setformData] = useState<string[]>(['']);
   const [selected, setselected] = useState<string>('');
-  const [group, setGroup] = useState<dataType>({ key: '前端组', value: 'Frontend' });
+  const [group, setGroup] = useState<dataType>({ key: '后端组', value: 'Backend' });
   const [Comment, setComment] = useState<CommentType[]>([]);
   const statusList = ['未提交', '已提交', '已审阅'];
   const buttonList = ['提交作业', '修改作业', '无法修改'];
   const root = 'http://ossfresh-test.muxixyz.com/';
-  /* eslint-disable react-hooks/exhaustive-deps */
+
   useEffect(() => {
     setLoading(true);
-    get('/users/my-info').then((res: backType<userInfoType>) => {
+    get('/form/view?entry_form_id=myself').then((res: backType<formInfoType>) => {
       const groupRes = res.data.group;
       defData.forEach((item) => {
-        if (groupRes.includes(item.key)) {
+        if (groupRes.includes(item.value)) {
           setGroup(item);
+          get(`/task/assigned/list?group=${item.value}`).then(
+            (res: backType<titleListType>) => {
+              setLoading(false);
+              if (res.data.titles) {
+                setTaskList(res.data.titles.reverse());
+              } else {
+                setTaskList([{ id: '', text: '暂时没有作业' }]);
+              }
+            },
+            null,
+          );
         }
       });
-      get(`/task/assigned/list?group=${group.value}`).then(
-        (res: backType<titleListType>) => {
-          setLoading(false);
-          if (res.data.titles) {
-            setTaskList(res.data.titles.reverse());
-          } else {
-            setTaskList([{ id: '', text: '暂时没有作业' }]);
-          }
-        },
-        null,
-      );
     }, null);
   }, []);
   const handleSubmit = () => {
