@@ -194,11 +194,12 @@ const TestM: React.FC = () => {
         alt=""
         onClick={backPage}
       />
-      <span className="questionList_testM">
-        Qusetion <span style={{ color: '#FFC93F', fontSize: '5vw' }}>{issueNum + 1}</span>
-        /64
-      </span>
       <div className="answerbox_testM">
+        <span className="questionList_testM">
+          Qusetion{' '}
+          <span style={{ color: '#FFC93F', fontSize: '5vw' }}>{issueNum + 1}</span>
+          /64
+        </span>
         <div className="questionContent_testM">{textarr[issueNum * 4]}</div>
         <div
           className="answerchoice_testM"
@@ -385,7 +386,7 @@ const TestM: React.FC = () => {
   }
   const loadingpage = (
     <div className="page_testM">
-      <Spin size="large" style={{ marginTop: '40vh' }} />
+      <Spin size="large" style={{ marginBottom: '60vh' }} />
     </div>
   );
 
