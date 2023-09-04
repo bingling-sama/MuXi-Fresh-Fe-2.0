@@ -17,7 +17,7 @@ import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
 import FormForWeb from './pages/formW';
 import TestW from './pages/personalityTestW';
-import { isDesktop } from 'react-device-detect';
+import { isMobileOnly } from 'react-device-detect';
 import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 import FormForMobile from './pages/formM';
 import MobileSignIn from './pages/MobileSignIn/MobileSignIn.tsx';
@@ -29,7 +29,7 @@ import Join from './pages/Join/Join.tsx';
 import MobileJoin from './pages/MobileJoin/MobileJoin.tsx';
 
 export const router = createBrowserRouter(
-  isDesktop
+  !isMobileOnly
     ? [
         { path: '/join', element: <Join /> },
         { path: '/login', element: <SignIn /> },
