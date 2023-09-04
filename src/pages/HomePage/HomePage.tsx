@@ -130,14 +130,12 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           setPassword('');
         } else {
           void message.error(`${r.msg}，请重试！`);
-          setStudentId('');
           setPassword('');
         }
       },
       (e) => {
         console.error(e);
         void message.error('学号绑定失败，请重试！');
-        setStudentId('');
         setPassword('');
       },
     );
