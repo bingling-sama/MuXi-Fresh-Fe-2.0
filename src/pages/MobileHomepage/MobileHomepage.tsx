@@ -51,14 +51,14 @@ const MobileHomepage: React.FC = () => {
       label: (
         <div
           onClick={() => {
-            navigationClick('/home');
+            navigationClick('/app/home');
           }}
         >
           <UserOutlined />
           &nbsp; 个人主页
         </div>
       ),
-      key: '/home',
+      key: '/app/home',
     },
     {
       label: (
@@ -106,7 +106,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/form');
+                navigationClick('/app/form');
               }}
             >
               <Image
@@ -119,7 +119,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/progress');
+                navigationClick('/app/progress');
               }}
             >
               <Image
@@ -132,7 +132,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/homework/user/submit');
+                navigationClick('/app/homework/user/submit');
               }}
             >
               <Image
@@ -145,7 +145,7 @@ const MobileHomepage: React.FC = () => {
             <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
-                navigationClick('/test');
+                navigationClick('/app/test');
               }}
             >
               <Image

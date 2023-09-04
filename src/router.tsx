@@ -105,12 +105,12 @@ export const router = createBrowserRouter(
           path: '/app',
           element: <Verify />,
         },
-        { path: '/home', element: <PersonalPage /> }, // 个人主页
-        { path: '/form', element: <FormForMobile /> }, // 报名表
-        { path: '/progress', element: <MobileProgress /> }, // 进度查询
+        { path: '/app/home', element: <PersonalPage /> }, // 个人主页
+        { path: '/app/form', element: <FormForMobile /> }, // 报名表
+        { path: '/app/progress', element: <MobileProgress /> }, // 进度查询
         {
           // 作业
-          path: '/homework',
+          path: '/app/homework',
           element: <HomeWork></HomeWork>,
           children: [
             {
@@ -126,6 +126,6 @@ export const router = createBrowserRouter(
             },
           ],
         },
-        { path: '/test', element: <TestM /> }, // 入职测验
+        { path: '/app/test', element: <TestM /> }, // 入职测验
       ],
 );
