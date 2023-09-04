@@ -22,7 +22,12 @@ export async function post(url = '', data = {}, isToken = true) {
   });
 
   if (!response.ok) {
-    throw new Error(`${response.status}`);
+    if (response.status === 401) {
+      throw new Error('401');
+    } else if (response.status === 400) {
+      const errorData = (await response.json()) as { code: number; msg: string };
+      throw new Error(`${errorData.code}`);
+    }
   }
 
   return response.json();
@@ -48,7 +53,12 @@ export async function get(url = '', isToken = true) {
   });
 
   if (!response.ok) {
-    throw new Error(`${response.status}`);
+    if (response.status === 401) {
+      throw new Error('401');
+    } else if (response.status === 400) {
+      const errorData = (await response.json()) as { code: number; msg: string };
+      throw new Error(`${errorData.code}`);
+    }
   }
 
   return response.json();
@@ -74,7 +84,12 @@ export async function put(url = '', data = {}, isToken = true) {
   });
 
   if (!response.ok) {
-    throw new Error(`${response.status}`);
+    if (response.status === 401) {
+      throw new Error('401');
+    } else if (response.status === 400) {
+      const errorData = (await response.json()) as { code: number; msg: string };
+      throw new Error(`${errorData.code}`);
+    }
   }
 
   return response.json();

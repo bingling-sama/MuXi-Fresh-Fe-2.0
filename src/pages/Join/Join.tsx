@@ -13,7 +13,7 @@ export default function Join() {
         <span className="join-btn" onClick={() => window.open('https://muxi-tech.xyz/')}>
           进入官网
         </span>
-        <span className="join-btn" onClick={() => navigate('/login')}>
+        <span className="join-btn" onClick={() => navigate('/app')}>
           加入我们
         </span>
         <span

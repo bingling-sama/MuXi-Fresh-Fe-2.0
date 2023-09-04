@@ -19,7 +19,16 @@ const ChangeUserTypeBox: React.FC<ChangeUserTypeBoxProps> = ({
   const handleClear = () => {
     setEmail('');
   };
-
+  const [open, setOpen] = useState(false);
+  const handleOpenChange = (newOpen: boolean) => {
+    if (!newOpen) {
+      setOpen(newOpen);
+      return;
+    }
+    if (email !== '') {
+      setOpen(newOpen);
+    }
+  };
   return (
     <Space.Compact style={{ width: '100%', marginTop: '10px' }}>
       <Input
@@ -31,6 +40,8 @@ const ChangeUserTypeBox: React.FC<ChangeUserTypeBoxProps> = ({
       <Popconfirm
         title={`添加${header}`}
         description={`确定将这个人设置为${header}吗？`}
+        open={open}
+        onOpenChange={handleOpenChange}
         onConfirm={() => {
           changeUserIdentity(email, user_type, header);
           handleClear();

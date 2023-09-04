@@ -33,7 +33,7 @@ const AdminLists: React.FC<AdminListsProps> = ({
       bordered
       className={'adminLists'}
       loading={loading}
-      style={{ width: '15vw' }}
+      style={{ width: '20vw' }}
       pagination={{
         position: 'bottom',
         align: 'center',

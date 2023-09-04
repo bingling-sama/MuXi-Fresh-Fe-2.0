@@ -7,6 +7,7 @@ import { Group, ReviewFilter, Season, Year, YearSeason } from './ReviewFitler.ts
 import ReviewGroupSelect from './components/ReviewGroupSelect/ReviewGroupSelect.tsx';
 import ReviewTable from './components/ReviewTable/ReviewTable.tsx';
 import { message } from 'antd';
+import { useNavigate } from 'react-router-dom';
 
 const Review = () => {
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>({
@@ -35,21 +36,28 @@ const Review = () => {
     }));
   };
 
+  const navigate = useNavigate();
   const [reviewList, setReviewList] = useState<ReviewRow[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   useEffect(() => {
     setLoading(true);
-    post('/review/', reviewFilter).then(
-      (r: ReviewList) => {
+    post('/review/', reviewFilter)
+      .then((r: ReviewList) => {
         const { rows } = r.data;
         setReviewList(rows);
         setLoading(false);
-      },
-      (e) => {
-        void message.error('获取审阅列表失败，请稍后重试');
-        console.error(e);
-      },
-    );
+      })
+      .catch((e: Error) => {
+        if (Number(e.message) === 10003) {
+          void message.error('您无此权限，请退出！').then(() => {
+            navigate('/app');
+          });
+        } else {
+          void message.error('获取审阅列表失败，请稍后重试');
+          console.error(e);
+        }
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewFilter]);
 
   return (
