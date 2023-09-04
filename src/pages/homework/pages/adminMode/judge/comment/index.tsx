@@ -63,7 +63,7 @@ export default HomeComment;
 export const TitleTag: React.FC<TitleTagProps> = (props) => {
   const { item, className } = props;
   const renderName = (name: string) => {
-    if (!name) return '管理员管理';
+    if (!name) return '管理员';
     if (name.length > 8) return `${name.slice(0, 8)}...`;
     return name;
   };
