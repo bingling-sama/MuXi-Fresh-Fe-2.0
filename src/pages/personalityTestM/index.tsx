@@ -370,10 +370,10 @@ const TestM: React.FC = () => {
               有恒性:<span>{paras.you_heng_xing}</span>/14
             </div>
             <div className="result_detailM">
-              交际性:<span>{paras.jiao_ji_xing}</span>/14
+              交际性:<span>{paras.jiao_ji_xing}</span>/20
             </div>
             <div className="result_detailM">
-              怀疑性:<span>{paras.huai_yi_xing}</span>/20
+              怀疑性:<span>{paras.huai_yi_xing}</span>/14
             </div>
           </div>
           <div className="returntoHome" onClick={() => navigate('/app')}>
