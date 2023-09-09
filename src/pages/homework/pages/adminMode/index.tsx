@@ -9,7 +9,7 @@ const HomeworkAdminMode: React.FC = () => {
   useEffect(() => {
     get('/form/judge').then((res: backType<formStatusType>) => {
       console.log(res.data.user_type === 'admin');
-      if (res.data.user_type !== 'admin') {
+      if (res.data.user_type !== 'admin' && res.data.user_type !== 'super_admin') {
         message.error('无权限访问').then(null, null);
         nav('/app/homework/user/submit');
       }
