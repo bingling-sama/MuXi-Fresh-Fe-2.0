@@ -94,7 +94,7 @@ const PersonalPage: React.FC = () => {
     setFileList(newFileList);
     const response = newFileList[0].response;
     if (response) {
-      const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
+      const avatar = `https://ossfresh-test.muxixyz.com/${response.key}`;
       const req = {
         avatar: avatar,
         name: userInfo.name,

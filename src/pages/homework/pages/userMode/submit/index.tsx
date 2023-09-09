@@ -29,7 +29,7 @@ const HomeworkUserSubmit: React.FC = () => {
   const [Comment, setComment] = useState<CommentType[]>([]);
   const statusList = ['未提交', '已提交', '已审阅'];
   const buttonList = ['提交作业', '修改作业', '无法修改'];
-  const root = 'http://ossfresh-test.muxixyz.com/';
+  const root = 'https://ossfresh-test.muxixyz.com/';
 
   useEffect(() => {
     setLoading(true);

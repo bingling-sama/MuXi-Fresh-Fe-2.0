@@ -46,6 +46,7 @@ const FormForWeb: React.FC = () => {
     Frontend: '前端组',
     Product: '产品组',
   };
+
   interface FormData {
     code: number;
     data: {
@@ -62,6 +63,7 @@ const FormForWeb: React.FC = () => {
       form_id: string;
     };
   }
+
   interface User {
     code: number;
     data: {
@@ -75,6 +77,7 @@ const FormForWeb: React.FC = () => {
       student_id: string;
     };
   }
+
   interface GetQiniuTokenResult {
     code: number;
     msg: 'OK';
@@ -82,9 +85,11 @@ const FormForWeb: React.FC = () => {
       QiniuToken: string;
     };
   }
+
   interface res {
     code: number;
   }
+
   const setForm = () => {
     const arr = [
       name,
@@ -277,6 +282,7 @@ const FormForWeb: React.FC = () => {
       });
     });
   }, [form_id, user_id]);
+
   interface ResponseType {
     key: string;
     hash: string;
@@ -288,7 +294,7 @@ const FormForWeb: React.FC = () => {
     setFileList(newFileList);
     const response = newFileList[0].response;
     if (response) {
-      const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
+      const avatar = `https://ossfresh-test.muxixyz.com/${response.key}`;
       setavatar(avatar);
     }
   };

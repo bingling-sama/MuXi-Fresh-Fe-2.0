@@ -41,6 +41,7 @@ const FormForMobile: React.FC = () => {
   const backPage = () => {
     setPageNum(pageNum - 1); //换页函数
   };
+
   interface FormData {
     code: number;
     data: {
@@ -57,6 +58,7 @@ const FormForMobile: React.FC = () => {
       form_id: string;
     };
   }
+
   interface User {
     code: number;
     data: {
@@ -70,6 +72,7 @@ const FormForMobile: React.FC = () => {
       student_id: string;
     };
   }
+
   interface GetQiniuTokenResult {
     code: number;
     msg: 'OK';
@@ -77,9 +80,11 @@ const FormForMobile: React.FC = () => {
       QiniuToken: string;
     };
   }
+
   interface res {
     code: number;
   }
+
   const setForm = () => {
     const arr = [
       name,
@@ -284,6 +289,7 @@ const FormForMobile: React.FC = () => {
       });
     });
   }, []);
+
   interface ResponseType {
     key: string;
     hash: string;
@@ -295,7 +301,7 @@ const FormForMobile: React.FC = () => {
     setFileList(newFileList);
     const response = newFileList[0].response;
     if (response) {
-      const avatar = `http://ossfresh-test.muxixyz.com/${response.key}`;
+      const avatar = `https://ossfresh-test.muxixyz.com/${response.key}`;
       setavatar(avatar);
     }
   };

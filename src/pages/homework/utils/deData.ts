@@ -23,4 +23,4 @@ export const defData: dataType[] = [
   },
 ];
 
-export const root = 'http://ossfresh-test.muxixyz.com/';
+export const root = 'https://ossfresh-test.muxixyz.com/';
