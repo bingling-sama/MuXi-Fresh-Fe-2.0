@@ -458,7 +458,6 @@ const FormForMobile: React.FC = () => {
           <Select.Option value="信息管理学院">信息管理学院</Select.Option>
           <Select.Option value="城市与环境科学学院">城市与环境科学学院</Select.Option>
           <Select.Option value="美术学院">美术学院</Select.Option>
-          <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
           <Select.Option value="政治与国际关系学院">政治与国际关系学院</Select.Option>
           <Select.Option value="教育学院">教育学院</Select.Option>
           <Select.Option value="文学院">文学院</Select.Option>
