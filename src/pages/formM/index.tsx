@@ -450,27 +450,27 @@ const FormForMobile: React.FC = () => {
           size="large"
           onChange={(e) => setacademy(e)}
         >
-          <Select.Option value="计算机学院">计算机学院</Select.Option>
-          <Select.Option value="人工智能教育学部">人工智能教育学部</Select.Option>
-          <Select.Option value="心理学院">心理学院</Select.Option>
-          <Select.Option value="经济与工商管理学院">经济与工商管理学院</Select.Option>
-          <Select.Option value="公共管理学院">公共管理学院</Select.Option>
-          <Select.Option value="信息管理学院">信息管理学院</Select.Option>
-          <Select.Option value="城市与环境科学学院">城市与环境科学学院</Select.Option>
-          <Select.Option value="美术学院">美术学院</Select.Option>
-          <Select.Option value="政治与国际关系学院">政治与国际关系学院</Select.Option>
-          <Select.Option value="教育学院">教育学院</Select.Option>
-          <Select.Option value="文学院">文学院</Select.Option>
-          <Select.Option value="新闻传播学院">新闻传播学院</Select.Option>
-          <Select.Option value="历史文化学院">历史文化学院</Select.Option>
-          <Select.Option value="马克思主义学院">马克思主义学院</Select.Option>
-          <Select.Option value="法学院">法学院</Select.Option>
-          <Select.Option value="社会学院">社会学院</Select.Option>
-          <Select.Option value="外国语学院">外国语学院</Select.Option>
-          <Select.Option value="音乐学院">音乐学院</Select.Option>
-          <Select.Option value="数学与统计学学院">数学与统计学学院</Select.Option>
-          <Select.Option value="物理科学与技术学院">物理科学与技术学院</Select.Option>
-          <Select.Option value="化学学院">化学学院</Select.Option>
+          <Select.Option key="计算机学院" value="计算机学院">计算机学院</Select.Option>
+          <Select.Option key="人工智能教育学部" value="人工智能教育学部">人工智能教育学部</Select.Option>
+          <Select.Option key="心理学院" value="心理学院">心理学院</Select.Option>
+          <Select.Option key="经济与工商管理学院" value="经济与工商管理学院">经济与工商管理学院</Select.Option>
+          <Select.Option key="公共管理学院" value="公共管理学院">公共管理学院</Select.Option>
+          <Select.Option key="信息管理学院" value="信息管理学院">信息管理学院</Select.Option>
+          <Select.Option key="城市与环境科学学院" value="城市与环境科学学院">城市与环境科学学院</Select.Option>
+          <Select.Option key="美术学院" value="美术学院">美术学院</Select.Option>
+          <Select.Option key="新闻传播学院" value="新闻传播学院">新闻传播学院</Select.Option>
+          <Select.Option key="政治与国际关系学院" value="政治与国际关系学院">政治与国际关系学院</Select.Option>
+          <Select.Option key="教育学院" value="教育学院">教育学院</Select.Option>
+          <Select.Option key="文学院" value="文学院">文学院</Select.Option>
+          <Select.Option key="历史文化学院" value="历史文化学院">历史文化学院</Select.Option>
+          <Select.Option key="马克思主义学院" value="马克思主义学院">马克思主义学院</Select.Option>
+          <Select.Option key="法学院" value="法学院">法学院</Select.Option>
+          <Select.Option key="社会学院" value="社会学院">社会学院</Select.Option>
+          <Select.Option key="外国语学院" value="外国语学院">外国语学院</Select.Option>
+          <Select.Option key="音乐学院" value="音乐学院">音乐学院</Select.Option>
+          <Select.Option key="数学与统计学学院" value="数学与统计学学院">数学与统计学学院</Select.Option>
+          <Select.Option key="物理科学与技术学院" value="物理科学与技术学院">物理科学与技术学院</Select.Option>
+          <Select.Option key="化学学院" value="化学学院">化学学院</Select.Option>
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
