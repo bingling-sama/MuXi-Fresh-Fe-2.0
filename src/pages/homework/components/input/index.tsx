@@ -43,10 +43,12 @@ const InputBox: React.FC<InputProps> = (props) => {
     onChange,
   } = props;
   useEffect(() => {
-    if (def[0] != defaultValue[0]) {
-      settmpdefault({ value: { value: defaultValue[0] }, list: defaultValue });
-      setdef(defaultValue);
-      type !== 'file' && onChange(defaultValue[0]);
+    if (defaultValue) {
+      if (def[0] != defaultValue[0]) {
+        settmpdefault({ value: { value: defaultValue[0] }, list: defaultValue });
+        setdef(defaultValue);
+        type !== 'file' && onChange(defaultValue[0]);
+      }
     }
   }, [defaultValue, def, onChange, type]);
   useEffect(() => {

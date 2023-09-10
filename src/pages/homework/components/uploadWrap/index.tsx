@@ -78,8 +78,12 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     const tmpList = e?.map((item) => {
-      if (item?.response) return `${root}${item.response.key as string}`;
-      else return `${item.url as string}`;
+      if (item) {
+        if (item?.response) return `${root}${item.response.key as string}`;
+        else return `${item.url as string}`;
+      } else {
+        return '';
+      }
     });
     setformData(tmpList);
   };
@@ -97,7 +101,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
       message.error('内容简介不能为空').then(null, null);
       return;
     }
-    if (!formData?.length && !choice.includes('user')) {
+    if (!formData?.length && choice.includes('user')) {
       message.error('附件不能为空').then(null, null);
       return;
     }
