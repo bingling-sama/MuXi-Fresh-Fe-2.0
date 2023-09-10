@@ -299,10 +299,10 @@ const FormForWeb: React.FC = () => {
     }
   };
   useEffect(() => {
-    if (contactWayselect1 == 'email') void message.info('邮箱请在个人主页修改');
+    if (contactWayselect1 == 'email'&&!user_id) void message.info('邮箱请在个人主页修改');
   }, [contactWayselect1]);
   useEffect(() => {
-    if (contactWayselect2 == 'email') void message.info('邮箱请在个人主页修改');
+    if (contactWayselect2 == 'email'&&!user_id) void message.info('邮箱请在个人主页修改');
   }, [contactWayselect2]);
   return (
     <div className="FormWebpage">
