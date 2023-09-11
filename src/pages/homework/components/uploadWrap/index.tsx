@@ -102,10 +102,6 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
       message.error('内容简介不能为空').then(null, null);
       return;
     }
-    if (!formData?.length && choice.includes('user')) {
-      message.error('附件不能为空').then(null, null);
-      return;
-    }
     onSubmit && onSubmit(query);
   };
 
