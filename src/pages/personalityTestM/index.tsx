@@ -4,6 +4,7 @@ import './index.less';
 import * as echarts from 'echarts';
 import { Spin, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from '../../components/Debounce/debounce.ts';
 
 const TestM: React.FC = () => {
   const navigate = useNavigate();
@@ -267,7 +268,9 @@ const TestM: React.FC = () => {
               if (answerSheet[issueNum] != '' && issueNum != 63) {
                 setissuenum(issueNum + 1);
               } else if (issueNum == 63 && answerSheet[issueNum] != '') {
-                submit().catch((e) => console.error(e));
+                debounce(() => {
+                  submit().catch((e) => console.error(e));
+                }, 400);
               }
             }}
           >

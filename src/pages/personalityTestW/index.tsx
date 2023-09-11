@@ -6,6 +6,7 @@ import type { PaginationProps } from 'antd';
 import { ConfigProvider, message, Pagination, Radio, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from '../../components/Debounce/debounce.ts';
 
 function TestW() {
   const { user_id } = useParams();
@@ -98,6 +99,7 @@ function TestW() {
           ]);
         }
       })
+      .then(null)
       .catch((e) => console.error(e));
   }
   useEffect(() => {
@@ -458,7 +460,9 @@ function TestW() {
           className="sendbox_testW"
           onClick={
             finished == 64 && !user_id
-              ? submit
+              ? debounce(() => {
+                  submit().catch((e) => console.error(e));
+                }, 400)
               : () => {
                   void message.info('请完成所有的题目再提交');
                 }

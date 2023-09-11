@@ -6,6 +6,7 @@ import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
 import { useNavigate } from 'react-router-dom';
+import { debounce } from '../../components/Debounce/debounce.ts';
 
 const FormForMobile: React.FC = () => {
   const navigate = useNavigate();
@@ -97,6 +98,7 @@ const FormForMobile: React.FC = () => {
       knowledge,
       self_intro,
       extra_question,
+      avatar,
     ];
     const arrCN = [
       '请输入姓名',
@@ -109,6 +111,7 @@ const FormForMobile: React.FC = () => {
       '请输入对组别了解',
       '请填写自我介绍',
       '请回答额外问题',
+      '请上传证件照',
     ];
     const send = () => {
       post(`/form/`, {
@@ -743,7 +746,10 @@ const FormForMobile: React.FC = () => {
           </Radio.Group>
         </div>
 
-        <button className="change_next_formM" onClick={formSetted ? changeForm : setForm}>
+        <button
+          className="change_next_formM"
+          onClick={formSetted ? debounce(changeForm, 400) : debounce(setForm, 400)}
+        >
           提交报名表
         </button>
       </div>

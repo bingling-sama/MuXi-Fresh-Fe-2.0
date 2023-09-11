@@ -8,6 +8,7 @@ import * as qiniu from 'qiniu-js';
 import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
+import { debounce } from '../../components/Debounce/debounce.ts';
 
 const FormForWeb: React.FC = () => {
   const { form_id } = useParams();
@@ -102,6 +103,7 @@ const FormForWeb: React.FC = () => {
       knowledge,
       self_intro,
       extra_question,
+      avatar,
     ];
     const arrCN = [
       '请输入姓名',
@@ -114,6 +116,7 @@ const FormForWeb: React.FC = () => {
       '请输入对组别了解',
       '请填写自我介绍',
       '请回答额外问题',
+      '请上传证件照',
     ];
     const send = () => {
       post(`/form/`, {
@@ -337,11 +340,11 @@ const FormForWeb: React.FC = () => {
                 >
                   <div className="avatar_formweb">
                     {avatar ? (
-                      <img src={avatar} />
+                      <img src={avatar} alt={''} />
                     ) : (
                       <div className="avatarDefault">
                         <div style={{ fontSize: '20px' }}>+</div>
-                        <div>上传照片</div>
+                        <div>上传证件照</div>
                       </div>
                     )}
                   </div>
@@ -714,9 +717,9 @@ const FormForWeb: React.FC = () => {
             <div
               style={{ display: form_id ? 'none' : '' }}
               className="send_formweb"
-              onClick={formSetted ? changeForm : setForm}
+              onClick={formSetted ? debounce(changeForm, 400) : debounce(setForm, 400)}
             >
-              完成修改
+              {formSetted ? '完成修改' : '提交表格'}
             </div>
           </div>
         </Watermark>
