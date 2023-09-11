@@ -6,7 +6,7 @@ import type { PaginationProps } from 'antd';
 import { ConfigProvider, message, Pagination, Radio, Spin } from 'antd';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import { debounce } from '../../components/Debounce/debounce.ts';
+import { debounce } from '../../utils/Debounce/debounce.ts';
 
 function TestW() {
   const { user_id } = useParams();

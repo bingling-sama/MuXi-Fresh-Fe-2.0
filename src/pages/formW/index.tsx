@@ -8,7 +8,7 @@ import * as qiniu from 'qiniu-js';
 import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
-import { debounce } from '../../components/Debounce/debounce.ts';
+import { debounce } from '../../utils/Debounce/debounce.ts';
 
 const FormForWeb: React.FC = () => {
   const { form_id } = useParams();

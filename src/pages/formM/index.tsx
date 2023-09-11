@@ -6,7 +6,7 @@ import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
 import { useNavigate } from 'react-router-dom';
-import { debounce } from '../../components/Debounce/debounce.ts';
+import { debounce } from '../../utils/Debounce/debounce.ts';
 
 const FormForMobile: React.FC = () => {
   const navigate = useNavigate();

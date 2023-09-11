@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UploadSection from '../../../components/uploadWrap';
-import { debounce } from '../../../../../components/Debounce/debounce.ts';
+import { debounce } from '../../../../../utils/Debounce/debounce.ts';
 import { get, post } from '../../../../../fetch.ts';
 import {
   backType,

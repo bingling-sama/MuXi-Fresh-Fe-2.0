@@ -4,7 +4,7 @@ import './index.less';
 import * as echarts from 'echarts';
 import { Spin, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { debounce } from '../../components/Debounce/debounce.ts';
+import { debounce } from '../../utils/Debounce/debounce.ts';
 
 const TestM: React.FC = () => {
   const navigate = useNavigate();
