@@ -8,6 +8,7 @@ import * as qiniu from 'qiniu-js';
 import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
+
 const FormForWeb: React.FC = () => {
   const { form_id } = useParams();
   const { user_id } = useParams();
@@ -88,61 +89,62 @@ const FormForWeb: React.FC = () => {
   interface res {
     code: number;
   }
-  const arr = [
-    name,
-    sex,
-    grade,
-    major,
-    academy,
-    wantGroup,
-    reason,
-    knowledge,
-    self_intro,
-    extra_question,
-  ];
-  const arrCN = [
-    '请输入姓名',
-    '请选择性别',
-    '请输入年级',
-    '请输入专业',
-    '请选择学院',
-    '请选择心动组别',
-    '请输入心动理由',
-    '请输入对组别了解',
-    '请填写自我介绍',
-    '请回答额外问题',
-  ];
-  const send = () => {
-    post(`/form/`, {
-      avatar: avatar,
-      major: major,
-      grade: grade,
-      gender: sex,
-      phone: contactWay['phone'],
-      group: wantGroup,
-      reason: reason,
-      knowledge: knowledge,
-      self_intro: self_intro,
-      extra_question: extra_question,
-    })
-      .then((data: res) => {
-        if (data.code === 200) void message.success('提交成功^_^');
-        else void message.error('提交失败');
+
+  const setForm = () => {
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
+    const send = () => {
+      post(`/form/`, {
+        avatar: avatar,
+        major: major,
+        grade: grade,
+        gender: sex,
+        phone: contactWay['phone'],
+        group: wantGroup,
+        reason: reason,
+        knowledge: knowledge,
+        self_intro: self_intro,
+        extra_question: extra_question,
       })
-      .catch((e) => {
+        .then((data: res) => {
+          if (data.code === 200) void message.success('提交成功^_^');
+          else void message.error('提交失败');
+        })
+        .catch((e) => {
+          console.error(e);
+        });
+      post('/users/', {
+        avatar: avatar2,
+        name: name,
+        nickname: nickname,
+        qq: contactWay['qq'],
+        school: academy,
+      }).catch((e) => {
         console.error(e);
       });
-    post('/users/', {
-      avatar: avatar2,
-      name: name,
-      nickname: nickname,
-      qq: contactWay['qq'],
-      school: academy,
-    }).catch((e) => {
-      console.error(e);
-    });
-  };
-  const setForm = () => {
+    };
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === '') {
         void message.info(arrCN[i]);
@@ -156,6 +158,30 @@ const FormForWeb: React.FC = () => {
     send();
   };
   const changeForm = () => {
+    const arr = [
+      name,
+      sex,
+      grade,
+      major,
+      academy,
+      wantGroup,
+      reason,
+      knowledge,
+      self_intro,
+      extra_question,
+    ];
+    const arrCN = [
+      '请输入姓名',
+      '请选择性别',
+      '请输入年级',
+      '请输入专业',
+      '请选择学院',
+      '请选择心动组别',
+      '请输入心动理由',
+      '请输入对组别了解',
+      '请填写自我介绍',
+      '请回答额外问题',
+    ];
     const send = () => {
       put(`/form/`, {
         form_id: form_id_self,
@@ -307,11 +333,11 @@ const FormForWeb: React.FC = () => {
                   onChange={onChange}
                   showUploadList={false}
                   maxCount={1}
-                  disabled={form_id !== undefined}
+                  disabled={form_id ? true : false}
                 >
                   <div className="avatar_formweb">
                     {avatar ? (
-                      <img src={avatar} alt={''} />
+                      <img src={avatar} />
                     ) : (
                       <div className="avatarDefault">
                         <div style={{ fontSize: '20px' }}>+</div>
@@ -325,7 +351,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">姓名:</div>
                   <Input
-                    readOnly={form_id !== undefined}
+                    readOnly={form_id ? true : false}
                     className="input_formweb"
                     type="text"
                     value={name}
@@ -383,7 +409,7 @@ const FormForWeb: React.FC = () => {
                   ) : (
                     <Space wrap>
                       <Select
-                        disabled={form_id !== undefined}
+                        disabled={form_id ? true : false}
                         size="large"
                         className="select_formweb"
                         defaultValue="大一"
@@ -417,7 +443,7 @@ const FormForWeb: React.FC = () => {
                   ) : (
                     <Space wrap>
                       <Select
-                        disabled={form_id !== undefined}
+                        disabled={form_id ? true : false}
                         size="large"
                         id="academy"
                         defaultValue=""
@@ -501,6 +527,9 @@ const FormForWeb: React.FC = () => {
                         <Select.Option key="化学学院" value="化学学院">
                           化学学院
                         </Select.Option>
+                        <Select.Option key="生命科学学院" value="生命科学学院">
+                          生命科学学院
+                        </Select.Option>
                       </Select>
                     </Space>
                   )}
@@ -508,7 +537,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">专业:</div>
                   <Input
-                    readOnly={form_id !== undefined}
+                    readOnly={form_id ? true : false}
                     type="text"
                     className="input_formweb"
                     value={major}
@@ -543,7 +572,7 @@ const FormForWeb: React.FC = () => {
                   </Space>
                   <Input
                     disabled={contactWayselect1 == 'email'}
-                    readOnly={form_id !== undefined}
+                    readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -580,7 +609,7 @@ const FormForWeb: React.FC = () => {
                   </Space>
                   <Input
                     disabled={contactWayselect2 == 'email'}
-                    readOnly={form_id !== undefined}
+                    readOnly={form_id ? true : false}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -609,7 +638,7 @@ const FormForWeb: React.FC = () => {
                 ) : (
                   <Space wrap>
                     <Select
-                      disabled={form_id !== undefined}
+                      disabled={form_id ? true : false}
                       style={{ width: '120px', textAlign: 'center' }}
                       id="GroupSelect"
                       value={wantGroup}
@@ -628,7 +657,7 @@ const FormForWeb: React.FC = () => {
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
                 <TextArea
-                  readOnly={form_id !== undefined}
+                  readOnly={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -642,7 +671,7 @@ const FormForWeb: React.FC = () => {
               <div className="knowledgebox">
                 <div className="detail_formweb">对组别的认识:</div>
                 <TextArea
-                  readOnly={form_id !== undefined}
+                  readOnly={form_id ? true : false}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -656,7 +685,7 @@ const FormForWeb: React.FC = () => {
               <div className="self_introbox">
                 <div className="detail_formweb">自我介绍:</div>
                 <TextArea
-                  readOnly={form_id !== undefined}
+                  readOnly={form_id ? true : false}
                   style={{ resize: 'none' }}
                   maxLength={500}
                   className="textarea_formweb"
@@ -671,7 +700,7 @@ const FormForWeb: React.FC = () => {
                 你是否有加入/正在加入一些其他组织或担任学生工作?
                 <div className="answerbox_formweb">
                   <Radio.Group
-                    disabled={form_id !== undefined}
+                    disabled={form_id ? true : false}
                     buttonStyle="solid"
                     onChange={(e) => setextra_question(e.target.value as string)}
                     value={extra_question}
