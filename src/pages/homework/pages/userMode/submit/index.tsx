@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import UploadSection from '../../../components/uploadWrap';
+import { debounce } from '../../../../../components/Debounce/debounce.ts';
 import { get, post } from '../../../../../fetch.ts';
 import {
   backType,
@@ -113,7 +114,7 @@ const HomeworkUserSubmit: React.FC = () => {
           title={`${group.key}作业`}
           status={status}
           button_title={buttonList[status]}
-          onSubmit={handleSubmit}
+          onSubmit={debounce(handleSubmit, 400)}
           submitDisabled={status == 2}
           className={status != 2 ? 'user-submit-preview' : 'user-submit-preview-small'}
         >

@@ -11,6 +11,7 @@ import Title from '../title';
 import { root } from '../../utils/deData';
 import { choiceType, TaskInfoType, taskListType } from '../../types';
 import FileLink from '../files';
+import { debounce } from '../../../../components/Debounce/debounce.ts';
 
 interface UploadSectionProps {
   title?: string;
@@ -172,7 +173,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           {children}
           <Submit
             className={`submit-page  ${submitClass as string}`}
-            onClick={handleSubmit}
+            onClick={debounce(handleSubmit, 400)}
             disabled={
               submitDisabled
                 ? submitDisabled

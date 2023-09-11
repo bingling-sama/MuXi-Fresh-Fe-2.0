@@ -8,7 +8,6 @@ import * as qiniu from 'qiniu-js';
 import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
-
 const FormForWeb: React.FC = () => {
   const { form_id } = useParams();
   const { user_id } = useParams();
@@ -89,62 +88,61 @@ const FormForWeb: React.FC = () => {
   interface res {
     code: number;
   }
-
-  const setForm = () => {
-    const arr = [
-      name,
-      sex,
-      grade,
-      major,
-      academy,
-      wantGroup,
-      reason,
-      knowledge,
-      self_intro,
-      extra_question,
-    ];
-    const arrCN = [
-      '请输入姓名',
-      '请选择性别',
-      '请输入年级',
-      '请输入专业',
-      '请选择学院',
-      '请选择心动组别',
-      '请输入心动理由',
-      '请输入对组别了解',
-      '请填写自我介绍',
-      '请回答额外问题',
-    ];
-    const send = () => {
-      post(`/form/`, {
-        avatar: avatar,
-        major: major,
-        grade: grade,
-        gender: sex,
-        phone: contactWay['phone'],
-        group: wantGroup,
-        reason: reason,
-        knowledge: knowledge,
-        self_intro: self_intro,
-        extra_question: extra_question,
+  const arr = [
+    name,
+    sex,
+    grade,
+    major,
+    academy,
+    wantGroup,
+    reason,
+    knowledge,
+    self_intro,
+    extra_question,
+  ];
+  const arrCN = [
+    '请输入姓名',
+    '请选择性别',
+    '请输入年级',
+    '请输入专业',
+    '请选择学院',
+    '请选择心动组别',
+    '请输入心动理由',
+    '请输入对组别了解',
+    '请填写自我介绍',
+    '请回答额外问题',
+  ];
+  const send = () => {
+    post(`/form/`, {
+      avatar: avatar,
+      major: major,
+      grade: grade,
+      gender: sex,
+      phone: contactWay['phone'],
+      group: wantGroup,
+      reason: reason,
+      knowledge: knowledge,
+      self_intro: self_intro,
+      extra_question: extra_question,
+    })
+      .then((data: res) => {
+        if (data.code === 200) void message.success('提交成功^_^');
+        else void message.error('提交失败');
       })
-        .then((data: res) => {
-          if (data.code === 200) void message.success('提交成功^_^');
-          else void message.error('提交失败');
-        })
-        .catch((e) => {
-          console.error(e);
-        });
-      post('/users/', {
-        avatar: avatar2,
-        name: name,
-        nickname: nickname,
-        qq: contactWay['qq'],
-        school: academy,
-      }).catch((e) => {
+      .catch((e) => {
         console.error(e);
       });
-    };
+    post('/users/', {
+      avatar: avatar2,
+      name: name,
+      nickname: nickname,
+      qq: contactWay['qq'],
+      school: academy,
+    }).catch((e) => {
+      console.error(e);
+    });
+  };
+  const setForm = () => {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === '') {
         void message.info(arrCN[i]);
@@ -158,30 +156,6 @@ const FormForWeb: React.FC = () => {
     send();
   };
   const changeForm = () => {
-    const arr = [
-      name,
-      sex,
-      grade,
-      major,
-      academy,
-      wantGroup,
-      reason,
-      knowledge,
-      self_intro,
-      extra_question,
-    ];
-    const arrCN = [
-      '请输入姓名',
-      '请选择性别',
-      '请输入年级',
-      '请输入专业',
-      '请选择学院',
-      '请选择心动组别',
-      '请输入心动理由',
-      '请输入对组别了解',
-      '请填写自我介绍',
-      '请回答额外问题',
-    ];
     const send = () => {
       put(`/form/`, {
         form_id: form_id_self,
@@ -299,10 +273,14 @@ const FormForWeb: React.FC = () => {
     }
   };
   useEffect(() => {
-    if (contactWayselect1 == 'email'&&!user_id) void message.info('邮箱请在个人主页修改');
+    if (contactWayselect1 == 'email' && !user_id)
+      void message.info('邮箱请在个人主页修改');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactWayselect1]);
   useEffect(() => {
-    if (contactWayselect2 == 'email'&&!user_id) void message.info('邮箱请在个人主页修改');
+    if (contactWayselect2 == 'email' && !user_id)
+      void message.info('邮箱请在个人主页修改');
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactWayselect2]);
   return (
     <div className="FormWebpage">
@@ -329,11 +307,11 @@ const FormForWeb: React.FC = () => {
                   onChange={onChange}
                   showUploadList={false}
                   maxCount={1}
-                  disabled={form_id ? true : false}
+                  disabled={form_id !== undefined}
                 >
                   <div className="avatar_formweb">
                     {avatar ? (
-                      <img src={avatar} />
+                      <img src={avatar} alt={''} />
                     ) : (
                       <div className="avatarDefault">
                         <div style={{ fontSize: '20px' }}>+</div>
@@ -347,7 +325,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">姓名:</div>
                   <Input
-                    readOnly={form_id ? true : false}
+                    readOnly={form_id !== undefined}
                     className="input_formweb"
                     type="text"
                     value={name}
@@ -405,7 +383,7 @@ const FormForWeb: React.FC = () => {
                   ) : (
                     <Space wrap>
                       <Select
-                        disabled={form_id ? true : false}
+                        disabled={form_id !== undefined}
                         size="large"
                         className="select_formweb"
                         defaultValue="大一"
@@ -439,7 +417,7 @@ const FormForWeb: React.FC = () => {
                   ) : (
                     <Space wrap>
                       <Select
-                        disabled={form_id ? true : false}
+                        disabled={form_id !== undefined}
                         size="large"
                         id="academy"
                         defaultValue=""
@@ -448,27 +426,81 @@ const FormForWeb: React.FC = () => {
                         onChange={(e) => setacademy(e)}
                         className="select_formweb"
                       >
-                        <Select.Option key="计算机学院" value="计算机学院">计算机学院</Select.Option>
-                        <Select.Option key="人工智能教育学部" value="人工智能教育学部">人工智能教育学部</Select.Option>
-                        <Select.Option key="心理学院" value="心理学院">心理学院</Select.Option>
-                        <Select.Option key="经济与工商管理学院" value="经济与工商管理学院">经济与工商管理学院</Select.Option>
-                        <Select.Option key="公共管理学院" value="公共管理学院">公共管理学院</Select.Option>
-                        <Select.Option key="信息管理学院" value="信息管理学院">信息管理学院</Select.Option>
-                        <Select.Option key="城市与环境科学学院" value="城市与环境科学学院">城市与环境科学学院</Select.Option>
-                        <Select.Option key="美术学院" value="美术学院">美术学院</Select.Option>
-                        <Select.Option key="新闻传播学院" value="新闻传播学院">新闻传播学院</Select.Option>
-                        <Select.Option key="政治与国际关系学院" value="政治与国际关系学院">政治与国际关系学院</Select.Option>
-                        <Select.Option key="教育学院" value="教育学院">教育学院</Select.Option>
-                        <Select.Option key="文学院" value="文学院">文学院</Select.Option>
-                        <Select.Option key="历史文化学院" value="历史文化学院">历史文化学院</Select.Option>
-                        <Select.Option key="马克思主义学院" value="马克思主义学院">马克思主义学院</Select.Option>
-                        <Select.Option key="法学院" value="法学院">法学院</Select.Option>
-                        <Select.Option key="社会学院" value="社会学院">社会学院</Select.Option>
-                        <Select.Option key="外国语学院" value="外国语学院">外国语学院</Select.Option>
-                        <Select.Option key="音乐学院" value="音乐学院">音乐学院</Select.Option>
-                        <Select.Option key="数学与统计学学院" value="数学与统计学学院">数学与统计学学院</Select.Option>
-                        <Select.Option key="物理科学与技术学院" value="物理科学与技术学院">物理科学与技术学院</Select.Option>
-                        <Select.Option key="化学学院" value="化学学院">化学学院</Select.Option>
+                        <Select.Option key="计算机学院" value="计算机学院">
+                          计算机学院
+                        </Select.Option>
+                        <Select.Option key="人工智能教育学部" value="人工智能教育学部">
+                          人工智能教育学部
+                        </Select.Option>
+                        <Select.Option key="心理学院" value="心理学院">
+                          心理学院
+                        </Select.Option>
+                        <Select.Option
+                          key="经济与工商管理学院"
+                          value="经济与工商管理学院"
+                        >
+                          经济与工商管理学院
+                        </Select.Option>
+                        <Select.Option key="公共管理学院" value="公共管理学院">
+                          公共管理学院
+                        </Select.Option>
+                        <Select.Option key="信息管理学院" value="信息管理学院">
+                          信息管理学院
+                        </Select.Option>
+                        <Select.Option
+                          key="城市与环境科学学院"
+                          value="城市与环境科学学院"
+                        >
+                          城市与环境科学学院
+                        </Select.Option>
+                        <Select.Option key="美术学院" value="美术学院">
+                          美术学院
+                        </Select.Option>
+                        <Select.Option key="新闻传播学院" value="新闻传播学院">
+                          新闻传播学院
+                        </Select.Option>
+                        <Select.Option
+                          key="政治与国际关系学院"
+                          value="政治与国际关系学院"
+                        >
+                          政治与国际关系学院
+                        </Select.Option>
+                        <Select.Option key="教育学院" value="教育学院">
+                          教育学院
+                        </Select.Option>
+                        <Select.Option key="文学院" value="文学院">
+                          文学院
+                        </Select.Option>
+                        <Select.Option key="历史文化学院" value="历史文化学院">
+                          历史文化学院
+                        </Select.Option>
+                        <Select.Option key="马克思主义学院" value="马克思主义学院">
+                          马克思主义学院
+                        </Select.Option>
+                        <Select.Option key="法学院" value="法学院">
+                          法学院
+                        </Select.Option>
+                        <Select.Option key="社会学院" value="社会学院">
+                          社会学院
+                        </Select.Option>
+                        <Select.Option key="外国语学院" value="外国语学院">
+                          外国语学院
+                        </Select.Option>
+                        <Select.Option key="音乐学院" value="音乐学院">
+                          音乐学院
+                        </Select.Option>
+                        <Select.Option key="数学与统计学学院" value="数学与统计学学院">
+                          数学与统计学学院
+                        </Select.Option>
+                        <Select.Option
+                          key="物理科学与技术学院"
+                          value="物理科学与技术学院"
+                        >
+                          物理科学与技术学院
+                        </Select.Option>
+                        <Select.Option key="化学学院" value="化学学院">
+                          化学学院
+                        </Select.Option>
                       </Select>
                     </Space>
                   )}
@@ -476,7 +508,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">专业:</div>
                   <Input
-                    readOnly={form_id ? true : false}
+                    readOnly={form_id !== undefined}
                     type="text"
                     className="input_formweb"
                     value={major}
@@ -511,7 +543,7 @@ const FormForWeb: React.FC = () => {
                   </Space>
                   <Input
                     disabled={contactWayselect1 == 'email'}
-                    readOnly={form_id ? true : false}
+                    readOnly={form_id !== undefined}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -548,7 +580,7 @@ const FormForWeb: React.FC = () => {
                   </Space>
                   <Input
                     disabled={contactWayselect2 == 'email'}
-                    readOnly={form_id ? true : false}
+                    readOnly={form_id !== undefined}
                     style={{ width: '180px' }}
                     type="text"
                     className="contactContent input_formweb"
@@ -577,7 +609,7 @@ const FormForWeb: React.FC = () => {
                 ) : (
                   <Space wrap>
                     <Select
-                      disabled={form_id ? true : false}
+                      disabled={form_id !== undefined}
                       style={{ width: '120px', textAlign: 'center' }}
                       id="GroupSelect"
                       value={wantGroup}
@@ -596,7 +628,7 @@ const FormForWeb: React.FC = () => {
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
                 <TextArea
-                  readOnly={form_id ? true : false}
+                  readOnly={form_id !== undefined}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -610,7 +642,7 @@ const FormForWeb: React.FC = () => {
               <div className="knowledgebox">
                 <div className="detail_formweb">对组别的认识:</div>
                 <TextArea
-                  readOnly={form_id ? true : false}
+                  readOnly={form_id !== undefined}
                   maxLength={500}
                   style={{ resize: 'none' }}
                   className="textarea_formweb"
@@ -624,7 +656,7 @@ const FormForWeb: React.FC = () => {
               <div className="self_introbox">
                 <div className="detail_formweb">自我介绍:</div>
                 <TextArea
-                  readOnly={form_id ? true : false}
+                  readOnly={form_id !== undefined}
                   style={{ resize: 'none' }}
                   maxLength={500}
                   className="textarea_formweb"
@@ -639,7 +671,7 @@ const FormForWeb: React.FC = () => {
                 你是否有加入/正在加入一些其他组织或担任学生工作?
                 <div className="answerbox_formweb">
                   <Radio.Group
-                    disabled={form_id ? true : false}
+                    disabled={form_id !== undefined}
                     buttonStyle="solid"
                     onChange={(e) => setextra_question(e.target.value as string)}
                     value={extra_question}

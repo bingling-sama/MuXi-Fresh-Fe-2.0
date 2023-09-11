@@ -5,6 +5,7 @@ import { message, UploadProps } from 'antd';
 import { root } from '../../../utils/deData.ts';
 import FileLink from '../../../components/files';
 import Uploader from '../../../components/upload';
+import { debounce } from '../../../../../components/Debounce/debounce.ts';
 
 interface SubmitBeforeJudgeMobileProps {
   currentTaskID: string | undefined;
@@ -65,7 +66,7 @@ const SubmitCompMobile: React.FC<SubmitBeforeJudgeMobileProps> = (props) => {
             {'作业附件 :'}
             <Uploader
               mobile
-              onChange={handleChangeUpload}
+              onChange={debounce(handleChangeUpload, 400)}
               defaultList={uploadHistory}
             ></Uploader>
           </div>
