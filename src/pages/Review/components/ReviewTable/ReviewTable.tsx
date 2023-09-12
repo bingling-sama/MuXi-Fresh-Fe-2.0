@@ -55,20 +55,23 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     );
   }, [reviewTable]);
 
-  // 切换组别时清空筛选和排序
+  // 切换组别时清空筛选和排序和页数
   const [filter, setFilter] = useState<Record<string, FilterValue | null>>({});
   const [sorted, setSorted] = useState<SorterResult<ReviewRow>>({});
+  const [currentPage, setCurrentPage] = useState(1);
   const handleChange: TableProps<ReviewRow>['onChange'] = (
-    _pagination,
+    pagination,
     filters,
     sorter,
   ) => {
     setFilter(filters);
     setSorted(sorter as SorterResult<ReviewRow>);
+    setCurrentPage(pagination.current as number);
   };
   useEffect(() => {
     setFilter({});
     setSorted({});
+    setCurrentPage(1);
   }, [reviewList]);
 
   const columns: ColumnsType<ReviewRow> = [
@@ -199,7 +202,12 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       columns={columns}
       dataSource={reviewTable}
       onChange={handleChange}
-      pagination={{ position: ['bottomCenter'], pageSize: 10, showSizeChanger: false }}
+      pagination={{
+        position: ['bottomCenter'],
+        pageSize: 10,
+        showSizeChanger: false,
+        current: currentPage,
+      }}
       rowKey={(r) => r.schedule_id}
     />
   );
