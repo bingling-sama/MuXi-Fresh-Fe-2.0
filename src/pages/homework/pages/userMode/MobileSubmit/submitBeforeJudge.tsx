@@ -5,7 +5,7 @@ import { message, UploadProps } from 'antd';
 import { root } from '../../../utils/deData.ts';
 import FileLink from '../../../components/files';
 import Uploader from '../../../components/upload';
-import { debounce } from '../../../../../components/Debounce/debounce.ts';
+import { debounce } from '../../../../../utils/Debounce/debounce.ts';
 
 interface SubmitBeforeJudgeMobileProps {
   currentTaskID: string | undefined;

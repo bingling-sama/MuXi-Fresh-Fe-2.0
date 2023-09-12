@@ -11,7 +11,7 @@ import Title from '../title';
 import { root } from '../../utils/deData';
 import { choiceType, TaskInfoType, taskListType } from '../../types';
 import FileLink from '../files';
-import { debounce } from '../../../../components/Debounce/debounce.ts';
+import { debounce } from '../../../../utils/Debounce/debounce.ts';
 
 interface UploadSectionProps {
   title?: string;
