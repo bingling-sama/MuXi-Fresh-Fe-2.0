@@ -55,19 +55,21 @@ const HomeworkUserSubmit: React.FC = () => {
     }, null);
   }, []);
   const handleSubmit = () => {
-    if (status != 2)
+    if (status != 2 && formData[0]) {
       post(`/task/submitted`, {
         urls: formData,
         assignedTaskID: selected,
       })
         .then(() => {
-          if (formData[0]) message.success('提交成功').then(null, null);
-          else message.error('作业内容不能为空').then(null, null);
+          message.success('提交成功').then(null, null);
           handleSwitch(selected);
         })
         .catch(() => {
           message.error(`提交失败`).then(null, null);
         });
+    } else if (!formData[0]) {
+      message.error('作业内容不能为空').then(null, null);
+    }
   };
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     if (e && e[0]) {
