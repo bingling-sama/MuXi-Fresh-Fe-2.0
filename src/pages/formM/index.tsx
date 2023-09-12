@@ -317,6 +317,7 @@ const FormForMobile: React.FC = () => {
       setavatar(avatar);
     }
   };
+
   interface getGroupNumProps {
     code: number;
     data: {
@@ -553,6 +554,12 @@ const FormForMobile: React.FC = () => {
           <Select.Option key="化学学院" value="化学学院">
             化学学院
           </Select.Option>
+          <Select.Option key="生命科学学院" value="生命科学学院">
+            生命科学学院
+          </Select.Option>
+          <Select.Option key="体育学院" value="体育学院">
+            体育学院
+          </Select.Option>
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
@@ -675,27 +682,27 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">心动组别</div>
         </div>
         <div className="groupSelectBox">
-        <Select
-          id="GroupSelect_formM"
-          value={wantGroup}
-          size="large"
-          style={{ width: '27vw' }}
-          onChange={(e) => setwantGroup(e)}
-        >
-          <Select.Option value="Product">产品组</Select.Option>
-          <Select.Option value="Design">设计组</Select.Option>
-          <Select.Option value="Frontend">前端组</Select.Option>
-          <Select.Option value="Backend">后端组</Select.Option>
-          <Select.Option value="Android">安卓组</Select.Option>
-        </Select>
-        {wantGroup !== '' ? (
-                <div className={'groupNums_M'}>
-                  {chineseDict[wantGroup]}已报人数：{groupNum}人
-                </div>
-              ) : (
-                ''
-              )}
-          </div>
+          <Select
+            id="GroupSelect_formM"
+            value={wantGroup}
+            size="large"
+            style={{ width: '27vw' }}
+            onChange={(e) => setwantGroup(e)}
+          >
+            <Select.Option value="Product">产品组</Select.Option>
+            <Select.Option value="Design">设计组</Select.Option>
+            <Select.Option value="Frontend">前端组</Select.Option>
+            <Select.Option value="Backend">后端组</Select.Option>
+            <Select.Option value="Android">安卓组</Select.Option>
+          </Select>
+          {wantGroup !== '' ? (
+            <div className={'groupNums_M'}>
+              {chineseDict[wantGroup]}已报人数：{groupNum}人
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
           <div className="term_detail_formM">心动理由</div>
