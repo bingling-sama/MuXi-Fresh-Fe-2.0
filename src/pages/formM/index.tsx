@@ -516,6 +516,9 @@ const FormForMobile: React.FC = () => {
           <Select.Option key="化学学院" value="化学学院">
             化学学院
           </Select.Option>
+          <Select.Option key="生命科学学院" value="生命科学学院">
+            生命科学学院
+          </Select.Option>
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
