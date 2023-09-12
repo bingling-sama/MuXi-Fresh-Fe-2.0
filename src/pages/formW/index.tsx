@@ -533,6 +533,9 @@ const FormForWeb: React.FC = () => {
                         <Select.Option key="生命科学学院" value="生命科学学院">
                           生命科学学院
                         </Select.Option>
+                        <Select.Option key="体育学院" value="体育学院">
+                          体育学院
+                        </Select.Option>
                       </Select>
                     </Space>
                   )}
