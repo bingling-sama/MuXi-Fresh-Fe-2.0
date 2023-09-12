@@ -690,10 +690,14 @@ const FormForWeb: React.FC = () => {
                   </Space>
                 )}
               </div>
-              {wantGroup !== '' ? (
-                <div className={'groupNums'}>
-                  {chineseDict[wantGroup]}已报人数：{groupNum}人
-                </div>
+              {!form_id ? (
+                wantGroup !== '' ? (
+                  <div className={'groupNums'}>
+                    {chineseDict[wantGroup]}已报人数：{groupNum}人
+                  </div>
+                ) : (
+                  ''
+                )
               ) : (
                 ''
               )}
