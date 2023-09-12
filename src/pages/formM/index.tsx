@@ -36,6 +36,15 @@ const FormForMobile: React.FC = () => {
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState(false);
   const [form_id, setform_id] = useState('');
+  const chineseDict: { [key: string]: string } = {
+    male: '男生',
+    female: '女生',
+    Android: '安卓组',
+    Backend: '后端组',
+    Design: '设计组',
+    Frontend: '前端组',
+    Product: '产品组',
+  };
   const turnNext = () => {
     setPageNum(pageNum + 1); //换页函数
   };
@@ -308,6 +317,34 @@ const FormForMobile: React.FC = () => {
       setavatar(avatar);
     }
   };
+  interface getGroupNumProps {
+    code: number;
+    data: {
+      number: number;
+    };
+  }
+
+  const [groupNum, setGroupNum] = useState(0);
+  const getGroupNums = () => {
+    if (wantGroup !== '') {
+      post('/form/group/applicant-number', {
+        group: wantGroup,
+        year: 2023,
+        season: 'autumn',
+      }).then(
+        (r: getGroupNumProps) => {
+          const { number } = r.data;
+          setGroupNum(number);
+        },
+        (e) => {
+          void message.error(`获取当前组已报人数失败，请稍后重试`);
+          console.error(e);
+        },
+      );
+    }
+  };
+
+  useEffect(getGroupNums, [wantGroup]);
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_formM">
@@ -637,11 +674,12 @@ const FormForMobile: React.FC = () => {
           <div className="yellowBot"></div>
           <div className="term_detail_formM">心动组别</div>
         </div>
+        <div className="groupSelectBox">
         <Select
           id="GroupSelect_formM"
           value={wantGroup}
           size="large"
-          style={{ width: '72vw' }}
+          style={{ width: '27vw' }}
           onChange={(e) => setwantGroup(e)}
         >
           <Select.Option value="Product">产品组</Select.Option>
@@ -650,6 +688,14 @@ const FormForMobile: React.FC = () => {
           <Select.Option value="Backend">后端组</Select.Option>
           <Select.Option value="Android">安卓组</Select.Option>
         </Select>
+        {wantGroup !== '' ? (
+                <div className={'groupNums_M'}>
+                  {chineseDict[wantGroup]}已报人数：{groupNum}人
+                </div>
+              ) : (
+                ''
+              )}
+          </div>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
           <div className="term_detail_formM">心动理由</div>
