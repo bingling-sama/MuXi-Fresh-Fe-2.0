@@ -157,7 +157,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
               type="file"
               className="inp"
               onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
-              defaultValue={defaultValue.urls}
+              defaultValue={defaultValue.urls ? defaultValue.urls : []}
               disabled={
                 choice.includes('user') ||
                 (taskList && !taskList[0]?.id && !choice.includes('new'))
