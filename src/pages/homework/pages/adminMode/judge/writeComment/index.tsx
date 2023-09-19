@@ -3,6 +3,7 @@ import React, { ChangeEvent, HTMLAttributes, useState } from 'react';
 import Submit from '../../../../components/button';
 import Title from '../../../../components/title';
 import './index.less';
+import { debounce } from '../../../../../../utils/Debounce/debounce.ts';
 
 const { TextArea } = Input;
 
@@ -49,7 +50,7 @@ const WriteComment: React.FC<HTMLAttributes<HTMLDivElement> & WriteCommentProps>
             value={text}
             onChange={handleChange}
           ></TextArea>
-          <Submit onClick={handleClick} className="write-comment-button">
+          <Submit onClick={debounce(handleClick, 400)} className="write-comment-button">
             评论
           </Submit>
         </Card>
