@@ -48,7 +48,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
                     />
                   }
                   title={<TitleTag item={item}></TitleTag>}
-                  description={item.content}
+                  description={`${item.content.replace(/\n/g, '\r\n')}`}
                 />
               </Card>
             </List.Item>
