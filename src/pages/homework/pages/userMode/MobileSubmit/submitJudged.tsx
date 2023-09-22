@@ -13,6 +13,7 @@ interface SubmitJudgedProps {
   uploadHistory: string[] | undefined;
   currentTaskInfo: TaskInfoType | undefined;
 }
+
 interface CommentMobileProps {
   comments: CommentType[];
 }
