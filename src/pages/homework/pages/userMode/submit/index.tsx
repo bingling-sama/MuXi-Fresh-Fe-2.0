@@ -103,7 +103,7 @@ const HomeworkUserSubmit: React.FC = () => {
   const getComment = (SubmitID: string) => {
     get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {
       const comments = res.data?.comments;
-      comments && setComment(comments);
+      comments && setComment(comments.reverse());
     }, null);
   };
   return (
