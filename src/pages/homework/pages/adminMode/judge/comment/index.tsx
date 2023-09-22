@@ -32,7 +32,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
         }
       >
         <List
-          dataSource={CommentData.reverse()}
+          dataSource={CommentData}
           className="comment-wrap"
           renderItem={(item) => (
             <List.Item>

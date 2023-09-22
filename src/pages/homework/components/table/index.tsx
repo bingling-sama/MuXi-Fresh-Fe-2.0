@@ -9,7 +9,6 @@ import './index.less';
 import { backType, completionType, TableType } from '../../types';
 import { get } from '../../../../fetch.ts';
 import Title from '../title';
-import { NavLink } from 'react-router-dom';
 
 const { Meta } = Card;
 
@@ -94,13 +93,22 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
             >
               {item.status}
             </Tag>
-            <NavLink
+            <a
               className="data-table-card"
-              to={`/app/homework/admin/judge`}
-              state={item}
+              href={`/app/homework/admin/judge?infoItem=${encodeURI(
+                JSON.stringify(item),
+              )}`}
+              target="_blank"
+              onClick={() => {
+                try {
+                  localStorage.setItem('infoItem', JSON.stringify(item));
+                } catch {
+                  throw new Error('null Object');
+                }
+              }}
             >
               点击查看
-            </NavLink>
+            </a>
           </Card>
         ))}
       {!dataSet[0] && <Empty />}

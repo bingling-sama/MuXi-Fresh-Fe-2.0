@@ -56,6 +56,7 @@ const HomeworkUserSubmit: React.FC = () => {
   }, []);
   const handleSubmit = () => {
     if (status != 2 && formData[0]) {
+      console.log(formData);
       post(`/task/submitted`, {
         urls: formData,
         assignedTaskID: selected,
@@ -78,7 +79,7 @@ const HomeworkUserSubmit: React.FC = () => {
         if (item?.response) return ` ${root}${item?.response?.key as string}`;
         else return `${item.url as string}`;
       });
-      setformData(tmpList ? tmpList : ['']);
+      setformData(tmpList ? tmpList.filter((item) => item != 'undefined') : ['']);
     }
   };
   const handleSwitch = (id: string) => {

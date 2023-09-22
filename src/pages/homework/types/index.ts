@@ -23,7 +23,8 @@ export type choiceType = 'edit' | 'new' | 'user-edit' | 'user-new';
 export type TableType = {
   name: string;
   grade: string;
-  college: string;
+  school?: string;
+  college?: string;
   status: string;
   user_id: string;
   key: string;

@@ -29,6 +29,7 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
   });
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
+    console.log(info);
     defData.forEach((item) => {
       if (item.value == info?.group) {
         setgroupName(item.key);
