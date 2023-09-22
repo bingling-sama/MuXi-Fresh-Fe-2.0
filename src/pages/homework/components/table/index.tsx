@@ -99,13 +99,6 @@ export const DataTable: React.FC<DataTableProps> = (props) => {
                 JSON.stringify(item),
               )}`}
               target="_blank"
-              onClick={() => {
-                try {
-                  localStorage.setItem('infoItem', JSON.stringify(item));
-                } catch {
-                  throw new Error('null Object');
-                }
-              }}
             >
               点击查看
             </a>
