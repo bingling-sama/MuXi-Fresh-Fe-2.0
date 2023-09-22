@@ -36,7 +36,10 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
           className="comment-wrap"
           renderItem={(item) => (
             <List.Item>
-              <Card style={{ width: '90%', margin: 'auto' }} loading={loading}>
+              <Card
+                style={{ width: '90%', margin: 'auto', whiteSpace: 'pre-wrap' }}
+                loading={loading}
+              >
                 <Meta
                   avatar={
                     <Avatar
