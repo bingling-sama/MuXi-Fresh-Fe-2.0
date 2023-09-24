@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import React, { useEffect, useState } from 'react';
 import { get } from '../../../../../fetch.ts';
-import { CommentType, TaskInfoType } from '../../../types';
+import { backType, cmtType, CommentType, TaskInfoType } from '../../../types';
 import { Avatar, List } from 'antd';
 import { TitleTag } from '../../adminMode/judge/comment';
 import './index.less';
@@ -14,6 +13,7 @@ interface SubmitJudgedProps {
   uploadHistory: string[] | undefined;
   currentTaskInfo: TaskInfoType | undefined;
 }
+
 interface CommentMobileProps {
   comments: CommentType[];
 }
@@ -25,9 +25,12 @@ const SubmitJudged: React.FC<SubmitJudgedProps> = (props) => {
   const { submissionID, uploadHistory, currentTaskInfo } = props;
   const [comments, setComments] = useState<CommentType[]>([]);
   useEffect(() => {
-    get(`/task/submitted/${submissionID as string}/comment`).then((res) => {
-      setComments(res.data.comments as CommentType[]);
-    }, null);
+    get(`/task/submitted/${submissionID as string}/comment`).then(
+      (res: backType<cmtType>) => {
+        setComments(res.data.comments.reverse());
+      },
+      null,
+    );
   }, [submissionID]);
   return (
     <>

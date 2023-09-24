@@ -29,6 +29,7 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
   });
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
+    console.log(info);
     defData.forEach((item) => {
       if (item.value == info?.group) {
         setgroupName(item.key);
@@ -46,7 +47,6 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
       }, null);
     setLoading(!loading);
   }, []);
-
   return (
     <>
       <Card
@@ -82,7 +82,7 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
           </TagList>
           <TagList tag_name="作业概述">
             <div className="description-card" style={{ height: '30vh' }}>
-              {Preview.content}
+              {Preview.content.replace(/\n/gi, `\r\n`)}
             </div>
           </TagList>
           <FileLink data={Preview.urls}></FileLink>

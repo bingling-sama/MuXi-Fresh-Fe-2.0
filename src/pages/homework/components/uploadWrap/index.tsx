@@ -86,7 +86,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
         return '';
       }
     });
-    setformData(tmpList);
+    setformData(tmpList?.filter((item) => item != 'undefined'));
   };
   const handleSubmit = () => {
     const query: TaskInfoType = {

@@ -32,11 +32,14 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
         }
       >
         <List
-          dataSource={CommentData.reverse()}
+          dataSource={CommentData}
           className="comment-wrap"
           renderItem={(item) => (
             <List.Item>
-              <Card style={{ width: '90%', margin: 'auto' }} loading={loading}>
+              <Card
+                style={{ width: '90%', margin: 'auto', whiteSpace: 'pre-wrap' }}
+                loading={loading}
+              >
                 <Meta
                   avatar={
                     <Avatar
@@ -48,7 +51,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
                     />
                   }
                   title={<TitleTag item={item}></TitleTag>}
-                  description={item.content}
+                  description={`${item.content.replace(/\n/g, '\r\n')}`}
                 />
               </Card>
             </List.Item>
