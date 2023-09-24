@@ -346,6 +346,22 @@ const FormForMobile: React.FC = () => {
   };
 
   useEffect(getGroupNums, [wantGroup]);
+
+  const [isPastDeadline, setIsPastDeadline] = useState(false);
+
+  useEffect(() => {
+    // 获取当前日期和时间
+    const currentDate = new Date();
+    // 设置目标日期为9月24日23点59分
+    const targetDate = new Date(currentDate.getFullYear(), 8, 24, 23, 59, 0); // 月份从0开始，所以8代表9月
+
+    // 比较当前日期和目标日期
+    if (currentDate > targetDate) {
+      setIsPastDeadline(true);
+      void message.warning('当前报名已截止');
+    }
+  }, []);
+
   const element: JSX.Element[] = [];
   element[0] = (
     <div className="page_formM">
@@ -801,7 +817,15 @@ const FormForMobile: React.FC = () => {
 
         <button
           className="change_next_formM"
-          onClick={formSetted ? debounce(changeForm, 400) : debounce(setForm, 400)}
+          onClick={
+            isPastDeadline
+              ? () => {
+                  void message.warning('当前报名已截止');
+                }
+              : formSetted
+              ? debounce(changeForm, 400)
+              : debounce(setForm, 400)
+          }
         >
           提交报名表
         </button>
