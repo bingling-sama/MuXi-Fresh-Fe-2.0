@@ -311,36 +311,6 @@ const FormForWeb: React.FC = () => {
       void message.info('邮箱请在个人主页修改');
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [contactWayselect2]);
-
-  interface getGroupNumProps {
-    code: number;
-    data: {
-      number: number;
-    };
-  }
-
-  const [groupNum, setGroupNum] = useState(0);
-  const getGroupNums = () => {
-    if (wantGroup !== '') {
-      post('/form/group/applicant-number', {
-        group: wantGroup,
-        year: 2023,
-        season: 'autumn',
-      }).then(
-        (r: getGroupNumProps) => {
-          const { number } = r.data;
-          setGroupNum(number);
-        },
-        (e) => {
-          void message.error(`获取当前组已报人数失败，请稍后重试`);
-          console.error(e);
-        },
-      );
-    }
-  };
-
-  useEffect(getGroupNums, [wantGroup]);
-
   const [isPastDeadline, setIsPastDeadline] = useState(false);
 
   useEffect(() => {
@@ -705,17 +675,7 @@ const FormForWeb: React.FC = () => {
                   </Space>
                 )}
               </div>
-              {!form_id ? (
-                wantGroup !== '' ? (
-                  <div className={'groupNums'}>
-                    {chineseDict[wantGroup]}已报人数：{groupNum}人
-                  </div>
-                ) : (
-                  ''
-                )
-              ) : (
-                ''
-              )}
+
               <div className="reasonbox">
                 <div className="detail_formweb">心动理由:</div>
                 <TextArea
