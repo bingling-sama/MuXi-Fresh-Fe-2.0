@@ -1,22 +1,23 @@
 import React, { useCallback, useMemo } from 'react';
-import { Season, Year, YearSeason } from '../../ReviewFitler.ts';
+import { YearSeason } from '../../ReviewFitler.ts';
 import './ReviewYear.less';
 import { Select } from 'antd';
+import { generateYears } from '../../../../utils/GetYearSeason/getReviewYear.ts';
 
 type ReviewYearProps = {
   changeYear(value: YearSeason): void;
 };
 
 const ReviewYear: React.FC<ReviewYearProps> = ({ changeYear }) => {
-  const years = useMemo(() => [Year.Y2022, Year.Y2023], []);
-  const seasons = useMemo(() => [Season.Spring, Season.Autumn], []);
-  const chineseSeasons = {
-    [Season.Spring]: '春招',
-    [Season.Autumn]: '秋招',
-  };
-  const getYear = useCallback((year: Year, season: Season): YearSeason => {
-    return `${year}${season}`;
-  }, []);
+  const years = useMemo(() => generateYears(), []);
+  // const seasons = useMemo(() => [Season.Spring, Season.Autumn], []);
+  // const chineseSeasons = {
+  //   [Season.Spring]: '春招',
+  //   [Season.Autumn]: '秋招',
+  // };
+  // const getYear = useCallback((year: Year, season: Season): YearSeason => {
+  //   return `${year}${season}`;
+  // }, []);
 
   const handleChange = useCallback(
     (value: YearSeason) => {
@@ -33,12 +34,7 @@ const ReviewYear: React.FC<ReviewYearProps> = ({ changeYear }) => {
         onSelect={(value: string) => {
           handleChange(value as YearSeason);
         }}
-        options={years.flatMap((year) =>
-          seasons.map((season) => ({
-            value: getYear(year, season),
-            label: `${year}年${chineseSeasons[season]}`,
-          })),
-        )}
+        options={years}
       />
     </div>
   );

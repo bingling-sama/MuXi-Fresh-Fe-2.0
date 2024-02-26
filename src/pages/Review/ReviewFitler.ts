@@ -18,6 +18,7 @@ export enum Group {
 export enum Year {
   Y2022 = 2022,
   Y2023 = 2023,
+  Y2024 = 2024,
 }
 
 export enum Season {
