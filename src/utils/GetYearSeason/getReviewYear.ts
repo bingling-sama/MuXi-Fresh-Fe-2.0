@@ -1,6 +1,7 @@
 import { Season } from '../../pages/Review/ReviewFitler.ts';
 
 const getSeason = (month: number) => (month < 9 ? Season.Spring : Season.Autumn);
+export const getCurrentSeason = () => getSeason(new Date().getMonth() + 1);
 
 const chineseSeasons = {
   [Season.Spring]: '春招',
@@ -13,7 +14,7 @@ const geneYearObject = (year: number, season: Season.Spring | Season.Autumn) => 
 });
 export const generateYears = () => {
   const currentYear = new Date().getFullYear();
-  const currentSeason = getSeason(new Date().getMonth() + 1);
+  const currentSeason = getCurrentSeason();
   let years: { value: string; label: string }[] = [];
   for (let year = 2022; year < currentYear; year++) {
     years = years.concat([

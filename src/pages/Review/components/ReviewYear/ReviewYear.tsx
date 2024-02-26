@@ -28,14 +28,16 @@ const ReviewYear: React.FC<ReviewYearProps> = ({ changeYear }) => {
 
   return (
     <div className="reviewYear">
-      <Select
-        defaultValue="2023年秋招"
-        style={{ width: '80%' }}
-        onSelect={(value: string) => {
-          handleChange(value as YearSeason);
-        }}
-        options={years}
-      />
+      {years && (
+        <Select
+          defaultValue={years[years.length - 1].label}
+          style={{ width: '80%' }}
+          onSelect={(value: string) => {
+            handleChange(value as YearSeason);
+          }}
+          options={years}
+        />
+      )}
     </div>
   );
 };

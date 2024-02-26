@@ -3,20 +3,21 @@ import { useEffect, useState } from 'react';
 import { post } from '../../fetch.ts';
 import { ReviewList, ReviewRow } from './ReviewList.ts';
 import ReviewYear from './components/ReviewYear/ReviewYear.tsx';
-import { Group, ReviewFilter, Season, Year, YearSeason } from './ReviewFitler.ts';
+import { Group, ReviewFilter, Season, YearSeason } from './ReviewFitler.ts';
 import ReviewGroupSelect from './components/ReviewGroupSelect/ReviewGroupSelect.tsx';
 import ReviewTable from './components/ReviewTable/ReviewTable.tsx';
 import { message } from 'antd';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentSeason } from '../../utils/GetYearSeason/getReviewYear.ts';
 
 const Review = () => {
   const [reviewFilter, setReviewFilter] = useState<ReviewFilter>({
     grade: '',
     group: Group.Product,
     school: '',
-    season: Season.Autumn,
+    season: getCurrentSeason(),
     status: '',
-    year: Year.Y2023,
+    year: new Date().getFullYear(),
   });
 
   const changeYear = (value: YearSeason) => {
