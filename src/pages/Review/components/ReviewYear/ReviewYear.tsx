@@ -10,14 +10,6 @@ type ReviewYearProps = {
 
 const ReviewYear: React.FC<ReviewYearProps> = ({ changeYear }) => {
   const years = useMemo(() => generateYears(), []);
-  // const seasons = useMemo(() => [Season.Spring, Season.Autumn], []);
-  // const chineseSeasons = {
-  //   [Season.Spring]: '春招',
-  //   [Season.Autumn]: '秋招',
-  // };
-  // const getYear = useCallback((year: Year, season: Season): YearSeason => {
-  //   return `${year}${season}`;
-  // }, []);
 
   const handleChange = useCallback(
     (value: YearSeason) => {
