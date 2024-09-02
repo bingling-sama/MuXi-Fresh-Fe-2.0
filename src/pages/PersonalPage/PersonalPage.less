@@ -1,322 +1,317 @@
 .personalPage-wrap {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  .back-btn-box {
+    position: absolute;
+    z-index: 999;
+    top: 3%;
+    left: 3%;
+    display: flex;
+    align-items: center;
+    width: 36px;
+    border-radius: 8px;
+    padding: 8px;
+    background-color: #ffc93f;
+    cursor: pointer;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .header-box {
+    width: 100%;
+    position: relative;
+    z-index: -1;
+
+    .background-box {
+      width: 100%;
+      overflow: hidden;
+      clip-path: ellipse(77% 88% at 50% 0%);
+      margin-top: -14%;
+
+      img {
+        transform: translate(-7%, 5%);
+        max-height: 80%;
+        width: 120%;
+      }
+    }
+
+    .title-box {
+      position: absolute;
+      font-size: 24px;
+      top: 5%;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
+  .ant-upload-wrapper {
+    position: relative;
+    z-index: 1;
+    margin-top: -25%;
+    width: 35vw;
+    align-self: center;
+    display: flex;
+    justify-content: center;
+
+    .avatar-box {
+      img {
+        max-width: 100%;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .info-box1 {
+    .nickname-box,
+    .email-box {
+      text-align: center;
+    }
+
+    .nickname-box {
+      font-size: 24px;
+      color: #413e55;
+    }
+
+    .email-box {
+      margin-top: 8px;
+      color: #7781bc;
+    }
+  }
+
+  .info-box2 {
+    display: flex;
+    justify-content: center;
+    gap: 6vw;
+
+    .info-box2-box1,
+    .info-box2-box2 {
+      margin-top: 32px;
+      padding: 16px 0;
+      display: flex;
+      flex-direction: column;
+      width: 40vw;
+      background-color: aliceblue;
+      align-items: center;
+      gap: 12px;
+      border-radius: 16px;
+
+      .box-logo {
+        width: 20vw;
+      }
+
+      .box-title {
+        color: #413e55;
+      }
+
+      .box-content {
+        color: #fff;
+      }
+    }
+
+    .info-box2-box1 {
+      background-color: #ffacc0;
+    }
+
+    .info-box2-box2 {
+      background-color: #ffbf7f;
+    }
+  }
+
+  .change-info-box {
+    margin-top: 32px;
+    align-self: center;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 86vw;
+    background: #ffffff;
+    box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 20px 20px 20px 20px;
+    opacity: 1;
+    font-size: 20px;
+    color: #413e55;
+    gap: 16px;
+    padding: 2vh 3vw;
 
-    .back-btn-box {
-        position: absolute;
-        z-index: 999;
-        top: 3%;
-        left: 3%;
-        display: flex;
-        align-items: center;
-        width: 36px;
-        border-radius: 8px;
-        padding: 8px;
-        background-color: #FFC93F;
-        cursor: pointer;
+    .change-studentId-box,
+    .change-email-box,
+    .change-password-box {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-left: 10%;
 
-        img {
-            width: 100%;
-        }
+      .box-title {
+        font-size: 16px;
+        color: #413e55;
+      }
     }
 
-    .header-box {
-        width: 100%;
-        position: relative;
-        z-index: -1;
-
-        .background-box {
-            width: 100%;
-            overflow: hidden;
-            clip-path: ellipse(77% 88% at 50% 0%);
-            margin-top: -14%;
-
-            img {
-                transform: translate(-7%, 5%);
-                max-height: 80%;
-                width: 120%;
-            }
-        }
-
-        .title-box {
-            position: absolute;
-            font-size: 24px;
-            top: 5%;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
+    .change-studentId-box {
+      .box-logo {
+        width: 10vw;
+      }
     }
 
-    .ant-upload-wrapper {
-        position: relative;
-        z-index: 1;
-        margin-top: -25%;
-        width: 35vw;
-        align-self: center;
-        display: flex;
-        justify-content: center;
-
-        .avatar-box {
-            img {
-                max-width: 100%;
-                border-radius: 50%;
-            }
-        }
+    .change-email-box {
+      .box-logo {
+        margin-left: 1vw;
+        width: 8vw;
+      }
     }
 
-    .info-box1 {
-
-        .nickname-box,
-        .email-box {
-            text-align: center;
-        }
-
-        .nickname-box {
-            font-size: 24px;
-            color: #413E55;
-        }
-
-        .email-box {
-            margin-top: 8px;
-            color: #7781BC;
-        }
+    .change-password-box {
+      .box-logo {
+        margin-left: 1vw;
+        width: 8vw;
+      }
     }
-
-    .info-box2 {
-        display: flex;
-        justify-content: center;
-        gap: 6vw;
-
-        .info-box2-box1,
-        .info-box2-box2 {
-            margin-top: 32px;
-            padding: 16px 0;
-            display: flex;
-            flex-direction: column;
-            width: 40vw;
-            background-color: aliceblue;
-            align-items: center;
-            gap: 12px;
-            border-radius: 16px;
-
-            .box-logo {
-                width: 20vw;
-            }
-
-            .box-title {
-                color: #413E55;
-            }
-
-            .box-content {
-                color: #fff
-            }
-        }
-
-        .info-box2-box1 {
-            background-color: #FFACC0;
-        }
-
-        .info-box2-box2 {
-            background-color: #FFBF7F;
-        }
-    }
-
-    .change-info-box {
-        margin-top: 32px;
-        align-self: center;
-        display: flex;
-        flex-direction: column;
-        width: 86vw;
-        background: #FFFFFF;
-        box-shadow: 0px 4px 16px 0px rgba(0, 0, 0, 0.1);
-        border-radius: 20px 20px 20px 20px;
-        opacity: 1;
-        font-size: 20px;
-        color: #413E55;
-        gap: 16px;
-        padding: 2vh 3vw;
-
-
-        .change-studentId-box,
-        .change-email-box,
-        .change-password-box {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-left: 10%;
-
-            .box-title {
-                font-size: 16px;
-                color: #413E55;
-            }
-        }
-
-        .change-studentId-box {
-            .box-logo {
-                width: 10vw;
-            }
-        }
-
-        .change-email-box {
-            .box-logo {
-                margin-left: 1vw;
-                width: 8vw;
-            }
-        }
-
-        .change-password-box {
-            .box-logo {
-                margin-left: 1vw;
-                width: 8vw;
-            }
-        }
-    }
+  }
 }
 
 .mobile-studentId-modal {
+  display: flex;
+  flex-direction: column;
+
+  .studentId-box,
+  .password-box {
+    margin-top: 32px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 
-    .studentId-box,
-    .password-box {
-        margin-top: 32px;
-        display: flex;
-        align-items: center;
-
-        .box-label {
-            width: 96px;
-            font-size: medium;
-            color: #505050;
-        }
-
-        .input-field {
-            font-size: me;
-            width: 350px;
-            margin-right: 16px;
-        }
+    .box-label {
+      width: 96px;
+      font-size: medium;
+      color: #505050;
     }
 
-    .password-box {
-        margin: 24px 0;
+    .input-field {
+      font-size: me;
+      width: 350px;
+      margin-right: 16px;
     }
+  }
 
+  .password-box {
+    margin: 24px 0;
+  }
 }
 
 .mobile-email-modal {
+  display: flex;
+  flex-direction: column;
+
+  .email-box {
+    margin-top: 32px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 
-    .email-box {
-        margin-top: 32px;
-        display: flex;
-        align-items: center;
-
-        .box-label {
-            width: 96px;
-            font-size: medium;
-            color: #505050;
-        }
-
-
-        .input-field {
-            font-size: medium;
-            width: 350px;
-            margin-right: 16px;
-        }
+    .box-label {
+      width: 96px;
+      font-size: medium;
+      color: #505050;
     }
 
-    .verifyCode-box {
-        margin: 24px 0;
-        display: flex;
-        align-items: center;
-
-        .box-label {
-            width: 96px;
-            font-size: medium;
-            color: #505050;
-        }
-
-        .input-field {
-            font-size: medium;
-            width: 100px;
-            margin-right: 16px;
-        }
-
-        .get-verifyCode-btn {
-            background-color: #ffaf24;
-            font-size: small;
-            color: #fff;
-            padding: 6px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .countdown-box {
-            background-color: #808080;
-            font-size: small;
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 8px;
-        }
+    .input-field {
+      font-size: medium;
+      width: 350px;
+      margin-right: 16px;
     }
+  }
+
+  .verifyCode-box {
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+
+    .box-label {
+      width: 96px;
+      font-size: medium;
+      color: #505050;
+    }
+
+    .input-field {
+      font-size: medium;
+      width: 100px;
+      margin-right: 16px;
+    }
+
+    .get-verifyCode-btn {
+      background-color: #ffaf24;
+      font-size: small;
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .countdown-box {
+      background-color: #808080;
+      font-size: small;
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 8px;
+    }
+  }
 }
 
 .mobile-password-modal {
+  display: flex;
+  flex-direction: column;
+
+  .password-box {
+    margin-top: 32px;
     display: flex;
-    flex-direction: column;
+    align-items: center;
 
-    .password-box {
-        margin-top: 32px;
-        display: flex;
-        align-items: center;
-
-        .box-label {
-            width: 96px;
-            font-size: medium;
-            color: #505050;
-        }
-
-        .input-field {
-            font-size: medium;
-            width: 350px;
-            margin-right: 16px;
-        }
+    .box-label {
+      width: 96px;
+      font-size: medium;
+      color: #505050;
     }
 
-    .verifyCode-box {
-        margin: 24px 0;
-        display: flex;
-        align-items: center;
-
-        .box-label {
-            width: 96px;
-            font-size: medium;
-            color: #505050;
-        }
-
-        .input-field {
-            font-size: small;
-            width: 100px;
-            margin-right: 16px;
-        }
-
-        .get-verifyCode-btn {
-            background-color: #ffaf24;
-            font-size: small;
-            color: #fff;
-            padding: 6px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .countdown-box {
-            background-color: #808080;
-            font-size: small;
-            color: #fff;
-            padding: 6px 18px;
-            border-radius: 8px;
-        }
+    .input-field {
+      font-size: medium;
+      width: 350px;
+      margin-right: 16px;
     }
+  }
+
+  .verifyCode-box {
+    margin: 24px 0;
+    display: flex;
+    align-items: center;
+
+    .box-label {
+      width: 96px;
+      font-size: medium;
+      color: #505050;
+    }
+
+    .input-field {
+      font-size: small;
+      width: 100px;
+      margin-right: 16px;
+    }
+
+    .get-verifyCode-btn {
+      background-color: #ffaf24;
+      font-size: small;
+      color: #fff;
+      padding: 6px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .countdown-box {
+      background-color: #808080;
+      font-size: small;
+      color: #fff;
+      padding: 6px 18px;
+      border-radius: 8px;
+    }
+  }
 }

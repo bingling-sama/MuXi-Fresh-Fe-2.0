@@ -8,7 +8,7 @@ export interface ReviewFilter {
 }
 
 export enum Group {
-  Android = 'Android',
+  // Android = 'Android',
   Backend = 'Backend',
   Design = 'Design',
   Frontend = 'Frontend',

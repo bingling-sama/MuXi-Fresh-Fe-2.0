@@ -12,6 +12,7 @@ export default defineConfig({
       '/api': {
         target: 'https://fresh-be.muxixyz.com',
         changeOrigin: true,
+        secure: false,
         // rewrite: (path) => path.replace(/^\/api/, '')
       },
     },

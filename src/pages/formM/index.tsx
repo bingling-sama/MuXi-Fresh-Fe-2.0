@@ -563,6 +563,7 @@ const FormForMobile: React.FC = () => {
           size="large"
           onChange={(e) => setgrade(e)}
         >
+          <Select.Option value="2024">2024</Select.Option>
           <Select.Option value="2023">2023</Select.Option>
           <Select.Option value="2022">2022</Select.Option>
           <Select.Option value="2021">2021</Select.Option>
@@ -671,7 +672,7 @@ const FormForMobile: React.FC = () => {
             <Select.Option value="Design">设计组</Select.Option>
             <Select.Option value="Frontend">前端组</Select.Option>
             <Select.Option value="Backend">后端组</Select.Option>
-            <Select.Option value="Android">安卓组</Select.Option>
+            {/* <Select.Option value="Android">安卓组</Select.Option> */}
           </Select>
         </div>
         <div className="term_detail_box_formM">

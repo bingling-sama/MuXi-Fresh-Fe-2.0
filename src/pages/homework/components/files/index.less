@@ -1,84 +1,84 @@
 @import '../../../../styles/homework_index.less';
 .file-pre {
-    .file-f-common;
-    width: 80%;
-    height: 8vh;
-    border-radius: 10px;
-    background-color: @gray-200;
-    margin: 1vh auto;
-    padding: 1vh;
-    box-shadow: @box-shadow;
-    .file-text {
-        margin: 2px 2px 2px 2vh;
-        font-size: 2vh;
-        align-items: center;
-        display: flex;
-        color: @blue;
-    }
+  .file-f-common;
+  width: 80%;
+  height: 8vh;
+  border-radius: 10px;
+  background-color: @gray-200;
+  margin: 1vh auto;
+  padding: 1vh;
+  box-shadow: @box-shadow;
+  .file-text {
+    margin: 2px 2px 2px 2vh;
+    font-size: 2vh;
+    align-items: center;
+    display: flex;
+    color: @blue;
+  }
 }
 .file-success {
-    position: absolute;
-    right: 5%;
-    top: 50%;
-    transform: translateY(-50%);
-    display: flex;
-    align-items: center;
-    color: #1afa29;
-    img {
-        width: 20px;
-        height: 20px;
-    }
+  position: absolute;
+  right: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  color: #1afa29;
+  img {
+    width: 20px;
+    height: 20px;
+  }
 }
 .file {
-    .file-icon {
-        color: @gray-500;
-        margin: 2px 2px 2px 4px;
-    }
-    .file-f-common;
+  .file-icon {
+    color: @gray-500;
+    margin: 2px 2px 2px 4px;
+  }
+  .file-f-common;
 }
 .file-f-common {
-    position: relative;
-    display: flex;
-    width: 92%;
+  position: relative;
+  display: flex;
+  width: 92%;
+  align-items: center;
+  border-radius: 3px;
+  margin-top: 2%;
+  cursor: pointer;
+  a {
+    width: 90%;
+    height: 100%;
+  }
+  .file-text {
+    margin: 2px 2px 2px 4px;
+    overflow-x: auto;
+    font-size: 0.9vh;
     align-items: center;
-    border-radius: 3px;
-    margin-top: 2% ;
-    cursor: pointer;
-    a {
-        width: 90%;
-        height: 100%;
-    }
-    .file-text {
-        margin: 2px 2px 2px 4px;
-        overflow-x: auto;
-        font-size: .9vh;
-        align-items: center;
-        display: flex;
-        color: @blue;
-    }
-    &:hover {
-        .colorChange(.3s);
-    }
+    display: flex;
+    color: @blue;
+  }
+  &:hover {
+    .colorChange(0.3s);
+  }
 }
 .tag-content {
-    //width: 61.4%;
-    .empty-files {
-        width: 61.4%;
-        margin-left: 3%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        font-size: 4vh ;
-        background-color: @white;
-        height: 10vh;
-        border-radius: 7px;
-        border: 1px dashed @gray-200;
-        .empty-files-text {
-            font-size: 2vh;
-        }
+  //width: 61.4%;
+  .empty-files {
+    width: 61.4%;
+    margin-left: 3%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 4vh;
+    background-color: @white;
+    height: 10vh;
+    border-radius: 7px;
+    border: 1px dashed @gray-200;
+    .empty-files-text {
+      font-size: 2vh;
     }
+  }
 }
 .file-file-mobile .empty-files {
-    width: 100%;
+  width: 100%;
 }

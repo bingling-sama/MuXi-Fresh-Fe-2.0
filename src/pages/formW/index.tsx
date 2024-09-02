@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { get, put, post } from '../../fetch';
 import './index.less';
-import { ConfigProvider, message, Radio, Upload } from 'antd';
+import { ConfigProvider, message, Radio, Tooltip, Upload } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
@@ -29,8 +29,8 @@ const FormForWeb: React.FC = () => {
     qq: '',
     phone: '',
   }); //联系方式内容
-  const [contactWayselect1, setcontactWayselect1] = useState('联系方式1'); //联系方式1
-  const [contactWayselect2, setcontactWayselect2] = useState('联系方式2'); //联系方式2
+  const [contactWayselect1, setcontactWayselect1] = useState('电话'); //联系方式1
+  const [contactWayselect2, setcontactWayselect2] = useState('邮箱'); //联系方式2
   const [reason, setreason] = useState(''); //心动原因
   const [knowledge, setknowledge] = useState(''); //组别了解
   const [wantGroup, setwantGroup] = useState(''); //心动组别
@@ -41,7 +41,7 @@ const FormForWeb: React.FC = () => {
   const chineseDict: { [key: string]: string } = {
     male: '男生',
     female: '女生',
-    Android: '安卓组',
+    // Android: '安卓组',
     Backend: '后端组',
     Design: '设计组',
     Frontend: '前端组',
@@ -326,6 +326,30 @@ const FormForWeb: React.FC = () => {
     }
   }, []);
 
+  const options = [
+    {
+      value: 'Product',
+      label: '产品组',
+      content: '引领头脑风暴，洞察市场需求，掌舵团队运营',
+    },
+    {
+      value: 'Design',
+      label: '设计组',
+      content: '以美学之名，精雕细琢，呈现精美严谨的交互界面',
+    },
+    {
+      value: 'Frontend',
+      label: '前端组',
+      content: '基于浏览器内核开发跨平台、跨终端的应用软件',
+    },
+    {
+      value: 'Backend',
+      label: '后端组',
+      content: '后端服务、服务器运维、保障木犀产品长治久安',
+    },
+    // { value: 'Android', label: '安卓组' },
+  ];
+
   return (
     <div className="FormWebpage">
       <ConfigProvider
@@ -434,6 +458,7 @@ const FormForWeb: React.FC = () => {
                         value={grade}
                         onChange={(e) => setgrade(e)}
                         options={[
+                          { value: '2024', label: '2024' }, //新增
                           { value: '2023', label: '2023' },
                           { value: '2022', label: '2022' },
                           { value: '2021', label: '2021' },
@@ -655,7 +680,7 @@ const FormForWeb: React.FC = () => {
                     className="select_formweb"
                     value={chineseDict[wantGroup]}
                     readOnly={true}
-                  ></Input>
+                  />
                 ) : (
                   <Space wrap>
                     <Select
@@ -664,13 +689,54 @@ const FormForWeb: React.FC = () => {
                       id="GroupSelect"
                       value={wantGroup}
                       onChange={(e) => setwantGroup(e)}
-                      options={[
-                        { value: 'Product', label: '产品组' },
-                        { value: 'Design', label: '设计组' },
-                        { value: 'Frontend', label: '前端组' },
-                        { value: 'Backend', label: '后端组' },
-                        { value: 'Android', label: '安卓组' },
-                      ]}
+                      options={options.map((option) => ({
+                        value: option.value,
+                        label: (
+                          <Tooltip
+                            overlayInnerStyle={{
+                              boxShadow: 'none', // 移除 Tooltip 自带的阴影
+                              border: 'none', // 移除 Tooltip 自带的边框
+                              backgroundColor: 'white', // 设置 Tooltip 的背景色
+                            }}
+                            arrow={false} // 隐藏箭头
+                            title={
+                              <div
+                                style={{
+                                  width: '250px',
+                                  backgroundColor: 'white', // 设置背景为白色
+                                  padding: '10px', // 添加内边距使内容不贴边
+                                  borderRadius: '4px', // 添加圆角
+                                  boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)', // 添加阴影使其更明显
+                                }}
+                              >
+                                <strong
+                                  style={{
+                                    display: 'block',
+                                    textAlign: 'center', // 设置标题居中
+                                    color: 'grey',
+                                  }}
+                                >
+                                  {option.label}
+                                </strong>
+                                <div
+                                  style={{
+                                    maxWidth: '250px', // 设置 Tooltip 最大宽度
+                                    whiteSpace: 'pre-wrap', // 允许跨行显示
+                                    overflowY: 'auto', // 使内容可滚动
+                                    maxHeight: '100px', // 限制 Tooltip 最大高度
+                                    color: 'grey',
+                                  }}
+                                >
+                                  {option.content}
+                                </div>
+                              </div>
+                            }
+                            placement="right"
+                          >
+                            <div>{option.label}</div>
+                          </Tooltip>
+                        ),
+                      }))}
                     />
                   </Space>
                 )}

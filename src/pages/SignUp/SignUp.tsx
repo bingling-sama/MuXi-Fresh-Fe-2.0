@@ -116,6 +116,11 @@ const SignUp: React.FC = () => {
           <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
           <div className="header-title">MUXI</div>
         </div>
+        <img
+          className="logo"
+          src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'}
+          alt=""
+        />
         <div className="signUp-form">
           <div className={`email-box ${!isEmail ? 'email-tooltip' : ''}`}>
             <div className="box-label">邮箱:</div>

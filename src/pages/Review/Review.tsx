@@ -6,7 +6,7 @@ import ReviewYear from './components/ReviewYear/ReviewYear.tsx';
 import { Group, ReviewFilter, Season, YearSeason } from './ReviewFitler.ts';
 import ReviewGroupSelect from './components/ReviewGroupSelect/ReviewGroupSelect.tsx';
 import ReviewTable from './components/ReviewTable/ReviewTable.tsx';
-import { message } from 'antd';
+import { message, Pagination } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { getCurrentSeason } from '../../utils/GetYearSeason/getReviewYear.ts';
 
@@ -19,6 +19,12 @@ const Review = () => {
     status: '',
     year: new Date().getFullYear(),
   });
+  const [reviewList, setReviewList] = useState<ReviewRow[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [currentPage, setCurrentPage] = useState<number>(1); // 当前页
+  const [totalItems, setTotalItems] = useState<number>(0); // 总记录数
+
+  const navigate = useNavigate();
 
   const changeYear = (value: YearSeason) => {
     if (value) {
@@ -37,15 +43,21 @@ const Review = () => {
     }));
   };
 
-  const navigate = useNavigate();
-  const [reviewList, setReviewList] = useState<ReviewRow[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    setReviewFilter((preReviewFilter) => ({
+      ...preReviewFilter,
+      page: page, // 添加页码参数
+    }));
+  };
+
   useEffect(() => {
     setLoading(true);
-    post('/review/', reviewFilter)
+    post('/review/', { ...reviewFilter, page: currentPage })
       .then((r: ReviewList) => {
-        const { rows } = r.data;
+        const { rows, total } = r.data;
         setReviewList(rows);
+        setTotalItems(total); // 更新总记录数
         setLoading(false);
       })
       .catch((e: Error) => {
@@ -59,7 +71,7 @@ const Review = () => {
         }
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reviewFilter]);
+  }, [reviewFilter, currentPage]);
 
   return (
     <div className={'reviewContent'}>
@@ -68,9 +80,17 @@ const Review = () => {
         <ReviewGroupSelect reviewFilter={reviewFilter} changeGroup={changeGroup} />
       </div>
       <div className={'reviewList'}>
-        <ReviewTable reviewList={reviewList} loading={loading}></ReviewTable>
+        <ReviewTable reviewList={reviewList} loading={loading} />
+        <Pagination
+          current={currentPage}
+          total={totalItems}
+          pageSize={10} // 每页显示的记录数
+          onChange={handlePageChange}
+          showSizeChanger={false} // 是否显示页面尺寸切换器
+        />
       </div>
     </div>
   );
 };
+
 export default Review;
