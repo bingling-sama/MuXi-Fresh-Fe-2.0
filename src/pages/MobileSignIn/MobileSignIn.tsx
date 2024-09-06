@@ -27,8 +27,7 @@ const MobileSignIn: React.FC = () => {
 
   useEffect(() => {
     navigate('/app');
-  }, [navigate]); 
-  
+  }, [navigate]);
 
   useEffect(() => {
     if (isSend) {

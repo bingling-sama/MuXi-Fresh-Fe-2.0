@@ -11,18 +11,18 @@
   .reviewList {
     width: 70vw;
     height: 80vh;
-    min-height: 765px;
+    min-height: 700px;
     background-color: #ffffff;
     box-shadow: 0 5px 10px #d4d4d4;
     border-radius: 0.5vw;
     position: relative;
     padding-bottom: 50px; /* 为分页器腾出空间，避免覆盖内容 */
+    overflow-y: scroll;
 
     .ant-pagination {
       position: absolute;
       bottom: 20px; /* 距离底部的间距 */
       left: 50%;
-      transform: translateX(-50%); /* 水平居中对齐 */
     }
   }
 }
