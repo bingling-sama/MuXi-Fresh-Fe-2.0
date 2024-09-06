@@ -1,83 +1,82 @@
 @import '../../../../styles/homework_index.less';
 
 .upload-wrap {
-    width: 64vw;
-    height: 80vh;
-    .card;
-    .upload-title {
-        .upload-title;
-    };
+  width: 64vw;
+  height: 80vh;
+  .card;
+  .upload-title {
+    .upload-title;
+  }
 }
 .card {
-    background: #FFFFFF;
-    box-shadow: @box-shadow;
-    border-radius: 7px 7px 7px 7px;
-    opacity: 1;
-    margin-left: 22px;
-    margin-top: 20px;
-    position: relative;
-    overflow: hidden;
+  background: #ffffff;
+  box-shadow: @box-shadow;
+  border-radius: 7px 7px 7px 7px;
+  opacity: 1;
+  margin-left: 22px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
 }
 .upload-title {
-    margin-left: 4%;
-    margin-top: 20px;
-    position: relative;
-    .upload-title-text {
-        font-size: 1.4vw;
-        font-weight: 400;
-        margin-bottom: 10px;
-        width: 10vw;
-        .dashin(.4s,horizontal);
-        .upload-status {
-            position: absolute;
-            left: 6vw;
-            top:50%;
-            font-size: medium;
-            color: @gray-500;
-            transform: translate(100%,-50%);
-        }
+  margin-left: 4%;
+  margin-top: 20px;
+  position: relative;
+  .upload-title-text {
+    font-size: 1.4vw;
+    font-weight: 400;
+    margin-bottom: 10px;
+    width: 10vw;
+    .dashin(0.4s,horizontal);
+    .upload-status {
+      position: absolute;
+      left: 6vw;
+      top: 50%;
+      font-size: medium;
+      color: @gray-500;
+      transform: translate(100%, -50%);
     }
-    
-    .upload-title-deco {
-        width: 100px;
-        height: 4px;
-        background: #F79B2E;
-        opacity: 1;
-        margin-bottom: 20px;
-        .shrink(0.4s,horizontal);
-    }
+  }
+
+  .upload-title-deco {
+    width: 100px;
+    height: 4px;
+    background: #f79b2e;
+    opacity: 1;
+    margin-bottom: 20px;
+    .shrink(0.4s,horizontal);
+  }
 }
 .upload-upload {
-    height: 60vh;
-    // width: 64vw;
-    overflow-y: auto;
-    overflow-x: hidden;
+  height: 60vh;
+  // width: 64vw;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  .inp {
+    margin-left: 8%;
     position: relative;
-    .inp {
-        margin-left: 8%;
-        position: relative;
-        .dashin(.6s, horizontal);
-        margin-top: 0;
-        margin-bottom: 0;
-        grid-template-columns: 8% 1fr;
-        .file {
-            margin-left: 2%;
-            width: 62%;
-            margin-top: 1.4vh;
-        }
-        .tag-name {
-            color: @gray-600 !important;
-            text-align: center;
-        }
+    .dashin(0.6s, horizontal);
+    margin-top: 0;
+    margin-bottom: 0;
+    grid-template-columns: 8% 1fr;
+    .file {
+      margin-left: 2%;
+      width: 62%;
+      margin-top: 1.4vh;
     }
-    
+    .tag-name {
+      color: @gray-600 !important;
+      text-align: center;
+    }
+  }
 }
 .more {
-    margin-top: 0;
-    margin-bottom: 0 ;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .submit-page {
-    position:absolute;
-    bottom: 4%;
-    left: 86%;
+  position: absolute;
+  bottom: 4%;
+  left: 86%;
 }

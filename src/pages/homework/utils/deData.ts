@@ -17,10 +17,10 @@ export const defData: dataType[] = [
     key: '后端组',
     value: 'Backend',
   },
-  {
-    key: '安卓组',
-    value: 'Android',
-  },
+  // {
+  //   key: '安卓组',
+  //   value: 'Android',
+  // },
 ];
 
 export const root = 'https://ossfresh-test.muxixyz.com/';

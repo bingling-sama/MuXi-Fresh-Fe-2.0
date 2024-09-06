@@ -25,7 +25,7 @@ const MobileProgress: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const chineseGroups: { [key in Group]: string } = {
-    Android: '安卓组',
+    // Android: '安卓组',
     Backend: '后端组',
     Design: '设计组',
     Frontend: '前端组',

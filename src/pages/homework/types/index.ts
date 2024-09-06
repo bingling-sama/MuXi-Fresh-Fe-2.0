@@ -6,7 +6,8 @@ export interface backType<T> {
   data: T;
 }
 
-export type GroupType = 'Product' | 'Design' | 'Frontend' | 'Backend' | 'Android';
+export type GroupType = 'Product' | 'Design' | 'Frontend' | 'Backend';
+// | 'Android'
 
 export type taskListType = {
   id: string;

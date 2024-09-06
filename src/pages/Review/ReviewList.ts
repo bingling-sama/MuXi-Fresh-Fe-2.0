@@ -27,6 +27,7 @@ export interface ReviewList {
   code: 0;
   msg: 'OK';
   data: {
+    total: number;
     rows: ReviewRow[];
   };
 }

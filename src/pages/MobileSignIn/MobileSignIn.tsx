@@ -26,8 +26,9 @@ const MobileSignIn: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    getCodeImg();
-  }, []);
+    navigate('/app');
+  }, [navigate]); 
+  
 
   useEffect(() => {
     if (isSend) {

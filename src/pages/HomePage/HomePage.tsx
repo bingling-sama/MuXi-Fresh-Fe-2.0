@@ -32,7 +32,6 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
   const [newEmail, setNewEmail] = useState('');
   const [verifyCode, setVerifyCode] = useState('');
   const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
-
   const [studentId, setStudentId] = useState('');
   const [password, setPassword] = useState('');
   const [isIdModalOpen, setIsIdModalOpen] = useState(false);
@@ -175,6 +174,14 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
             <div className="box-content">{userInfo.school || '待补充'}</div>
           )}
         </div>
+        <div className="group-box">
+          <div className="box-title">组别:</div>
+          {isLoading ? (
+            <Spin />
+          ) : (
+            <div className="box-content">{userInfo.school || '待补充'}</div>
+          )}
+        </div>
         <div className="account-box">
           <div className="box-title">学号:</div>
           {isLoading ? (
@@ -202,7 +209,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           )}
         </div>
         <div className="change-info-btn" onClick={changeEditState}>
-          修改信息
+          个人信息
         </div>
       </div>
       <Modal
@@ -312,6 +319,11 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
   const changeSchool = (value: string) => {
     const school = value;
     setUserInfo({ ...userInfo, school });
+  };
+
+  const changeGroup = (value: string) => {
+    const group = value;
+    setUserInfo({ ...userInfo, group });
   };
 
   const changeQQ = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -472,6 +484,21 @@ const EditInfo = ({ changeEditState }: { changeEditState: () => void }) => {
             value={userInfo.school}
             options={schoolData}
             onChange={changeSchool}
+          />
+        </div>
+        <div className="group-box">
+          <div className="box-title">组别:</div>
+          <Select
+            className="box-content"
+            defaultValue="请选择组别"
+            value={userInfo.group}
+            options={[
+              { value: 'Product', label: '产品组' },
+              { value: 'Design', label: '设计组' },
+              { value: 'Frontend', label: '前端组' },
+              { value: 'Backend', label: '后端组' },
+            ]}
+            onChange={changeGroup}
           />
         </div>
         <div className="account-box">

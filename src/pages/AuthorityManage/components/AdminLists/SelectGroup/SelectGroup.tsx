@@ -1,30 +1,28 @@
-import './ReviewGroupSelect.less';
+import './SelectGroup.less';
 import React, { useCallback, useMemo, useState } from 'react';
-import { Group, ReviewFilter } from '../../ReviewFitler.ts';
+import { Group, AdminFilter } from '../../../AdminFilter';
 import { ConfigProvider, Menu } from 'antd';
 
 type ReviewGroupSelectProps = {
-  reviewFilter: ReviewFilter;
+  adminFilter: AdminFilter;
   changeGroup(group: Group): void;
 };
 
-const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
-  reviewFilter,
-  changeGroup,
-}) => {
+const SelectGroup: React.FC<ReviewGroupSelectProps> = ({ adminFilter, changeGroup }) => {
   const groups = useMemo(
-    () => [Group.Product, Group.Frontend, Group.Backend, Group.Design],
+    () => [Group.All, Group.Product, Group.Frontend, Group.Backend, Group.Design],
     [],
   );
   const chineseGroups: { [key in Group]: string } = {
     // Android: '安卓组',
+    All: '全部',
     Backend: '后端组',
     Design: '设计组',
     Frontend: '前端组',
     Product: '产品组',
   };
 
-  const [selectedGroup, setSelectedGroup] = useState<Group>(reviewFilter.group);
+  const [selectedGroup, setSelectedGroup] = useState<Group>(adminFilter.group);
 
   const handleChange = useCallback(
     (group: Group) => {
@@ -36,7 +34,7 @@ const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
 
   return (
     <div className={'reviewGroupSelect'}>
-      <div className={'reviewGroupSelectTitle'}>成员分组</div>
+      <div className={'reviewGroupSelectTitle'}>选择组别</div>
       <ConfigProvider
         theme={{
           components: {
@@ -47,7 +45,7 @@ const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
         }}
       >
         <Menu
-          mode="inline"
+          // mode="inline"
           selectedKeys={[selectedGroup]}
           onClick={(e) => handleChange(e.key as Group)}
           items={groups.map((group) => ({
@@ -55,11 +53,11 @@ const ReviewGroupSelect: React.FC<ReviewGroupSelectProps> = ({
             title: chineseGroups[group],
             label: <div className={'reviewGroups'}>{chineseGroups[group]}</div>,
           }))}
-          style={{ height: '400px' }}
+          style={{ height: '400px', textAlign: 'center' }}
         />
       </ConfigProvider>
     </div>
   );
 };
 
-export default ReviewGroupSelect;
+export default SelectGroup;

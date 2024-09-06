@@ -49,4 +49,3 @@
 然后通过**commitlint**进行提交规范的检查，`git commit -m "<type>(<scope>): <subject>"`
 
 [commit规范](https://juejin.cn/post/7091276495972204580)
-

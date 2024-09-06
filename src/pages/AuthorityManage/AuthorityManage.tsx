@@ -5,13 +5,31 @@ import { get, post } from '../../fetch.ts';
 import { AdminList, AdminRow, ChangeUserType } from './AdminList.ts';
 import AdminLists from './components/AdminLists/AdminLists.tsx';
 import { useNavigate } from 'react-router-dom';
+import SelectGroup from './components/AdminLists/SelectGroup/SelectGroup.tsx';
+import { AdminFilter, Group } from './AdminFilter.ts';
 
 const AuthorityManage = () => {
+  const [adminFilter, setAdminFilter] = useState<AdminFilter>({
+    grade: '',
+    group: Group.Product,
+    school: '',
+    status: '',
+  });
   const [superAdmin, setSuperAdmin] = useState<AdminRow[]>([]);
   const [admin, setAdmin] = useState<AdminRow[]>([]);
   const [ordinary, setOrdinary] = useState<AdminRow[]>([]);
 
   const [loading, setLoading] = useState<boolean>(false);
+
+  const changeGroup = (group: Group) => {
+    setAdminFilter((preAdminFilter) => {
+      if (group === 'All') {
+        return preAdminFilter;
+      } else {
+        return { ...preAdminFilter, group: group };
+      }
+    });
+  };
 
   const navigate = useNavigate();
   const getUserList = (
@@ -68,31 +86,36 @@ const AuthorityManage = () => {
   };
 
   return (
-    <div className="authorityManageBox">
-      <div className={'authorityManage'}>
-        <AdminLists
-          header={'超级管理员'}
-          dataSource={superAdmin}
-          user_type={'super_admin'}
-          loading={loading}
-          changeUserIdentity={changeUserIdentity}
-        ></AdminLists>
-        <AdminLists
-          header={'管理员'}
-          dataSource={admin}
-          user_type={'admin'}
-          loading={loading}
-          changeUserIdentity={changeUserIdentity}
-        ></AdminLists>
-        <AdminLists
-          header={'普通成员'}
-          dataSource={ordinary}
-          user_type={'normal'}
-          loading={loading}
-          changeUserIdentity={changeUserIdentity}
-        ></AdminLists>
+    <>
+      <div className="authorityManageBox">
+        <div className="selectGroup">
+          <SelectGroup adminFilter={adminFilter} changeGroup={changeGroup}></SelectGroup>
+        </div>
+        <div className={'authorityManage'}>
+          <AdminLists
+            header={'超级管理员'}
+            dataSource={superAdmin}
+            user_type={'super_admin'}
+            loading={loading}
+            changeUserIdentity={changeUserIdentity}
+          ></AdminLists>
+          <AdminLists
+            header={'管理员'}
+            dataSource={admin}
+            user_type={'admin'}
+            loading={loading}
+            changeUserIdentity={changeUserIdentity}
+          ></AdminLists>
+          <AdminLists
+            header={'普通成员'}
+            dataSource={ordinary}
+            user_type={'normal'}
+            loading={loading}
+            changeUserIdentity={changeUserIdentity}
+          ></AdminLists>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

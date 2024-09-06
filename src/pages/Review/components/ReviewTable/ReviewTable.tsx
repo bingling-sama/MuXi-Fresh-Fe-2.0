@@ -105,6 +105,17 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       sortOrder: sorted.columnKey === 'school' ? sorted.order : null,
     },
     {
+      title: '组别',
+      dataIndex: 'group',
+      key: 'group',
+      filters: schoolFilters,
+      filteredValue: filter.school || null,
+      onFilter: (value, record) => record.group.indexOf(value as string) === 0,
+      filterSearch: true,
+      sorter: (a, b) => a.school.localeCompare(b.school, 'zh-CN'),
+      sortOrder: sorted.columnKey === 'group' ? sorted.order : null,
+    },
+    {
       title: '报名表',
       dataIndex: 'form_id',
       key: 'form_id',

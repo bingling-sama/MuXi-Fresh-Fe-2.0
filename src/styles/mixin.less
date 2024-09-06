@@ -1,122 +1,122 @@
 .shrink(@duration,@direction) {
-    & when (@direction = horizontal) {
-        animation: shrinkX  @duration ease-in-out forwards;
-    }
-    & when (@direction = vertical) {
-        animation: shrinkY @duration ease-in-out forwards;
-    }
+  & when (@direction = horizontal) {
+    animation: shrinkX @duration ease-in-out forwards;
+  }
+  & when (@direction = vertical) {
+    animation: shrinkY @duration ease-in-out forwards;
+  }
 }
 .dashin(@duration, @direction) {
-    & when (@direction = horizontal) {
-        animation: slideX  @duration ease-in-out forwards;
-    }
-    & when (@direction = vertical) {
-        animation: slideY @duration ease-in-out forwards;
-    }
-    & when (@direction = verticalReverse) {
-        animation: slideYReverse @duration ease-in-out forwards;
-    }
+  & when (@direction = horizontal) {
+    animation: slideX @duration ease-in-out forwards;
+  }
+  & when (@direction = vertical) {
+    animation: slideY @duration ease-in-out forwards;
+  }
+  & when (@direction = verticalReverse) {
+    animation: slideYReverse @duration ease-in-out forwards;
+  }
 }
 .pop(@duration) {
-    animation: pop @duration ease-in-out forwards;
+  animation: pop @duration ease-in-out forwards;
 }
 .colorChange(@duration) {
-    animation: colorChange @duration ease-in-out forwards;
+  animation: colorChange @duration ease-in-out forwards;
 }
 @keyframes colorChange {
-    100% {
-        background-color: @gray-300;
-    }
+  100% {
+    background-color: @gray-300;
+  }
 }
 @keyframes pop {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes shrinkX {
-    0% {
-        opacity: 0;
-        width: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+  0% {
+    opacity: 0;
+    width: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 @keyframes shrinkY {
-    0% {
-        height: 0;
-    }
+  0% {
+    height: 0;
+  }
 }
 @keyframes slideX {
-    0% {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes slideY {
-    0% {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes slideYReverse {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .drop-list-common(@width) {
-    .drop-list-wrap {
-        height: 26vh;
-        width: 100%;
-        overflow-y: auto;
-        .drop-item-wrap {
-            width: @width;
-            &:hover {
-                .colorChange(.4s);
-            }
-            .drop-down-list-item {
-                width: @width;
-                height: 3vh;
-                text-align: center;
-                align-items: center;
-                cursor: pointer;
-            }
-        }
+  .drop-list-wrap {
+    height: 26vh;
+    width: 100%;
+    overflow-y: auto;
+    .drop-item-wrap {
+      width: @width;
+      &:hover {
+        .colorChange(0.4s);
+      }
+      .drop-down-list-item {
+        width: @width;
+        height: 3vh;
+        text-align: center;
+        align-items: center;
+        cursor: pointer;
+      }
     }
+  }
 
-    .new-task {
-        width: 99%;
-        border: 1px solid @gray-200;
-        background-color: @orange;
-        color: @white;
-        margin: 3vh auto auto;
-        &:hover {
-            border: 1px solid @orange;
-            color: @orange;
-            animation: colorchange .3s ease-in-out forwards;
-            @keyframes colorchange {
-                100% {
-                    color: @orange;
-                    background-color: #fff;
-                }
-            }
+  .new-task {
+    width: 99%;
+    border: 1px solid @gray-200;
+    background-color: @orange;
+    color: @white;
+    margin: 3vh auto auto;
+    &:hover {
+      border: 1px solid @orange;
+      color: @orange;
+      animation: colorchange 0.3s ease-in-out forwards;
+      @keyframes colorchange {
+        100% {
+          color: @orange;
+          background-color: #fff;
         }
+      }
     }
+  }
 }

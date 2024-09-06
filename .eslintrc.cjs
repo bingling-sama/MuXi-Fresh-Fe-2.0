@@ -2,13 +2,13 @@
 
 module.exports = {
   root: true,
-  env: {browser: true, es2020: true},
+  env: { browser: true, es2020: true },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
     'plugin:react-hooks/recommended',
-    "prettier"
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -19,16 +19,17 @@ module.exports = {
   },
   plugins: ['react-refresh', 'prettier'],
   rules: {
-    'react-refresh/only-export-components': [
-      'warn',
-      {allowConstantExport: true},
-    ],
+    'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     '@typescript-eslint/no-non-null-assertion': 'off',
-    "prettier/prettier": ["error", {}, {
-      usePrettierrc: true,
-      fileInfoOptions: {}
-    }],
-    "arrow-body-style": "off",
-    "prefer-arrow-callback": "off"
+    'prettier/prettier': [
+      'error',
+      {},
+      {
+        usePrettierrc: true,
+        fileInfoOptions: {},
+      },
+    ],
+    'arrow-body-style': 'off',
+    'prefer-arrow-callback': 'off',
   },
-}
+};
