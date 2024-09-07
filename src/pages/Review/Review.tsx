@@ -68,7 +68,9 @@ const Review = () => {
         <ReviewYear changeYear={changeYear} />
         <ReviewGroupSelect reviewFilter={reviewFilter} changeGroup={changeGroup} />
       </div>
-      <ReviewTable reviewList={reviewList} loading={loading} />
+      <div className={'reviewList'}>
+        <ReviewTable reviewList={reviewList} loading={loading} />
+      </div>
     </div>
   );
 };

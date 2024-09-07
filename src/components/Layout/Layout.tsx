@@ -283,7 +283,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                   itemSelectedBg: '#ffaf24',
                   itemSelectedColor: '#fffacc',
                   itemColor: '#fffacc',
-                  itemHeight: 75,
+                  itemHeight: 60,
                 },
               },
             }}
