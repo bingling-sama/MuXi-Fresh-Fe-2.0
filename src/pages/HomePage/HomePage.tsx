@@ -640,6 +640,8 @@ const HomePage: React.FC = () => {
   const onChange: UploadProps<ResponseType>['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
     const response = newFileList[0].response;
+    console.log('response', response?.key);
+
     if (response) {
       const avatar = `https://ossfresh-test.muxixyz.com/${response.key}`;
       const req = {

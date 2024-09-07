@@ -26,6 +26,7 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
   const [avatar, setAvatar] = useState(defaultAvatar);
+  const [selectedMenuKey, setSelectedMenuKey] = useState<string>('/app/form'); // 默认选中的菜单项
 
   useEffect(() => {
     get('/users/my-info').then(
@@ -43,8 +44,10 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
   const location = useLocation();
 
   const navigationClick = (target: string) => {
+    setSelectedMenuKey(target); // 更新选中的菜单项
     navigate(target);
   };
+
   const logOut = () => {
     localStorage.removeItem('token');
     void message.success('退出登录成功');
@@ -74,22 +77,62 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
     },
   ];
 
+  //图标列表
+  const imageIcons: Record<string, string> = {
+    form: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+    progress: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+    homework: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+    review: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+    authority: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+  };
+
+  const changeMenuKey = (value: string) => {
+    console.log('value', value);
+
+    if (selectedMenuKey != value) {
+      setSelectedMenuKey(value);
+    }
+  };
+
   const menus: MenuProps['items'] = [
     {
       key: '/app/form',
       title: '报名表',
-      label: <div className={'layoutLink'}>报名表</div>,
+      label: (
+        <div className="layoutLink" onClick={() => changeMenuKey('/app/form')}>
+          <img src={imageIcons.form} alt="报名表" style={{ width: 25 }} />
+          报名表
+        </div>
+      ),
     },
     {
       key: '/app/progress',
       title: '进度查询',
-      label: <div className={'layoutLink'}>进度查询</div>,
+      label: (
+        <div className="layoutLink" onClick={() => changeMenuKey('/app/progress')}>
+          <img
+            src={imageIcons.progress}
+            alt="进度查询"
+            style={{ width: 25, marginRight: 0 }}
+          />
+          进度查询
+        </div>
+      ),
     },
     isForm === '已交表'
       ? {
           key: '/app/homework',
           title: '作业',
-          label: <div className={'layoutLinkTestTitle'}>作业</div>,
+          label: (
+            <div className="layoutLink">
+              <img
+                src={imageIcons.homework}
+                alt="作业"
+                style={{ width: 25, marginRight: 0 }}
+              />
+              作业
+            </div>
+          ),
           children:
             identity === 'super_admin' || identity === 'admin'
               ? [
@@ -97,7 +140,11 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     key: '/app/homework/admin/new',
                     title: '新作业',
                     label: (
-                      <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
+                      <div
+                        className={'layoutLinkTest'}
+                        style={{ fontSize: '1vw' }}
+                        onClick={() => changeMenuKey('/app/homework')}
+                      >
                         新作业
                       </div>
                     ),
@@ -106,7 +153,11 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     key: '/app/homework/admin/edit',
                     title: '修改作业',
                     label: (
-                      <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
+                      <div
+                        className={'layoutLinkTest'}
+                        style={{ fontSize: '1vw' }}
+                        onClick={() => changeMenuKey('/app/homework')}
+                      >
                         修改作业
                       </div>
                     ),
@@ -115,7 +166,11 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     key: '/app/homework/admin/browse',
                     title: '查看作业',
                     label: (
-                      <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
+                      <div
+                        className={'layoutLinkTest'}
+                        style={{ fontSize: '1vw' }}
+                        onClick={() => changeMenuKey('/app/homework')}
+                      >
                         查看作业
                       </div>
                     ),
@@ -126,7 +181,11 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
                     key: '/app/homework/user/submit',
                     title: '提交作业',
                     label: (
-                      <div className={'layoutLinkTest'} style={{ fontSize: '1vw' }}>
+                      <div
+                        className={'layoutLinkTest'}
+                        style={{ fontSize: '1vw' }}
+                        onClick={() => changeMenuKey('/app/homework')}
+                      >
                         提交作业
                       </div>
                     ),
@@ -142,24 +201,58 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
       ? {
           key: '/app/review',
           title: '审阅',
-          label: <div className={'layoutLink'}>审阅</div>,
+          label: (
+            <div
+              className="layoutLink"
+              onClick={() => changeMenuKey('/app/authority-manage')}
+            >
+              {/* <img src={imageIcons.review} alt="审阅" style={{ width: 25, marginRight: 0 }} /> */}
+              审阅
+            </div>
+          ),
         }
       : null,
     identity === 'super_admin' || identity === 'admin'
       ? {
           key: '/app/authority-manage',
           title: '权限管理',
-          label: <div className={'layoutLink'}>权限管理</div>,
+          label: (
+            <div className="layoutLink">
+              <img
+                src={imageIcons.authority}
+                alt="权限管理"
+                style={{ width: 25, marginRight: 0 }}
+              />
+              权限管理
+            </div>
+          ),
         }
       : null,
-    identity === 'super_admin' || identity === 'admin'
-      ? null
-      : {
-          key: '/app/test',
-          title: '入职测验',
-          label: <div className={'layoutLink'}>入职测验</div>,
-        },
+    // identity === 'super_admin' || identity === 'admin'
+    //   ? null
+    //   : {
+    //       key: '/app/test',
+    //       title: '入职测验',
+    //       label: <div className={'layoutLink'}>入职测验</div>,
+    //     },
   ];
+
+  //底部图片列表
+  const imageMap: Record<string, string> = {
+    '/app/form':
+      'https://ossfresh-test.muxixyz.com/FjthiG9kQduAu2M99XbQ0FfdkaqQ?imageMogr2/format/png', // 对应报名表的图片链接
+    '/app/review':
+      'https://ossfresh-test.muxixyz.com/Fun1nmD4xY0lqNkA45MCcXOS8cF3?imageMogr2/format/png', // 对应审阅的图片链接
+    '/app/authority-manage':
+      'https://ossfresh-test.muxixyz.com/Fun1nmD4xY0lqNkA45MCcXOS8cF3?imageMogr2/format/png', // 对应权限管理的图片链接
+  };
+
+  const defaultImage =
+    'https://ossfresh-test.muxixyz.com/FjthiG9kQduAu2M99XbQ0FfdkaqQ?imageMogr2/format/png'; // 默认图片链接
+
+  // 获取选中菜单项对应的图片，如果没有选中则显示默认图片
+  const selectedImage = imageMap[selectedMenuKey] || defaultImage;
+
   return (
     <div className={'layout'}>
       <Header
@@ -209,6 +302,9 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
               style={{ minWidth: 0, flex: 'auto', borderInlineEnd: 0 }}
             />
           </ConfigProvider>
+        </div>
+        <div className="sidebar-images">
+          <img src={selectedImage} alt={selectedMenuKey} className="sidebar-image" />
         </div>
       </Sider>
       <Content>

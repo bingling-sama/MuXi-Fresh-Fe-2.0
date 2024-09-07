@@ -82,23 +82,26 @@ const HomeworkUserSubmit: React.FC = () => {
       setformData(tmpList ? tmpList.filter((item) => item != 'undefined') : ['']);
     }
   };
-  const handleSwitch = (id: string) => {
-    setselected(id);
-    get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
-      setdefList(['']);
-      get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
-        (resp: backType<userTaskType>) => {
-          if (res.data.task_status === '已审阅') {
-            getComment(resp.data?.submission_id as string);
-          }
-          setdefList(resp.data.urls);
-        },
-        null,
-      );
-
-      const stat: string = res.data.task_status;
-      setstatus(statusList.indexOf(stat));
-    }, null);
+  const handleSwitch = (id: string | undefined): void => {
+    if (id) {
+      setselected(id);
+      get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
+        setdefList(['']);
+        get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
+          (resp: backType<userTaskType>) => {
+            if (res.data.task_status === '已审阅') {
+              if (resp.data?.submission_id) {
+                getComment(resp.data.submission_id);
+              }
+            }
+            setdefList(resp.data.urls);
+          },
+          null,
+        );
+        const stat: string = res.data.task_status;
+        setstatus(statusList.indexOf(stat));
+      }, null);
+    }
   };
   const getComment = (SubmitID: string) => {
     get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {

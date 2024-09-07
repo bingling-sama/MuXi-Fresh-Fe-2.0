@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { CSSProperties, useState } from 'react';
 import { Card, message, UploadProps } from 'antd';
 import InputBox from '../input';
@@ -25,9 +22,10 @@ interface UploadSectionProps {
   onSubmit?: (query: TaskInfoType) => void;
   children?: React.ReactNode;
   submitClass?: string;
-  onSwitch?: (item: any) => void;
+  onSwitch?: (item: string | undefined) => void;
   submitDisabled?: boolean;
 }
+
 type formTitleType = {
   assignedTaskID?: string;
   title_text: string;
@@ -46,9 +44,10 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     style,
     button_title,
     choice,
-    taskList,
+    taskList = [], // 初始化为空数组，确保安全
     submitDisabled,
   } = props;
+
   const [formData, setformData] = useState<string[]>();
   const [defaultValue, setDefaultValue] = useState<TaskInfoType>({
     title_text: '',
@@ -61,6 +60,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   });
   const [formContent, setFormContent] = useState<string>();
   const statusList: string[] = ['未提交', '已提交', '已批阅'];
+
   const handleChangeTitle = (e: taskListType) => {
     if (choice.includes('edit')) {
       setFormTitle({ title_text: e.text as string, assignedTaskID: e.id });
@@ -68,31 +68,41 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     }
     setFormTitle({ title_text: e.text as string });
   };
+
   const handleSwitch = (e: TaskInfoType, id: string) => {
     if (e) {
       setDefaultValue(e);
       onSwitch && onSwitch(id);
     }
   };
+
   const handleChangeContent = (e: string) => {
     setFormContent(e);
   };
+
   const handleChangeUpload = (e: UploadProps['fileList']) => {
     const tmpList = e?.map((item) => {
-      if (item) {
-        if (item?.response) return `${root}${item.response.key as string}`;
-        else return `${item.url as string}`;
-      } else {
-        return '';
+      if (
+        item &&
+        item.response &&
+        typeof item.response === 'object' &&
+        'key' in item.response &&
+        typeof (item.response as { key: string }).key === 'string'
+      ) {
+        return `${root}${(item.response as { key: string }).key}`;
+      } else if (item.url) {
+        return item.url;
       }
+      return '';
     });
-    setformData(tmpList?.filter((item) => item != 'undefined'));
+    setformData(tmpList?.filter((item) => item !== 'undefined' && item !== ''));
   };
+
   const handleSubmit = () => {
     const query: TaskInfoType = {
       ...formTitle,
-      content: formContent as string,
-      urls: formData as string[],
+      content: formContent || '',
+      urls: formData || [],
     };
     if (!formTitle.title_text.length) {
       message.error('作业名称不能为空').then(null, null);
@@ -112,7 +122,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           <Title
             extra={
               <>
-                {typeof status != 'undefined' && (
+                {typeof status !== 'undefined' && (
                   <div className="upload-status">{statusList[status]}</div>
                 )}
               </>
@@ -120,7 +130,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             title={title}
           ></Title>
         }
-        className={'upload-wrap ' + (className as string)}
+        className={'upload-wrap ' + (className || '')}
         style={style}
         loading={loading}
       >
@@ -138,7 +148,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             <DropDown
               type={choice.includes('user') ? 'user' : 'admin'}
               onSwitch={handleSwitch}
-              data={taskList as taskListType[]}
+              data={taskList}
               onChoose={(e) => handleChangeTitle(e)}
             ></DropDown>
           )}
@@ -160,7 +170,10 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
               defaultValue={defaultValue.urls ? defaultValue.urls : []}
               disabled={
                 choice.includes('user') ||
-                (taskList && !taskList[0]?.id && !choice.includes('new'))
+                (Array.isArray(taskList) &&
+                  taskList.length > 0 &&
+                  !taskList[0]?.id &&
+                  !choice.includes('new'))
               }
             ></InputBox>
           ) : (
@@ -168,12 +181,15 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           )}
           {children}
           <Submit
-            className={`submit-page  ${submitClass as string}`}
+            className={`submit-page  ${submitClass || ''}`}
             onClick={debounce(handleSubmit, 400)}
             disabled={
               submitDisabled
                 ? submitDisabled
-                : !choice.includes('new') && taskList && !taskList[0]?.id
+                : !choice.includes('new') &&
+                  taskList &&
+                  taskList.length > 0 &&
+                  !taskList[0]?.id
             }
           >
             {button_title}

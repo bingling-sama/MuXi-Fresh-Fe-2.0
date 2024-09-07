@@ -16,7 +16,6 @@ import HomeworkBrowse from './pages/homework/pages/adminMode/browse';
 import HomeworkUserMode from './pages/homework/pages/userMode';
 import HomeworkUserSubmit from './pages/homework/pages/userMode/submit';
 import FormForWeb from './pages/formW';
-import TestW from './pages/personalityTestW';
 import { isMobileOnly } from 'react-device-detect';
 import HomeworkUserSubmitMobile from './pages/homework/pages/userMode/MobileSubmit';
 import FormForMobile from './pages/formM';
@@ -24,7 +23,6 @@ import MobileSignIn from './pages/MobileSignIn/MobileSignIn.tsx';
 import MobileSignUp from './pages/MobileSignUp/MobileSignUp.tsx';
 import MobileProgress from './pages/MobileProgress/MobileProgress.tsx';
 import PersonalPage from './pages/PersonalPage/PersonalPage.tsx';
-import TestM from './pages/personalityTestM';
 import Join from './pages/Join/Join.tsx';
 import MobileJoin from './pages/MobileJoin/MobileJoin.tsx';
 
@@ -44,8 +42,6 @@ export const router = createBrowserRouter(
             { path: 'form', element: <FormForWeb /> }, // 报名表
             { path: 'form/:user_id/:form_id', element: <FormForWeb /> }, // 报名表
             { path: 'progress', element: <Progress /> }, // 进度查询
-            { path: 'test', element: <TestW /> }, // 入职测验
-            { path: 'test/:user_id', element: <TestW /> }, // 入职测验
             {
               // 作业
               path: 'homework',
@@ -126,6 +122,5 @@ export const router = createBrowserRouter(
             },
           ],
         },
-        { path: '/app/test', element: <TestM /> }, // 入职测验
       ],
 );
