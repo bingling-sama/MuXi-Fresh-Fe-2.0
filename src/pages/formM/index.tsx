@@ -320,7 +320,7 @@ const FormForMobile: React.FC = () => {
     // 比较当前日期和目标日期
     if (currentDate > targetDate) {
       setIsPastDeadline(true);
-      void message.warning('当前报名已截止');
+      void message.warning('未在报名时间内');
     }
   }, []);
 
@@ -776,7 +776,7 @@ const FormForMobile: React.FC = () => {
           onClick={
             isPastDeadline
               ? () => {
-                  void message.warning('当前报名已截止');
+                  void message.warning('未在报名时间内');
                 }
               : formSetted
               ? debounce(changeForm, 400)
