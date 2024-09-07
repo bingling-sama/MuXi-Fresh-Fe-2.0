@@ -26,11 +26,6 @@ const MobileSignIn: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    navigate('/app');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
     if (isSend) {
       const timer = setTimeout(() => {
         if (countdown > 0) {
