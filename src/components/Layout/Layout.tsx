@@ -79,11 +79,12 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
 
   //图标列表
   const imageIcons: Record<string, string> = {
-    form: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
-    progress: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
-    homework: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
-    review: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
-    authority: 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png',
+    form: 'https://muxi-fresh.muxixyz.com/%E6%8A%A5%E5%90%8D%E8%A1%A8%402x.png',
+    progress:
+      'https://muxi-fresh.muxixyz.com/%E8%BF%9B%E5%BA%A6%E6%9F%A5%E8%AF%A2%402x.png',
+    homework: 'https://muxi-fresh.muxixyz.com/071_%E7%BC%96%E8%BE%91-34%402x.png',
+    review: 'https://muxi-fresh.muxixyz.com/%E5%AE%A1%E9%98%85%402x.png',
+    authority: 'https://muxi-fresh.muxixyz.com/QQ%E5%9B%BE%E7%89%8720240906225749.png',
   };
 
   const changeMenuKey = (value: string) => {
@@ -100,7 +101,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
       title: '报名表',
       label: (
         <div className="layoutLink" onClick={() => changeMenuKey('/app/form')}>
-          <img src={imageIcons.form} alt="报名表" style={{ width: 25 }} />
+          <img src={imageIcons.form} alt="报名表" style={{ width: 20, marginRight: 4 }} />
           报名表
         </div>
       ),
@@ -113,7 +114,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
           <img
             src={imageIcons.progress}
             alt="进度查询"
-            style={{ width: 25, marginRight: 0 }}
+            style={{ width: 25, marginRight: 4 }}
           />
           进度查询
         </div>
@@ -128,7 +129,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
               <img
                 src={imageIcons.homework}
                 alt="作业"
-                style={{ width: 25, marginRight: 0 }}
+                style={{ width: 25, marginRight: 4 }}
               />
               作业
             </div>
@@ -206,7 +207,11 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
               className="layoutLink"
               onClick={() => changeMenuKey('/app/authority-manage')}
             >
-              {/* <img src={imageIcons.review} alt="审阅" style={{ width: 25, marginRight: 0 }} /> */}
+              <img
+                src={imageIcons.review}
+                alt="审阅"
+                style={{ width: 25, marginRight: 4 }}
+              />
               审阅
             </div>
           ),
@@ -221,34 +226,25 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
               <img
                 src={imageIcons.authority}
                 alt="权限管理"
-                style={{ width: 25, marginRight: 0 }}
+                style={{ width: 25, marginRight: 4 }}
               />
               权限管理
             </div>
           ),
         }
       : null,
-    // identity === 'super_admin' || identity === 'admin'
-    //   ? null
-    //   : {
-    //       key: '/app/test',
-    //       title: '入职测验',
-    //       label: <div className={'layoutLink'}>入职测验</div>,
-    //     },
   ];
 
   //底部图片列表
   const imageMap: Record<string, string> = {
     '/app/form':
-      'https://ossfresh-test.muxixyz.com/FjthiG9kQduAu2M99XbQ0FfdkaqQ?imageMogr2/format/png', // 对应报名表的图片链接
-    '/app/review':
-      'https://ossfresh-test.muxixyz.com/Fun1nmD4xY0lqNkA45MCcXOS8cF3?imageMogr2/format/png', // 对应审阅的图片链接
+      'https://muxi-fresh.muxixyz.com/%E5%80%99%E8%A1%A5%E7%AE%B1%E6%A0%BC%402x.png', // 对应报名表的图片链接
+    '/app/review': 'https://muxi-fresh.muxixyz.com/sillyvg_g_0%402x.png', // 对应审阅的图片链接
     '/app/authority-manage':
-      'https://ossfresh-test.muxixyz.com/Fun1nmD4xY0lqNkA45MCcXOS8cF3?imageMogr2/format/png', // 对应权限管理的图片链接
+      'https://muxi-fresh.muxixyz.com/%E6%89%BE%E4%B8%8D%E5%88%B0%E7%AE%B1%E6%A0%BC%402x.png', // 对应权限管理的图片链接
   };
 
-  const defaultImage =
-    'https://ossfresh-test.muxixyz.com/FjthiG9kQduAu2M99XbQ0FfdkaqQ?imageMogr2/format/png'; // 默认图片链接
+  const defaultImage = 'https://muxi-fresh.muxixyz.com/sillyvg_g_0%402x%20%281%29.png'; // 默认图片链接
 
   // 获取选中菜单项对应的图片，如果没有选中则显示默认图片
   const selectedImage = imageMap[selectedMenuKey] || defaultImage;
