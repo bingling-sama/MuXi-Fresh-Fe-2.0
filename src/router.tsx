@@ -35,7 +35,6 @@ export const router = createBrowserRouter(
         { path: '/', element: <Navigate to="/join" /> },
         {
           path: '/app',
-          // element: <Layout identity={'admin'} isForm={'已交表'} /> ,
           element: <Verify />,
           children: [
             { path: '', element: <Navigate to="/app/form" /> },
