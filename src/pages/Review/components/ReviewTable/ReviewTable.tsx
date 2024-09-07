@@ -207,20 +207,22 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
   );
 
   return (
-    <Table
-      bordered={true}
-      loading={loading}
-      columns={columns}
-      dataSource={reviewTable}
-      onChange={handleChange}
-      pagination={{
-        position: ['bottomCenter'],
-        pageSize: 10,
-        showSizeChanger: false,
-        current: currentPage,
-      }}
-      rowKey={(r) => r.schedule_id}
-    />
+    <div className="review-table-container">
+      <Table
+        bordered={true}
+        loading={loading}
+        columns={columns}
+        dataSource={reviewTable}
+        onChange={handleChange}
+        pagination={{
+          position: ['bottomCenter'],
+          pageSize: 10,
+          showSizeChanger: false,
+          current: currentPage,
+        }}
+        rowKey={(r) => r.schedule_id}
+      />
+    </div>
   );
 };
 
