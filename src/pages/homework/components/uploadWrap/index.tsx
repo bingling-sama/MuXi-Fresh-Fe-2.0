@@ -144,7 +144,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
               limit={30}
               onChange={(str) =>
                 handleChangeTitle({
-                  id: formTitle.assignedTaskID || '',
+                  id: '',
                   text: str as string,
                 })
               }
