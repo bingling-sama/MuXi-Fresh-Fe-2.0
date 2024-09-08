@@ -44,7 +44,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     style,
     button_title,
     choice,
-    taskList = [], // 初始化为空数组，确保安全
+    taskList = [],
     submitDisabled,
   } = props;
 
@@ -127,7 +127,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
                 )}
               </>
             }
-            title={title}
+            title={formTitle.title_text || title} // 显示选中的作业标题
           ></Title>
         }
         className={'upload-wrap ' + (className || '')}
@@ -135,14 +135,14 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
         loading={loading}
       >
         <div className="upload-upload">
-          {choice.includes('new') ? (
+          {choice.includes('new') || choice.includes('edit') ? (
             <InputBox
-              defaultValue={[defaultValue.title_text]}
+              defaultValue={[formTitle.title_text]}  // 修改默认值为选中的作业标题
               label="标题"
               type="input"
               className="inp more"
               limit={30}
-              onChange={(str) => handleChangeTitle({ id: '', text: str as string })}
+              onChange={(str) => handleChangeTitle({ id: formTitle.assignedTaskID || '', text: str as string })}
             ></InputBox>
           ) : (
             <DropDown
