@@ -142,7 +142,7 @@ const MobileHomepage: React.FC = () => {
               ></Image>
               提交作业
             </div>
-            <div
+            {/* <div
               className={'mobileLayoutContentBoxs'}
               onClick={() => {
                 navigationClick('/app/test');
@@ -154,7 +154,7 @@ const MobileHomepage: React.FC = () => {
                 preview={false}
               ></Image>
               入职测验
-            </div>
+            </div> */}
           </div>
         </Content>
       </Layout>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { get, put, post } from '../../fetch';
 import './index.less';
 import { ConfigProvider, message, Radio, Tooltip, Upload } from 'antd';
@@ -9,6 +9,8 @@ import { Watermark, Input, Select, Space } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import { useParams } from 'react-router-dom';
 import { debounce } from '../../utils/Debounce/debounce.ts';
+import { getYear } from '../../utils/GetYearSeason/getFormYear.ts';
+import { grader } from '../../utils/grader/grader.ts';
 
 const FormForWeb: React.FC = () => {
   const { form_id } = useParams();
@@ -317,8 +319,8 @@ const FormForWeb: React.FC = () => {
   useEffect(() => {
     // 获取当前日期和时间
     const currentDate = new Date();
-    // 设置目标日期为9月24日23点59分
-    const targetDate = new Date(currentDate.getFullYear(), 8, 24, 23, 59, 0); // 月份从0开始，所以8代表9月
+    // 设置目标日期为9月23日23点59分
+    const targetDate = new Date(currentDate.getFullYear(), 8, 23, 23, 59, 0); // 月份从0开始，所以8代表9月
 
     // 比较当前日期和目标日期
     if (currentDate > targetDate) {
@@ -350,6 +352,9 @@ const FormForWeb: React.FC = () => {
     },
     // { value: 'Android', label: '安卓组' },
   ];
+
+  const years = useMemo(()=>getYear(),[])
+  const graders = useMemo(()=>grader(),[])
 
   return (
     <div className="FormWebpage">
@@ -432,7 +437,7 @@ const FormForWeb: React.FC = () => {
                 <div className="term_formweb">
                   <div className="detail_formweb">学号:</div>
                   <Input
-                    disabled={true}
+                    // disabled={true}
                     className="input_formweb"
                     type="text"
                     value={stu_number}
@@ -458,17 +463,7 @@ const FormForWeb: React.FC = () => {
                         defaultValue="大一"
                         value={grade}
                         onChange={(e) => setgrade(e)}
-                        options={[
-                          { value: '2024', label: '2024' }, //新增
-                          { value: '2023', label: '2023' },
-                          { value: '2022', label: '2022' },
-                          { value: '2021', label: '2021' },
-                          { value: '2020', label: '2020' },
-                          { value: '2019', label: '2019' },
-                          { value: '2018', label: '2018' },
-                          { value: '2017', label: '2017' },
-                          { value: '2016', label: '2016' },
-                        ]}
+                        options={years}
                       />
                     </Space>
                   )}
@@ -495,89 +490,8 @@ const FormForWeb: React.FC = () => {
                         value={academy}
                         onChange={(e) => setacademy(e)}
                         className="select_formweb"
-                      >
-                        <Select.Option key="计算机学院" value="计算机学院">
-                          计算机学院
-                        </Select.Option>
-                        <Select.Option key="人工智能教育学部" value="人工智能教育学部">
-                          人工智能教育学部
-                        </Select.Option>
-                        <Select.Option key="心理学院" value="心理学院">
-                          心理学院
-                        </Select.Option>
-                        <Select.Option
-                          key="经济与工商管理学院"
-                          value="经济与工商管理学院"
-                        >
-                          经济与工商管理学院
-                        </Select.Option>
-                        <Select.Option key="公共管理学院" value="公共管理学院">
-                          公共管理学院
-                        </Select.Option>
-                        <Select.Option key="信息管理学院" value="信息管理学院">
-                          信息管理学院
-                        </Select.Option>
-                        <Select.Option
-                          key="城市与环境科学学院"
-                          value="城市与环境科学学院"
-                        >
-                          城市与环境科学学院
-                        </Select.Option>
-                        <Select.Option key="美术学院" value="美术学院">
-                          美术学院
-                        </Select.Option>
-                        <Select.Option key="新闻传播学院" value="新闻传播学院">
-                          新闻传播学院
-                        </Select.Option>
-                        <Select.Option
-                          key="政治与国际关系学院"
-                          value="政治与国际关系学院"
-                        >
-                          政治与国际关系学院
-                        </Select.Option>
-                        <Select.Option key="教育学院" value="教育学院">
-                          教育学院
-                        </Select.Option>
-                        <Select.Option key="文学院" value="文学院">
-                          文学院
-                        </Select.Option>
-                        <Select.Option key="历史文化学院" value="历史文化学院">
-                          历史文化学院
-                        </Select.Option>
-                        <Select.Option key="马克思主义学院" value="马克思主义学院">
-                          马克思主义学院
-                        </Select.Option>
-                        <Select.Option key="法学院" value="法学院">
-                          法学院
-                        </Select.Option>
-                        <Select.Option key="社会学院" value="社会学院">
-                          社会学院
-                        </Select.Option>
-                        <Select.Option key="外国语学院" value="外国语学院">
-                          外国语学院
-                        </Select.Option>
-                        <Select.Option key="音乐学院" value="音乐学院">
-                          音乐学院
-                        </Select.Option>
-                        <Select.Option key="数学与统计学学院" value="数学与统计学学院">
-                          数学与统计学学院
-                        </Select.Option>
-                        <Select.Option
-                          key="物理科学与技术学院"
-                          value="物理科学与技术学院"
-                        >
-                          物理科学与技术学院
-                        </Select.Option>
-                        <Select.Option key="化学学院" value="化学学院">
-                          化学学院
-                        </Select.Option>
-                        <Select.Option key="生命科学学院" value="生命科学学院">
-                          生命科学学院
-                        </Select.Option>
-                        <Select.Option key="体育学院" value="体育学院">
-                          体育学院
-                        </Select.Option>
-                      </Select>
+                        options={graders}
+                      />
                     </Space>
                   )}
                 </div>

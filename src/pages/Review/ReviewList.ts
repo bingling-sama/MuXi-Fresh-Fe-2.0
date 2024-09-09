@@ -12,6 +12,7 @@ export enum ExamStatus {
 }
 
 export interface ReviewRow {
+  sex: any;
   admission_status: AdmissionStatus;
   exam_status: ExamStatus;
   form_id: string;
