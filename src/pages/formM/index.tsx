@@ -38,7 +38,7 @@ const FormForMobile: React.FC = () => {
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState(false);
   const [form_id, setform_id] = useState('');
-  const years = useMemo(()=>getYear(), []);
+  const years = useMemo(() => getYear(), []);
   const turnNext = () => {
     setPageNum(pageNum + 1); //换页函数
   };
@@ -313,7 +313,7 @@ const FormForMobile: React.FC = () => {
   };
 
   const [isPastDeadline, setIsPastDeadline] = useState(false);
-  const graders = useMemo(()=>grader(),[]);
+  const graders = useMemo(() => grader(), []);
 
   useEffect(() => {
     // 获取当前日期和时间
@@ -502,20 +502,9 @@ const FormForMobile: React.FC = () => {
           size="large"
           onChange={(e) => setgrade(e)}
         >
-          {
-            years.map((item)=>
-              <Select.Option value={item.label}>{item.value}</Select.Option>
-            )
-          }
-          {/* <Select.Option value="2024">2024</Select.Option>
-          <Select.Option value="2023">2023</Select.Option>
-          <Select.Option value="2022">2022</Select.Option>
-          <Select.Option value="2021">2021</Select.Option>
-          <Select.Option value="2020">2020</Select.Option>
-          <Select.Option value="2019">2019</Select.Option>
-          <Select.Option value="2018">2018</Select.Option>
-          <Select.Option value="2017">2017</Select.Option>
-          <Select.Option value="2016">2016</Select.Option> */}
+          {years.map((item) => (
+            <Select.Option value={item.label}>{item.value}</Select.Option>
+          ))}
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>

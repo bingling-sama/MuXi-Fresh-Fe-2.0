@@ -353,8 +353,8 @@ const FormForWeb: React.FC = () => {
     // { value: 'Android', label: '安卓组' },
   ];
 
-  const years = useMemo(()=>getYear(),[])
-  const graders = useMemo(()=>grader(),[])
+  const years = useMemo(() => getYear(), []);
+  const graders = useMemo(() => grader(), []);
 
   return (
     <div className="FormWebpage">

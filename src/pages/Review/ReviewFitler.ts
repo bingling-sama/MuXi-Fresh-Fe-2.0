@@ -7,7 +7,6 @@ export interface ReviewFilter {
   year: Year;
 }
 
-
 export enum Group {
   // Android = 'Android',
   Backend = 'Backend',
