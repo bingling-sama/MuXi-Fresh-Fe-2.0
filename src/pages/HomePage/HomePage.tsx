@@ -179,7 +179,7 @@ const ShowInfo = ({ changeEditState }: { changeEditState: () => void }) => {
           {isLoading ? (
             <Spin />
           ) : (
-            <div className="box-content">{userInfo.school || '待补充'}</div>
+            <div className="box-content">{userInfo.group || '待补充'}</div>
           )}
         </div>
         <div className="account-box">

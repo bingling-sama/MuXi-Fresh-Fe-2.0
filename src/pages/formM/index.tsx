@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './index.less';
 import { post, put, get } from '../../fetch';
 import { message, Upload, Input, Radio, Select } from 'antd';
@@ -7,6 +7,8 @@ import type { UploadFile, UploadProps } from 'antd/es/upload/interface';
 import * as qiniu from 'qiniu-js';
 import { useNavigate } from 'react-router-dom';
 import { debounce } from '../../utils/Debounce/debounce.ts';
+import { getYear } from '../../utils/GetYearSeason/getFormYear.ts';
+import { grader } from '../../utils/grader/grader.ts';
 
 const FormForMobile: React.FC = () => {
   const navigate = useNavigate();
@@ -36,6 +38,7 @@ const FormForMobile: React.FC = () => {
   const [extra_question, setextra_question] = useState(''); //额外问题
   const [formSetted, setformSetted] = useState(false);
   const [form_id, setform_id] = useState('');
+  const years = useMemo(() => getYear(), []);
   const turnNext = () => {
     setPageNum(pageNum + 1); //换页函数
   };
@@ -310,12 +313,13 @@ const FormForMobile: React.FC = () => {
   };
 
   const [isPastDeadline, setIsPastDeadline] = useState(false);
+  const graders = useMemo(() => grader(), []);
 
   useEffect(() => {
     // 获取当前日期和时间
     const currentDate = new Date();
     // 设置目标日期
-    const targetDate = new Date(currentDate.getFullYear(), 8, 24, 23, 59, 0); // 月份从0开始，所以8代表9月
+    const targetDate = new Date(currentDate.getFullYear(), 8, 23, 23, 59, 0); // 月份从0开始，所以8代表9月
 
     // 比较当前日期和目标日期
     if (currentDate > targetDate) {
@@ -452,7 +456,7 @@ const FormForMobile: React.FC = () => {
           <div className="term_detail_formM">学号</div>
         </div>
         <Input
-          disabled={true}
+          // disabled={true}
           className="input_formM"
           type="text"
           value={stu_number}
@@ -468,76 +472,11 @@ const FormForMobile: React.FC = () => {
           value={academy}
           size="large"
           onChange={(e) => setacademy(e)}
+          options={graders}
         >
-          <Select.Option key="计算机学院" value="计算机学院">
-            计算机学院
-          </Select.Option>
-          <Select.Option key="人工智能教育学部" value="人工智能教育学部">
-            人工智能教育学部
-          </Select.Option>
-          <Select.Option key="心理学院" value="心理学院">
-            心理学院
-          </Select.Option>
-          <Select.Option key="经济与工商管理学院" value="经济与工商管理学院">
-            经济与工商管理学院
-          </Select.Option>
-          <Select.Option key="公共管理学院" value="公共管理学院">
-            公共管理学院
-          </Select.Option>
-          <Select.Option key="信息管理学院" value="信息管理学院">
-            信息管理学院
-          </Select.Option>
-          <Select.Option key="城市与环境科学学院" value="城市与环境科学学院">
-            城市与环境科学学院
-          </Select.Option>
-          <Select.Option key="美术学院" value="美术学院">
-            美术学院
-          </Select.Option>
-          <Select.Option key="新闻传播学院" value="新闻传播学院">
-            新闻传播学院
-          </Select.Option>
-          <Select.Option key="政治与国际关系学院" value="政治与国际关系学院">
-            政治与国际关系学院
-          </Select.Option>
-          <Select.Option key="教育学院" value="教育学院">
-            教育学院
-          </Select.Option>
-          <Select.Option key="文学院" value="文学院">
-            文学院
-          </Select.Option>
-          <Select.Option key="历史文化学院" value="历史文化学院">
-            历史文化学院
-          </Select.Option>
-          <Select.Option key="马克思主义学院" value="马克思主义学院">
-            马克思主义学院
-          </Select.Option>
-          <Select.Option key="法学院" value="法学院">
-            法学院
-          </Select.Option>
-          <Select.Option key="社会学院" value="社会学院">
-            社会学院
-          </Select.Option>
-          <Select.Option key="外国语学院" value="外国语学院">
-            外国语学院
-          </Select.Option>
-          <Select.Option key="音乐学院" value="音乐学院">
-            音乐学院
-          </Select.Option>
-          <Select.Option key="数学与统计学学院" value="数学与统计学学院">
-            数学与统计学学院
-          </Select.Option>
-          <Select.Option key="物理科学与技术学院" value="物理科学与技术学院">
-            物理科学与技术学院
-          </Select.Option>
-          <Select.Option key="化学学院" value="化学学院">
-            化学学院
-          </Select.Option>
-          <Select.Option key="生命科学学院" value="生命科学学院">
-            生命科学学院
-          </Select.Option>
-          <Select.Option key="体育学院" value="体育学院">
+          {/*<Select.Option key="体育学院" value="体育学院">
             体育学院
-          </Select.Option>
+          </Select.Option> */}
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>
@@ -563,15 +502,9 @@ const FormForMobile: React.FC = () => {
           size="large"
           onChange={(e) => setgrade(e)}
         >
-          <Select.Option value="2024">2024</Select.Option>
-          <Select.Option value="2023">2023</Select.Option>
-          <Select.Option value="2022">2022</Select.Option>
-          <Select.Option value="2021">2021</Select.Option>
-          <Select.Option value="2020">2020</Select.Option>
-          <Select.Option value="2019">2019</Select.Option>
-          <Select.Option value="2018">2018</Select.Option>
-          <Select.Option value="2017">2017</Select.Option>
-          <Select.Option value="2016">2016</Select.Option>
+          {years.map((item) => (
+            <Select.Option value={item.label}>{item.value}</Select.Option>
+          ))}
         </Select>
         <div className="term_detail_box_formM">
           <div className="yellowBot"></div>

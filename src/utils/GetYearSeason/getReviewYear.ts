@@ -18,17 +18,17 @@ export const generateYears = () => {
   const currentSeason = getCurrentSeason();
   let years: { value: string; label: string }[] = [];
 
-  for (let year = 2022; year < currentYear; year++) {
+  for (let year = currentYear - 1; year > currentYear - 4; year--) {
     years = years.concat([
-      generateYearObject(year, Season.Spring),
       generateYearObject(year, Season.Autumn),
+      generateYearObject(year, Season.Spring),
     ]);
   }
 
-  years.push(generateYearObject(currentYear, Season.Spring));
+  years.unshift(generateYearObject(currentYear, Season.Spring));
 
   if (currentSeason === Season.Autumn) {
-    years.push(generateYearObject(currentYear, Season.Autumn));
+    years.unshift(generateYearObject(currentYear, Season.Autumn));
   }
 
   return years;
