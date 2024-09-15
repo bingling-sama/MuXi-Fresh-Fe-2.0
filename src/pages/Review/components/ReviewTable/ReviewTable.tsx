@@ -41,6 +41,18 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     );
   }, [reviewTable]);
 
+  //
+  const groupFilters = useMemo(() => {
+    // 对reviewTable中的group进行去重和映射操作
+    return (
+      reviewTable &&
+      [...new Set(reviewTable.map((r) => r.group))].map((group) => ({
+        text: group,
+        value: group,
+      }))
+    );
+  }, [reviewTable]);
+
   // 缓存admission_status过滤器
   const admissionStatusFilters = useMemo(() => {
     // 对reviewTable中的admission_status进行去重和映射操作
@@ -108,8 +120,8 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       title: '组别',
       dataIndex: 'group',
       key: 'group',
-      filters: schoolFilters,
-      filteredValue: filter.school || null,
+      filters: groupFilters,
+      filteredValue: filter.group || null,
       onFilter: (value, record) => record.group.indexOf(value as string) === 0,
       filterSearch: true,
       sorter: (a, b) => a.school.localeCompare(b.school, 'zh-CN'),
