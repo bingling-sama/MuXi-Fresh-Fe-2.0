@@ -25,9 +25,7 @@ const SignIn: React.FC = () => {
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    getCodeImg();
-  }, []);
+  
 
   useEffect(() => {
     if (isSend) {
@@ -43,19 +41,20 @@ const SignIn: React.FC = () => {
     }
   }, [countdown, isSend]);
 
-  const getCodeImg = () => {
-    get('/auth/get-captcha', false).then(
-      (r: CodeImg) => {
-        const { image_base64, image_id } = r.data;
-        setCodeImg(image_base64);
-        setImgId(image_id);
-      },
-      (e) => {
-        void message.error('获取验证码失败，请稍后重试');
-        console.error(e);
-      },
-    );
-  };
+  // const getCodeImg = () => {
+  //   get('/auth/get-captcha', false).then(
+  //     (r: CodeImg) => {
+  //       const { image_base64, image_id } = r.data;
+  //       setCodeImg(image_base64);
+  //       setImgId(image_id);
+  //       console.log(image_id);
+  //     },
+  //     (e) => {
+  //       void message.error('获取验证码失败，请稍后重试');
+  //       console.error(e);
+  //     },
+  //   );
+  // };
 
   const sendVerificationCode = (email: string, type: string) => {
     const testEmail =
@@ -160,77 +159,59 @@ const SignIn: React.FC = () => {
   };
 
   const signIn = () => {
-    const verifyReq = {
-      image_id: imgId,
-      verify_code: verifyCode,
-    };
 
-    post('/auth/verify-captcha', verifyReq, false).then(
-      (r: VerifyResult) => {
-        const { code } = r;
-        if (code === 200) {
-          const testEmail =
-            /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
-          const isEmail = testEmail.test(account);
+    const testEmail =
+      /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
+    const isEmail = testEmail.test(account);
 
-          if (isEmail) {
-            // 是email就邮箱登录
-            const signInReq = {
-              user_name: account,
-              password: password,
-            };
-            post('/auth/login', signInReq, false).then(
-              (r: SignInResult) => {
-                if (r.code === 200) {
-                  localStorage.setItem('token', r.data.token);
-                  void message.success('登录成功！');
-                  navigate('/app');
-                } else {
-                  void message.error(`${r.msg}，请重试`);
-                  getCodeImg();
-                }
-              },
-              (e) => {
-                console.error(e);
-                void message.error('登录失败，请重试！');
-                getCodeImg();
-              },
-            );
+    if (isEmail) {
+      // 是email就邮箱登录
+      const signInReq = {
+        user_name: account,
+        password: password,
+      };
+      post('/auth/login', signInReq, false).then(
+        (r: SignInResult) => {
+          if (r.code === 200) {
+            localStorage.setItem('token', r.data.token);
+            void message.success('登录成功！');
+            navigate('/app');
           } else {
-            // 不是email就学号登录
-            const signInReq = {
-              student_id: account,
-              password: password,
-            };
-            post('/auth/ccnuLogin', signInReq, false).then(
-              (r: SignInResult) => {
-                if (r.code === 200) {
-                  localStorage.setItem('token', r.data.token);
-                  void message.success('登录成功！');
-                  navigate('/app');
-                } else {
-                  void message.error(`${r.msg}，请重试！`);
-                  getCodeImg();
-                }
-              },
-              (e) => {
-                console.error(e);
-                void message.error('登录失败，请重试！');
-                getCodeImg();
-              },
-            );
+            void message.error(`${r.msg}，请重试`);
+            // getCodeImg();
           }
-        } else {
-          void message.error(`${r.msg}，请重试`);
-          getCodeImg();
-        }
-      },
-      (e) => {
-        void message.error('验证失败，请重试');
-        getCodeImg();
-        console.error(e);
-      },
-    );
+        },
+        (e) => {
+          console.error(e);
+          void message.error('登录失败，请重试！');
+          // getCodeImg();
+        },
+      );
+    } else {
+      // 不是email就学号登录
+      const signInReq = {
+        student_id: account,
+        password: password,
+      };
+      post('/auth/ccnuLogin', signInReq, false).then(
+        (r: SignInResult) => {
+          if (r.code === 200) {
+            localStorage.setItem('token', r.data.token);
+            void message.success('登录成功！');
+            navigate('/app');
+          } else {
+            void message.error(`${r.msg}，请重试！`);
+            // getCodeImg();
+          }
+        },
+        (e) => {
+          console.error(e);
+          void message.error('登录失败，请重试！');
+          // getCodeImg();
+        },
+      );
+    }
+     
   };
 
   return (
@@ -276,7 +257,7 @@ const SignIn: React.FC = () => {
                 placeholder="请输入密码"
               />
             </div>
-            <div className="verification-code-box">
+            {/* <div className="verification-code-box">
               <div className="box-label">验证码:</div>
               <Input
                 className="input-field"
@@ -288,7 +269,7 @@ const SignIn: React.FC = () => {
               <div className="code-img-box" onClick={getCodeImg}>
                 <img className="code-img" src={codeImg} alt="" />
               </div>
-            </div>
+            </div> */}
             <div className="forget-password-box">
               <span className="box-content" onClick={showPasswordModal}>
                 忘记密码？

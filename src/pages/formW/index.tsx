@@ -122,6 +122,7 @@ const FormForWeb: React.FC = () => {
     ];
     const send = () => {
       post(`/form/`, {
+        form_id:form_id_self,
         avatar: avatar,
         major: major,
         grade: grade,
@@ -134,8 +135,11 @@ const FormForWeb: React.FC = () => {
         extra_question: extra_question,
       })
         .then((data: res) => {
-          if (data.code === 200) void message.success('提交成功^_^');
-          else void message.error('提交失败');
+          if (data.code === 200) {
+            void message.success('提交成功^_^')
+            setformSetted(true)
+          }
+          else {void message.error('提交失败')}
         })
         .catch((e) => {
           console.error(e);
@@ -202,8 +206,11 @@ const FormForWeb: React.FC = () => {
         extra_question: extra_question,
       })
         .then((data: res) => {
-          if (data.code === 200) void message.success('提交成功^_^');
-          else void message.error('提交失败');
+          if (data.code === 200) {
+            void message.success('修改成功^_^')
+            setformSetted(false)
+          }
+          else {void message.error('修改失败');}
         })
         .catch((e) => {
           console.error(e);
