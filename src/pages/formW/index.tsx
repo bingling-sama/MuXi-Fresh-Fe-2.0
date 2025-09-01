@@ -714,28 +714,34 @@ const FormForWeb: React.FC = () => {
                     buttonStyle="solid"
                     onChange={(e) => setextra_question(e.target.value as string)}
                     value={extra_question}
+                    className='answer-radio'
                   >
                     <Radio value={'Y'}>是</Radio>
                     <Radio value={'N'}>否</Radio>
                   </Radio.Group>
                 </div>
+                <div className='send_formweb-box'>
+                  <div
+                    style={{ display: form_id ? 'none' : '' }}
+                    className="send_formweb"
+                    onClick={
+                      isPastDeadline
+                        ? () => {
+                            void message.warning('未在报名时间内');
+                          }
+                        : formSetted
+                        ? debounce(changeForm, 400)
+                        : debounce(setForm, 400)
+                    }
+                  >
+                    {formSetted ?  '提交表格':'完成修改' }
+                  </div>
+                </div>
+                
+                <div className='alert-text'>在报名表提交截止时间之前，再次提交报名表可覆盖前一次报名表</div>
               </div>
             </div>
-            <div
-              style={{ display: form_id ? 'none' : '' }}
-              className="send_formweb"
-              onClick={
-                isPastDeadline
-                  ? () => {
-                      void message.warning('未在报名时间内');
-                    }
-                  : formSetted
-                  ? debounce(changeForm, 400)
-                  : debounce(setForm, 400)
-              }
-            >
-              {formSetted ? '完成修改' : '提交表格'}
-            </div>
+            
           </div>
         </Watermark>
       </ConfigProvider>

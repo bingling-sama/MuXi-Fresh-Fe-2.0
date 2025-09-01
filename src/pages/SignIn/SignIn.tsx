@@ -226,12 +226,21 @@ const SignIn: React.FC = () => {
             />
             <div className="logo-box1">
               <img
-                src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo2.png'}
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%208%402x.png'}
                 alt=""
               />
             </div>
             <div className="logo-box2">
-              <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'} alt="" />
+            </div>
+            <div className="logo-box3">
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'} alt="" />
+            </div>
+            <div className="logo-box4">
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'} alt="" />
+            </div>
+            <div className='logo-text'>
+              <img src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'} alt=''/>
             </div>
           </div>
           <div className="signIn-form">
@@ -243,7 +252,7 @@ const SignIn: React.FC = () => {
                   setAccount(e.target.value);
                 }}
                 value={account}
-                placeholder="请输入邮箱/学号"
+                
               />
             </div>
             <div className="password-box">
@@ -254,7 +263,7 @@ const SignIn: React.FC = () => {
                   setPassword(e.target.value);
                 }}
                 value={password}
-                placeholder="请输入密码"
+                
               />
             </div>
             {/* <div className="verification-code-box">

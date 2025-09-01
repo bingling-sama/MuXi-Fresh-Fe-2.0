@@ -40,13 +40,21 @@ export type CommentType = {
   nickname: string;
   content: string;
   group: string;
+  father_id:string;
+  comment_id:string;
+  replies:Array<CommentType>;
+  create_time:string
 };
+
 
 export type TaskInfoType = {
   title_text: string;
   content: string;
   urls: string[];
+  deadline?:string;
   assignedTaskID?: string;
+  group:string;
+  semester:string
 };
 
 export type UserInfoType = {
@@ -92,6 +100,10 @@ export type completionInfoType = {
   status: string;
   user_id: string;
 };
+
+export type userTaskResponseType={
+  submission_infos:userTaskType[]
+}
 export type userTaskType = {
   urls: string[];
   submission_id?: string;

@@ -10,29 +10,50 @@ import {
   statusType,
   taskListType,
   titleListType,
-  userTaskType,
+  userTaskResponseType,
   formInfoType,
+  userTaskType,
+  TaskInfoType,
 } from '../../../types';
-import { message, UploadProps } from 'antd';
+import { message, Select, UploadProps } from 'antd';
 import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
 
 const HomeworkUserSubmit: React.FC = () => {
+
+  const [version,setVersion]=useState(0);
   const [taskList, setTaskList] = useState<taskListType[]>([{ id: '123', text: '123' }]);
   const [loading, setLoading] = useState(false);
   const [status, setstatus] = useState<number>(0);
-  const [defList, setdefList] = useState<string[]>(['']);
+  const [defList, setdefList] = useState<Array<userTaskType>>([]);
   const [formData, setformData] = useState<string[]>(['']);
   const [selected, setselected] = useState<string>('');
   const [group, setGroup] = useState<dataType>({ key: '后端组', value: 'Backend' });
   const [Comment, setComment] = useState<CommentType[]>([]);
+  const [currentSubmissionId, setCurrentSubmissionId] = useState<string>('');
+  const [currentDeadline, setCurrentDeadline] = useState<string>('');
   const statusList = ['未提交', '已提交', '已审阅'];
-  const buttonList = ['提交作业', '修改作业', '无法修改'];
+ 
   const root = 'https://ossfresh-test.muxixyz.com/';
+  
+  const isDeadlinePassed = (deadline: string): boolean => {
+    if (!deadline) return false;
+    const deadlineDate = new Date(deadline);
+    const now = new Date();
+    return now > deadlineDate;
+  };
+  
+  const selectList=defList.map((_,index)=>{
+    return {
+      value:index,
+      label:"提交"+index
+    }
+  })
 
   useEffect(() => {
+    
     setLoading(true);
     get('/form/view?entry_form_id=myself').then((res: backType<formInfoType>) => {
       const groupRes = res.data.group;
@@ -44,6 +65,18 @@ const HomeworkUserSubmit: React.FC = () => {
               setLoading(false);
               if (res.data.titles) {
                 setTaskList(res.data.titles.reverse());
+                get(`/task/submitted?user_id=myself&assigned_task_id=${taskList[0].id}`).then(
+                (resp:backType<userTaskResponseType>) => {
+                    console.log(resp.data.submission_infos,"提交记录")
+                    if (resp.data?.submission_infos && resp.data.submission_infos.length > 0) {
+                      setdefList(resp.data.submission_infos);
+                      setCurrentSubmissionId(resp.data.submission_infos[version].submission_id || '');
+                      getComment(resp.data.submission_infos[version].submission_id || '');
+                    }
+                  
+                },
+          null,
+        );
               } else {
                 setTaskList([{ id: '', text: '暂时没有作业' }]);
               }
@@ -54,6 +87,15 @@ const HomeworkUserSubmit: React.FC = () => {
       });
     }, null);
   }, []);
+
+  const handleVersionChange=(value:number)=>{  
+    if (defList.length === 0) return;
+    console.log(value)
+    setCurrentSubmissionId(defList[value].submission_id || "");
+    setVersion(value);
+    console.log(defList[value].urls);
+  }
+
   const handleSubmit = () => {
     if (status != 2 && formData[0]) {
       console.log(formData);
@@ -85,19 +127,30 @@ const HomeworkUserSubmit: React.FC = () => {
   const handleSwitch = (id: string | undefined): void => {
     if (id) {
       setselected(id);
+      
+      get(`/task/assigned/${id}`).then((taskRes: backType<TaskInfoType>) => {
+        if (taskRes.data?.deadline) {
+          setCurrentDeadline(taskRes.data.deadline);
+        }
+      }, null);
+      
       get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
-        setdefList(['']);
+        
+        
         get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
-          (resp: backType<userTaskType>) => {
-            if (res.data.task_status === '已审阅') {
-              if (resp.data?.submission_id) {
-                getComment(resp.data.submission_id);
+          (resp: backType<userTaskResponseType>) => {
+              console.log(resp.data.submission_infos)
+              if (resp.data?.submission_infos && resp.data.submission_infos.length > 0) {
+                setdefList(resp.data.submission_infos);
+                setCurrentSubmissionId(resp.data.submission_infos[0].submission_id || '');
+                getComment(resp.data.submission_infos[0].submission_id || '');
               }
-            }
-            setdefList(resp.data.urls);
+            
+            
           },
           null,
         );
+        
         const stat: string = res.data.task_status;
         setstatus(statusList.indexOf(stat));
       }, null);
@@ -106,8 +159,20 @@ const HomeworkUserSubmit: React.FC = () => {
   const getComment = (SubmitID: string) => {
     get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {
       const comments = res.data?.comments;
-      comments && setComment(comments.reverse());
+      if(comments){
+          setComment(comments.reverse())
+      }
+      else{
+        setComment([]);
+      }
+      
     }, null);
+  };
+
+  const refreshComments = () => {
+    if (currentSubmissionId) {
+      getComment(currentSubmissionId);
+    }
   };
   return (
     <>
@@ -119,26 +184,34 @@ const HomeworkUserSubmit: React.FC = () => {
           choice="user-edit"
           title={`${group.key}作业`}
           status={status}
-          button_title={buttonList[status]}
+          group={group.value}
           onSubmit={debounce(handleSubmit, 400)}
-          submitDisabled={status == 2}
-          className={status != 2 ? 'user-submit-preview' : 'user-submit-preview-small'}
+          submitDisabled={status == 2 || isDeadlinePassed(currentDeadline)}
+          className={ 'user-submit-preview-small'}
+          deadlineAvailable={true}
         >
+          <Select
+            options={selectList}
+            onChange={handleVersionChange}
+            value={selectList[version]?.value || selectList[0]?.value }
+            className='select-version'
+          ></Select>
           <InputBox
+            key={version}
             className="inp"
             type="file"
             label="上传作业"
-            defaultValue={defList}
+            defaultValue={defList[version]?.urls || defList[0]?.urls || []}
             disabled={status == 2 || (taskList && !taskList[0].id)}
             onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
           ></InputBox>
         </UploadSection>
-        {status == 2 && (
-          <HomeComment
-            CommentData={Comment}
-            className="user-submit-comment"
-          ></HomeComment>
-        )}
+        <HomeComment
+          SubmitId={currentSubmissionId}
+          CommentData={Comment}
+          className="user-submit-comment"
+          onCommentSuccess={refreshComments}
+        ></HomeComment>
       </div>
     </>
   );

@@ -11,6 +11,11 @@ export enum ExamStatus {
   '未提交' = '未提交',
 }
 
+export enum Gender{
+  'male'='男',
+  'female'='女',
+}
+
 export interface ReviewRow {
   admission_status: AdmissionStatus;
   exam_status: ExamStatus;
@@ -21,6 +26,7 @@ export interface ReviewRow {
   schedule_id: string;
   school: string;
   user_id: string;
+  gender:Gender
 }
 
 export interface ReviewList {

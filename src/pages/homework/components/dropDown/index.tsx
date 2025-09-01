@@ -34,6 +34,7 @@ export const DropDownPure: React.FC<DropDownProps> = (props) => {
       /* eslint-disable @typescript-eslint/no-floating-promises */
       /* eslint-disable @typescript-eslint/no-unsafe-member-access */
       get(`/task/assigned/${item.id}`).then((res) => {
+        console.log(res.data)
         onSwitch && onSwitch(res.data, item.id);
       });
     else

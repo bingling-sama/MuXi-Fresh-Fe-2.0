@@ -1,11 +1,12 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import './ReviewTable.less';
 import type { ColumnsType, TableProps } from 'antd/es/table';
-import { AdmissionStatus, ReviewRow } from '../../ReviewList.ts';
+import { AdmissionStatus, ReviewRow,Gender } from '../../ReviewList.ts';
 import { Link } from 'react-router-dom';
 import { message, Select, Table } from 'antd';
 import { post } from '../../../../fetch.ts';
 import type { FilterValue, SorterResult } from 'antd/es/table/interface';
+
 
 type ReviewTableProps = {
   reviewList: ReviewRow[];
@@ -29,6 +30,17 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     );
   }, [reviewTable]);
 
+  // 缓存gender过滤器
+  const genderFilters = useMemo(()=>{
+    return (
+      reviewTable && 
+      [...new Set(reviewTable.map((r)=>r.gender))].map((gender) => ({
+        text: Gender[gender as unknown as keyof typeof Gender],
+        value: gender
+      }))
+    )
+  },[reviewTable])
+
   // 缓存school过滤器
   const schoolFilters = useMemo(() => {
     // 对reviewTable中的school进行去重和映射操作
@@ -41,7 +53,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     );
   }, [reviewTable]);
 
-  //
+  
   const groupFilters = useMemo(() => {
     // 对reviewTable中的group进行去重和映射操作
     return (
@@ -76,6 +88,7 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
     filters,
     sorter,
   ) => {
+    console.log(filters);
     setFilter(filters);
     setSorted(sorter as SorterResult<ReviewRow>);
     setCurrentPage(pagination.current as number);
@@ -93,6 +106,16 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       key: 'name',
       sorter: (a, b) => a.name.localeCompare(b.name, 'zh-CN'),
       sortOrder: sorted.columnKey === 'name' ? sorted.order : null,
+    },
+    {
+      title: '性别',
+      dataIndex: 'gender',
+      key: 'gender',
+      filters: genderFilters,
+      filteredValue: filter.gender || null,
+      onFilter: (value,record) => record.gender === value,
+      filterSearch: false,
+      render: (_, record) => Gender[record.gender as unknown as keyof typeof Gender]
     },
     {
       title: '年级',
