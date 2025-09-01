@@ -61,14 +61,14 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     urls: [''],
     deadline:'',
     group:'',
-    semester:"autumn"
+    semester:getCurrentSeason()
   });
   const [formTitle, setFormTitle] = useState<formTitleType>({
     title_text: '',
     assignedTaskID: '',
   });
   const [formContent, setFormContent] = useState<string>();
-  const statusList: string[] = ['未提交', '已提交', '已批阅'];
+  const statusList: string[] = ['未提交', '已提交', '已批阅','逾期未交'];
   const [deadline,setDeadline]=useState<Dayjs>(dayjs(new Date()));
   
 
@@ -137,6 +137,13 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     console.log(date.format("YYYY-MM-DD HH:mm:ss"));
   }
 
+  const isDeadlinePassed = (deadline: string): boolean => {
+    if (!deadline) return false;
+    const deadlineDate = new Date(deadline);
+    const now = new Date();
+    return now > deadlineDate;
+  };
+
   return (
     <>
       <Card
@@ -145,7 +152,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             extra={
               <>
                 {typeof status !== 'undefined' && (
-                  <div className="upload-status">{statusList[status]}</div>
+                  <div className="upload-status">{status==0 && isDeadlinePassed(defaultValue?.deadline||"") ? statusList[3]: statusList[status]}</div>
                 )}
               </>
             }
@@ -217,10 +224,10 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           )}
 
           {/* 设置deadline */}
-          <div className='deadline'>
+          { !choice.includes('user') && <div className='deadline'>
             <div>请选择结束日期</div>
             <DatePicker placeholder={"结束日期"} value={deadline} onChange={handleChangeDate}/>
-          </div>
+          </div>}
 
           {children}
           

@@ -20,7 +20,7 @@ const Title: React.FC<TitleProps & Omit<HTMLAttributes<HTMLDivElement>, 'classNa
         </div>
         
         <div className="upload-title-deco" style={{ width: `${Legnth * 1.4}vw` }}></div>
-        {deadline && <div>作业截止时间： {deadline}</div>}
+        {deadline && <div className='deadline'>作业截止时间： {deadline}</div>}
       </div>
     </>
   );

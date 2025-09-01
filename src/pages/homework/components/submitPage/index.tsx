@@ -79,6 +79,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
         onSubmit={handleSubmit}
         choice={choice ? choice : 'edit'}
         title={title ? title : '修改作业'}
+        
         button_title={button_title ? button_title : '确认修改'}
         taskList={taskList}
         loading={loading}

@@ -68,6 +68,7 @@ const HomeworkUserSubmit: React.FC = () => {
                 get(`/task/submitted?user_id=myself&assigned_task_id=${taskList[0].id}`).then(
                 (resp:backType<userTaskResponseType>) => {
                     console.log(resp.data.submission_infos,"提交记录")
+                    
                     if (resp.data?.submission_infos && resp.data.submission_infos.length > 0) {
                       setdefList(resp.data.submission_infos);
                       setCurrentSubmissionId(resp.data.submission_infos[version].submission_id || '');
@@ -142,8 +143,14 @@ const HomeworkUserSubmit: React.FC = () => {
               console.log(resp.data.submission_infos)
               if (resp.data?.submission_infos && resp.data.submission_infos.length > 0) {
                 setdefList(resp.data.submission_infos);
+                setVersion(0);
                 setCurrentSubmissionId(resp.data.submission_infos[0].submission_id || '');
                 getComment(resp.data.submission_infos[0].submission_id || '');
+              } else {
+                setdefList([]);
+                setCurrentSubmissionId('');
+                setComment([]);
+                setVersion(0);
               }
             
             
@@ -189,13 +196,15 @@ const HomeworkUserSubmit: React.FC = () => {
           submitDisabled={status == 2 || isDeadlinePassed(currentDeadline)}
           className={ 'user-submit-preview-small'}
           deadlineAvailable={true}
+          button_title="提交作业"
         >
-          <Select
+          
+          {selectList.length > 0 && <Select
             options={selectList}
             onChange={handleVersionChange}
             value={selectList[version]?.value || selectList[0]?.value }
             className='select-version'
-          ></Select>
+          ></Select>}
           <InputBox
             key={version}
             className="inp"
@@ -206,12 +215,15 @@ const HomeworkUserSubmit: React.FC = () => {
             onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
           ></InputBox>
         </UploadSection>
-        <HomeComment
+        {
+          defList.length > 0 && <HomeComment
           SubmitId={currentSubmissionId}
           CommentData={Comment}
           className="user-submit-comment"
           onCommentSuccess={refreshComments}
         ></HomeComment>
+        }
+        
       </div>
     </>
   );
