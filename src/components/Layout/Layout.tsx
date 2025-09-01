@@ -16,6 +16,7 @@ import { UserIdentity, UserIsForm } from '../Verify/UserIdentity.ts';
 
 const { Header, Content, Sider } = LayoutAntd;
 
+const muxi_logo="https://ossfresh-test.muxixyz.com/%E5%B7%A6%E4%B8%8A%E8%A7%92%401x%281%29.png";
 const logo = 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png';
 const defaultAvatar = 'https://muxi-fresh.muxixyz.com/fe-static/default_avatar.png';
 
@@ -54,9 +55,9 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
     navigate('/login');
   };
 
-  const toMuxiSite = () => {
-    window.location.href = 'https://muxi-tech.xyz';
-  };
+  // const toMuxiSite = () => {
+  //   window.location.href = 'https://muxi-tech.xyz';
+  // };
 
   const items: MenuProps['items'] = [
     {
@@ -79,12 +80,12 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
 
   //图标列表
   const imageIcons: Record<string, string> = {
-    form: 'https://muxi-fresh.muxixyz.com/%E6%8A%A5%E5%90%8D%E8%A1%A8%402x.png',
+    form: 'https://ossfresh-test.muxixyz.com/baomingbiao%404x%20%281%29.png',
     progress:
-      'https://muxi-fresh.muxixyz.com/%E8%BF%9B%E5%BA%A6%E6%9F%A5%E8%AF%A2%402x.png',
-    homework: 'https://muxi-fresh.muxixyz.com/071_%E7%BC%96%E8%BE%91-34%402x.png',
-    review: 'https://muxi-fresh.muxixyz.com/%E5%AE%A1%E9%98%85%402x.png',
-    authority: 'https://muxi-fresh.muxixyz.com/QQ%E5%9B%BE%E7%89%8720240906225749.png',
+      'https://ossfresh-test.muxixyz.com/%E8%BF%9B%E5%BA%A6%E6%9F%A5%E8%AF%A2%404x.png',
+    homework: 'https://ossfresh-test.muxixyz.com/%E5%AE%B9%E5%99%A8%404x%20%282%29.png',
+    review: 'https://ossfresh-test.muxixyz.com/%E5%AE%A1%E9%98%85%404x.png',
+    authority: 'https://ossfresh-test.muxixyz.com/%E5%AE%B9%E5%99%A8%404x%20%283%29.png',
   };
 
   const changeMenuKey = (value: string) => {
@@ -262,11 +263,13 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
         }}
       >
         <div className={'layoutLogoBox'}>
-          <div className="layoutLogo" onClick={toMuxiSite}>
-            <img src={logo} alt="logo" />
-            <div>木犀官网</div>
+          <div className="layoutLogo">
+            <img src={muxi_logo} alt="logo" />
+            {/* <div>木犀官网</div> */}
           </div>
         </div>
+
+        {/* <img src={} alt='logo'/> */}
         <Dropdown menu={{ items }} placement={'bottom'}>
           <Avatar src={avatar || defaultAvatar} size="large" alt="avatar" />
         </Dropdown>
@@ -299,9 +302,7 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
             />
           </ConfigProvider>
         </div>
-        <div className="sidebar-images">
-          <img src={selectedImage} alt={selectedMenuKey} className="sidebar-image" />
-        </div>
+        
       </Sider>
       <Content>
         <div className={'layoutBox'}>

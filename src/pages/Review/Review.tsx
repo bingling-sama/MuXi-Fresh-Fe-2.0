@@ -1,7 +1,7 @@
 import './Review.less';
 import { useEffect, useState } from 'react';
 import { post } from '../../fetch.ts';
-import { ReviewList, ReviewRow } from './ReviewList.ts';
+import { AdmissionStatus, ExamStatus, Gender, ReviewList, ReviewRow } from './ReviewList.ts';
 import ReviewYear from './components/ReviewYear/ReviewYear.tsx';
 import { Group, ReviewFilter, Season, YearSeason } from './ReviewFitler.ts';
 import ReviewGroupSelect from './components/ReviewGroupSelect/ReviewGroupSelect.tsx';
@@ -61,6 +61,8 @@ const Review = () => {
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reviewFilter]);
+  
+  
 
   return (
     <div className={'reviewContent'}>

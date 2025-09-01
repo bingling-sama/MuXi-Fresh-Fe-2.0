@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input, message } from 'antd';
-import './SignUp.less';
+import './SignUp.less'
 import { get, post } from '../../fetch';
 import { SendEmailResult, SignUpResult } from './SignUp';
 import { useNavigate } from 'react-router-dom';
@@ -110,86 +110,100 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="signUp-box">
-      <div className="signUp-wrap">
-        <div className="signUp-wrap-header">
-          <img src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'} alt="" />
-          <div className="header-title">MUXI</div>
-        </div>
-        <img
-          className="logo"
-          src={'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png'}
-          alt=""
-        />
-        <div className="signUp-form">
-          <div className={`email-box ${!isEmail ? 'email-tooltip' : ''}`}>
-            <div className="box-label">邮箱:</div>
-            <Input
-              className="input-field"
-              onChange={(e) => {
-                setEmail(e.target.value);
-              }}
-              onBlur={checkEmail}
-              value={email}
-              status={!isEmail ? 'error' : ''}
-              placeholder="请输入邮箱"
+    <>
+      <div className="signUp-box">
+        <div className="signUp-wrap">
+          <div className="signUp-img-box">
+            <img
+              className="signUp-background"
+              src={'https://muxi-fresh.muxixyz.com/fe-static/signInImg.png'}
+              alt=""
             />
+            <div className="logo-box1">
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%208%402x.png'}
+                alt=""
+              />
+            </div>
+            <div className="logo-box2">
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'} alt="" />
+            </div>
+            <div className="logo-box3">
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'} alt="" />
+            </div>
+            <div className="logo-box4">
+              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'} alt="" />
+            </div>
+            <div className='logo-text'>
+              <img src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'} alt=''/>
+            </div>
           </div>
-          <div className={`password-box ${!isPasswordFormat ? 'password-tooltip' : ''}`}>
-            <div className="box-label">密码:</div>
-            <Input.Password
-              className="input-field"
-              onChange={(e) => {
-                setPassword(e.target.value);
-              }}
-              onBlur={checkPasswordFormat}
-              value={password}
-              status={!isPasswordFormat ? 'error' : ''}
-              placeholder="请输入密码"
-            />
-          </div>
-          <div
-            className={`check-password-box ${
-              !isPasswordMatch ? 'check-password-tooltip' : ''
-            }`}
-          >
-            <div className="box-label">确认密码:</div>
-            <Input.Password
-              className="input-field"
-              onChange={(e) => {
-                setCheckPassword(e.target.value);
-              }}
-              onBlur={checkPasswordMatch}
-              value={checkPassword}
-              status={!isPasswordMatch ? 'error' : ''}
-              placeholder="请确认密码"
-            />
-          </div>
-          <div className="verifyCode-box">
-            <div className="box-label">验证码:</div>
-            <Input
-              className="input-field"
-              onChange={(e) => {
-                setVerifyCode(e.target.value);
-              }}
-              value={VerifyCode}
-            />
-            {!isSend ? (
-              <div className="get-verifyCode-btn" onClick={sendVerificationCode}>
-                获取验证码
+          <div className="signUp-form">
+            <div className="email-box">
+              <div className="box-label">邮箱:</div>
+              <Input
+                className="input-field"
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+                onBlur={checkEmail}
+                value={email}
+                status={!isEmail ? 'error' : ''}
+              />
+            </div>
+            <div className="verifyCode-box">
+              <div className="box-label">验证码:</div>
+              <Input
+                className="input-field"
+                onChange={(e) => {
+                  setVerifyCode(e.target.value);
+                }}
+                value={VerifyCode}
+              />
+              {!isSend ? (
+                <div className="get-verifyCode-btn" onClick={sendVerificationCode}>
+                  获取验证码
+                </div>
+              ) : (
+                <div className="countdown-box">{`${countdown}s`}</div>
+              )}
+            </div>
+            <div className="password-box">
+              <div className="box-label">密码:</div>
+              <Input.Password
+                className="input-field"
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+                value={password}
+                onBlur={checkPasswordFormat}
+              />
+            </div>
+            <div className="check-password-box">
+              <div className="box-label">确认密码:</div>
+              <Input.Password
+                className="input-field"
+                onChange={(e) => {
+                  setCheckPassword(e.target.value);
+                }}
+                value={checkPassword}
+                onBlur={checkPasswordMatch}
+              />
+            </div>
+            
+            <div className="btn-box">
+              
+              <div
+                className="signUp-btn"
+                onClick={submit}
+              >
+                注册
               </div>
-            ) : (
-              <div className="countdown-box">{`${countdown}s`}</div>
-            )}
-          </div>
-          <div className="btn-box">
-            <div className="signUp-btn" onClick={submit}>
-              注册
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

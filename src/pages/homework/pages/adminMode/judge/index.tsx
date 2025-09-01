@@ -56,6 +56,7 @@ const HomeworkJudge: React.FC = () => {
         <HomeComment
           style={{ scrollSnapAlign: 'start', scrollSnapStop: 'always' }}
           CommentData={Comment}
+          SubmitId={SubmitID}
         ></HomeComment>
       </div>
     </div>

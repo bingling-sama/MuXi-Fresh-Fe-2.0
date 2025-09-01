@@ -31,6 +31,7 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
     handleChange(defData[0]);
+    
   }, []);
   const nav = useNavigate();
   const handleChange = (item: dataType) => {
@@ -47,8 +48,9 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
         }
         message.success('提交成功').then(null, null);
       })
-      .catch(() => {
+      .catch((e) => {
         message.error(`提交失败`).then(null, null);
+        console.log(e)
       });
   };
 
@@ -77,9 +79,12 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
         onSubmit={handleSubmit}
         choice={choice ? choice : 'edit'}
         title={title ? title : '修改作业'}
+        
         button_title={button_title ? button_title : '确认修改'}
         taskList={taskList}
         loading={loading}
+        group={selected?.value || defData[0].value}
+        deadlineAvailable={false}
       ></UploadSection>
     </div>
   );

@@ -22,7 +22,6 @@
     .signIn-img-box {
       border-radius: 8px 0 0 8px;
       position: relative;
-      overflow: hidden;
 
       .signIn-background {
         width: 360px;
@@ -31,30 +30,63 @@
 
       .logo-box1 {
         position: absolute;
-        left: 5%;
-        bottom: 4%;
-        width: 65%;
-
+          left: -30%;
+          bottom: 43%;
+          width: 65%;
         img {
-          width: 100%;
+          width: 120%;
+          height: 120%;
+          
         }
       }
 
       .logo-box2 {
         position: absolute;
-        right: 15%;
-        bottom: 0%;
+        left: 3%;
+        bottom: 15%;
+        width: 30%;
+
+        img {
+          width: 120%;
+        }
+      }
+
+      .logo-box3 {
+        position: absolute;
+        left: 28%;
+        top: 3%;
+        width: 30%;
+
+        img {
+          width: 120%;
+        }
+      }
+
+      .logo-box4 {
+        position: absolute;
+        right: 4%;
+        top: 21%;
         width: 30%;
 
         img {
           width: 100%;
         }
       }
+
+      .logo-text{
+        position: absolute;
+        left: 40%;
+        bottom: 30%;
+        width: 65%;
+        img{
+          width: 80%;
+        }
+      }
     }
 
     .signIn-form {
       width: 360px;
-      padding: 64px 64px 32px 64px;
+      padding: 80px 64px 32px 64px;
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -75,7 +107,19 @@
 
         .input-field {
           font-size: 20px;
+          background-color: #DBDBDB;
+
+          .pwd_nosecret{
+            height: 10px;
+            width: 10px;
+          }
+
+          .pwd_secret{
+            height: 10%;
+          }
         }
+
+        
       }
 
       .password-box {
@@ -135,6 +179,7 @@
           border-radius: 8px;
           cursor: pointer;
           background-color: #ffaf24;
+          font-weight: 300;
         }
       }
     }
@@ -161,6 +206,7 @@
     .input-field {
       font-size: medium;
       width: 250px;
+      // background-color: #DBDBDB;
     }
   }
 
