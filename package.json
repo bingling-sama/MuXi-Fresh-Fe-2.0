@@ -7,7 +7,7 @@
     "dev": "rsbuild dev",
     "build": "rsbuild build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview",
+    "preview": "rsbuild preview",
     "prepare": "husky install",
     "commit": "./node_modules/cz-customizable/standalone.js"
   },
