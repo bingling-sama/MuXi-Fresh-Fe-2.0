@@ -33,6 +33,7 @@ export type TableType = {
   task_id: string;
   avatar: string;
   email: string;
+  version: number
 };
 
 export type CommentType = {
@@ -54,7 +55,8 @@ export type TaskInfoType = {
   deadline?:string;
   assignedTaskID?: string;
   group:string;
-  semester:string
+  semester:string;
+  version:number
 };
 
 export type UserInfoType = {
@@ -99,6 +101,7 @@ export type completionInfoType = {
   name: string;
   status: string;
   user_id: string;
+  version: number
 };
 
 export type userTaskResponseType={

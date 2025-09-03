@@ -5,7 +5,7 @@ import Title from '../../../../components/title';
 import FileLink from '../../../../components/files/index';
 import { defData } from '../../../../utils/deData';
 import { get } from '../../../../../../fetch.ts';
-import { backType, TableType, TaskInfoType, userTaskType } from '../../../../types';
+import { backType, TableType, TaskInfoType, userTaskResponseType, userTaskType } from '../../../../types';
 
 const { Meta } = Card;
 interface TagListProps {
@@ -29,7 +29,8 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
   });
   /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => {
-    console.log(info);
+    console.log(info,info.version-1);
+    
     defData.forEach((item) => {
       if (item.value == info?.group) {
         setgroupName(item.key);
@@ -40,9 +41,10 @@ const HomePreview: React.FC<HomePreviewProps> = (props) => {
         setPreview(res.data);
         get(
           `/task/submitted?user_id=${info?.user_id}&assigned_task_id=${info?.task_id}`,
-        ).then((res: backType<userTaskType>) => {
-          seturls(res.data.urls);
-          getSubmittionID && getSubmittionID(res.data.submission_id as string);
+        ).then((res: backType<userTaskResponseType>) => {
+          
+          seturls(res.data.submission_infos.length > 0 ? res.data.submission_infos[info.version-1].urls : []);
+          getSubmittionID && getSubmittionID(res.data.submission_infos.length > 0 ? res.data.submission_infos[info.version-1].submission_id as string : '');
         }, null);
       }, null);
     setLoading(!loading);
