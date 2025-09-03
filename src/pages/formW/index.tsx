@@ -375,7 +375,7 @@ const FormForWeb: React.FC = () => {
         <Watermark
           font={{ fontWeight: 200 }}
           content="MUXI-STUDIO"
-          style={{ width: '1190px' }}
+          style={{ width: '100%' }}
         >
           <div className="FromForWeb">
             <div className="title_formweb">个人信息</div>
