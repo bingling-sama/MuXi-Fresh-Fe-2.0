@@ -56,7 +56,8 @@ export type TaskInfoType = {
   assignedTaskID?: string;
   group:string;
   semester:string;
-  version:number
+  version?:number,
+  year:number
 };
 
 export type UserInfoType = {

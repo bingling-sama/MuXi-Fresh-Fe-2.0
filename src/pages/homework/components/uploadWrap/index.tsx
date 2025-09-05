@@ -61,7 +61,9 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     urls: [''],
     deadline:'',
     group:'',
-    semester:getCurrentSeason()
+    semester:getCurrentSeason(),
+    version:0,
+    year:new Date().getFullYear()
   });
   const [formTitle, setFormTitle] = useState<formTitleType>({
     title_text: '',
@@ -83,6 +85,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const handleSwitch = (e: TaskInfoType, id: string) => {
     if (e) {
       setDefaultValue(e);
+      {e.deadline && setDeadline(dayjs(e.deadline))}
       onSwitch && onSwitch(id);
     }
   };
@@ -116,7 +119,8 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
       urls: formData || [],
       deadline:deadline.format("YYYY-MM-DD HH:mm:ss"),
       group:group,
-      semester:getCurrentSeason()
+      semester:getCurrentSeason(),
+      year: new Date().getFullYear()
     };
     
     if (!formTitle.title_text.length) 
