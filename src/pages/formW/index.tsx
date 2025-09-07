@@ -31,7 +31,7 @@ const FormForWeb: React.FC = () => {
     qq: '',
     phone: '',
   }); //联系方式内容
-  const [contactWayselect1, setcontactWayselect1] = useState('电话'); //联系方式1
+  const [contactWayselect1, setcontactWayselect1] = useState('请选择'); //联系方式1
   const [contactWayselect2, setcontactWayselect2] = useState('邮箱'); //联系方式2
   const [reason, setreason] = useState(''); //心动原因
   const [knowledge, setknowledge] = useState(''); //组别了解
@@ -122,7 +122,7 @@ const FormForWeb: React.FC = () => {
     ];
     const send = () => {
       post(`/form/`, {
-        form_id:form_id_self,
+        form_id: form_id_self,
         avatar: avatar,
         major: major,
         grade: grade,
@@ -136,10 +136,11 @@ const FormForWeb: React.FC = () => {
       })
         .then((data: res) => {
           if (data.code === 200) {
-            void message.success('提交成功^_^')
-            setformSetted(true)
+            void message.success('提交成功^_^');
+            setformSetted(true);
+          } else {
+            void message.error('提交失败');
           }
-          else {void message.error('提交失败')}
         })
         .catch((e) => {
           console.error(e);
@@ -207,10 +208,11 @@ const FormForWeb: React.FC = () => {
       })
         .then((data: res) => {
           if (data.code === 200) {
-            void message.success('修改成功^_^')
-            setformSetted(false)
+            void message.success('修改成功^_^');
+            setformSetted(false);
+          } else {
+            void message.error('修改失败');
           }
-          else {void message.error('修改失败');}
         })
         .catch((e) => {
           console.error(e);
@@ -714,13 +716,13 @@ const FormForWeb: React.FC = () => {
                     buttonStyle="solid"
                     onChange={(e) => setextra_question(e.target.value as string)}
                     value={extra_question}
-                    className='answer-radio'
+                    className="answer-radio"
                   >
                     <Radio value={'Y'}>是</Radio>
                     <Radio value={'N'}>否</Radio>
                   </Radio.Group>
                 </div>
-                <div className='send_formweb-box'>
+                <div className="send_formweb-box">
                   <div
                     style={{ display: form_id ? 'none' : '' }}
                     className="send_formweb"
@@ -734,14 +736,14 @@ const FormForWeb: React.FC = () => {
                         : debounce(setForm, 400)
                     }
                   >
-                    {formSetted ?  '提交表格':'完成修改' }
+                    {formSetted ? '提交表格' : '完成修改'}
                   </div>
                 </div>
-                
-                <div className='alert-text'>在报名表提交截止时间之前，再次提交报名表可覆盖前一次报名表</div>
+                <div className="alert-text">
+                  在报名表提交截止时间之前，再次提交报名表可覆盖前一次报名表
+                </div>
               </div>
             </div>
-            
           </div>
         </Watermark>
       </ConfigProvider>

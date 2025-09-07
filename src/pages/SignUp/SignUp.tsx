@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Input, message } from 'antd';
-import './SignUp.less'
+import './SignUp.less';
 import { get, post } from '../../fetch';
 import { SendEmailResult, SignUpResult } from './SignUp';
 import { useNavigate } from 'react-router-dom';
@@ -126,16 +126,28 @@ const SignUp: React.FC = () => {
               />
             </div>
             <div className="logo-box2">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'}
+                alt=""
+              />
             </div>
             <div className="logo-box3">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'}
+                alt=""
+              />
             </div>
             <div className="logo-box4">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'}
+                alt=""
+              />
             </div>
-            <div className='logo-text'>
-              <img src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'} alt=''/>
+            <div className="logo-text">
+              <img
+                src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'}
+                alt=""
+              />
             </div>
           </div>
           <div className="signUp-form">
@@ -190,13 +202,9 @@ const SignUp: React.FC = () => {
                 onBlur={checkPasswordMatch}
               />
             </div>
-            
+
             <div className="btn-box">
-              
-              <div
-                className="signUp-btn"
-                onClick={submit}
-              >
+              <div className="signUp-btn" onClick={submit}>
                 注册
               </div>
             </div>
