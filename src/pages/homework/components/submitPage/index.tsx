@@ -14,6 +14,7 @@ import {
 import { message } from 'antd';
 import { defData } from '../../utils/deData';
 import { useNavigate } from 'react-router-dom';
+import { getCurrentSeason } from '../../../../utils/GetYearSeason/getReviewYear.ts';
 
 interface HomeworkSubmitProps {
   title?: string;
@@ -55,11 +56,12 @@ const HomeworkSubmit: React.FC<HomeworkSubmitProps> = (props) => {
   };
 
   const UpdateTaskList = (item: dataType) => {
-    get(`/task/assigned/list?group=${item.value}`).then(
-      (res: backType<titleListType>) => {
+    get(`/task/assigned/list/selected?group=${item.value}&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`).then(
+      (res: titleListType) => {
+        console.log(res)
         setLoading(false);
-        if (res.data.titles) {
-          setTaskList(res.data.titles.reverse());
+        if (res?.titles) {
+          setTaskList(res.titles.reverse());
         } else {
           setTaskList([{ id: '', text: '暂时没有作业' }]);
         }

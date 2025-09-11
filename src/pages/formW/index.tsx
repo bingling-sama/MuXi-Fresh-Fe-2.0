@@ -31,7 +31,7 @@ const FormForWeb: React.FC = () => {
     qq: '',
     phone: '',
   }); //联系方式内容
-  const [contactWayselect1, setcontactWayselect1] = useState('电话'); //联系方式1
+  const [contactWayselect1, setcontactWayselect1] = useState('手机'); //联系方式1
   const [contactWayselect2, setcontactWayselect2] = useState('邮箱'); //联系方式2
   const [reason, setreason] = useState(''); //心动原因
   const [knowledge, setknowledge] = useState(''); //组别了解
@@ -520,7 +520,7 @@ const FormForWeb: React.FC = () => {
                 <div className="contactWayterm">
                   <Space wrap>
                     <Select
-                      style={{ width: '120px', textAlign: 'center' }}
+                      style={{ width: '120px', textAlign: 'center', }}
                       value={contactWayselect1}
                       onChange={(value) => setcontactWayselect1(value)}
                       options={[
@@ -734,7 +734,7 @@ const FormForWeb: React.FC = () => {
                         : debounce(setForm, 400)
                     }
                   >
-                    {formSetted ?  '提交表格':'完成修改' }
+                    {formSetted ?  '完成修改':'提交表格' }
                   </div>
                 </div>
                 

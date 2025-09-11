@@ -6,13 +6,15 @@ import { defData } from '../../../utils/deData';
 import { backType, dataType, titleListType } from '../../../types';
 import { get } from '../../../../../fetch.ts';
 import { Collapse, CollapseProps, message } from 'antd';
+import { getCurrentSeason } from '../../../../../utils/GetYearSeason/getReviewYear.ts';
 
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);
   const handleChange = (item: dataType): void => {
-    get(`/task/assigned/list?group=${item.value}`).then(
-      (res: backType<titleListType>) => {
-        const Res = res.data.titles;
+    get(`/task/assigned/list/selected?group=${item.value}&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`).then(
+      (res: titleListType) => {
+        const Res = res?.titles;
+        
         if (Res) {
           const tasks: CollapseProps['items'] = Res.map((itm) => {
             return {
