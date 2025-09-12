@@ -64,11 +64,11 @@ const HomeworkUserSubmit: React.FC = () => {
           setGroup(item);
           get(`/task/assigned/list/selected?group=${item.value}&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`).then(
             
-            (res: backType<titleListType>) => {
-              console.log(`${res.data}`)
+            (res: titleListType) => {
+              console.log(res)
               setLoading(false);
-              if (res.data.titles) {
-                setTaskList(res.data.titles.reverse());
+              if (res) {
+                setTaskList(res.titles.reverse());
                 get(`/task/submitted?user_id=myself&assigned_task_id=${taskList[0].id}`).then(
                 (resp:backType<userTaskResponseType>) => {
                     console.log(resp.data.submission_infos,"提交记录")
