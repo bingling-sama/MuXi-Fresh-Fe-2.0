@@ -297,6 +297,7 @@ const SignIn: React.FC = () => {
                 注册
               </div>
             </div>
+            
           </div>
         </div>
       </div>

@@ -20,6 +20,7 @@ import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
+import { getCurrentSeason } from '../../../../../utils/GetYearSeason/getReviewYear.ts';
 
 const HomeworkUserSubmit: React.FC = () => {
 
@@ -59,9 +60,12 @@ const HomeworkUserSubmit: React.FC = () => {
       const groupRes = res.data.group;
       defData.forEach((item) => {
         if (groupRes.includes(item.value)) {
+          
           setGroup(item);
-          get(`/task/assigned/list?group=${item.value}`).then(
+          get(`/task/assigned/list/selected?group=${item.value}&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`).then(
+            
             (res: backType<titleListType>) => {
+              console.log(`${res.data}`)
               setLoading(false);
               if (res.data.titles) {
                 setTaskList(res.data.titles.reverse());
@@ -136,17 +140,20 @@ const HomeworkUserSubmit: React.FC = () => {
       }, null);
       
       get(`/task/assigned/${id}/status`).then((res: backType<statusType>) => {
-        
-        
+
         get(`/task/submitted?user_id=myself&assigned_task_id=${id}`).then(
+
           (resp: backType<userTaskResponseType>) => {
               console.log(resp.data.submission_infos)
               if (resp.data?.submission_infos && resp.data.submission_infos.length > 0) {
+
                 setdefList(resp.data.submission_infos);
                 setVersion(0);
                 setCurrentSubmissionId(resp.data.submission_infos[0].submission_id || '');
                 getComment(resp.data.submission_infos[0].submission_id || '');
+
               } else {
+
                 setdefList([]);
                 setCurrentSubmissionId('');
                 setComment([]);
