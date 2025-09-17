@@ -44,7 +44,8 @@ export type CommentType = {
   father_id:string;
   comment_id:string;
   replies:Array<CommentType>;
-  create_time:string
+  create_time:string;
+  name:string
 };
 
 

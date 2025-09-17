@@ -4,6 +4,7 @@ import './index.less';
 import Title from '../../../../components/title';
 import { CommentType } from '../../../../types';
 import { post } from '../../../../../../fetch';
+import { debounce } from '../../../../../../utils/Debounce/debounce';
 
 const { Meta } = Card;
 interface CommentProps {
@@ -102,8 +103,8 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
         <List
           dataSource={CommentData}
           className="comment-wrap"
-          renderItem={(item) => (
-            <List.Item>
+          renderItem={(item,index) => (
+            <List.Item key={index}>
               {/* 根评论 */}
               <Card
                 style={{ width: '90%', margin: 'auto', whiteSpace: 'pre-wrap' }}
@@ -145,7 +146,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
 
                 {item.replies && item.replies.map((ite,index)=>{
                   return(
-                    <div>
+                    <div key={index}>
                       <Divider/>
                       <Meta
                         className='reply-tag'
@@ -160,7 +161,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
                           />
                         }
                         title={<div className='reply-tag-text'>
-                          {ite.nickname} 回复 {item.nickname}
+                          {ite.name?ite.name:ite.nickname} 回复 {item.name?item.name:item.nickname}
                         </div>}
                         description={`${ite.content.replace(/\n/g, '\r\n')}`}
                       />
@@ -180,7 +181,7 @@ const HomeComment: React.FC<HTMLAttributes<HTMLDivElement> & CommentProps> = (pr
           <Input className='comment-input'
           suffix={
             
-            <img src='https://ossfresh-test.muxixyz.com/%E5%AE%B9%E5%99%A8%404x%20%284%29.png' className='submit-suffix' onClick={handlePulishComment}/>
+            <img src='https://ossfresh-test.muxixyz.com/%E5%AE%B9%E5%99%A8%404x%20%284%29.png' className='submit-suffix' onClick={debounce(handlePulishComment,400)}/>
           }
           placeholder='发表一下你的评论吧...'
           value={comment}
@@ -204,7 +205,7 @@ export const TitleTag: React.FC<TitleTagProps> = (props) => {
   };
   return (
     <div className={className}>
-      {renderName(item.nickname)}
+      {renderName(item.name?item.name:item.nickname)}
       <Tag color="orange" className="comment-tag">
         {item.group}
       </Tag>
