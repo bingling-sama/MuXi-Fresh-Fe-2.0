@@ -29,6 +29,7 @@ const HomeworkJudge: React.FC = () => {
   const handleCommentRequest = () => {
     get(`/task/submitted/${SubmitID}/comment`).then((res: backType<cmtType>) => {
       const comments = res.data?.comments.reverse();
+      console.log(comments)
       comments && setComment(comments);
     }, null);
   };
