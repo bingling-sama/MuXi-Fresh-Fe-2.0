@@ -36,6 +36,7 @@ type formTitleType = {
 };
 
 const UploadSection: React.FC<UploadSectionProps> = (props) => {
+  
   const {
     title,
     onSwitch,
@@ -72,6 +73,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const [formContent, setFormContent] = useState<string>();
   const statusList: string[] = ['未提交', '已提交', '已批阅','逾期未交'];
   const [deadline,setDeadline]=useState<Dayjs>(dayjs(new Date()));
+  console.log(deadline.isSame(dayjs(new Date()),"day"))
   
 
   const handleChangeTitle = (e: taskListType) => {
@@ -131,6 +133,11 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     if (!formContent?.length) {
       
       message.error('内容简介不能为空').then(null, null);
+      return;
+    }
+
+    if(deadline.isSame(dayjs(new Date()),"day")){
+      message.error("请设置截止日期").then(null,null);
       return;
     }
     onSubmit && onSubmit(query);
@@ -228,9 +235,12 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           )}
 
           {/* 设置deadline */}
-          { !choice.includes('user') && <div className='deadline'>
+          { !choice.includes('user') && 
+          <div className='deadline'>
             <div>请选择结束日期</div>
             <DatePicker placeholder={"结束日期"} value={deadline} onChange={handleChangeDate}/>
+            
+            {deadline.isSame(dayjs(new Date()),"day") && <div className='deadline-warning'>还未选择截止日期！</div>}
           </div>}
 
           {children}
