@@ -177,6 +177,19 @@ const ReviewTable: React.FC<ReviewTableProps> = ({ reviewList, loading }) => {
       ),
     },
     {
+      title: '面试评价',
+      key: 'interview_evaluation',
+      render: (_, record: ReviewRow) => (
+        <Link
+          // to={`http://localhost:3000/quicknew?title=${record.name}面试评价`}
+          to={`https://forum.muxistudio.xyz/quicknew?title=${record.name}面试评价`}
+          target="_blank"
+        >
+          去填写面评
+        </Link>
+      ),
+    },
+    {
       title: '录取状态',
       dataIndex: 'admission_status',
       key: 'admission_status',
