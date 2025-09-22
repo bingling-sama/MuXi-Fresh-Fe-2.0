@@ -11,36 +11,37 @@ import { getCurrentSeason } from '../../../../../utils/GetYearSeason/getReviewYe
 const HomeworkBrowse: React.FC = () => {
   const [taskList, setTaskList] = useState<CollapseProps['items']>([]);
   const handleChange = (item: dataType): void => {
-    get(`/task/assigned/list/selected?group=${item.value}&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`).then(
-      (res: titleListType) => {
-        const Res = res?.titles;
-        
-        if (Res) {
-          const tasks: CollapseProps['items'] = Res.map((itm) => {
-            return {
-              key: itm.id,
-              label: itm.text,
-              children: <Form task_id={itm.id} group={item.value}></Form>,
-            };
-          });
-          setTaskList(tasks.reverse() as CollapseProps['items']);
-        } else {
-          message.info('暂无作业😵').then(null, null);
-          setTaskList([
-            {
-              key: '',
-              label: '暂无作业😵',
-              children: (
-                <div style={{ height: '40vh' }}>
-                  <Empty />
-                </div>
-              ),
-            },
-          ]);
-        }
-      },
-      null,
-    );
+    get(
+      `/task/assigned/list/selected?group=${
+        item.value
+      }&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`,
+    ).then((res: titleListType) => {
+      const Res = res?.titles;
+
+      if (Res) {
+        const tasks: CollapseProps['items'] = Res.map((itm) => {
+          return {
+            key: itm.id,
+            label: itm.text,
+            children: <Form task_id={itm.id} group={item.value}></Form>,
+          };
+        });
+        setTaskList(tasks.reverse() as CollapseProps['items']);
+      } else {
+        message.info('暂无作业😵').then(null, null);
+        setTaskList([
+          {
+            key: '',
+            label: '暂无作业😵',
+            children: (
+              <div style={{ height: '40vh' }}>
+                <Empty />
+              </div>
+            ),
+          },
+        ]);
+      }
+    }, null);
   };
   return (
     <div className={'browse-wrapper'}>

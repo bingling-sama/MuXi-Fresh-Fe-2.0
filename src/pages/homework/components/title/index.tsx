@@ -4,12 +4,12 @@ interface TitleProps {
   title?: string;
   className?: string;
   extra?: React.ReactNode;
-  deadline?:string
+  deadline?: string;
 }
 const Title: React.FC<TitleProps & Omit<HTMLAttributes<HTMLDivElement>, 'className'>> = (
   props,
 ) => {
-  const { title, className, extra,deadline, ...restProps } = props;
+  const { title, className, extra, deadline, ...restProps } = props;
   const Legnth = title?.length as number;
   return (
     <>
@@ -18,9 +18,9 @@ const Title: React.FC<TitleProps & Omit<HTMLAttributes<HTMLDivElement>, 'classNa
           {title}
           {extra}
         </div>
-        
+
         <div className="upload-title-deco" style={{ width: `${Legnth * 1.4}vw` }}></div>
-        {deadline && <div className='deadline'>作业截止时间： {deadline}</div>}
+        {deadline && <div className="deadline">作业截止时间： {deadline}</div>}
       </div>
     </>
   );

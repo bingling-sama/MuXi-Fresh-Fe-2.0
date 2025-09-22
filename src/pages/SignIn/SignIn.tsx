@@ -25,8 +25,6 @@ const SignIn: React.FC = () => {
 
   const navigate = useNavigate();
 
-  
-
   useEffect(() => {
     if (isSend) {
       const timer = setTimeout(() => {
@@ -159,7 +157,6 @@ const SignIn: React.FC = () => {
   };
 
   const signIn = () => {
-
     const testEmail =
       /^[\w!#$%&'*+/=?^_`{|}~-]+(?:\.[\w!#$%&'*+/=?^_`{|}~-]+)*@(?:[\w](?:[\w-]*[\w])?\.)+[\w](?:[\w-]*[\w])?$/;
     const isEmail = testEmail.test(account);
@@ -211,7 +208,6 @@ const SignIn: React.FC = () => {
         },
       );
     }
-     
   };
 
   return (
@@ -231,16 +227,28 @@ const SignIn: React.FC = () => {
               />
             </div>
             <div className="logo-box2">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%209%402x.png'}
+                alt=""
+              />
             </div>
             <div className="logo-box3">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2011%402x.png'}
+                alt=""
+              />
             </div>
             <div className="logo-box4">
-              <img src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'} alt="" />
+              <img
+                src={'https://ossfresh-test.muxixyz.com/%E7%BB%84%2012%402x.png'}
+                alt=""
+              />
             </div>
-            <div className='logo-text'>
-              <img src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'} alt=''/>
+            <div className="logo-text">
+              <img
+                src={'https://ossfresh-test.muxixyz.com/MUXI%20STUDIO%404x.png'}
+                alt=""
+              />
             </div>
           </div>
           <div className="signIn-form">
@@ -252,7 +260,6 @@ const SignIn: React.FC = () => {
                   setAccount(e.target.value);
                 }}
                 value={account}
-                
               />
             </div>
             <div className="password-box">
@@ -263,7 +270,6 @@ const SignIn: React.FC = () => {
                   setPassword(e.target.value);
                 }}
                 value={password}
-                
               />
             </div>
             {/* <div className="verification-code-box">
@@ -297,7 +303,6 @@ const SignIn: React.FC = () => {
                 注册
               </div>
             </div>
-            
           </div>
         </div>
       </div>

@@ -16,7 +16,8 @@ import { UserIdentity, UserIsForm } from '../Verify/UserIdentity.ts';
 
 const { Header, Content, Sider } = LayoutAntd;
 
-const muxi_logo="https://ossfresh-test.muxixyz.com/%E5%B7%A6%E4%B8%8A%E8%A7%92%401x%281%29.png";
+const muxi_logo =
+  'https://ossfresh-test.muxixyz.com/%E5%B7%A6%E4%B8%8A%E8%A7%92%401x%281%29.png';
 const logo = 'https://muxi-fresh.muxixyz.com/fe-static/muxilogo.png';
 const defaultAvatar = 'https://muxi-fresh.muxixyz.com/fe-static/default_avatar.png';
 
@@ -302,7 +303,6 @@ const Layout: React.FC<LayoutProps> = ({ identity, isForm }) => {
             />
           </ConfigProvider>
         </div>
-        
       </Sider>
       <Content>
         <div className={'layoutBox'}>
