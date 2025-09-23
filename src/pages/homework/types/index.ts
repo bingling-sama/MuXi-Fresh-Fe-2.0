@@ -33,7 +33,7 @@ export type TableType = {
   task_id: string;
   avatar: string;
   email: string;
-  version: number
+  version: number;
 };
 
 export type CommentType = {
@@ -41,24 +41,23 @@ export type CommentType = {
   nickname: string;
   content: string;
   group: string;
-  father_id:string;
-  comment_id:string;
-  replies:Array<CommentType>;
-  create_time:string;
-  name:string
+  father_id: string;
+  comment_id: string;
+  replies: Array<CommentType>;
+  create_time: string;
+  name: string;
 };
-
 
 export type TaskInfoType = {
   title_text: string;
   content: string;
   urls: string[];
-  deadline?:string;
+  deadline?: string;
   assignedTaskID?: string;
-  group:string;
-  semester:string;
-  version?:number,
-  year:number
+  group: string;
+  semester: string;
+  version?: number;
+  year: number;
 };
 
 export type UserInfoType = {
@@ -103,12 +102,12 @@ export type completionInfoType = {
   name: string;
   status: string;
   user_id: string;
-  version: number
+  version: number;
 };
 
-export type userTaskResponseType={
-  submission_infos:userTaskType[]
-}
+export type userTaskResponseType = {
+  submission_infos: userTaskType[];
+};
 export type userTaskType = {
   urls: string[];
   submission_id?: string;

@@ -40,7 +40,7 @@ const Form: React.FC<FormProps> = (props) => {
               group: group as string,
               key: item.user_id,
               task_id: task_id as string,
-              version:item.version
+              version: item.version,
             };
           });
           setdataSet(com.reverse());
