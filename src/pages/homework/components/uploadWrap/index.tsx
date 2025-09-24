@@ -26,8 +26,8 @@ interface UploadSectionProps {
   submitClass?: string;
   onSwitch?: (item: string | undefined) => void;
   submitDisabled?: boolean;
-  group:GroupType;
-  deadlineAvailable:boolean;
+  group: GroupType;
+  deadlineAvailable: boolean;
 }
 
 type formTitleType = {
@@ -51,7 +51,7 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     taskList = [],
     submitDisabled,
     group,
-    deadlineAvailable
+    deadlineAvailable,
   } = props;
 
   const [formData, setformData] = useState<string[]>();
@@ -59,18 +59,20 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
     title_text: '',
     content: '',
     urls: [''],
-    deadline:'',
-    group:'',
-    semester:getCurrentSeason()
+    deadline: '',
+    group: '',
+    semester: getCurrentSeason(),
+    version: 0,
+    year: new Date().getFullYear(),
   });
   const [formTitle, setFormTitle] = useState<formTitleType>({
     title_text: '',
     assignedTaskID: '',
   });
   const [formContent, setFormContent] = useState<string>();
-  const statusList: string[] = ['未提交', '已提交', '已批阅','逾期未交'];
-  const [deadline,setDeadline]=useState<Dayjs>(dayjs(new Date()));
-  
+  const statusList: string[] = ['未提交', '已提交', '已批阅', '逾期未交'];
+  const [deadline, setDeadline] = useState<Dayjs>(dayjs(new Date()));
+  console.log(deadline.isSame(dayjs(new Date()), 'day'));
 
   const handleChangeTitle = (e: taskListType) => {
     if (choice.includes('edit')) {
@@ -83,6 +85,9 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
   const handleSwitch = (e: TaskInfoType, id: string) => {
     if (e) {
       setDefaultValue(e);
+      {
+        e.deadline && setDeadline(dayjs(e.deadline));
+      }
       onSwitch && onSwitch(id);
     }
   };
@@ -114,28 +119,32 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
       ...formTitle,
       content: formContent || '',
       urls: formData || [],
-      deadline:deadline.format("YYYY-MM-DD HH:mm:ss"),
-      group:group,
-      semester:getCurrentSeason()
+      deadline: deadline.format('YYYY-MM-DD HH:mm:ss'),
+      group: group,
+      semester: getCurrentSeason(),
+      year: new Date().getFullYear(),
     };
-    
-    if (!formTitle.title_text.length) 
-      {
+
+    if (!formTitle.title_text.length) {
       message.error('作业名称不能为空').then(null, null);
       return;
     }
     if (!formContent?.length) {
-      
       message.error('内容简介不能为空').then(null, null);
+      return;
+    }
+
+    if (deadline.isSame(dayjs(new Date()), 'day')) {
+      message.error('请设置截止日期').then(null, null);
       return;
     }
     onSubmit && onSubmit(query);
   };
 
-  const handleChangeDate=(date:Dayjs)=>{
+  const handleChangeDate = (date: Dayjs) => {
     setDeadline(date);
-    console.log(date.format("YYYY-MM-DD HH:mm:ss"));
-  }
+    console.log(date.format('YYYY-MM-DD HH:mm:ss'));
+  };
 
   const isDeadlinePassed = (deadline: string): boolean => {
     if (!deadline) return false;
@@ -152,12 +161,16 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
             extra={
               <>
                 {typeof status !== 'undefined' && (
-                  <div className="upload-status">{status==0 && isDeadlinePassed(defaultValue?.deadline||"") ? statusList[3]: statusList[status]}</div>
+                  <div className="upload-status">
+                    {status == 0 && isDeadlinePassed(defaultValue?.deadline || '')
+                      ? statusList[3]
+                      : statusList[status]}
+                  </div>
                 )}
               </>
             }
             title={title}
-            deadline={deadlineAvailable?defaultValue.deadline:""}
+            deadline={deadlineAvailable ? defaultValue.deadline : ''}
           ></Title>
         }
         className={'upload-wrap ' + (className || '')}
@@ -165,7 +178,6 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
         loading={loading}
       >
         <div className="upload-upload">
-
           {/* 标题 */}
           {choice.includes('new') ? (
             <InputBox
@@ -210,13 +222,12 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
               onChange={(files) => handleChangeUpload(files as UploadProps['fileList'])}
               defaultValue={defaultValue.urls ? defaultValue.urls : []}
               disabled={
-                
                 choice.includes('user') ||
                 (Array.isArray(taskList) &&
                   taskList.length > 0 &&
                   !taskList[0]?.id &&
                   !choice.includes('new')) ||
-                  submitDisabled
+                submitDisabled
               }
             ></InputBox>
           ) : (
@@ -224,13 +235,23 @@ const UploadSection: React.FC<UploadSectionProps> = (props) => {
           )}
 
           {/* 设置deadline */}
-          { !choice.includes('user') && <div className='deadline'>
-            <div>请选择结束日期</div>
-            <DatePicker placeholder={"结束日期"} value={deadline} onChange={handleChangeDate}/>
-          </div>}
+          {!choice.includes('user') && (
+            <div className="deadline">
+              <div>请选择结束日期</div>
+              <DatePicker
+                placeholder={'结束日期'}
+                value={deadline}
+                onChange={handleChangeDate}
+              />
+
+              {deadline.isSame(dayjs(new Date()), 'day') && (
+                <div className="deadline-warning">还未选择截止日期！</div>
+              )}
+            </div>
+          )}
 
           {children}
-          
+
           <Submit
             className={`submit-page  ${submitClass || ''}`}
             onClick={debounce(handleSubmit, 400)}

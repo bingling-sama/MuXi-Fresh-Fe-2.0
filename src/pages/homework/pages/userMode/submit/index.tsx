@@ -20,6 +20,7 @@ import { defData } from '../../../utils/deData';
 import InputBox from '../../../components/input';
 import './index.less';
 import HomeComment from '../../adminMode/judge/comment';
+import { getCurrentSeason } from '../../../../../utils/GetYearSeason/getReviewYear.ts';
 
 const HomeworkUserSubmit: React.FC = () => {
   const [version, setVersion] = useState(0);
@@ -58,32 +59,35 @@ const HomeworkUserSubmit: React.FC = () => {
       defData.forEach((item) => {
         if (groupRes.includes(item.value)) {
           setGroup(item);
-          get(`/task/assigned/list?group=${item.value}`).then(
-            (res: backType<titleListType>) => {
-              setLoading(false);
-              if (res.data.titles) {
-                setTaskList(res.data.titles.reverse());
-                get(
-                  `/task/submitted?user_id=myself&assigned_task_id=${taskList[0].id}`,
-                ).then((resp: backType<userTaskResponseType>) => {
-                  console.log(resp.data.submission_infos, '提交记录');
-                  if (
-                    resp.data?.submission_infos &&
-                    resp.data.submission_infos.length > 0
-                  ) {
-                    setdefList(resp.data.submission_infos);
-                    setCurrentSubmissionId(
-                      resp.data.submission_infos[version].submission_id || '',
-                    );
-                    getComment(resp.data.submission_infos[version].submission_id || '');
-                  }
-                }, null);
-              } else {
-                setTaskList([{ id: '', text: '暂时没有作业' }]);
-              }
-            },
-            null,
-          );
+          get(
+            `/task/assigned/list/selected?group=${
+              item.value
+            }&year=${new Date().getFullYear()}&semester=${getCurrentSeason()}`,
+          ).then((res: titleListType) => {
+            console.log(res);
+            setLoading(false);
+            if (res) {
+              setTaskList(res.titles.reverse());
+              get(
+                `/task/submitted?user_id=myself&assigned_task_id=${taskList[0].id}`,
+              ).then((resp: backType<userTaskResponseType>) => {
+                console.log(resp.data.submission_infos, '提交记录');
+
+                if (
+                  resp.data?.submission_infos &&
+                  resp.data.submission_infos.length > 0
+                ) {
+                  setdefList(resp.data.submission_infos);
+                  setCurrentSubmissionId(
+                    resp.data.submission_infos[version].submission_id || '',
+                  );
+                  getComment(resp.data.submission_infos[version].submission_id || '');
+                }
+              }, null);
+            } else {
+              setTaskList([{ id: '', text: '暂时没有作业' }]);
+            }
+          }, null);
         }
       });
     }, null);
