@@ -1,12 +1,40 @@
 .review-table-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%; // 这里可以根据需要调整
+
+  .search-container {
     display: flex;
-    flex-direction: column;
-    height: 100%;  // 这里可以根据需要调整
+    align-items: center;
+    justify-content: flex-end;
+    padding: 8px 0;
+    margin-bottom: 8px;
+
+    .ant-input-search {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 6px;
+
+      .ant-input {
+        border-radius: 6px 0 0 6px;
+
+        &:focus {
+          box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+        }
+      }
+
+      .ant-input-search-button {
+        border-radius: 0 6px 6px 0;
+
+        &:hover {
+          background-color: #40a9ff;
+          border-color: #40a9ff;
+        }
+      }
+    }
   }
-  .review-table-container .ant-table-wrapper {
-    flex: 1;  // 表格部分占据剩余空间
+
+  .ant-table-wrapper {
+    flex: 1; // 表格部分占据剩余空间
     overflow: auto;
   }
-  .review-table-container .ant-pagination {
-    margin: 16px auto;  // 居中显示分页器
-  }
+}
