@@ -1,5 +1,5 @@
 # 第一阶段：构建前端
-FROM node:16.14.2
+FROM node:18.16.1 AS builder
 
 WORKDIR /app
 COPY . .
