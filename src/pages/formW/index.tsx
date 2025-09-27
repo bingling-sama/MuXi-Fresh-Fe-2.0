@@ -253,7 +253,7 @@ const FormForWeb: React.FC = () => {
           if (data.data.phone) {
             setcontactWayselect1('phone');
           }
-          setcontactWay((pre) => ({ ...pre, ['phone']: data.data.phone }));
+          setcontactWay((pre) => ({ ...pre, ['phone']: data.data.phone}));
           setwantGroup(data.data.group);
           setreason(data.data.reason);
           setknowledge(data.data.knowledge);
@@ -272,9 +272,13 @@ const FormForWeb: React.FC = () => {
         setnickname(data.data.nickname);
         setavatar2(data.data.avatar);
         setacademy(data.data.school);
+        if(data.data.email){
+          setcontactWayselect2('email');
+        }
         if (data.data.qq) {
           setcontactWayselect2('qq');
         }
+        
         setcontactWay((pre) => ({
           ...pre,
           ['qq']: data.data.qq,
